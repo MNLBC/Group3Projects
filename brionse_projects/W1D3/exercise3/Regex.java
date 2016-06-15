@@ -13,7 +13,7 @@ public class Regex {
 	
 	private String replacePattern = "a";
 	
-	private String [] monthsPattern = {"Jan","Feb","Jun","Dec"};
+	private String monthPattern = "Jun";
 	
 	public boolean isValidEmail(String email){
 		pattern = Pattern.compile(emailPattern);
@@ -34,19 +34,15 @@ public class Regex {
 	}
 	
 	public String getMonth(String param){
-		String result="";
-		for(int i=0; i < monthsPattern.length; i++){
-			pattern = Pattern.compile(monthsPattern[i]);
-			
-			matcher = pattern.matcher(param);
-			
-			if(matcher.find()){
-				result = monthsPattern[i];
-				break;
-			}
-		}
 		
-		return result;
+		Pattern pattern = Pattern.compile("Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec");
+		Matcher matcher = pattern.matcher(param);
+		if (matcher.find())
+		{
+		   return matcher.group(0).toString();
+		}else{
+			return "";
+		}
 	}
 	
 }
