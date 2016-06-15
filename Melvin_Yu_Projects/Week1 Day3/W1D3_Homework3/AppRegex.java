@@ -6,9 +6,9 @@ public class AppRegex {
 		// TODO Auto-generated method stub
 
 		checkEmail("yu_melvinrobert@outlook.com");
-		checkMobile("605-8889");
+		checkMobile("6054-8889222");
 		replaceLetterA("kanen");
-		getSpecificWord("Tue Jun 14 21:30:31 CST 2016");
+		getSpecificWord("Mon Oct 12 21:30:31 CST 2016");
 		
 		
 	}
@@ -19,7 +19,7 @@ public class AppRegex {
 		Pattern pattern=  Pattern.compile(Regex_Email);
 		Matcher match = pattern.matcher(email);
 		
-		if(match.matches()){
+		if(match.find()){
 			
 			System.out.println("This email is valid");
 		}
@@ -36,7 +36,7 @@ public class AppRegex {
 		Pattern pattern=  Pattern.compile("\\d{4}-\\d{7}");
 		Matcher match = pattern.matcher(number);
 		
-	if(match.matches()){
+	if(match.find()){
 			
 			System.out.println("This Phone number is valid");
 		}
@@ -60,11 +60,11 @@ public class AppRegex {
 	public static void getSpecificWord(String date){
 		
 		String mydata = date;
-		Pattern pattern = Pattern.compile("(Jun)");
+		Pattern pattern = Pattern.compile("(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)");
 		Matcher matcher = pattern.matcher(mydata);
 		if (matcher.find())
 		{
-		    System.out.println(matcher.group(1));
+		    System.out.println("Captured the month: "+matcher.group(1));
 		}
 		
 		
