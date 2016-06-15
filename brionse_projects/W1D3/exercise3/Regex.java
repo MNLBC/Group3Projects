@@ -35,7 +35,7 @@ public class Regex {
 	
 	public String getMonth(String param){
 		
-		Pattern pattern = Pattern.compile("Jan|Feb|Mar|Jun");
+		Pattern pattern = Pattern.compile("Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec");
 		Matcher matcher = pattern.matcher(param);
 		if (matcher.find())
 		{
