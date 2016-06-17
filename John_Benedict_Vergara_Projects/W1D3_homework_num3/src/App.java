@@ -10,6 +10,7 @@ public class App {
 		System.out.println("(1)	To check an email if it is valid or not.");
 		System.out.println("(2)	To check a mobile phone number if it is valid or not.");
 		System.out.println("(3)	Given a string, replace all the char “a” with “A”.");
+		System.out.println("(4)	Get Month in a Date Month String Input.");
 
 		int choice;
 		System.out.print("Enter your choice: ");
@@ -20,6 +21,8 @@ public class App {
 			checkMobileNumber();
 		} else if (choice == 1) {
 			checkEmail();
+		} else if (choice == 4) {
+			getMonth();
 		}
 
 	}
@@ -50,28 +53,45 @@ public class App {
 		} else {
 			System.out.println("Phone number must be 11 digits and 0-9 only.");
 		}
-		return "number";
+		return number;
 	}
 
 	public static String checkEmail() {
 		Scanner scan = new Scanner(System.in);
-		String number;
+		String email;
 		System.out.print("Enter your E-mail: ");
-		number = scan.nextLine();
+		email = scan.nextLine();
 
 		// Pattern pattern = Pattern.compile("\\d{3}-\\d{7}");
 		Pattern pattern = Pattern.compile(
 				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
-		Matcher matcher = pattern.matcher(number);
+		Matcher matcher = pattern.matcher(email);
 
 		if (matcher.matches()) {
 			System.out.println("E-mail is Valid");
 		} else {
 			System.out.println("Invalid E-mail.");
 		}
-		return "number";
+		return email;
+	}
 
+	public static String getMonth() {
+		Scanner scan = new Scanner(System.in);
+		String date;
+		System.out.print("Enter Date: ");
+		date = scan.nextLine();
+
+		Pattern pattern = Pattern.compile(
+				"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)");
+		Matcher matcher = pattern.matcher(date);
+		if (matcher.find()) {
+			System.out.println("Captured Month: " + matcher.group(1));
+		} else {
+			System.out.println("Invalid Month or Date Format");
+		}
+
+		return "month";
 	}
 
 }
