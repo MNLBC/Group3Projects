@@ -2,7 +2,11 @@ package w2d1.homework;
 
 /**
  * 
- * @author BRIONSE Worker class Used in testing the ArrayList
+ * Worker class Used in testing the ArrayList
+ * 
+ * @author BRIONSE
+ * @version 1.0
+ * 
  */
 public class Worker implements Comparable {
 
