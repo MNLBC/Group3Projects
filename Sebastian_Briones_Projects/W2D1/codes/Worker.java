@@ -2,8 +2,8 @@ package w2d1.homework;
 
 /**
  * 
- * Worker class Used in testing the ArrayList
- * 
+ * Worker class Used in demonstrating the ArrayList and  HashMap
+ * Implements Comparable
  * @author BRIONSE
  * @version 1.0
  * 
@@ -20,6 +20,12 @@ public class Worker implements Comparable {
 
 	}
 
+	/**
+	 * Constructor
+	 * @param name
+	 * @param age
+	 * @param salary
+	 */
 	public Worker(String name, int age, double salary) {
 		this.name = name;
 		this.age = age;
@@ -83,9 +89,11 @@ public class Worker implements Comparable {
 	}
 
 	/**
-	 * @param Object obj
+	 * 
 	 *  Returns true if and only if the worker's name, age and
 	 *  salary are the same.
+	 *  @param Object obj
+	 *  @return boolean
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -111,6 +119,8 @@ public class Worker implements Comparable {
 	/**
 	 * 
 	 * Compares the salary of two workers
+	 * @param Object 
+	 * @return int
 	 */
 	@Override
 	public int compareTo(Object other) {
