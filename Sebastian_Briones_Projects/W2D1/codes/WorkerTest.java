@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Demonstrates the various Collection methods
  * 
  * @author BRIONSE
  *
@@ -27,6 +28,8 @@ public class WorkerTest {
 		workerList.add(worker2);
 		workerList.add(worker3);
 
+		System.out.println("----------------------------------------------------------");
+		System.out.println("All workers:");
 		System.out.println("Name: " + "\t" + "Age" + "\t" + "Salary");
 
 		for (Worker worker : workerList) {
@@ -34,6 +37,7 @@ public class WorkerTest {
 		}
 
 		// 2 Add one worker before Jame ( Steven, 24, 15000)
+
 		workerList.add(1, new Worker("Steven", 24, 15000));
 
 		// 3 Remove the worker Alex’s information & 5 Go through the list using
@@ -49,7 +53,7 @@ public class WorkerTest {
 
 		// 4 Go through the list using for statement and print out all the
 		// worker’s information
-		System.out.println();
+		System.out.println("----------------------------------------------------------");
 		for (Worker worker : workerList) {
 			System.out.println(worker.getName() + "\t" + worker.getAge() + "\t" + worker.getSalary());
 		}
@@ -69,14 +73,14 @@ public class WorkerTest {
 	 * Demonstrates the overridden equals method of the Worker class
 	 */
 	public static void showOverriddenEquals() {
-		System.out.println();
+		System.out.println("----------------------------------------------------------");
 
 		Worker workerA = new Worker("Baste", 24, 99999);
 		Worker workerB = new Worker("Baste", 24, 99999);
 		Worker workerC = new Worker("Baste", 24, 77777);
 
-		System.out.println(workerA.equals(workerB));
-		System.out.println(workerA.equals(workerC));
+		System.out.println("Testing .equals() on equal workers:" + workerA.equals(workerB));
+		System.out.println("Testing .equals() on non-equal workers:" + workerA.equals(workerC));
 	}
 
 	/**
@@ -86,7 +90,8 @@ public class WorkerTest {
 	 */
 	public static void sortWorkersBySalary(List<Worker> workerList) {
 
-		System.out.println();
+		System.out.println("----------------------------------------------------------");
+		System.out.println("Workers sorted in descending salary:");
 		Collections.sort(workerList);
 		for (Worker worker : workerList) {
 			System.out.println(worker.getName() + "\t" + worker.getAge() + "\t" + worker.getSalary());
@@ -108,27 +113,29 @@ public class WorkerTest {
 			workMap.put(String.valueOf(ctr), worker);
 		}
 
-		System.out.println();
-
-		//method 1
+		System.out.println("----------------------------------------------------------");
+		System.out.println("Workers by forEach on entrySet");
+		// method 1 by forEach on entrySet
 		for (Map.Entry<String, Worker> entry : workMap.entrySet()) {
 			Worker worker = entry.getValue();
 			System.out.println("Worker Id: " + entry.getKey() + " Name: " + worker.getName() + " Age: "
 					+ worker.getAge() + " Salary " + worker.getSalary());
 		}
 
-		System.out.println();
+		System.out.println("----------------------------------------------------------");
 
-		//method 2
+		// method 2 forEach on keySet
+		System.out.println("Workers by forEach on keySet");
 		for (String workerId : workMap.keySet()) {
 			Worker worker = workMap.get(workerId);
 			System.out.println("Worker Id: " + workerId + " Name: " + worker.getName() + " Age: " + worker.getAge()
 					+ " Salary " + worker.getSalary());
 		}
 
-		System.out.println();
+		System.out.println("----------------------------------------------------------");
 
-		//method 3
+		// method 3 Iterator on keySet
+		System.out.println("Workers by Iterator on keySet");
 		Iterator workerIter = workMap.keySet().iterator();
 		while (workerIter.hasNext()) {
 			String workerId = (String) workerIter.next();

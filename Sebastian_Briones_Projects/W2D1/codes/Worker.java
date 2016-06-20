@@ -22,6 +22,10 @@ public class Worker implements Comparable {
 		this.salary = salary;
 	}
 
+	/**
+	 * Getters and setters
+	 * 
+	 */
 	public String getId() {
 		return id;
 	}
@@ -102,7 +106,7 @@ public class Worker implements Comparable {
 
 	/**
 	 * 
-	 * Compares the salary
+	 * Compares the salary of two workers
 	 */
 	@Override
 	public int compareTo(Object other) {
