@@ -96,11 +96,11 @@ public class JDBCOperation {
 	
 	/**
 	 * Inserts a new Employee to the EMPLOYEE table
-	 * @param int id
-	 * @param String firstName
-	 * @param String lastname
-	 * @param int mgrid
-	 * @param int salary
+	 * @param id
+	 * @param firstName
+	 * @param lastname
+	 * @param mgrid
+	 * @param salary
 	 * 
 	 * @throws SQLIntegrityConstraintViolationException when the primary key is already used.
 	 * @throws SQLException for other database access errors.
