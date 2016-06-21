@@ -109,10 +109,18 @@ public class JDBCOperation {
 		int i = 0;
 		
 		Connection conn = getConnection();
-	    String sql = "INSERT INTO EMPLOYEE VALUES("+ id + ", '" + firstName + "', '" +  lastname+"', "+ mgrid + " , " + salary + ")"; 
+		String sql = "INSERT INTO EMPLOYEE VALUES(?, ?, ?, ?, ?)";
 	    PreparedStatement pstmt;
+	    
 	    try {
+	    	
 	        pstmt = (PreparedStatement) conn.prepareStatement(sql);
+	        pstmt.setInt(1, id);
+	        pstmt.setString(2, firstName);
+	        pstmt.setString(3, lastname);
+	        pstmt.setInt(4, mgrid);
+	        pstmt.setInt(5, salary);
+	        
 	        i = pstmt.executeUpdate();
 	        
 	        pstmt.close();
