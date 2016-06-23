@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>W2D4 #2</title>
+<style type="text/css">
+#main {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: 0;
+}
+</style>
+<script type="text/javascript">
+	function FindPosition(oElement) {
+		if (typeof (oElement.offsetParent) != "undefined") {
+			for (var posX = 0, posY = 0; oElement; oElement = oElement.offsetParent) {
+				posX += oElement.offsetLeft;
+				posY += oElement.offsetTop;
+			}
+			return [ posX, posY ];
+		} else {
+			return [ oElement.x, oElement.y ];
+		}
+	}
+
+	function getMousePos(e) {
+
+		var PosX = 0;
+		var PosY = 0;
+		var cntrPos;
+		cntrPos = FindPosition(cntr);
+		if (!e)
+			var e = window.event;
+		if (e.pageX || e.pageY) {
+			PosX = e.pageX;
+			PosY = e.pageY;
+		} else if (e.clientX || e.clientY) {
+			PosX = e.clientX + document.body.scrollLeft
+					+ document.documentElement.scrollLeft;
+			PosY = e.clientY + document.body.scrollTop
+					+ document.documentElement.scrollTop;
+		}
+		PosX = PosX - cntrPos[0];
+		PosY = PosY - cntrPos[1];
+		document.getElementById("x").innerHTML = PosX;
+		document.getElementById("y").innerHTML = PosY;
+
+		var evt = (e == null ? event : e);
+		var clickType = 'Left';
+		if (evt.type != mouseEvent)
+			return true;
+		if (evt.which) {
+			if (evt.which == 3)
+				clickType = 'Right';
+			if (evt.which == 2)
+				clickType = 'Middle';
+		} else if (evt.button) {
+			if (evt.button == 2)
+				clickType = 'Right';
+			if (evt.button == 4)
+				clickType = 'Middle';
+		}
+		alert(clickType + ' Click!');
+	}
+</script>
+
+</head>
+<body>
+	<div id="main">
+			<h3>
+				X:<span id="x"></span>
+			</h3>
+			<h3>
+				Y:<span id="y"></span>
+			</h3>
+	</div>
+	<script type="text/javascript">
+		var mouseEvent = 'mousedown';
+		var cntr = document.getElementById("main");
+		cntr.onmousedown = getMousePos;
+	</script>
+</body>
+</html>
