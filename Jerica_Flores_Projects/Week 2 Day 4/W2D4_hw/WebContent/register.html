@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style type="text/css">
+@import url("style.css");
+
+/* same as */
+@import "style.css";
+</style>
+
+<meta charset="ISO-8859-1">
+<title>Create Account</title>
+</head>
+
+<body id="body">
+	<div id="img">
+		<img id="logo" src="amazon.jpg" height="45" width="125">
+	</div>
+	<div class="form">
+		<h2>Create Account</h2>
+		<div>
+			<form>
+				<b>Your name</b><br> <input type="text" name="name" size="50" style="height:22px"><br>
+				<b>Email</b><br> <input type="text" name="email" size="50" style="height:22px"><br>
+				<b>Password</b><br> <input type="password" name="password "size="50" placeholder="at least 6 characters" style="height:23px"><br> 
+				<b>Password again</b><br> <input type="password" name="passwordValidate" size="50" style="height:22px"><br> <br> 
+				<input id="submit" type="submit" value="Create your Amazon account" style="font-size:18px">
+				<p>
+					By creating an account, you agree to Amazon's <a href="#">Conditions
+						of Use</a> and <a href="#">Privacy Notice.</a> <br> <br>
+				<hr width="200px">
+				Already have an account? <a href="#">Sign-in</a>
+
+				</p>
+
+			</form>
+		</div>
+	</div>
+	<hr>
+	<center>
+		<table>
+			<tr>
+				<td><a href="http://bing.com" style="font-size: 8pt; font-family: Arial; text-decoration: none">Conditions of Use</a></td>
+				<td><a href="http://bing.com" style="font-size: 8pt; font-family: Arial; text-decoration: none">Privacy Notice</a></td>
+				<td><a href="http://bing.com" style="font-size: 8pt; font-family: Arial; text-decoration: none">Help</a></td>
+			</tr>
+			<tr>
+				<td colspan="3" style="font-size: 8pt; font-family: Arial; color: gray">&copy 1996-2016, Amazon.com, Inc. or its affiliates</td>
+			</tr>
+		</table>
+	</center>
+
+
+</body>
+<script>
+	document.getElementById('body').onclick = function() {
+		alert('Left click');
+	}
+
+	document.getElementById('body').oncontextmenu = function() {
+
+		alert('Right click');
+	}
+
+	function alertPos(event) {
+		alert("clientX: " + event.clientX + " - clientY: " + event.clientY);
+
+	}
+
+	document.addEventListener("click", alertPos);
+	document.addEventListener("contextmenu", alertPos);
+</script>
+</html>
