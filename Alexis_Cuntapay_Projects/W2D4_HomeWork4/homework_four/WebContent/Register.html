@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Register</title>
+</head>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+</style>
+
+
+<body id="button1">
+	<center>
+		<img src=amazon.png style="width: 215px; height: 95px">
+		<div id="button1" style="height: 623px; width: 411px">
+			<form style="height: 501px; width: 387px">
+				<h1>Create account</h1>
+				<b>Your Name</b><br> <input type="text" placeholder="Name" size=20 style="width: 352px; height: 33px"> 
+			    <br> <b>Email</b><br>
+			    <input type="text" placeholder="Email" size=20 style="width: 353px; height: 33px"><br>
+				<b>Password</b><br> <input type="Password" placeholder="At least 6 characters " size=20 style="width: 353px; height: 33px"><br>
+			    <b>Password again</b><br> <input type="Password" placeholder="Password" size=20 style="width: 353px; height: 33px"><br>
+				<br> <center><input type="Button" value="Create your Amazon account" size=20 style="width: 353px; height: 33px; "></center><br>
+				<b>By creating an account , you agree to Amazon's </b><br>
+			    <h5><a href="https://www.amazon.com/gp/help/customer/display.html/ref=ap_register_notification_condition_of_use?ie=UTF8&nodeId=508088" style="text-decoration: none">Conditions of Use</a> and
+			   <a href="https://www.amazon.com/gp/help/customer/display.html/ref=ap_register_notification_privacy_notice?ie=UTF8&nodeId=468496"
+				style="text-decoration: none">Privacy Notice</a></h5><br> 
+			 </form>
+			   <b> Already have an account?</b> 
+				<a href="https://www.amazon.com/ap/signin?openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2Fgp%2Fcss%2Fhomepage.html%3Fie%3DUTF8%26ref_%3Dnav_ya_signin&prevRID=145Q59F7CHXJ0V8Q4DPT&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=usflex&openid.mode=checkid_setup&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&pageId=usflex&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0"
+				style="text-decoration: none">Sign In</a> <br>
+		</div>
+
+	</center>
+
+</body>
+<script>
+	document.getElementById('button1').onclick = function() {
+		alert('Click!')
+	}
+	document.getElementById('button1').oncontextmenu = function() { 
+
+		  alert('Right Click!') 
+	}
+	function printMousePos(event) {
+		alert("clientX: " + event.clientX + " - clientY: " + event.clientY);
+
+	}
+	document.addEventListener("click", printMousePos);
+</script>
+
+</html>
