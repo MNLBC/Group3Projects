@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<title>W2D4 Homework # 1</title>
+<head>
+<style type="text/css">
+body {
+	font-family: Arial, Sans-Serif;
+}
+
+#container {
+	width: 300px;
+	margin: 0 auto;
+	padding: 10px;
+	border: 1px;
+	border-style: solid;
+	border-color: gray;
+}
+
+/* Nicely lines up the labels. */
+form label {
+	display: inline-block;
+	width: 140px;
+}
+
+/* You could add a class to all the input boxes instead, if you like. That would be safer, and more backwards-compatible */
+form input[type="text"], form input[type="password"], form input[type="email"]
+	{
+	width: 160px;
+}
+
+form .line {
+	clear: both;
+	padding: 10px;
+}
+
+form .line.submit {
+	text-align: left;
+}
+
+button {
+	color: black;
+	background: #ffe85b;
+	height: 30px;
+	width: 250px;
+	cursor: pointer;
+}
+
+#footer {
+	background-color: #f5f2e5;
+	color: blue;
+	font-size: 15px;
+	clear: both;
+	text-align: center;
+	padding: 5px;
+}
+input{
+;
+}
+
+</style>
+</head>
+<body>
+	<div align="center"><img src="amazon_logo.jpg" width="200" height="80"></div>
+	<div id="container">
+		<form>
+			<h2>Create account</h2>
+			<div class="line">
+				<label for="username"><b>Your Name</b> </label> <input type="text"
+					id="name" placeholder="Enter your name" style = "width: 100%" />
+			</div>
+			<div class="line">
+				<label for="email"><b>Email </b></label><input type="email"
+					id="email" placeholder="Enter your e-mail address" style = "width: 100%"/>
+			</div>
+			<div class="line">
+				<label for="password"><b>Password </b></label><input type="password"
+					placeholder="***************" id="password" style = "width: 100%"/>
+			</div>
+			<div class="line">
+				<label for="password"><b>Password again </b></label><input
+					type="password" placeholder="***************" id="password" style = "width: 100%"/>
+			</div>
+			<br>
+			<div align="center" class="line">
+				<button type="submit" value="Submit">Create your amazon
+					account</button>
+			</div>
+			<p>
+				By creating an Account, you agree to Amazon's <font color="blue">
+					Conditions of use </font> and <font color="blue"> Privacy Notice </font>.
+			</p>
+
+			<hr>
+			<p>
+				Already have an account? <font color="blue"> Sign in </font>
+		</form>
+	</div>
+	<div id="footer">
+		<p>Conditions of Use &nbsp;&nbsp;&nbsp; Privacy Notice&nbsp;&nbsp;&nbsp;&nbsp;Help</p>
+		<p><font color = "black ">&copy;&nbsp;&nbsp; 1996-2016, Amazon.com, Inc or its affiliates </font></p>
+		<br><br>
+	</div>
+</body>
+</html>
