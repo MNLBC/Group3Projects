@@ -1,0 +1,85 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>Amazon Create Account</title>
+<style type="text/css">
+body {
+	font: 16px Arial ;
+
+}
+
+
+form {
+	border-style: ridge;
+	font: Arial;
+    width: 20%;
+    align: center;
+    padding: 15px;
+}
+footer{
+    height: 100px; 
+    width:100%;
+    position: absolute;
+    bottom: 0; 
+    text-align: center;ss
+
+}
+
+</style>
+</head>
+
+<body id="w2d4"><center>
+<br><br><br>
+<div align="center"><img src="amazon_logo.png" width="200" height="80"></div>
+<form>
+
+<div align="center"><h1>Create Account</h1></div>
+<div align="left"><label><b>Name:&nbsp;&nbsp;</label></b>
+<span class="col2"><input name="name" type="text" id="name" size="50" tabindex="1" style="border-radius:4px"/></span>
+</div><br>
+<div align="left""><label><b>E-mail:&nbsp;&nbsp;</label></b>
+<span><input name="email" class="input" type="text"  size="50" tabindex="2" style="border-radius:4px"/></span><br>
+</div><br>
+<div align="left"><label><b>Password:&nbsp;&nbsp;</label></b>
+<span><input name="website" class="input" type="password"size="50" tabindex="3" placeholder="at least 6 characters" style="border-radius:4px"/></span><br>
+</div><br>	
+<div align="left"><label><b>Password again:&nbsp;&nbsp;</label></b>
+<span><input name="website" class="input" type="password" size="50" tabindex="3" style="border-radius:4px"/></span>
+</div>
+<div align="center" ><button style="border-radius:5px; width:100%; height:30px; margin-top:20px; background-color:#FFCC00">Create your Amazon account</button>
+</div><br>
+<div align="left"><p style="text-decoration:none">
+By Creating an account, you agree to Amazon's<br>
+<a href="" style="text-decoration:none">Conditions of Use</a> and <a href="" style="text-decoration:none"> Privacy Notice</a></p>
+</div><hr></label>
+<div align="left">
+Already an account? <a href="" style="text-decoration:none"> Sign in &#9658;</a>
+</div>
+</form></center>
+
+<footer><hr><a href="" style="text-decoration:none"><br>Condition of Use</a> &nbsp;&nbsp;<a href="" style="text-decoration:none">Privacy Notice</a>&nbsp;&nbsp;<a href="" style="text-decoration:none"> Help</a>
+<br><br>&copy; 1996-2016, Amazon.com, Inc. or its affiliates</footer><br><br>
+</body>
+
+<script>
+document.getElementById('w2d4').onclick = function(){
+	alert('Left Click!');
+}
+document.getElementById('w2d4').oncontextmenu = function() { 
+
+  alert('Right click!') ;
+
+
+}
+
+      function dispMousePos(event) {
+alert("Mouse Position X: " + event.clientX
++ " , Y: " + event.clientY);
+
+}
+	document.addEventListener("contextmenu", dispMousePos);
+    document.addEventListener("click", dispMousePos);
+ 
+
+</script>
+</html>

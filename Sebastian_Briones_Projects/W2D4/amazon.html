@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+	Author - Brionse
+	verion - 1.0
+-->
+<html>
+
+
+	<head>
+		<title>Amazon</title>
+		<link href="css/style.css" rel="stylesheet">
+		<script src="js/mouseSensor.js" language="Javascript" type="text/javascript"></script>
+		<script type="text/javascript">
+		
+			//set event listeners on the whole page(document)
+			document.onclick = leftMouseBtnClick;
+			document.oncontextmenu = rightMouseBtnClick;
+			
+		</script>
+	</head>
+	
+	<body>
+		
+		<div class="header">
+			<img src="img/logo.PNG"></img>
+		</div
+		
+		<!-- main form -->
+		<div class="mainform">
+			<h2>Create Account</h2>
+			
+			<form>
+				<div class="innerform">
+				<label>Your name	  </label><input type="text"></input>
+				<label>Email 		  </label><input type="text"></input>
+				<label>Password 	  </label><input type="password" placeholder="at least 6 characters"></input>
+				<label>Password again </label><input type="password"></input>
+				
+				<br/><br/>
+				<button type="Submit" class="button">Create your Amazon Account</button>
+				
+				<div class="agreement"> 
+				    By creating an account, you agree to Amazon's <a href="facebook.com">Condition of Use</a> and privacy notice
+				</div>
+				
+				<div class="divider-inner">
+				</div>
+				
+				<div class="sign-in">
+				    Already have an account? <a href="facebook.com">Sign in</a>
+				</div>
+				</div>
+			</form>
+		
+		</div>
+		
+		<!-- footer -->
+		
+		<div class="footer">
+			<span class="footerspan"></span>
+			
+			<a class="footerlink" href="#"> Conditions of Use</a>
+			<span class="footerspan"></span>
+			
+			<div class="copyright">
+			<span class="copyright-span">
+				© 1996-2016, Amazon.com, Inc. or its affiliates
+			</span>
+			</div>
+			
+			<a class="footerlink" href="#">Privacy Notice</a>
+			<span class="footerspan"></span>
+			<a class="footerlink"  href="#">Help </a>
+			<span class="footerspan"></span>
+			
+			
+        </div>
+	</body>
+	
+</html>
