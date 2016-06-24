@@ -1,0 +1,45 @@
+create table account(accountid number(11,0) Primary Key NOT NULL,fullname varchar(100), username varchar(30), password varchar(30));
+create table chat_history(chat_id number(11,0) Primary Key not null, chat_history varchar(4000), chat_date varchar(20));
+create table user_chat_assn(chat_id number(11,0) , accountid number(11,0));
+
+
+select * from account;
+select * from chat_history;
+select * from user_chat_assn;
+
+
+/**
+
+CREATE SEQUENCE KANEN_UUID_SEQ START WITH 10000000001 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER ACCOUNT_ID_TRIG
+BEFORE INSERT ON SYSTEM.ACCOUNT
+FOR EACH ROW
+BEGIN
+IF :new.ACCOUNTID IS NULL THEN
+SELECT KANEN_UUID_SEQ.nextval INTO :new.ACCOUNTID FROM DUAL;
+END IF;
+END;
+
+
+
+CREATE SEQUENCE KANEN_CHAT_HISTORY_UUID_SEQ START WITH 10000000001 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER CHAT_HISTORY_ID_TRIG
+BEFORE INSERT ON SYSTEM.CHAT_HISTORY
+FOR EACH ROW
+BEGIN
+IF :new.CHAT_ID IS NULL THEN
+SELECT KANEN_CHAT_HISTORY_UUID_SEQ.nextval INTO :new.CHAT_ID FROM DUAL;
+END IF;
+END;
+*/
+
+--TRUNCATE TABLE ACCOUNT;
+
+
+INSERT INTO ACCOUNT(FULLNAME,USERNAME, PASSWORD) VALUES('Christian Joel Kanen','kanen','pogi');
+INSERT INTO ACCOUNT(FULLNAME,USERNAME, PASSWORD) VALUES('adminuser','admin','admin123');
+commit;
+
+
