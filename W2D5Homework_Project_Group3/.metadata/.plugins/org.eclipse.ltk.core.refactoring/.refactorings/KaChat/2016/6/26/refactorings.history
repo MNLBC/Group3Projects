@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.oocl.mnlbc.group3.ui.Registration&apos; to &apos;RegistrationWindow&apos;&#x0D;&#x0A;- Original project: &apos;KaChat&apos;&#x0D;&#x0A;- Original element: &apos;com.oocl.mnlbc.group3.ui.Registration&apos;&#x0D;&#x0A;- Renamed element: &apos;com.oocl.mnlbc.group3.ui.RegistrationWindow&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;Registration&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;com.oocl.mnlbc.group3.ui{Registration.java[Registration" matchStrategy="1" name="RegistrationWindow" qualified="false" references="true" similarDeclarations="false" stamp="1466755065541" textual="false" version="1.0"/>
+</session>
