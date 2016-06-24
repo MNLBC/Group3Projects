@@ -1,0 +1,42 @@
+/**
+ * 
+ */
+package com.oocl.mnlbc.group3.dao;
+
+/**
+ * @author FLOREJE
+ *
+ */
+public class AccountDAOImpl implements AccountDAO {
+
+	@Override
+	public boolean checkIfUserExist() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean registerAccount(User user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean validateAccount(String username, String password) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean saveChatHistory() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addUserChatAssoc() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}
