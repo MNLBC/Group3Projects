@@ -1,0 +1,137 @@
+package com.oocl.mnlbc.group3.ui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.TextArea;
+import java.awt.TextField;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+/**
+ * 
+ */
+
+/**
+ * @author VERGAJO
+ *
+ */
+public class ChatWindow extends JFrame {
+	private JMenuBar menuBar;
+	private JTextField textField;
+
+	public ChatWindow() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// sets the size
+		setBounds(100, 100, 500, 500);
+
+		// center starting position
+		setLocationRelativeTo(null);
+
+		this.setResizable(false);
+		this.setTitle("Chat Window");
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		
+		JPanel panel = new JPanel();
+		
+		JTextArea textArea = new JTextArea();
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(textField, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 494, GroupLayout.PREFERRED_SIZE)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+					.addGap(18)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)
+					.addGap(20))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(19)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(textArea)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE))
+					.addGap(27)
+					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+		);
+		
+		JButton btnNewButton = new JButton("New button");
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+					.addContainerGap(49, Short.MAX_VALUE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnNewButton_1)
+						.addComponent(btnNewButton))
+					.addGap(43))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(40)
+					.addComponent(btnNewButton)
+					.addGap(47)
+					.addComponent(btnNewButton_1)
+					.addContainerGap(273, Short.MAX_VALUE))
+		);
+		panel.setLayout(gl_panel);
+		getContentPane().setLayout(groupLayout);
+
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// try {
+		// for (javax.swing.UIManager.LookAndFeelInfo info :
+		// javax.swing.UIManager.getInstalledLookAndFeels()) {
+		// if ("Nimbus".equals(info.getName())) {
+		// javax.swing.UIManager.setLookAndFeel(info.getClassName());
+		// break;
+		// }
+		// }
+		// } catch (ClassNotFoundException ex) {
+		// java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+		// null,
+		// ex);
+		// } catch (InstantiationException ex) {
+		// java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+		// null,
+		// ex);
+		// } catch (IllegalAccessException ex) {
+		// java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+		// null,
+		// ex);
+		// } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+		// java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+		// null,
+		// ex);
+		// }
+
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ChatWindow frame = new ChatWindow();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+}

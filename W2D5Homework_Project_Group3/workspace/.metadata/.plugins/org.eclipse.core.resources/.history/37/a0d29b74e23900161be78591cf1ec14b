@@ -1,0 +1,151 @@
+package com.oocl.mnlbc.group3.ui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.TextArea;
+import java.awt.TextField;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JList;
+
+/**
+ * 
+ */
+
+/**
+ * @author VERGAJO
+ *
+ */
+public class ChatWindow extends JFrame {
+	private JMenuBar menuBar;
+
+	public ChatWindow() {
+		
+		setBounds(100, 100, 500, 400);
+		
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.SOUTH);
+		
+		JTextArea textArea = new JTextArea();
+		
+		JButton btnNewButton = new JButton("Send");
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+					.addGap(18)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		panel.setLayout(gl_panel);
+		
+		JPanel panel_1 = new JPanel();
+		getContentPane().add(panel_1, BorderLayout.CENTER);
+		
+		JTextArea textArea_1 = new JTextArea();
+		
+		JList list = new JList();
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(textArea_1, GroupLayout.PREFERRED_SIZE, 334, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(list, GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panel_1.createSequentialGroup()
+					.addGap(11)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(list, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+						.addComponent(textArea_1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 357, GroupLayout.PREFERRED_SIZE))
+					.addGap(0))
+		);
+		panel_1.setLayout(gl_panel_1);
+		
+		JMenuBar menuBar_1 = new JMenuBar();
+		setJMenuBar(menuBar_1);
+		
+		JMenu mnFile = new JMenu("File");
+		menuBar_1.add(mnFile);
+		
+		JMenuItem mntmQuit = new JMenuItem("Quit");
+		mnFile.add(mntmQuit);
+		
+		JMenu mnHelp = new JMenu("Help");
+		menuBar_1.add(mnHelp);
+		
+		JMenuItem mntmAbout = new JMenuItem("About");
+		mnHelp.add(mntmAbout);
+		
+		JMenuBar menuBar_2 = new JMenuBar();
+		menuBar_1.add(menuBar_2);
+
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		 try {
+		 for (javax.swing.UIManager.LookAndFeelInfo info :
+		 javax.swing.UIManager.getInstalledLookAndFeels()) {
+		 if ("Nimbus".equals(info.getName())) {
+		 javax.swing.UIManager.setLookAndFeel(info.getClassName());
+		 break;
+		 }
+		 }
+		 } catch (ClassNotFoundException ex) {
+		 java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+		 null,
+		 ex);
+		 } catch (InstantiationException ex) {
+		 java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+		 null,
+		 ex);
+		 } catch (IllegalAccessException ex) {
+		 java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+		 null,
+		 ex);
+		 } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+		 java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+		 null,
+		 ex);
+		 }
+
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ChatWindow frame = new ChatWindow();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+}
