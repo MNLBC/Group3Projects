@@ -8,6 +8,7 @@ public class Account {
 	
 	private String password;
 
+	private String fullname;
 	
 	/**
 	 * Constructor
@@ -26,11 +27,12 @@ public class Account {
 	 * @param username
 	 * @param password
 	 */
-	public Account(int accountId, String username, String password) {
+	public Account(int accountId, String username, String password, String fullname) {
 		super();
 		this.accountId = accountId;
 		this.username = username;
 		this.password = password;
+		this.fullname = fullname;
 	}
 
 	/**
@@ -66,6 +68,20 @@ public class Account {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * @return the fullname
+	 */
+	public String getFullname() {
+		return fullname;
+	}
+
+	/**
+	 * @param fullname the fullname to set
+	 */
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 	
 	
