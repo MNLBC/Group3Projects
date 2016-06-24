@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package com.oocl.mnlbc.group3.db;
+
+/**
+ * @author FLOREJE
+ *
+ */
+public class AccountDAOImpl {
+
+}

@@ -1,0 +1,71 @@
+/**
+ * 
+ */
+package com.oocl.mnlbc.group3.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLSyntaxErrorException;
+
+import com.oocl.mnlbc.group3.connection.DBConn;
+
+/**
+ * @author FLOREJE
+ * Account
+ * User_Chat_Assn
+ * Chat_History
+ */
+public class AccountDAOImpl implements AccountDAO {
+
+	@Override
+	public boolean checkIfUserExist(String username) {
+
+		Connection conn = DBConn.getConnection();
+		String sql = "SELECT * FROM ACCOUNT WHERE username =" + username;
+
+		PreparedStatement pstmt;
+		try {
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				
+				return true;			
+			}
+			
+		
+		}catch (SQLSyntaxErrorException se) {
+			System.out.println("User does not exist!");
+			
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean registerAccount(User user) {
+		return false;
+	}
+
+	@Override
+	public boolean validateAccount(String username, String password) {
+		
+		return false;
+	}
+
+	@Override
+	public boolean saveChatHistory() {
+		
+		return false;
+	}
+
+	@Override
+	public boolean addUserChatAssoc() {
+		
+		return false;
+	}
+
+}
