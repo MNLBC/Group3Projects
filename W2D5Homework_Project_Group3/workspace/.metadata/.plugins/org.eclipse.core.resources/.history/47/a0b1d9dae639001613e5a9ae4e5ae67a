@@ -1,0 +1,16 @@
+package com.oocl.mnlbc.group3.dao;
+
+public interface AccountDAO {
+
+	public boolean registerAccount(User user);
+
+	public boolean validateAccount(String username, String password);
+	
+	public boolean saveChatHistory();
+	
+	public boolean addUserChatAssn();
+
+	boolean checkIfUserExist(String username);
+	
+
+}

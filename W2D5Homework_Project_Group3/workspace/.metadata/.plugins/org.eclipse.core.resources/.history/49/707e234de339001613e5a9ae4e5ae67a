@@ -1,0 +1,97 @@
+/**
+ * 
+ */
+package com.oocl.mnlbc.group3.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.SQLSyntaxErrorException;
+
+import com.oocl.mnlbc.group3.connection.DBConn;
+
+/**
+ * @author FLOREJE
+ * Account
+ * User_Chat_Assn
+ * Chat_History
+ */
+public class AccountDAOImpl implements AccountDAO {
+	Connection conn;
+	
+	public AccountDAOImpl() {
+		conn = DBConn.getConnection();
+	}
+	@Override
+	public boolean checkIfUserExist(String username) {
+
+		String sql = "SELECT * FROM ACCOUNT WHERE username =" + username;
+
+		PreparedStatement pstmt;
+		try {
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()){
+				return true;			
+			}
+		
+		}catch (SQLSyntaxErrorException se) {
+			System.out.println("User does not exist!");
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean registerAccount(User user) {
+		String fullname="";
+		String username="";
+		String password="";
+		int i=0;
+	
+		String sql = "INSERT INTO ACCOUNT (fullname, username, password) VALUES(?, ?, ?)";
+	    PreparedStatement pstmt;
+	    
+	    try {
+	    	
+	        pstmt = (PreparedStatement) conn.prepareStatement(sql);
+	        pstmt.setString(1, fullname);
+	        pstmt.setString(2, username);
+	        pstmt.setString(3, password);
+	        
+	        i = pstmt.executeUpdate();
+	        
+	        pstmt.close();
+	        conn.close();
+	    }
+	    catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    if(!i==0){
+	    	return true;
+	    }
+		return false;
+	}
+
+	@Override
+	public boolean validateAccount(String username, String password) {
+		
+		return false;
+	}
+
+	@Override
+	public boolean saveChatHistory() {
+		
+		return false;
+	}
+
+	@Override
+	public boolean addUserChatAssoc() {
+		
+		return false;
+	}
+
+}

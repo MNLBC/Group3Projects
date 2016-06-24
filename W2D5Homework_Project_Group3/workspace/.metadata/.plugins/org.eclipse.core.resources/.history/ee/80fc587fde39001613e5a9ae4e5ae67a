@@ -1,0 +1,5 @@
+package com.oocl.mnlbc.group3.db;
+
+public class User {
+
+}
