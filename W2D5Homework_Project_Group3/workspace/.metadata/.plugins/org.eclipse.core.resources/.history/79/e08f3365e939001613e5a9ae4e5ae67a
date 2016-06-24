@@ -20,7 +20,6 @@ import com.oocl.mnlbc.group3.model.Account;
  */
 public class AccountDAOImpl implements AccountDAO {
 	Connection conn;
-	PreparedStatement pstmt;
 	
 	public AccountDAOImpl() {
 		conn = DBConn.getConnection();
@@ -30,6 +29,7 @@ public class AccountDAOImpl implements AccountDAO {
 
 		String sql = "SELECT * FROM ACCOUNT WHERE username =" + username;
 
+		PreparedStatement pstmt;
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
@@ -57,6 +57,7 @@ public class AccountDAOImpl implements AccountDAO {
 		int i=0;
 	
 		String sql = "INSERT INTO ACCOUNT (fullname, username, password) VALUES(?, ?, ?)";
+	    PreparedStatement pstmt;
 	    
 	    try {
 	    	
@@ -84,6 +85,7 @@ public class AccountDAOImpl implements AccountDAO {
 		
 		String sql = "SELECT * FROM ACCOUNT WHERE username =" + username +" and password =" + password;
 
+		PreparedStatement pstmt;
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
@@ -105,6 +107,10 @@ public class AccountDAOImpl implements AccountDAO {
 		String chat_date="";
 		String sql = "INSERT INTO CHAT_HISTORY (chat_history, chat_date) VALUES(?, ?)";
 		int i=0;
+		
+		
+		
+	    PreparedStatement pstmt;
 	    
 	    try {	
 	        pstmt = (PreparedStatement) conn.prepareStatement(sql);
@@ -132,6 +138,7 @@ public class AccountDAOImpl implements AccountDAO {
 		int i = 0;
 		
 		String sql = "INSERT INTO USER_CHAT_ASSN (chat_id, account_id) VALUES(?, ?)";
+	    PreparedStatement pstmt;
 	    
 	    try {
 	    	

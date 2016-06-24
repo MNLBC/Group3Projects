@@ -60,7 +60,7 @@ public class AccountDAOImpl implements AccountDAO {
 	    
 	    try {
 	    	
-	        pstmt = (PreparedStatement) conn.prepareStatement(sql);
+
 	        pstmt.setString(1, fullname);
 	        pstmt.setString(2, username);
 	        pstmt.setString(3, password);

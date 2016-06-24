@@ -20,10 +20,11 @@ import com.oocl.mnlbc.group3.model.Account;
  */
 public class AccountDAOImpl implements AccountDAO {
 	Connection conn;
-	PreparedStatement pstmt;
+
 	
 	public AccountDAOImpl() {
 		conn = DBConn.getConnection();
+		PreparedStatement pstmt;
 	}
 	@Override
 	public boolean checkIfUserExist(String username) {
