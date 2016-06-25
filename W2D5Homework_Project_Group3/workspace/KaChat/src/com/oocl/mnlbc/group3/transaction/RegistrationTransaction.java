@@ -16,5 +16,12 @@ public class RegistrationTransaction {
 		
 		return acctDao.checkIfUserExist(username);
 	}
+	
+
+	public boolean validate(String user, String password) {
+
+	
+		return acctDao.validateAccount(user, password);
+	}
 
 }

@@ -39,38 +39,43 @@ public class RegistrationWindow extends JFrame implements ActionListener, KeyLis
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		try {
-//			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//				if ("Nimbus".equals(info.getName())) {
-//					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//					break;
-//				}
-//			}
-//		} catch (ClassNotFoundException ex) {
-//			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-//					null, ex);
-//		} catch (InstantiationException ex) {
-//			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-//					null, ex);
-//		} catch (IllegalAccessException ex) {
-//			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-//					null, ex);
-//		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-//					null, ex);
-//		}
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					RegistrationWindow window = new RegistrationWindow();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		try {
+			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
+					.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (ClassNotFoundException ex) {
+			java.util.logging.Logger.getLogger(
+					RegistrationWindow.class.getName()).log(
+					java.util.logging.Level.SEVERE, null, ex);
+		} catch (InstantiationException ex) {
+			java.util.logging.Logger.getLogger(
+					RegistrationWindow.class.getName()).log(
+					java.util.logging.Level.SEVERE, null, ex);
+		} catch (IllegalAccessException ex) {
+			java.util.logging.Logger.getLogger(
+					RegistrationWindow.class.getName()).log(
+					java.util.logging.Level.SEVERE, null, ex);
+		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+			java.util.logging.Logger.getLogger(
+					RegistrationWindow.class.getName()).log(
+					java.util.logging.Level.SEVERE, null, ex);
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					RegistrationWindow window = new RegistrationWindow();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the application.
@@ -85,10 +90,10 @@ public class RegistrationWindow extends JFrame implements ActionListener, KeyLis
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-	
+		
 		this.setBounds(100, 100, 500, 400);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		this.setLocationRelativeTo(null);
 		JPanel panel = new JPanel();
 		this.getContentPane().add(panel, BorderLayout.NORTH);
 
@@ -366,17 +371,20 @@ public class RegistrationWindow extends JFrame implements ActionListener, KeyLis
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		Object obj = e.getSource();
-		boolean usernameValid = true;
+		boolean usernameValid = false;
 		if (obj == btnClear) {
 			clearFields();
 		} else if (obj == btnSave) {
 			if (validateFields()) {
-				usernameValid = regTxn.checkUsername(txtFullname.getText()); 
+				usernameValid = regTxn.checkUsername(txtUsername.getText()); 
 				if (usernameValid){
 					regTxn.createAccount(txtFullname.getText(),
 							txtUsername.getText(), txtPassword.getText());
 					JOptionPane.showMessageDialog(btnSave,
 							"Successfully Registered!!.");
+					LoginWindow login = new LoginWindow();
+					login.setVisible(true);
+					this.dispose();
 				}else{
 					JOptionPane.showMessageDialog(btnSave,
 							"Username Already Exists.");

@@ -27,6 +27,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import com.oocl.mnlbc.group3.dao.AccountDAOImpl;
+import com.oocl.mnlbc.group3.transaction.RegistrationTransaction;
 
 /**
  * Login window for KaChat Validates the username and password
@@ -47,13 +48,15 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener {
 	private JButton btnExit;
 	private short loginCounter;
 	private JButton btnRegister;
+	
+	RegistrationTransaction regTxn;
 
 	/**
 	 * Create the frame.
 	 * 
 	 */
 	public LoginWindow() {
-
+		regTxn = new RegistrationTransaction();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// sets the size
@@ -198,8 +201,12 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener {
 		} else if (password.equals("")) {
 			JOptionPane.showMessageDialog(this, "Password is blank.");
 		} else {
-			if (validate(username, password)) {
-				System.out.println("Logged in");
+			if (regTxn.validate(username, password)) {
+				JOptionPane.showMessageDialog(this, "Successfuly Logged in!");
+				
+				Main main = new Main();
+				main.setVisible(true);
+				this.dispose();
 
 				/*
 				 * Proceed to Main Chat window this.setEnabled(false);
@@ -215,17 +222,7 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener {
 		}
 	}
 
-	/**
-	 * 
-	 * @param user
-	 * @param password
-	 * @return
-	 */
-	public boolean validate(String user, String password) {
 
-		AccountDAOImpl acct = new AccountDAOImpl();
-		return acct.validateAccount(user, password);
-	}
 
 	/**
 	 * 
@@ -273,6 +270,8 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener {
 			this.login();
 		} 
 		else if (obj == btnRegister){
+			
+			this.setVisible(false);
 			RegistrationWindow regFrame = new RegistrationWindow();
 			regFrame.setVisible(true);
 		

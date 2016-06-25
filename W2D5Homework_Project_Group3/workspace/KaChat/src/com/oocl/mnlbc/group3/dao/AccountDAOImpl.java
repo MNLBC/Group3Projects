@@ -42,15 +42,17 @@ public class AccountDAOImpl implements AccountDAO {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()){
-				return true;			
+				return false;			
 			}
-		
+			
 		}catch (SQLSyntaxErrorException se) {
 			System.out.println("User does not exist.");
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
-		return false;
+		
+		return true;
+		
 	}
 
 	@Override
@@ -77,7 +79,7 @@ public class AccountDAOImpl implements AccountDAO {
 	        i = pstmt.executeUpdate();
 	        
 	        pstmt.close();
-	        conn.close();
+
 	    }
 	    catch (SQLException e) {
 	        e.printStackTrace();
@@ -99,7 +101,6 @@ public class AccountDAOImpl implements AccountDAO {
 			if(rs.next()){
 				return true;
 			}
-		
 		}catch (SQLSyntaxErrorException se) {
 			//System.out.println("Wrong username or password.");
 		} catch(SQLException e){
@@ -123,7 +124,6 @@ public class AccountDAOImpl implements AccountDAO {
 	        i = pstmt.executeUpdate();
 	        
 	        pstmt.close();
-	        conn.close();
 	    }
 	    catch (SQLException e) {
 	        e.printStackTrace();
@@ -151,7 +151,6 @@ public class AccountDAOImpl implements AccountDAO {
 	        i = pstmt.executeUpdate();
 	        
 	        pstmt.close();
-	        conn.close();
 	    }
 	    catch (SQLException e) {
 	        e.printStackTrace();
