@@ -23,7 +23,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 
-public class RegistrationWindow extends JFrame implements ActionListener, KeyListener {
+public class RegistrationWindow implements ActionListener, KeyListener {
 
 	private JFrame frame;
 	private JTextField txtFullname;
@@ -41,38 +41,38 @@ public class RegistrationWindow extends JFrame implements ActionListener, KeyLis
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		try {
-//			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//				if ("Nimbus".equals(info.getName())) {
-//					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//					break;
-//				}
-//			}
-//		} catch (ClassNotFoundException ex) {
-//			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-//					null, ex);
-//		} catch (InstantiationException ex) {
-//			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-//					null, ex);
-//		} catch (IllegalAccessException ex) {
-//			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-//					null, ex);
-//		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-//					null, ex);
-//		}
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					RegistrationWindow window = new RegistrationWindow();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		try {
+			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (ClassNotFoundException ex) {
+			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+					null, ex);
+		} catch (InstantiationException ex) {
+			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+					null, ex);
+		} catch (IllegalAccessException ex) {
+			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+					null, ex);
+		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+					null, ex);
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					RegistrationWindow window = new RegistrationWindow();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the application.
@@ -86,12 +86,12 @@ public class RegistrationWindow extends JFrame implements ActionListener, KeyLis
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-	
-		this.setBounds(100, 100, 500, 400);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame = new JFrame();
+		frame.setBounds(100, 100, 500, 400);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel panel = new JPanel();
-		this.getContentPane().add(panel, BorderLayout.NORTH);
+		frame.getContentPane().add(panel, BorderLayout.NORTH);
 
 		JLabel lblRegister = new JLabel("Registration");
 		lblRegister.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -104,7 +104,7 @@ public class RegistrationWindow extends JFrame implements ActionListener, KeyLis
 		panel.setLayout(gl_panel);
 
 		JPanel panel_1 = new JPanel();
-		this.getContentPane().add(panel_1, BorderLayout.CENTER);
+		frame.getContentPane().add(panel_1, BorderLayout.CENTER);
 
 		txtFullname = new JTextField();
 		txtFullname.setFont(new Font("Tahoma", Font.PLAIN, 15));
