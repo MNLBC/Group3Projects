@@ -1,0 +1,185 @@
+package com.oocl.mnlbc.group3.ui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.TextArea;
+import java.awt.TextField;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JList;
+import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.ActionEvent;
+
+/**
+ * 
+ */
+
+/**
+ * @author VERGAJO
+ *
+ */
+public class ChatWindow extends JFrame implements ActionListener, KeyListener {
+	private JMenuBar menuBar;
+
+	public ChatWindow() {
+		setResizable(false);
+		setTitle("KaChat");
+
+		setBounds(100, 100, 500, 400);
+
+		getContentPane().setLayout(new BorderLayout(0, 0));
+
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.SOUTH);
+
+		JTextArea taChatBox = new JTextArea();
+		taChatBox.setLineWrap(true);
+
+		JTextArea taChatMessages = new JTextArea();
+
+		JButton btnSend = new JButton("Send");
+		btnSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (!taChatBox.getText().equals("")) {
+					taChatMessages.append(taChatBox.getText() + "\n");
+					taChatBox.setText("");
+				}
+			}
+		});
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.TRAILING).addGroup(Alignment.LEADING,
+				gl_panel.createSequentialGroup().addContainerGap()
+						.addComponent(taChatBox, GroupLayout.PREFERRED_SIZE, 344, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(btnSend, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE).addContainerGap()));
+		gl_panel.setVerticalGroup(
+				gl_panel.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
+						gl_panel.createSequentialGroup()
+								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+										.addComponent(btnSend, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 51,
+												Short.MAX_VALUE)
+										.addComponent(taChatBox, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
+								.addContainerGap()));
+		panel.setLayout(gl_panel);
+
+		JPanel panel_1 = new JPanel();
+		getContentPane().add(panel_1, BorderLayout.CENTER);
+
+		taChatMessages.setWrapStyleWord(true);
+		taChatMessages.setEditable(false);
+		// taChatMessages.append("HAHAHA\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHAHAHAHAHHAHAHAHHAHAHAHAHAHHAHAHAHAHAHAHAHHAHAHA");
+
+		JList listUser = new JList();
+		listUser.setBackground(Color.LIGHT_GRAY);
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1
+				.setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup().addContainerGap()
+								.addComponent(taChatMessages, GroupLayout.PREFERRED_SIZE, 342,
+										GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(listUser, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+								.addContainerGap()));
+		gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING).addGroup(Alignment.LEADING,
+				gl_panel_1.createSequentialGroup().addContainerGap()
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(listUser, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(taChatMessages, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 277,
+										Short.MAX_VALUE))
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		panel_1.setLayout(gl_panel_1);
+
+		JMenuBar menuBar_1 = new JMenuBar();
+		setJMenuBar(menuBar_1);
+
+		JMenu mnFile = new JMenu("File");
+		menuBar_1.add(mnFile);
+
+		JMenuItem mntmQuit = new JMenuItem("Quit");
+		mnFile.add(mntmQuit);
+
+		JMenu mnHelp = new JMenu("Help");
+		menuBar_1.add(mnHelp);
+
+		JMenuItem mntmAbout = new JMenuItem("About");
+		mnHelp.add(mntmAbout);
+
+		JMenuBar menuBar_2 = new JMenuBar();
+		menuBar_1.add(menuBar_2);
+
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (ClassNotFoundException ex) {
+			java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE, null,
+					ex);
+		} catch (InstantiationException ex) {
+			java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE, null,
+					ex);
+		} catch (IllegalAccessException ex) {
+			java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE, null,
+					ex);
+		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+			java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE, null,
+					ex);
+		}
+
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ChatWindow frame = new ChatWindow();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+}

@@ -1,0 +1,125 @@
+package com.oocl.mnlbc.group3.ui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.TextArea;
+import java.awt.TextField;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+/**
+ * 
+ */
+
+/**
+ * @author VERGAJO
+ *
+ */
+public class ChatWindow extends JFrame {
+
+	/**
+	 * @param args
+	 */
+
+	private JTextArea output;
+	private JTextField input;
+	private JMenuBar menuBar;
+	private JMenu fileMenu;
+	private JMenu helpMenu;
+	private JMenuItem quitItem;
+	private JMenuItem aboutItem;
+	private JPanel jPanel;
+	private JButton sendButton;
+	private JButton quitButton;
+
+	public ChatWindow() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		output = new JTextArea(10, 50);
+		input = new JTextField(50);
+		// sets the size
+		setBounds(100, 100, 500, 500);
+
+		// center starting position
+		setLocationRelativeTo(null);
+
+		this.setResizable(false);
+		this.setTitle("Chat Window");
+		this.setLayout(new BorderLayout());
+
+		JMenuBar menuBar = new JMenuBar();
+		fileMenu = new JMenu("File");
+		helpMenu = new JMenu("Help");
+
+		quitItem = new JMenuItem("Quit");
+		aboutItem = new JMenuItem("About");
+
+		fileMenu.add(quitItem);
+		helpMenu.add(aboutItem);
+
+		sendButton = new JButton("Send");
+		quitButton = new JButton("Quit");
+
+		menuBar.add(fileMenu);
+		menuBar.add(helpMenu);
+
+		jPanel = new JPanel();
+		jPanel.add(sendButton);
+		jPanel.add(quitButton);
+		// menu = new JMenu()
+		// menu.add(fileMenuItem);
+		this.add(output, BorderLayout.WEST);
+		this.add(input, BorderLayout.SOUTH);
+		this.add(jPanel, BorderLayout.CENTER);
+		this.add(menuBar, BorderLayout.NORTH);
+
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// try {
+		// for (javax.swing.UIManager.LookAndFeelInfo info :
+		// javax.swing.UIManager.getInstalledLookAndFeels()) {
+		// if ("Nimbus".equals(info.getName())) {
+		// javax.swing.UIManager.setLookAndFeel(info.getClassName());
+		// break;
+		// }
+		// }
+		// } catch (ClassNotFoundException ex) {
+		// java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+		// null,
+		// ex);
+		// } catch (InstantiationException ex) {
+		// java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+		// null,
+		// ex);
+		// } catch (IllegalAccessException ex) {
+		// java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+		// null,
+		// ex);
+		// } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+		// java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+		// null,
+		// ex);
+		// }
+
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ChatWindow frame = new ChatWindow();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+}
