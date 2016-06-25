@@ -38,6 +38,15 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 	private JMenuBar menuBar;
 
 	public ChatWindow() {
+			init();
+			initClient();
+	}
+	
+	public void initClient(){
+		
+	}
+	
+	public void init(){
 		setResizable(false);
 		setTitle("KaChat");
 
@@ -120,7 +129,6 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 
 		JMenuBar menuBar_2 = new JMenuBar();
 		menuBar_1.add(menuBar_2);
-
 	}
 
 	public static void main(String[] args) {

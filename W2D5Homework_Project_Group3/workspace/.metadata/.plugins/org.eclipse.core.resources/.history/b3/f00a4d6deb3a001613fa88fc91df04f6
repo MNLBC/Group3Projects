@@ -1,0 +1,20 @@
+/**
+ * 
+ */
+package com.oocl.mnlbc.group3.server;
+
+/**
+ * @author yume
+ *
+ */
+public class ChatClient {
+	 private final String DEFAULT_SERVER_IP = "127.0.0.1";
+	 private final int DEFAULT_SERVER_PORT = 2000;
+
+	  private String serverIP = DEFAULT_SERVER_IP;
+	  private int serverPort = DEFAULT_SERVER_PORT;
+
+	  private Socket connection = null;
+	  private BufferedReader serverIn = null;
+	  private PrintStream serverOut = null;
+}

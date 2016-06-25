@@ -347,6 +347,7 @@ public class RegistrationWindow extends JFrame implements ActionListener, KeyLis
 
 		btnClear.addActionListener(this);
 		btnSave.addActionListener(this);
+		btnBack.addActionListener(this);
 	}
 
 	@Override
@@ -392,6 +393,10 @@ public class RegistrationWindow extends JFrame implements ActionListener, KeyLis
 			
 			}
 
+		} else if (obj== btnBack){
+			LoginWindow login = new LoginWindow();
+			login.setVisible(true);
+			this.dispose();
 		}
 	}
 

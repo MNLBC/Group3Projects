@@ -13,11 +13,17 @@ import javax.swing.SwingConstants;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 
-public class Main extends JFrame {
+public class Main extends JFrame implements ActionListener, KeyListener{
 
 	private JFrame frame;
+	private JButton btnConnect;
+	private JButton btnLogout ;
+	private JButton btnExit;
+	
 
 	/**
 	 * Launch the application.
@@ -59,19 +65,10 @@ public class Main extends JFrame {
 		lblKachat.setToolTipText("");
 		lblKachat.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
-		JButton btnConnect = new JButton("Connect to Group Chat");
+		 btnConnect = new JButton("Connect to Group Chat");
+		 btnLogout = new JButton("Logout");
+		 btnExit = new JButton("Exit");
 		
-		JButton btnLogout = new JButton("Logout");
-		btnLogout.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		
-		JButton btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		GroupLayout groupLayout = new GroupLayout(this.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -107,6 +104,48 @@ public class Main extends JFrame {
 					.addContainerGap(122, Short.MAX_VALUE))
 		);
 		this.getContentPane().setLayout(groupLayout);
+		btnLogout.addActionListener(this);
+		btnConnect.addActionListener(this);
+		btnExit.addActionListener(this);
 	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		Object obj = arg0.getSource();
+		if(obj==btnLogout ){
+			LoginWindow login = new LoginWindow();
+			login.setVisible(true);
+			this.dispose();
+		}else if(obj==btnConnect){
+			ChatWindow chat = new ChatWindow();
+			chat.setVisible(true);
+			this.dispose();
+			
+		}else if(obj==btnExit){
+			System.exit(0);
+		}
+		
+	}
+	
+	
 
 }

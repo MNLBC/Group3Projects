@@ -1,0 +1,80 @@
+package com.oocl.mnlbc.group3.server;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
+public class GetServerProperty {
+	
+	private String host;
+	private String maxbacklog;
+	private String maxConnections;
+
+	public GetServerProperty(){
+		readConfig();
+	}
+
+	public String getHost() {
+		return host;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	public String getMaxbacklog() {
+		return maxbacklog;
+	}
+
+	public void setMaxbacklog(String maxbacklog) {
+		this.maxbacklog = maxbacklog;
+	}
+
+	public String getMaxConnections() {
+		return maxConnections;
+	}
+
+	public void setMaxConnections(String maxConnections) {
+		this.maxConnections = maxConnections;
+	}
+
+	public String getPort() {
+		return port;
+	}
+
+	public void setPort(String port) {
+		this.port = port;
+	}
+
+	private String port;
+ 
+  public void readConfig(){
+	  Properties prop = new Properties();
+		InputStream input = null;
+
+		try {
+
+			input = new FileInputStream("config\\config.properties");
+
+			// load a properties file
+			prop.load(input);
+
+			// get the property value and print it out
+			System.out.println(prop.getProperty("database"));
+			System.out.println(prop.getProperty("dbuser"));
+			System.out.println(prop.getProperty("dbpassword"));
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+  }
+}

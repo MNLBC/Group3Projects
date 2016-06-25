@@ -3,3 +3,7 @@
 1466837993196	Delete element
 1466838007955	Copy compilation unit
 1466838022331	Delete element
+1466865733746	Move 'sqlref.txt' to 'config'
+1466865738797	Move 'config.properties' to 'config'
+1466865784297	Rename type 'GetProperty'
+1466865867112	Rename compilation unit 'GetProperty.java'
