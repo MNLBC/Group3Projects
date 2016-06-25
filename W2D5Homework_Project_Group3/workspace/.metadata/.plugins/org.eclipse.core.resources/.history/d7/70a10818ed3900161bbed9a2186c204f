@@ -28,14 +28,10 @@ public class AccountDAOImpl implements AccountDAO {
 		conn = DBConn.getConnection();
 	}
 	
-	public static AccountDAOImpl getInstance(){
-		return accountDAO;
-	}
-	
 	@Override
 	public boolean checkIfUserExist(String username) {
 
-		String sql = "SELECT * FROM ACCOUNT WHERE username ='" + username+"'";
+		String sql = "SELECT * FROM ACCOUNT WHERE username =" + username;
 
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
@@ -89,7 +85,7 @@ public class AccountDAOImpl implements AccountDAO {
 	@Override
 	public boolean validateAccount(String username, String password) {
 		
-		String sql = "SELECT * FROM ACCOUNT WHERE username ='" + username +"' and password ='" + password +"'";
+		String sql = "SELECT * FROM ACCOUNT WHERE username =" + username +" and password =" + password;
 
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
@@ -99,7 +95,7 @@ public class AccountDAOImpl implements AccountDAO {
 			}
 		
 		}catch (SQLSyntaxErrorException se) {
-			//System.out.println("Wrong username or password.");
+			System.out.println("Wrong username or password.");
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
