@@ -23,7 +23,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 
-public class RegistrationWindow implements ActionListener, KeyListener {
+public class RegistrationWindow extends JFrame implements ActionListener, KeyListener {
 
 	private JFrame frame;
 	private JTextField txtFullname;
@@ -41,43 +41,42 @@ public class RegistrationWindow implements ActionListener, KeyListener {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
-					.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(
-					RegistrationWindow.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(
-					RegistrationWindow.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(
-					RegistrationWindow.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(
-					RegistrationWindow.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
-		}
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegistrationWindow window = new RegistrationWindow();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		try {
+//			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
+//					.getInstalledLookAndFeels()) {
+//				if ("Nimbus".equals(info.getName())) {
+//					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//					break;
+//				}
+//			}
+//		} catch (ClassNotFoundException ex) {
+//			java.util.logging.Logger.getLogger(
+//					RegistrationWindow.class.getName()).log(
+//					java.util.logging.Level.SEVERE, null, ex);
+//		} catch (InstantiationException ex) {
+//			java.util.logging.Logger.getLogger(
+//					RegistrationWindow.class.getName()).log(
+//					java.util.logging.Level.SEVERE, null, ex);
+//		} catch (IllegalAccessException ex) {
+//			java.util.logging.Logger.getLogger(
+//					RegistrationWindow.class.getName()).log(
+//					java.util.logging.Level.SEVERE, null, ex);
+//		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//			java.util.logging.Logger.getLogger(
+//					RegistrationWindow.class.getName()).log(
+//					java.util.logging.Level.SEVERE, null, ex);
+//		}
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					this.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
@@ -91,12 +90,13 @@ public class RegistrationWindow implements ActionListener, KeyListener {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 500, 400);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		this.setBounds(100, 100, 500, 400);
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.NORTH);
+		this.getContentPane().add(panel, BorderLayout.NORTH);
 
 		JLabel lblRegister = new JLabel("Registration");
 		lblRegister.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -115,7 +115,7 @@ public class RegistrationWindow implements ActionListener, KeyListener {
 		panel.setLayout(gl_panel);
 
 		JPanel panel_1 = new JPanel();
-		frame.getContentPane().add(panel_1, BorderLayout.CENTER);
+		this.getContentPane().add(panel_1, BorderLayout.CENTER);
 
 		txtFullname = new JTextField();
 		txtFullname.setFont(new Font("Tahoma", Font.PLAIN, 15));

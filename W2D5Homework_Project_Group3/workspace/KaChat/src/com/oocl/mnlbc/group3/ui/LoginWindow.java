@@ -4,7 +4,6 @@ package com.oocl.mnlbc.group3.ui;
  * 
  */
 
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -15,6 +14,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,10 +22,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
+import com.oocl.mnlbc.group3.dao.AccountDAOImpl;
 
 /**
  * Login window for KaChat Validates the username and password
@@ -33,7 +34,7 @@ import javax.swing.border.TitledBorder;
  * @author BES
  * @version 1.0
  */
-public class LoginWindow extends JFrame implements KeyListener, ActionListener{
+public class LoginWindow extends JFrame implements KeyListener, ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -45,24 +46,25 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener{
 	private JButton btnLogin;
 	private JButton btnExit;
 	private short loginCounter;
+	private JButton btnRegister;
 
 	/**
 	 * Create the frame.
 	 * 
 	 */
 	public LoginWindow() {
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		//sets the size
+
+		// sets the size
 		setBounds(100, 100, 450, 253);
-		
-		//center starting position
+
+		// center starting position
 		setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setTitle("Login to KaChat");
 
-		//instantiate the content pane
+		// instantiate the content pane
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -86,57 +88,66 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener{
 
 		btnLogin = new JButton("Login");
 		btnLogin.setFont(new Font("Tahoma", 1, 12));
+
 		btnExit = new JButton("Exit");
 		btnExit.setFont(new Font("Tahoma", 1, 12));
+		btnExit.setFont(new Font("Tahoma", 1, 12));
+
+		btnRegister = new JButton("Register");
+		btnRegister.setFont(new Font("Tahoma", Font.BOLD, 12));
 
 		GroupLayout gl_panelMain = new GroupLayout(panelMain);
-		gl_panelMain.setHorizontalGroup(gl_panelMain.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panelMain.createSequentialGroup().addGap(35)
-						.addGroup(gl_panelMain.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_panelMain.createSequentialGroup().addGap(132)
+		gl_panelMain
+				.setHorizontalGroup(gl_panelMain.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panelMain.createSequentialGroup().addGap(35).addGroup(gl_panelMain
+								.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_panelMain.createSequentialGroup().addGap(21)
+										.addComponent(btnRegister, GroupLayout.PREFERRED_SIZE, 103,
+												GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
 										.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 103,
 												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-										.addComponent(btnExit, GroupLayout.PREFERRED_SIZE, 103,
-												GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panelMain.createSequentialGroup()
-										.addGroup(gl_panelMain.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 78,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblPassword))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(gl_panelMain.createParallelGroup(Alignment.LEADING)
-												.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 268,
-														Short.MAX_VALUE)
-												.addComponent(textUsername, GroupLayout.DEFAULT_SIZE, 237,
-														Short.MAX_VALUE))))
-						.addGap(24)));
-		gl_panelMain
-				.setVerticalGroup(gl_panelMain.createParallelGroup(Alignment.LEADING).addGroup(
-						gl_panelMain
-								.createSequentialGroup().addGap(
-										38)
-								.addGroup(gl_panelMain.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panelMain.createSequentialGroup()
-												.addGroup(gl_panelMain.createParallelGroup(Alignment.BASELINE)
-														.addComponent(lblUsername).addComponent(textUsername,
-																GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-												.addGap(18)
-												.addGroup(gl_panelMain.createParallelGroup(Alignment.BASELINE)
-														.addComponent(lblPassword).addComponent(passwordField,
-																GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)))
-										.addGroup(gl_panelMain.createSequentialGroup().addGap(92)
-												.addGroup(gl_panelMain.createParallelGroup(Alignment.BASELINE)
-														.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 36,
+										.addPreferredGap(ComponentPlacement.RELATED, 15, Short.MAX_VALUE).addComponent(
+												btnExit, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE))
+								.addGroup(
+										gl_panelMain.createSequentialGroup()
+												.addGroup(gl_panelMain.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 78,
 																GroupLayout.PREFERRED_SIZE)
-														.addComponent(btnExit, GroupLayout.PREFERRED_SIZE, 36,
-																GroupLayout.PREFERRED_SIZE))))
-								.addContainerGap(66, Short.MAX_VALUE)));
+														.addComponent(lblPassword))
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addGroup(gl_panelMain.createParallelGroup(Alignment.LEADING)
+														.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 281,
+																Short.MAX_VALUE)
+														.addComponent(textUsername, GroupLayout.DEFAULT_SIZE, 281,
+																Short.MAX_VALUE))))
+								.addGap(24)));
+		gl_panelMain.setVerticalGroup(gl_panelMain.createParallelGroup(Alignment.LEADING).addGroup(gl_panelMain
+				.createSequentialGroup().addGap(38)
+				.addGroup(gl_panelMain.createParallelGroup(Alignment.LEADING).addGroup(gl_panelMain
+						.createSequentialGroup().addGap(92)
+						.addGroup(gl_panelMain.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnExit, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnRegister, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
+						.addContainerGap(20, Short.MAX_VALUE))
+						.addGroup(gl_panelMain.createSequentialGroup()
+								.addGroup(gl_panelMain.createParallelGroup(Alignment.BASELINE).addComponent(lblUsername)
+										.addComponent(textUsername, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(18)
+								.addGroup(gl_panelMain.createParallelGroup(Alignment.BASELINE).addComponent(lblPassword)
+										.addComponent(passwordField, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+								.addComponent(btnRegister, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+								.addGap(23)))));
 		panelMain.setLayout(gl_panelMain);
 		passwordField.addKeyListener(this);
 		loginCounter = 0;
+		btnExit.addActionListener(this);
+		btnLogin.addActionListener(this);
+		btnRegister.addActionListener(this);
 	}
 
 	public static void main(String[] args) {
@@ -188,7 +199,8 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener{
 			JOptionPane.showMessageDialog(this, "Password is blank.");
 		} else {
 			if (validate(username, password)) {
-				System.out.println("Login!! ");
+				System.out.println("Logged in");
+
 				/*
 				 * Proceed to Main Chat window this.setEnabled(false);
 				 */
@@ -210,7 +222,9 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener{
 	 * @return
 	 */
 	public boolean validate(String user, String password) {
-		return user.equals("kanen") && password.equals("pogi");
+
+		AccountDAOImpl acct = new AccountDAOImpl();
+		return acct.validateAccount(user, password);
 	}
 
 	/**
@@ -229,15 +243,14 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int inp = e.getKeyCode();
-		if(inp == 10){
+		if (inp == 10) {
 			this.login();
 		}
 	}
@@ -245,16 +258,24 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		Object obj = e.getSource();
+		if (obj == btnExit) {
+			System.out.println("Exit");
+			this.dispose();
+		} 
+		else if (obj == btnLogin) {
+			this.login();
+		} 
+		else if (obj == btnRegister){
+			RegistrationWindow regFrame = new RegistrationWindow();
+			regFrame.setVisible(true);
 		
+		}
 	}
-
-	
-
-
 }

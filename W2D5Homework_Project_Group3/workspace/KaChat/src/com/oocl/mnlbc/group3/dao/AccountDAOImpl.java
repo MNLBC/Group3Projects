@@ -28,7 +28,7 @@ public class AccountDAOImpl implements AccountDAO {
 	@Override
 	public boolean checkIfUserExist(String username) {
 
-		String sql = "SELECT * FROM ACCOUNT WHERE username =" + username;
+		String sql = "SELECT * FROM ACCOUNT WHERE username ='" + username + "'";
 
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
@@ -82,7 +82,7 @@ public class AccountDAOImpl implements AccountDAO {
 	@Override
 	public boolean validateAccount(String username, String password) {
 		
-		String sql = "SELECT * FROM ACCOUNT WHERE username =" + username +" and password =" + password;
+		String sql = "SELECT * FROM ACCOUNT WHERE username = '" + username + "' and password ='" + password +"'";
 
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
