@@ -27,12 +27,11 @@ public class Account {
 	 * @param username
 	 * @param password
 	 */
-	public Account(int accountId, String username, String password, String fullname) {
-		super();
-		this.accountId = accountId;
+	public Account(String fullname,String username, String password) {
+		this.fullname = fullname;
 		this.username = username;
 		this.password = password;
-		this.fullname = fullname;
+		
 	}
 
 	/**

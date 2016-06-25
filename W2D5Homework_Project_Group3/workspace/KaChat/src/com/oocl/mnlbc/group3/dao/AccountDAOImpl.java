@@ -34,7 +34,8 @@ public class AccountDAOImpl implements AccountDAO {
 	
 	@Override
 	public boolean checkIfUserExist(String username) {
-
+     
+  
 		String sql = "SELECT * FROM ACCOUNT WHERE username ='" + username+"'";
 
 		try {
@@ -57,13 +58,14 @@ public class AccountDAOImpl implements AccountDAO {
 		String fullname="";
 		String username="";
 		String password="";
-		
+		fullname=account.getFullname();
 		username = account.getUsername();
 		password = account.getPassword();
+	
 		
 		int i=0;
 	
-		String sql = "INSERT INTO ACCOUNT (fullname, username, password) VALUES(?, ?, ?)";
+		String sql = "INSERT INTO ACCOUNT (fullname,username, password) VALUES(?, ?, ?)";
 	    
 	    try {
 	    	

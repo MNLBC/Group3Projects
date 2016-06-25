@@ -1,0 +1,18 @@
+package com.oocl.mnlbc.group3.transaction;
+
+import com.oocl.mnlbc.group3.dao.AccountDAOImpl;
+import com.oocl.mnlbc.group3.model.Account;
+
+public class RegistrationTransaction {
+	
+	public boolean createAccount(String username,String password,String fullname){
+		Account account = new Account(username, password, fullname);
+		return AccountDAOImpl.getInstance().registerAccount(account);
+  
+	}
+public boolean checkUsername{
+}
+
+	}
+
+}
