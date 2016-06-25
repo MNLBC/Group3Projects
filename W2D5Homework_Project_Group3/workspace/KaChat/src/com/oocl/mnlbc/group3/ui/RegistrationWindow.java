@@ -43,29 +43,24 @@ public class RegistrationWindow implements ActionListener, KeyListener {
 	 */
 	public static void main(String[] args) {
 		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
-					.getInstalledLookAndFeels()) {
+			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
 					javax.swing.UIManager.setLookAndFeel(info.getClassName());
 					break;
 				}
 			}
 		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(
-					RegistrationWindow.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+					null, ex);
 		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(
-					RegistrationWindow.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+					null, ex);
 		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(
-					RegistrationWindow.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+					null, ex);
 		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(
-					RegistrationWindow.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(RegistrationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
+					null, ex);
 		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -101,17 +96,11 @@ public class RegistrationWindow implements ActionListener, KeyListener {
 		JLabel lblRegister = new JLabel("Registration");
 		lblRegister.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(
-				Alignment.LEADING).addGroup(
-				gl_panel.createSequentialGroup().addGap(164)
-						.addComponent(lblRegister)
-						.addContainerGap(212, Short.MAX_VALUE)));
-		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(
-				Alignment.LEADING).addGroup(
-				Alignment.TRAILING,
-				gl_panel.createSequentialGroup()
-						.addContainerGap(GroupLayout.DEFAULT_SIZE,
-								Short.MAX_VALUE).addComponent(lblRegister)));
+		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_panel
+				.createSequentialGroup().addGap(164).addComponent(lblRegister).addContainerGap(212, Short.MAX_VALUE)));
+		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
+				gl_panel.createSequentialGroup().addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblRegister)));
 		panel.setLayout(gl_panel);
 
 		JPanel panel_1 = new JPanel();
@@ -151,199 +140,71 @@ public class RegistrationWindow implements ActionListener, KeyListener {
 
 		btnBack = new JButton("Back");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_1
+								.createSequentialGroup().addGap(39).addGroup(gl_panel_1
+										.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_panel_1.createSequentialGroup()
+												.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING, false)
+														.addComponent(lblUsername, GroupLayout.DEFAULT_SIZE,
+																GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+														.addComponent(lblFullname, GroupLayout.DEFAULT_SIZE,
+																GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+														.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 94,
+																GroupLayout.PREFERRED_SIZE))
+												.addGap(14))
+										.addGroup(gl_panel_1.createSequentialGroup()
+												.addComponent(btnClear, GroupLayout.PREFERRED_SIZE, 116,
+														GroupLayout.PREFERRED_SIZE)
+												.addGap(27))))
+								.addGroup(
+										gl_panel_1.createSequentialGroup().addContainerGap().addComponent(lblConfirm)))
+						.addGap(14)
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_1.createSequentialGroup().addGap(10).addGroup(gl_panel_1
+										.createParallelGroup(Alignment.LEADING, false).addComponent(txtPassword)
+										.addComponent(txtFullname, GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+										.addComponent(txtUsername, GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+										.addComponent(txtConfirm)))
+								.addGroup(gl_panel_1.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 116,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(28).addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 116,
+												GroupLayout.PREFERRED_SIZE)))
+						.addGap(42)));
 		gl_panel_1
-				.setHorizontalGroup(gl_panel_1
-						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(
-								gl_panel_1
-										.createSequentialGroup()
+				.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_1.createSequentialGroup().addGap(36)
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblFullname, GroupLayout.PREFERRED_SIZE,
+												27, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtFullname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE))
+								.addGap(11)
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblUsername).addComponent(txtUsername, GroupLayout.PREFERRED_SIZE,
+												25, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 										.addGroup(
-												gl_panel_1
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addGroup(
-																gl_panel_1
-																		.createSequentialGroup()
-																		.addGap(39)
-																		.addGroup(
-																				gl_panel_1
-																						.createParallelGroup(
-																								Alignment.TRAILING)
-																						.addGroup(
-																								gl_panel_1
-																										.createSequentialGroup()
-																										.addGroup(
-																												gl_panel_1
-																														.createParallelGroup(
-																																Alignment.LEADING,
-																																false)
-																														.addComponent(
-																																lblUsername,
-																																GroupLayout.DEFAULT_SIZE,
-																																GroupLayout.DEFAULT_SIZE,
-																																Short.MAX_VALUE)
-																														.addComponent(
-																																lblFullname,
-																																GroupLayout.DEFAULT_SIZE,
-																																GroupLayout.DEFAULT_SIZE,
-																																Short.MAX_VALUE)
-																														.addComponent(
-																																lblPassword,
-																																GroupLayout.PREFERRED_SIZE,
-																																94,
-																																GroupLayout.PREFERRED_SIZE))
-																										.addGap(14))
-																						.addGroup(
-																								gl_panel_1
-																										.createSequentialGroup()
-																										.addComponent(
-																												btnClear,
-																												GroupLayout.PREFERRED_SIZE,
-																												116,
-																												GroupLayout.PREFERRED_SIZE)
-																										.addGap(27))))
-														.addGroup(
-																gl_panel_1
-																		.createSequentialGroup()
-																		.addContainerGap()
-																		.addComponent(
-																				lblConfirm)))
-										.addGap(14)
-										.addGroup(
-												gl_panel_1
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addGroup(
-																gl_panel_1
-																		.createSequentialGroup()
-																		.addGap(10)
-																		.addGroup(
-																				gl_panel_1
-																						.createParallelGroup(
-																								Alignment.LEADING,
-																								false)
-																						.addComponent(
-																								txtPassword)
-																						.addComponent(
-																								txtFullname,
-																								GroupLayout.DEFAULT_SIZE,
-																								183,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								txtUsername,
-																								GroupLayout.DEFAULT_SIZE,
-																								183,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								txtConfirm)))
-														.addGroup(
-																gl_panel_1
-																		.createSequentialGroup()
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED)
-																		.addComponent(
-																				btnSave,
-																				GroupLayout.PREFERRED_SIZE,
-																				116,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addGap(28)
-																		.addComponent(
-																				btnBack,
-																				GroupLayout.PREFERRED_SIZE,
-																				116,
-																				GroupLayout.PREFERRED_SIZE)))
-										.addGap(42)));
-		gl_panel_1
-				.setVerticalGroup(gl_panel_1
-						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(
-								gl_panel_1
-										.createSequentialGroup()
-										.addGap(36)
-										.addGroup(
-												gl_panel_1
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																lblFullname,
-																GroupLayout.PREFERRED_SIZE,
-																27,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																txtFullname,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-										.addGap(11)
-										.addGroup(
-												gl_panel_1
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																lblUsername)
-														.addComponent(
-																txtUsername,
-																GroupLayout.PREFERRED_SIZE,
-																25,
-																GroupLayout.PREFERRED_SIZE))
-										.addGroup(
-												gl_panel_1
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addGroup(
-																gl_panel_1
-																		.createSequentialGroup()
-																		.addGap(18)
-																		.addComponent(
-																				lblPassword))
-														.addGroup(
-																gl_panel_1
-																		.createSequentialGroup()
-																		.addPreferredGap(
-																				ComponentPlacement.UNRELATED)
-																		.addComponent(
-																				txtPassword,
-																				GroupLayout.PREFERRED_SIZE,
-																				25,
-																				GroupLayout.PREFERRED_SIZE)))
-										.addPreferredGap(
-												ComponentPlacement.UNRELATED)
-										.addGroup(
-												gl_panel_1
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																lblConfirm)
-														.addComponent(
-																txtConfirm,
-																GroupLayout.PREFERRED_SIZE,
-																25,
-																GroupLayout.PREFERRED_SIZE))
-										.addGap(55)
-										.addGroup(
-												gl_panel_1
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addGroup(
-																gl_panel_1
-																		.createParallelGroup(
-																				Alignment.BASELINE)
-																		.addComponent(
-																				btnClear,
-																				GroupLayout.PREFERRED_SIZE,
-																				38,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addComponent(
-																				btnSave,
-																				GroupLayout.PREFERRED_SIZE,
-																				38,
-																				GroupLayout.PREFERRED_SIZE))
-														.addComponent(
-																btnBack,
-																GroupLayout.PREFERRED_SIZE,
-																38,
-																GroupLayout.PREFERRED_SIZE))
-										.addGap(85)));
+												gl_panel_1.createSequentialGroup().addGap(18).addComponent(lblPassword))
+										.addGroup(gl_panel_1.createSequentialGroup()
+												.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(txtPassword,
+														GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addComponent(lblConfirm)
+										.addComponent(txtConfirm, GroupLayout.PREFERRED_SIZE, 25,
+												GroupLayout.PREFERRED_SIZE))
+								.addGap(55)
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+												.addComponent(btnClear, GroupLayout.PREFERRED_SIZE, 38,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 38,
+														GroupLayout.PREFERRED_SIZE))
+										.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 38,
+												GroupLayout.PREFERRED_SIZE))
+								.addGap(85)));
 		panel_1.setLayout(gl_panel_1);
 
 		btnClear.addActionListener(this);
@@ -392,12 +253,12 @@ public class RegistrationWindow implements ActionListener, KeyListener {
 	public void validateFields() {
 		boolean fieldsValid = fieldsValid();
 		if (fieldsValid) {
-			if(passwordsMatch()){
+			if (passwordsMatch()) {
 				System.out.println("valid credentials");
-			}else{
+			} else {
 				JOptionPane.showMessageDialog(txtConfirm, "Passwords do not match.");
 			}
-			
+
 		}
 	}
 
@@ -415,7 +276,6 @@ public class RegistrationWindow implements ActionListener, KeyListener {
 			fieldsValid = false;
 			JOptionPane.showMessageDialog(txtFullname, "Username is blank.");
 
-		
 		}
 		return fieldsValid;
 	}
