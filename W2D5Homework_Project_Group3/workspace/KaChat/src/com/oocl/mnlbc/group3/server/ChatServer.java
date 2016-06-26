@@ -26,7 +26,7 @@ public class ChatServer implements Runnable {
 	}
 
 	public void go() {
-		this.connections= new Vector(maxConnections);
+		this.connections = new Vector(maxConnections);
 		Thread t = new Thread(this);
 		t.start();
 	}
@@ -104,7 +104,13 @@ public class ChatServer implements Runnable {
 				out = new OutputStreamWriter(socketOutput);
 				socketInput = communicationSocket.getInputStream();
 				in = new BufferedReader(new InputStreamReader(socketInput));
-				sendMessage("aww");
+			//	sendMessage("aww");
+				String input = null;
+				String message = "";
+				while ((input = in.readLine()) != null) {
+						ChatServer.this.sendToAllClients(input + "\n");
+
+				}
 				/*
 				 * InetAddress address = communicationSocket.getInetAddress();
 				 * String hostname = address.getHostName(); String input = null;

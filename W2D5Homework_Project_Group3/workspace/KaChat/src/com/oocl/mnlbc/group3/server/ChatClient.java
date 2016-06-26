@@ -4,10 +4,14 @@
 package com.oocl.mnlbc.group3.server;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
 
 /**
  * @author yume
@@ -24,12 +28,27 @@ public class ChatClient {
 	private BufferedReader serverIn = null;
 	private PrintStream serverOut = null;
 
-	public static void main(String args[]) {
-		ChatClient chatClient = new ChatClient();
+	private JTextArea taChatMessages;
+	private JTextArea txtAreaUsers;
+	private String username;
+	private List<String> users = new ArrayList<String>();
+	//
+	// public static void main(String args[]) {
+	// ChatClient chatClient = new ChatClient();
+	//
+	// }
 
-	}
-
-	public ChatClient() {
+	public ChatClient(JTextArea txtAreaChat, JTextArea txtAreaUsers, String username) {
+		this.taChatMessages = txtAreaChat;
+		this.txtAreaUsers = txtAreaUsers;
+		this.username = username;
+		
+		
+		users.add(username);
+		System.out.println(users);
+		for (String user : users)
+			txtAreaUsers.append(user + "\n");
+		
 		String serverIP = System.getProperty("serverip");
 		if (serverIP != null) {
 			this.serverIP = serverIP;
@@ -43,8 +62,8 @@ public class ChatClient {
 			connection = new Socket(serverIP, this.serverPort);
 			serverIn = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			serverOut = new PrintStream(connection.getOutputStream());
-			
-			System.out.println(serverIn.readLine());
+
+			// System.out.println(serverIn.readLine());
 			Thread t = new Thread(new RemoteReader());
 			t.start();
 		} catch (Exception e) {
@@ -64,15 +83,28 @@ public class ChatClient {
 			while (keepListening == true) {
 				try {
 					String nextLine = serverIn.readLine();
-					message = nextLine + message + "\n";
+					if (!nextLine.equals("")) {
+						taChatMessages.append(nextLine + "\n");
+					}
 				} catch (Exception e) {
 					keepListening = false;
 					System.out.println("Error while reading from server.");
 					e.printStackTrace();
-
 				}
 			}
 		}
 
+	}
+
+	public BufferedReader getServerIn() {
+		return this.serverIn;
+	}
+
+	public void displayAll(String message) {
+		serverOut.println(message);
+	}
+
+	public PrintStream getServerOut() {
+		return this.serverOut;
 	}
 }

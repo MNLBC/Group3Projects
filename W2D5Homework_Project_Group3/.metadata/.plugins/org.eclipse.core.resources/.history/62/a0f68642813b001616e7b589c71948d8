@@ -1,0 +1,85 @@
+/**
+ * 
+ */
+package com.oocl.mnlbc.group3.server;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.Socket;
+
+/**
+ * @author yume
+ *
+ */
+public class ChatClient {
+	private final String DEFAULT_SERVER_IP = "127.0.0.1";
+	private final int DEFAULT_SERVER_PORT = 5555;
+
+	private String serverIP = DEFAULT_SERVER_IP;
+	private int serverPort = DEFAULT_SERVER_PORT;
+
+	private Socket connection = null;
+	private BufferedReader serverIn = null;
+	private PrintStream serverOut = null;
+
+	public static void main(String args[]) {
+	ChatClient chatClient = new ChatClient();
+
+	}
+
+	public ChatClient() {
+		String serverIP = System.getProperty("serverip");
+		if (serverIP != null) {
+			this.serverIP = serverIP;
+		}
+		String serverPort = System.getProperty("serverport");
+		if (serverPort != null) {
+			this.serverPort = Integer.parseInt(serverPort);
+		}
+
+		try {
+			connection = new Socket(serverIP, this.serverPort);
+			serverIn = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			serverOut = new PrintStream(connection.getOutputStream());
+			
+			System.out.println(serverIn.readLine());
+			Thread t = new Thread(new RemoteReader());
+			t.start();
+		} catch (Exception e) {
+			System.out.println("Unable to connect to Server");
+			e.printStackTrace();
+
+		}
+	}
+
+	private class RemoteReader implements Runnable {
+		private boolean keepListening = true;
+		String message;
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			while (keepListening == true) {
+				try {
+					String nextLine = serverIn.readLine();
+					message = nextLine + message + "\n";
+				} catch (Exception e) {
+					keepListening = false;
+					System.out.println("Error while reading from server.");
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
+	
+	public BufferedReader getServerIn(){
+		return this.serverIn;
+	}
+	
+	public void displayAll(String message){
+		serverOut.println(message);
+	}
+}

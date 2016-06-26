@@ -204,7 +204,7 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener {
 			if (regTxn.validate(username, password)) {
 				JOptionPane.showMessageDialog(this, "Successfuly Logged in!");
 				
-				Main main = new Main();
+				Main main = new Main(username);
 				main.setVisible(true);
 				this.dispose();
 
@@ -270,8 +270,6 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener {
 			this.login();
 		} 
 		else if (obj == btnRegister){
-			
-			
 			RegistrationWindow regFrame = new RegistrationWindow();
 			regFrame.setVisible(true);
 			this.dispose();
