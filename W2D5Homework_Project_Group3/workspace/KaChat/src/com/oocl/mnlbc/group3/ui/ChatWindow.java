@@ -5,8 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.PrintStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.swing.GroupLayout;
@@ -21,7 +24,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import com.oocl.mnlbc.group3.model.Chat;
 import com.oocl.mnlbc.group3.server.ChatClient;
+import com.oocl.mnlbc.group3.transaction.RegistrationTransaction;
 
 /**
  * 
@@ -38,10 +43,15 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 	private JButton btnSend;
 	private JTextArea taChatBox;
 	private JTextArea taChatMessages;
+	private List<Chat> chat;
+	private SimpleDateFormat sdf;
+	private JMenuItem mntmSave;
+	private JMenuItem mntmQuit;
+	RegistrationTransaction regTxn;
 
 	public ChatWindow(String username) {
 		this.username = username;
-		 //ChatClient = new ChatClient();
+		// ChatClient = new ChatClient();
 		init();
 
 		// initClient();
@@ -53,6 +63,9 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 	// }
 
 	public void init() {
+		regTxn = new RegistrationTransaction();
+		chat = new ArrayList<Chat>();
+		sdf = new SimpleDateFormat("hh:mm:ssa MMM/dd/yyyy");
 		setResizable(false);
 		setTitle("KaChat");
 
@@ -72,14 +85,14 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(null);
-		
+
 		JTextArea taUsers = new JTextArea();
 		taUsers.setEnabled(false);
 		taUsers.setEditable(false);
 		taUsers.setBounds(366, 12, 118, 266);
 		panel_1.add(taUsers);
-		
-		chatClient = new ChatClient(taChatMessages, taUsers, username);		
+
+		chatClient = new ChatClient(taChatMessages, taUsers, username);
 
 		btnSend = new JButton("Send");
 		btnSend.addActionListener(this);
@@ -106,12 +119,11 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 
 		scrollPane.setViewportView(taChatMessages);
 
-
-//		List<String> users = new ArrayList<String>();
-//		users.add(username);
-//		System.out.println(users);
-//		for (String user : users)
-//			taUsers.append(user + "\n");
+		// List<String> users = new ArrayList<String>();
+		// users.add(username);
+		// System.out.println(users);
+		// for (String user : users)
+		// taUsers.append(user + "\n");
 
 		JMenuBar menuBar_1 = new JMenuBar();
 		setJMenuBar(menuBar_1);
@@ -119,17 +131,14 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 		JMenu mnFile = new JMenu("File");
 		menuBar_1.add(mnFile);
 
-		JMenuItem mntmQuit = new JMenuItem("Quit");
+		mntmSave = new JMenuItem("Save Chat");
+		mntmSave.addActionListener(this);
+		mnFile.add(mntmSave);
+
+		mntmQuit = new JMenuItem("Quit");
+		mntmQuit.addActionListener(this);
 		mnFile.add(mntmQuit);
 
-		JMenu mnHelp = new JMenu("Help");
-		menuBar_1.add(mnHelp);
-
-		JMenuItem mntmAbout = new JMenuItem("About");
-		mnHelp.add(mntmAbout);
-
-		JMenuBar menuBar_2 = new JMenuBar();
-		menuBar_1.add(menuBar_2);
 	}
 
 	// public static void main(String[] args) {
@@ -179,14 +188,31 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 		if (obj == btnSend) {
 			if (!taChatBox.getText().equals("")) {
 
+				Calendar calendar = new GregorianCalendar();
+				System.out.println(sdf.format(calendar.getTime()));
+
 				String message = taChatBox.getText() + "\n";
-	
-				chatClient.displayAll(username + ": " + message);
+
+				chatClient.displayAll(username + ": " + message + " - " + sdf.format(calendar.getTime()));
+				Chat sent = new Chat(username, message, sdf.format(calendar.getTime()));
+				chat.add(sent);
 				// taChatMessages.append(username + ": " +
 				// taChatBox.getText() + "\n");
 				// taChatMessages.append(username + ": " + message + "\n");
+				regTxn.saveChat(sent);
 				taChatBox.setText("");
 				System.out.println("Message Sent");
+			}
+
+		} else if (obj == mntmQuit) {
+			this.dispose();
+
+		} else if (obj == mntmSave) {
+			try {
+				regTxn.logChat(chat);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
 	}
