@@ -139,13 +139,12 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 		mntmQuit.addActionListener(this);
 		mnFile.add(mntmQuit);
 		StringBuffer allChat= new StringBuffer("");
-		List<Chat> tempChat = regTxn.prevChat();
 		
-		for(Chat prev: tempChat ){
-		
+		for(Chat prev: regTxn.prevChat()){
 			allChat.append(prev.getUsername() + ": " + prev.getChat() + " - " + prev.getDate()+"\n");
 		}
 		taChatMessages.setText(allChat.toString());
+		taChatMessages.setText("AAAAAAAAAAA");
 
 	}
 

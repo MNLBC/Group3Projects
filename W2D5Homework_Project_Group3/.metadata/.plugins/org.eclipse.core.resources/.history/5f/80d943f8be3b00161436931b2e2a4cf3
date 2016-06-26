@@ -45,7 +45,6 @@ public class RegistrationTransaction {
 	}
 	
 	public List<Chat> prevChat(){
-		
 		return acctDao.getPreviousChat();
 	}
 

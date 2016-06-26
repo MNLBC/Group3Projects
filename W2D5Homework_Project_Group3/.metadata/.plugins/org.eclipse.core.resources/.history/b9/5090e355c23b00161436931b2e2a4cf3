@@ -164,13 +164,14 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<Chat> getPreviousChat() {
 		// TODO Auto-generated method stub
 		List<Chat> history = new ArrayList<Chat>();
-		String sql = "SELECT * FROM chat_history order by chat_date desc";
+		String sql = "SELECT * FROM chat_history order by chat_date";
 
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				history.add(new Chat(rs.getString("username"),rs.getString("chat_message"),rs.getString("chat_date")));
+				System.out.println(rs.getString("username")+rs.getString("chat_message")+rs.getString("chat_date"));
 			}
 		} catch (SQLSyntaxErrorException se) {
 			// System.out.println("Wrong username or password.");

@@ -170,7 +170,7 @@ public class AccountDAOImpl implements AccountDAO {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
-				history.add(new Chat(rs.getString("username"),rs.getString("chat_message"),rs.getString("chat_date")));
+				history.add(new Chat(rs.getString("username"),rs.getString("chat_message"),rs.getString("chat_date")))
 			}
 		} catch (SQLSyntaxErrorException se) {
 			// System.out.println("Wrong username or password.");

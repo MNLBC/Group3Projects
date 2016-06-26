@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.oocl.mnlbc.group3.connection.DBConn;
@@ -163,21 +162,7 @@ public class AccountDAOImpl implements AccountDAO {
 	@Override
 	public List<Chat> getPreviousChat() {
 		// TODO Auto-generated method stub
-		List<Chat> history = new ArrayList<Chat>();
-		String sql = "SELECT * FROM chat_history order by chat_date desc";
-
-		try {
-			pstmt = (PreparedStatement) conn.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) {
-				history.add(new Chat(rs.getString("username"),rs.getString("chat_message"),rs.getString("chat_date")));
-			}
-		} catch (SQLSyntaxErrorException se) {
-			// System.out.println("Wrong username or password.");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return history;
+		return null;
 	}
 
 	

@@ -164,7 +164,7 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<Chat> getPreviousChat() {
 		// TODO Auto-generated method stub
 		List<Chat> history = new ArrayList<Chat>();
-		String sql = "SELECT * FROM chat_history order by chat_date desc";
+		String sql = "SELECT * FROM chat_history order by chat_date";
 
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
@@ -177,7 +177,7 @@ public class AccountDAOImpl implements AccountDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return history;
+		return null;
 	}
 
 	

@@ -43,11 +43,6 @@ public class RegistrationTransaction {
 
 		return acctDao.validateAccount(user, password);
 	}
-	
-	public List<Chat> prevChat(){
-		
-		return acctDao.getPreviousChat();
-	}
 
 	public  void logChat(List<Chat> chat) throws IOException {
 		sdf = new SimpleDateFormat("hhmmssaMMMddyyyy");
