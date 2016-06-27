@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Regex Expression</title>
+</head>
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<body>
+<div>
+<form style="height: 505px; ">
+<p> Please tab for REgex function</p>
+<b>1 </b></br>
+<input type="text" id="emailValue" placeholder="Email Address" onblur='validateEmail();' style="width: 284px; "> </br>
+<b>2 </b></br>
+	<input type="text" id="dateValue" placeholder="DD/MM/YYYY" onblur='validateDate();' style="width: 287px; "> </br>
+	
+	<b>3 </b></br>
+	<input type="text" id="stringValue"placeholder="Empty"  onblur='testEmpty();' style="width: 284px; "> </br>
+	<button onclick="testEmpty()">Other Function</button></br>
+	<b>4 </b></br>
+	<input type="text" id="changeLetter"placeholder="-"  onblur='change();' style="width: 284px; "> </br>
+	
+	<b>5 </b></br>
+    <input type="text" id="replaceValue"placeholder="Remove Space"  onblur="replaceString();" style="width: 285px; "></br>
+ </br>
+	<b>6 </b></br>
+	<input type="text" id="changeValue" placeholder="Split" onblur='changeString();' style="width: 285px; "> </br>
+	
+	</form>
+	</div>
+	<script type="text/Javascript">
+function validateEmail () { 
+       var email = document.getElementById('emailValue');
+       var eobject = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+if (!eobject.test(email.value)) {
+alert('Please provide a valid email address');
+document.getElementById("emailValue").style.borderColor="red";
+email.focus;
+return false; 
+}else{
+document.getElementById("emailValue").style.borderColor="white";
+}
+
+};
+
+function validateDate() {
+       var date = document.getElementById('dateValue');
+	   var dobject = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+	   
+if (!dobject.test(date.value)) {
+alert('Please provide a valid date');
+document.getElementById("dateValue").style.borderColor="red";
+date.focus;
+return false; 
+}else{
+document.getElementById("dateValue").style.borderColor="white";
+	 
+}
+}
+function testEmpty(){
+
+var regexempty = new RegExp(/^$/);
+if(regexempty.test(document.getElementById('stringValue').value)){
+alert('Field is not empty');
+}else{
+alert('Not empty');
+}
+
+if(document.getElementById('stringValue').value == ''){
+alert('Field is not empty');
+}else{
+alert('Not empty');
+}
+}
+
+
+
+function change(){
+var reg = /\*[eE]/g;
+val = document.getElementById('changeLetter').value;
+val = val.replace(reg, '-');
+document.getElementById('changeLetter').value = val;
+}
+if(document.getElementById('changeLetter').value.contains('*e') && document.getElementById('changeLetter').value.contains('*E')){
+	document.getElementById('changeLetter').value = document.getElementById('changeLetter').value.replace('*e', '-');
+	document.getElementById('changeLetter').value = document.getElementById('changeLetter').value.replace('*E', '-');
+
+};
+function replaceString () {
+ var rep = document.getElementById("replaceValue");
+   var repVal=rep.value.replace(/(\s+)/g, '');
+document.getElementById("replaceValue").value=repVal;
+
+
+};
+
+function changeString() {
+var reg = new RegExp("--");
+val = document.getElementById('changeValue').value;
+var result = val.split(/--/);
+result = result[1] + "--" + result[0];
+document.getElementById('changeValue').value = result;
+
+};
+
+
+
+
+</script>
+</body>
+
+</html>
+
