@@ -1,0 +1,67 @@
+<html>
+<head><title>W3D1 Homework num4</title>
+</head>
+<body>
+
+charAt() : <br>String: <input type = "text" id = "charAt" name = "charAt" value="javascript">&nbsp;&nbsp;&nbsp;index: <input type = "text" id = "index" name = "index"><br><br>
+<button onclick="charAtt()"> charAt </button> <br><br>
+
+concat() : <br>String 1: <input type = "text" id = "concat" name = "concat" value="javascript">&nbsp;&nbsp;&nbsp;String 1: <input type = "text" id = "concat2" name = "concat2"><br><br>
+<button onclick="stringconcat()"> concat </button> <br><br>
+
+indexOf() : <br>String: <input type = "text" id = "inpstr" name = "inpstr" value="javascript">&nbsp;&nbsp;&nbsp;char: <input type = "text" id = "char" name = "char"><br><br>
+<button onclick="indexoff()"> indexOf </button> <br><br>
+
+replace(). Demo string: "Java Script": <br>String to change:  <input type = "text" id = "str1" name = "str1" value="javascript">&nbsp;&nbsp;&nbsp;replacement String: <input type = "text" id = "str2" name = "str2"><br><br>
+<button onclick="replace()"> replace </button> <br><br>
+
+lastIndexOf() : <br>String: <input type = "text" id = "inpstr" name = "inpstr" value="javascript">&nbsp;&nbsp;&nbsp;char: <input type = "text" id = "char2" name = "cha2"><br><br>
+<button onclick="lastIndexOff()"> lastIndexOf </button> <br><br>
+
+endsWith() : <br>String: <input type = "text" id = "inpstr2" name = "inpstr2" value="javascript">&nbsp;&nbsp;&nbsp;char: <input type = "text" id = "inpstr3" name = "inpstr3"><br><br>
+<button onclick="search()"> charAt </button> <br><br>
+
+
+</body>
+<script type="text/javascript">
+	function charAtt() {
+	var input = document.getElementById('charAt').value;
+	var index = document.getElementById('index').value;
+		alert(input.charAt(index));
+}
+
+	function stringconcat() {
+		var input = document.getElementById('concat').value;
+		var input2 = document.getElementById('concat2').value;
+		alert(input.concat(input2));
+}
+
+function indexoff() {
+		var input = document.getElementById('inpstr').value;
+		var char = document.getElementById('char').value;
+		alert(input.indexOf(char));
+}
+
+function replace() {
+		var input = "Java Script";
+		var str1 = document.getElementById('str1').value;
+		var str2 = document.getElementById('str2').value;
+		alert(input.replace(str1,str2));
+}
+
+function lastIndexOff() {
+		var input = document.getElementById('inpstr').value;
+		var char = document.getElementById('char2').value;
+		alert(input.lastIndexOf(char));
+}
+
+function search() {
+		var input = document.getElementById('inpstr2').value;
+		var input2 = document.getElementById('inpstr3').value;
+		alert(input.endsWith(input2));
+}
+
+</script>
+
+</html>
+
