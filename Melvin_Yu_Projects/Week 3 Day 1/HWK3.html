@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Week 3 Day 1 Homework2</title>
+<script type="text/javascript">
+	function Clock() {
+		var time = new Date();
+
+		var h = time.getHours();
+		var m = time.getMinutes();
+		var s = time.getSeconds();
+		if (h < 10) {
+            h = "0" + h;
+        }
+        if (m < 10) {
+            m = "0" + m;
+        }
+        if (s < 10) {
+            s = "0" + s;
+        }
+        document.getElementById("clock").innerHTML= h+":"+m+":"+s;
+	}
+</script>
+</head>
+<body onload="setInterval('Clock()',100)">
+	<h1 id="clock"></h1>
+</body>
+</html>

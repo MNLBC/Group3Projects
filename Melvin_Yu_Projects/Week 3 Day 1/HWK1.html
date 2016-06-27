@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Week 3 Day 1 Homework1</title>
+<meta http-equiv="Content Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+	function emailValidate() {
+		var click = document.getElementById('validateEmail').onclick;
+		var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+		var email = document.getElementById("email").value;
+		if (pattern.test(email)) {
+			return document.getElementById("result1").innerHTML = 'Email pattern is Valid';
+		} else {
+			return document.getElementById("result1").innerHTML = 'Email pattern is Not valid';
+		}
+	}
+	function emailValidate2() {
+		var click = document.getElementById('validateEmail2').onclick;
+		var email = document.getElementById("email").value;
+		if (email.indexOf("@") != -1 && email.indexOf(".") != -1) {
+			return document.getElementById("result1").innerHTML = 'Email pattern is Valid';
+		} else {
+			return document.getElementById("result1").innerHTML = 'Email pattern is Not valid';
+		}
+	}
+	function dateValidate() {
+		var click = document.getElementById('valiDate').onclick;
+		var pattern = /^\d{2}[./-]\d{2}[./-]\d{4}$/;
+		var date = document.getElementById("date").value;
+		if (pattern.test(date)) {
+			return document.getElementById("result2").innerHTML = 'Date pattern is Valid';
+		} else {
+			return document.getElementById("result2").innerHTML = 'Date pattern is Not valid';
+		}
+	}
+	function dateValidate2() {
+		var click = document.getElementById('valiDate2').onclick;
+		var date = document.getElementById("date").value;
+		var temp = date.split("-");
+		
+		if (date.indexOf("-")!=-1) {
+			if(temp[0]<31 && temp[1]<12 && temp[2]<9999 && temp[2]>1000){
+			return document.getElementById("result2").innerHTML = 'Date pattern is Valid';
+			}
+			else {
+				return document.getElementById("result2").innerHTML = 'Date pattern is Not valid';
+			}
+		} else {
+			return document.getElementById("result2").innerHTML = 'Date pattern is Not valid';
+		}
+	}
+
+	function blankValidate() {
+		var click = document.getElementById('validateBlank').onclick;
+		var pattern = new RegExp("^$");
+		var any = document.getElementById("any").value;
+		if (pattern.test(any)) {
+			return document.getElementById("result3").innerHTML = 'Input is blank';
+		} else {
+			return document.getElementById("result3").innerHTML = 'You have an input';
+		}
+	}
+	function blankValidate2() {
+		var click = document.getElementById('validateBlank2').onclick;
+		var any = document.getElementById("any").value;
+		if (any == "") {
+			return document.getElementById("result3").innerHTML = 'Input is blank';
+		} else {
+			return document.getElementById("result3").innerHTML = 'You have an input';
+		}
+	}
+	function replaceText() {
+		var click = document.getElementById('replaceBtn').onclick;
+		var pattern = /\**e|\**E/g;
+		var rep = document.getElementById("rep").value;
+
+		return document.getElementById("result4").innerHTML = 'Replaced e* with - : '
+				+ rep.replace(pattern, '-');
+	}
+
+	function replaceText2() {
+		var click = document.getElementById('replaceBtn2').onclick;
+		var rep = document.getElementById("rep").value.split("*e");
+		var rep2 = rep[1].split("*E");
+
+		return document.getElementById("result4").innerHTML = 'Replaced e* with - : '
+				+ rep[0] + '-' + rep2[0] + '-' + rep2[1];
+	}
+
+	function regexTrimSpace() {
+		var click = document.getElementById('regTrimBtn').onclick;
+		var pattern = /^\s+|\s+$/g;
+		var regTrim = document.getElementById("regTrim").value;
+
+		return document.getElementById("regTrim").value = regTrim.replace(
+				pattern, '');
+	}
+	function regexTrimSpace2() {
+		var click = document.getElementById('regTrimBtn2').onclick;
+		var regTrim = document.getElementById("regTrim").value;
+
+		return document.getElementById("regTrim").value = regTrim.trim();
+	}
+
+	function switchText() {
+		var click = document.getElementById('switchTxtBtn').onclick;
+		var pattern = /(\w+)--(\w+)/g;
+		var switchTxt = document.getElementById("switchTxt").value;
+
+		return document.getElementById("switchTxt").value = switchTxt.replace(
+				pattern, '$2--$1');
+	}
+	function switchText2() {
+		var click = document.getElementById('switchTxtBtn2').onclick;
+		var switchTxt = document.getElementById("switchTxt").value.split("--");
+
+		return document.getElementById("switchTxt").value = switchTxt[1] + "--"
+				+ switchTxt[0];
+	}
+</script>
+</head>
+<body>
+	<table border=1>
+		<tr>
+			<th>Regexp Way</th>
+			<th>Non Regexp Way</th>
+		</tr>
+		<tr>
+			<td>
+				<div>
+					<h3>Email</h3>
+					<p>
+						<input type="text" id="email" name="email">&nbsp;
+						&nbsp;&nbsp;<input type="submit" id="validateEmail"
+							value="Validate Email" onclick="emailValidate()">
+					</p>
+					<p id="result1"></p>
+				</div>
+			</td>
+			<td><input type="submit" id="validateEmail2"
+				value="Validate Email" onclick="emailValidate2()"></td>
+		</tr>
+		<tr>
+			<td>
+				<div>
+					<h3>Date</h3>
+					<p>
+						<input type="text" id="date" name="date"
+							placeholder="dd-mm-yyyy eg:22-03-1981"> &nbsp;
+						&nbsp;&nbsp;<input type="submit" id="valiDate"
+							value="Validate Date" onclick="dateValidate()">
+
+					</p>
+					<p id="result2"></p>
+				</div>
+			</td>
+			<td><input type="submit" id="valiDate2" value="Validate Date"
+				onclick="dateValidate2()"></td>
+		</tr>
+		<tr>
+			<td>
+				<div>
+					<h3>Blank</h3>
+					<p>
+						<input type="text" id="any" name="any">&nbsp; &nbsp;&nbsp;<input
+							type="submit" id="validateBlank" value="Validate Input"
+							onclick="blankValidate()">
+					</p>
+					<p id="result3"></p>
+				</div>
+			</td>
+			<td><input type="submit" id="validateBlank2"
+				value="Validate Input" onclick="blankValidate2()"></td>
+		</tr>
+		<tr>
+			<td>
+				<div>
+					<h3>Replace</h3>
+					<p>
+						<input type="text" id="rep" name="rep" value="abc *ec *Eab">
+
+						&nbsp; &nbsp;&nbsp; <input type="submit" id="replaceBtn"
+							value="Replace" onclick="replaceText()">
+					</p>
+					<p id="result4"></p>
+				</div>
+			</td>
+			<td><input type="submit" id="replaceBtn2" value="Replace"
+				onclick="replaceText2()"></td>
+		</tr>
+		<tr>
+			<td>
+				<div>
+					<h3>Trim</h3>
+					<p>
+						<input type="text" id="regTrim" name="regTrim"> &nbsp;
+						&nbsp;&nbsp; <input type="submit" id="regTrimBtn"
+							value="RegEx Trim" onclick="regexTrimSpace()">
+					</p>
+
+				</div>
+			</td>
+			<td><input type="submit" id="regTrimBtn2" value="RegEx Trim"
+				onclick="regexTrimSpace2()"></td>
+		</tr>
+		<tr>
+			<td>
+				<div>
+					<h3>Switch</h3>
+					<p>
+						<input type="text" id="switchTxt" name="switchTxt"
+							value="java--script"> &nbsp; &nbsp;&nbsp; <input
+							type="submit" id="switchTxtBtn" value="Switch"
+							onclick="switchText()">
+					</p>
+
+				</div>
+			</td>
+			<td><input type="submit" id="switchTxtBtn2" value="Switch"
+				onclick="switchText2()"></td>
+		</tr>
+	</table>
+</body>
+</html>

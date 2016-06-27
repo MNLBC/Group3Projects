@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Week 3 Day 1 Number 4</title>
+</head>
+<body>
+<h1>JavaScript String object methods</h1>
+<h2>lastIndexOf()</h2>
+<p>The lastIndexOf() method returns the index of the last occurrence of a specified text in a string<br></p>
+<p id='string'>This will locate the word "will" in this sentence.</p>
+<button onclick="lastIndexOf()">Enter</button>
+<p id="lastIndexOf"></p>
+
+<h2>indexOf()</h2>
+<p>The indexOf() method returns the index of (the position of) the first occurrence of a specified text in a string<br></p>
+<p id='string2'>This will locate the word "will" in this sentence.</p>
+<button onclick="indexOf()">Enter</button>
+<p id="indexOf"></p>
+
+<h2>search()</h2>
+<p>The search() method searches a string for a specified value and returns the position of the match<br></p>
+<p id='string3'>This will locate the word "will" in this sentence.</p>
+<button onclick="search()">Enter</button>
+<p id="search"></p>
+
+<h2>slice()</h2>
+<p>slice() extracts a part of a string and returns the extracted part in a new string.
+The method takes 2 parameters: the starting index (position), and the ending index (position).
+This example slices out a portion of a string from position 7 to position 13<br>
+str = "Jerica, Natividad, Flores"</p>
+<button onclick="slice()">Enter</button>
+<p id="slice"></p>
+
+<h2>replace()</h2>
+<p>The replace() method replaces a specified value with another value in a string<br></p>
+<p id='replace'>Jerica will be replaced by Flores</p>
+<button onclick="replace()">Enter</button>
+<p id="replace"></p>
+
+<h2>concat()</h2>
+<p>The concat() method joins two or more strings. 'Jerica' and 'Flores' will be concatenated.</p>
+<button onclick="concat()">Enter</button>
+<p id="concat"></p>
+
+<script>
+//String Length
+function lastIndexOf(){
+	    var str = document.getElementById("string").innerHTML;
+	    var pos = str.lastIndexOf("will");
+	    document.getElementById("lastIndexOf").innerHTML = pos;
+}
+
+//String indexOf
+function indexOf() {
+    var str = document.getElementById("string2").innerHTML;
+    var pos = str.indexOf("will");
+    document.getElementById("indexOf").innerHTML = pos;
+}
+
+//String search
+function search() {
+    var str = document.getElementById("string3").innerHTML;
+    var pos = str.search("will");
+    document.getElementById("search").innerHTML = pos;
+}
+
+//String slice
+function slice(){
+	var str = "Jerica, Natividad, Flores";
+	document.getElementById("slice").innerHTML = str.slice(7,13);
+}
+
+//String replace
+function replace(){
+	var str = document.getElementById("replace").innerHTML;
+    var txt = str.replace("Jerica","Flores");
+    document.getElementById("replace").innerHTML = txt;
+}
+
+//String concat
+function concat(){
+	var text1 = "Jerica";
+	var text2 = "Flores";
+	document.getElementById("concat").innerHTML = text1.concat(" ",text2);
+}
+
+</script>
+
+</body>
+</html>

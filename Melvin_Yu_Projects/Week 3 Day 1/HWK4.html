@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Week 3 Day 1 Homework4</title>
+<script type="text/javascript">
+var value = '   Awe@SOme    ';
+
+function init(){
+	document.getElementById("result").innerHTML= value;
+}
+	function stringTrim() {
+	
+
+	alert("Initial Value: "+value);
+	alert("Trimmed Value: "+value.trim());
+		
+	}
+function stringConcat() {
+		alert(value.concat("Melvin"));
+	}
+function stringindexOf() {
+	alert(value.indexOf("@"));
+}
+function stringSplit() {
+	var splitter = value.split("@");
+	alert("First Value: "+splitter[0]+" - 2nd Value: "+splitter[1]);
+}
+function stringUpper() {
+	alert(value.toUpperCase());
+}
+function stringLower() {
+	alert(value.toLowerCase());
+}
+</script>
+</head>
+<body onload="init()">
+<h1 id="result"></h1>
+<input type="submit" value="TRIM" onclick="stringTrim()">
+<input type="submit" value="CONCAT" onclick="stringConcat()">
+<input type="submit" value="INDEXOF" onclick="stringindexOf()">
+<input type="submit" value="SPLIT" onclick="stringSplit()">
+<input type="submit" value="UPPER" onclick="stringUpper()">
+<input type="submit" value="LOWER" onclick="stringLower()">
+</body>
+</html>

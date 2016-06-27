@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Week 3 Day 1 Homework2</title>
+<script type="text/javascript">
+
+	function Person() {
+	this.name = function(){
+		alert("My Name is Melvin");
+	};
+	}
+	function Employee() {
+		Person.apply(this, arguments);
+	} 
+	function callSuperClass(){
+		var person= new Person();
+		person.name();
+	}
+	function callSubClass(){
+		var emp = new Employee();
+		emp.name();
+	}
+</script>
+</head>
+<body >
+<input type="submit" value="SUPER CLASS" onclick="callSuperClass()">
+<input type="submit" value="SUB CLASS" onclick="callSubClass()">
+</body>
+</html>
