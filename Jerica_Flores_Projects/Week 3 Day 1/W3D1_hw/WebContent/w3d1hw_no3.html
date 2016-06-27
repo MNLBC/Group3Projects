@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>Week 3 Day 1 Number 3</title>
+<link href='http://fonts.googleapis.com/css?family=Abel'
+	rel='stylesheet' type='text/css'>
+<style type="text/css">
+body {
+	font-family: 'Abel';
+	font-size: 22px;
+}
+
+#nav {
+	line-height: 30px;
+	background-color: #808080;
+	height: 170px;
+	width: 200px;
+	float: left;
+	padding: 5px;
+}
+</style>
+<script type="text/javascript">
+	function displayClock() {
+
+			var currentTime = new Date();
+			var currentHours = currentTime.getHours();
+			var currentMinutes = currentTime.getMinutes();
+			var currentSeconds = currentTime.getSeconds();
+			currentMinutes = (currentMinutes < 10 ? "0" : "") + currentMinutes;
+			currentSeconds = (currentSeconds < 10 ? "0" : "") + currentSeconds;
+			var timeOfDay = (currentHours < 12) ? "AM" : "PM";
+			currentHours = (currentHours > 12) ? currentHours - 12
+					: currentHours;
+			currentHours = (currentHours == 0) ? 12 : currentHours;
+			var currentTimeString = currentHours + ":" + currentMinutes + ":"
+					+ currentSeconds + " " + timeOfDay;
+			document.getElementById("clock").firstChild.nodeValue = currentTimeString;
+		
+	}
+</script>
+</head>
+<body onload="displayClock(); setInterval('displayClock()', 1000 )">
+<h1>Number 2</h1>
+	<div id="nav">
+		<h1>CLOCK</h1>
+		<span id="clock">&nbsp;</span>
+	</div>
+</body>
+</html>

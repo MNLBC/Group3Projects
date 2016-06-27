@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Week 3 Day 1 Number 1</title>
+</head>
+<body>
+	<h1>1. Check Email if Valid</h1>
+	Email:<input type='text' id='txtEmail' />
+	<input type='submit' name='submit' onclick='validateEmail()' value="Validate" />
+	<input type='submit' name='submit' onclick='validateEmail2()' value="Validate2" />
+	<h1>2. Check Date if Valid</h1>
+	Enter a valid date: [dd/mm/yyyy or dd-mm-yyyy format]<input type='text' id='txtDate'/>
+	<input type='submit' name='submit' onclick='validateDate()' value="Validate"/>
+	<input type='submit' name='submit' onclick='validateDate2()' value="Validate2"/>
+	<h1>3. Check Given String if Empty</h1>
+	Enter a text:<input type='text' id='txtInput'/>
+	<input type='submit' name='submit' onclick='validateString()' value="Validate1"/>
+	<input type='submit' name='submit' onclick='validateString2()' value="Validate2"/>
+	<h1>4. Replacing the String</h1>
+	String to be replaced: <input type='text' id='txtString' value='abc *ec *Eab'/>
+	<input type='submit' name='submit' value='Replace' onclick='replaceString()'/>
+	<input type='submit' name='submit' value='Replace2' onclick='replaceString2()'/>
+	<h1>5. Removing Spaces on Both Ends</h1>
+	<input type='text' id='strSpace'/>
+	<input type='submit' name='submit' value='Trim Spaces1' onclick='trimSpaces()'/>
+	<input type='submit' name='submit' value='Trim Spaces2' onclick='trimSpaces2()'/>
+	<h1>6. Exchanging strings</h1>
+	<input type='text' id='exString' value='java--script'/>
+	<input type='submit' name='submit' value='Exchange1' onclick='exchangeString()'/>
+	<input type='submit' name='submit' value='Exchange2' onclick='exchangeString2()'/>
+</body>
+<script type="text/javascript">
+
+	//number 1 regex
+	function validateEmail() {
+		var txtEmail = document.getElementById('txtEmail');
+		var regexEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+		if (!regexEmail.test(txtEmail.value)) {
+			alert("Please provide a valid email address");
+			txtEmail.focus();
+		} else {
+			alert("You entered a valid email address.");
+		}
+	}
+	
+	//number 1 other way
+	function validateEmail2(){
+		var validation = validEmail(document.getElementById('txtEmail').value);
+		if (validation){
+			alert("You entered a valid email address.");
+		}else{
+			alert("Please provide a valid email address");
+		}
+		}
+	
+	function validEmail(email){
+   		var emailParts = email.split('@');
+   		if(emailParts.length !== 2) {
+       		 return false;   
+    	}
+    	var emailName = emailParts[0];
+    	var emailDomain = emailParts[1];
+
+    	if(emailName.length < 1 || emailDomain.length < 3) {
+        	return false;
+    	}	
+
+   	 var validChars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','.','0','1','2','3','4','5','6','7','8','9','_','-'];
+
+    	for(var i = 0; i < emailName.length; i += 1) {
+        if(validChars.indexOf(emailName.charAt(i)) < 0 ) {
+            return false;   
+        }
+    }
+    for(var j = 0; j < emailDomain.length; j += 1) {
+        if(validChars.indexOf(emailDomain.charAt(j)) < 0) {
+            return false;   
+        }
+    }
+   		if(emailDomain.indexOf('.') <= 0) {
+        	return false;
+    }	
+
+   	 	var emailDomainParts = emailDomain.split('.');
+    	if(emailDomainParts[emailDomainParts.length - 1].length < 2) {
+        	return false;   
+    }
+    	return true;
+	}
+	
+	//number 2 regex
+	function validateDate(){
+		var txtDate = document.getElementById('txtDate');
+		var regexDate = /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/m;
+
+		if (!regexDate.test(txtDate.value)) {
+			alert("Please provide a valid date format.");
+			txtDate.focus();
+		} else {
+			alert("You entered a valid date format.");
+		}
+		}
+	
+	//number 2 other way
+	function validateDate2(){
+		var datearr = document.getElementById('txtDate').value.split('/');
+		if(datearr[0] > 0 && datearr[0] < 31){
+			if(datearr[1] > 0 && datearr[1] < 13){
+				if(datearr[2] < 2017){
+					alert("You entered a valid date format.");
+				}else{
+					alert("Please provide a valid date format.");
+				}
+			}else{
+				alert("Please provide a valid date format.");
+			}
+		}else{
+			alert("Please provide a valid date format.");
+		}
+	}
+		
+	
+	
+	//number 3 regex
+	function validateString(){
+		var txtInput = document.getElementById('txtInput');
+		var regexString = /^$/;
+
+		if (!regexString.test(txtInput.value)) {
+			alert("Input is not empty.");
+		} else {
+			alert("Input is empty.");
+			txtInput.focus();
+		}
+		}
+	
+	//number 3 other way
+	function validateString2(){
+		var txtInput = document.getElementById('txtInput');
+
+		if (txtInput.value !== "") {
+			alert("Input is not empty.");
+			
+		} else {
+			alert("Input is empty.");
+			txtInput.focus();
+		}
+		}
+		
+	//number 4 regex
+	function replaceString(){
+			var txtString = document.getElementById('txtString').value;
+			txtString = txtString.replace(/\**e|\**E/g,"-");
+			document.getElementById('txtString').value = txtString;	
+		}
+	
+	//number 4 other way
+	function replaceString2() {
+		var txtString = (document.getElementById('txtString').value).toUpperCase(); 
+		var ind = txtString.indexOf("*E");
+			while(ind != -1){
+				txtString = txtString.replace("*E", "-");
+				ind = txtString.indexOf("*E");
+		}	
+			document.getElementById('txtString').value = txtString.toLowerCase();
+	}
+	
+	//number 5 regex
+	function trimSpaces(){
+		var strSpace = document.getElementById('strSpace').value;
+		var regexSpace = /^\s+|\s+$/g;
+		strSpace = strSpace.replace(regexSpace, "");
+		document.getElementById('strSpace').value = strSpace;
+
+	}
+	
+	//number 5 other way
+	function trimSpaces2(){
+			var strSpace = document.getElementById('strSpace').value;
+			strSpace = strSpace.trim();
+			document.getElementById('strSpace').value = strSpace;	
+		}
+	
+	//number 6 regex
+	function exchangeString(){
+			var exString = document.getElementById('exString').value;
+			exString = exString.replace(/(\w+)--(\w+)/g, '$2--$1');
+			document.getElementById('exString').value = exString;	
+		}
+		
+	//number 6 other way
+	function exchangeString2(){
+			var exString = document.getElementById('exString').value;
+			var ind = exString.indexOf("--");
+			var firstString = exString.substring(0,ind);
+			var lastString = exString.substring(ind+2, exString.length);
+			exString = exString.replace(lastString, firstString);
+			exString = exString.replace(firstString, lastString);
+			document.getElementById('exString').value = exString;
+			}
+</script>
+</html>
