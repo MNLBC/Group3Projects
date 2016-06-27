@@ -2,8 +2,17 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="com.oocl.mnlbc.group3.dao.AccountDAOImpl"/>
 <fullyQualifiedTypeName name="javax.swing.DefaultListModel"/>
-<fullyQualifiedTypeName name="java.lang.String"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.awt.List"/>
+<fullyQualifiedTypeName name="com.oocl.mnlbc.group3.server.ChatClient"/>
+<fullyQualifiedTypeName name="com.oocl.mnlbc.group3.server.ChatServer"/>
+<fullyQualifiedTypeName name="java.io.PrintStream"/>
+<fullyQualifiedTypeName name="javax.swing.border.EmptyBorder"/>
+<fullyQualifiedTypeName name="javax.management.openmbean.TabularDataSupport"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="com.oocl.mnlbc.group3.ui.RegistrationWindow"/>
+<fullyQualifiedTypeName name="com.oocl.mnlbc.group3.transaction.RegistrationTransaction"/>
+<fullyQualifiedTypeName name="com.oocl.mnlbc.group3.model.Chat"/>
 <fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.lang.StringBuffer"/>
 </qualifiedTypeNameHistroy>

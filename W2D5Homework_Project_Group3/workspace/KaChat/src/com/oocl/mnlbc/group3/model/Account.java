@@ -1,5 +1,9 @@
 package com.oocl.mnlbc.group3.model;
-
+/**
+ * 
+ * @author brionse
+ *
+ */
 public class Account {
 
 	private int accountId;

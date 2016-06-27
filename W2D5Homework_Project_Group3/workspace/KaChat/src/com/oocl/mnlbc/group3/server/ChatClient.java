@@ -32,23 +32,28 @@ public class ChatClient {
 	private JTextArea txtAreaUsers;
 	private String username;
 	private List<String> users = new ArrayList<String>();
+
 	//
 	// public static void main(String args[]) {
 	// ChatClient chatClient = new ChatClient();
 	//
 	// }
-
+	/**
+	 * 
+	 * @param txtAreaChat
+	 * @param txtAreaUsers
+	 * @param username
+	 */
 	public ChatClient(JTextArea txtAreaChat, JTextArea txtAreaUsers, String username) {
 		this.taChatMessages = txtAreaChat;
 		this.txtAreaUsers = txtAreaUsers;
 		this.username = username;
-		
-		
+
 		users.add(username);
 		System.out.println(users);
 		for (String user : users)
 			txtAreaUsers.append(user + "\n");
-		
+
 		String serverIP = System.getProperty("serverip");
 		if (serverIP != null) {
 			this.serverIP = serverIP;
@@ -73,6 +78,12 @@ public class ChatClient {
 		}
 	}
 
+	/**
+	 * 
+	 * inner class for thread running the Input Listener for the messages sent
+	 * by the server
+	 *
+	 */
 	private class RemoteReader implements Runnable {
 		private boolean keepListening = true;
 		String message;
@@ -96,14 +107,26 @@ public class ChatClient {
 
 	}
 
+	/**
+	 * 
+	 * @return BufferedReader
+	 */
 	public BufferedReader getServerIn() {
 		return this.serverIn;
 	}
 
-	public void displayAll(String message) {
+	/**
+	 * 
+	 * @param message
+	 */
+	public void sendMessage(String message) {
 		serverOut.println(message);
 	}
 
+	/**
+	 * 
+	 * @return PrintStream
+	 */
 	public PrintStream getServerOut() {
 		return this.serverOut;
 	}

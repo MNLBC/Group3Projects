@@ -5,6 +5,11 @@ import java.net.*;
 import java.util.*;
 import java.applet.*;
 
+/**]
+ * 
+ * @author vergajo
+ *
+ */
 public class ChatServer implements Runnable {
 
 	private int port;
@@ -12,25 +17,37 @@ public class ChatServer implements Runnable {
 	private int numConnections = 0;
 	private int maxConnections;
 	private Vector connections = null;
-
+	private List<String> users;
+/**
+ * Constructor of Chat Server
+ */
 	public ChatServer() {
 		GetServerProperty server = new GetServerProperty();
 		this.port = Integer.parseInt(server.getPort());
 		this.maxConnections = Integer.parseInt(server.getMaxConnections());
 		this.backlog = Integer.parseInt(server.getMaxBackLog());
+		
+		
 	}
-
+/**
+ * Main of server
+ * @param args
+ */
 	public static void main(String[] args) {
 		ChatServer cs = new ChatServer();
 		cs.go();
 	}
-
+/**
+ * runs the thread for receiving connections
+ */
 	public void go() {
 		this.connections = new Vector(maxConnections);
 		Thread t = new Thread(this);
 		t.start();
 	}
-
+/**
+ * Runnable - Thread
+ */
 	public void run() {
 		ServerSocket serverSocket = null;
 		Socket communicationSocket;
@@ -57,7 +74,10 @@ public class ChatServer implements Runnable {
 			}
 		}
 	}
-
+/**
+ * 
+ * @param connection
+ */
 	public void HandleConnection(Socket connection) {
 		synchronized (this) {
 			while (numConnections == maxConnections) {
@@ -74,13 +94,19 @@ public class ChatServer implements Runnable {
 		t.start();
 		connections.addElement(con);
 	}
-
+/**
+ * 
+ * @param connection
+ */
 	public synchronized void connectionClosed(Connection connection) {
 		connections.removeElement(connection);
 		numConnections--;
 		notify();
 	}
-
+/**
+ * 
+ * @param message
+ */
 	public void sendToAllClients(String message) {
 		Enumeration cons = connections.elements();
 		while (cons.hasMoreElements()) {
@@ -89,6 +115,11 @@ public class ChatServer implements Runnable {
 		}
 	}
 
+	/**
+	 * 
+	 * inner class for receiving connection thread
+	 *
+	 */
 	class Connection implements Runnable {
 
 		private Socket communicationSocket = null;
@@ -104,17 +135,13 @@ public class ChatServer implements Runnable {
 				out = new OutputStreamWriter(socketOutput);
 				socketInput = communicationSocket.getInputStream();
 				in = new BufferedReader(new InputStreamReader(socketInput));
-			//	sendMessage("aww");
 				String input = null;
 				String message = "";
+				String user="";
 				while ((input = in.readLine()) != null) {
-						ChatServer.this.sendToAllClients(input + "\n");
+					ChatServer.this.sendToAllClients(input + "\n");
 
-				}
-				/*
-				 * InetAddress address = communicationSocket.getInetAddress();
-				 * String hostname = address.getHostName(); String input = null;
-				 */
+			}
 
 			} catch (Exception e) {
 			} finally {
@@ -130,11 +157,17 @@ public class ChatServer implements Runnable {
 				ChatServer.this.connectionClosed(this);
 			}
 		}
-
+/**
+ * 
+ * @param s
+ */
 		public Connection(Socket s) {
 			communicationSocket = s;
 		}
-
+/**
+ * 
+ * @param message
+ */
 		public void sendMessage(String message) {
 			try {
 				out.write(message);

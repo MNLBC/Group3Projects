@@ -26,15 +26,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import com.oocl.mnlbc.group3.model.Chat;
 import com.oocl.mnlbc.group3.server.ChatClient;
-import com.oocl.mnlbc.group3.transaction.RegistrationTransaction;
+import com.oocl.mnlbc.group3.transaction.ChatTransaction;
+
+
 
 /**
  * 
- */
-
-/**
- * @author VERGAJO
- *
+ * @author vergajo
+ * Chat Window UI Class
  */
 public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 	private JMenuBar menuBar;
@@ -47,23 +46,25 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 	private SimpleDateFormat sdf;
 	private JMenuItem mntmSave;
 	private JMenuItem mntmQuit;
-	RegistrationTransaction regTxn;
-
+	ChatTransaction regTxn;
+/**
+ * Constructor of ChatWindow Class
+ * @param username
+ */
 	public ChatWindow(String username) {
 		this.username = username;
 		// ChatClient = new ChatClient();
 		init();
 
-		// initClient();
 
 	}
 
-	// public void initClient() {
-	//
-	// }
 
+/**
+ * initialization method to be called in Constructor
+ */
 	public void init() {
-		regTxn = new RegistrationTransaction();
+		regTxn = new ChatTransaction();
 		chat = new ArrayList<Chat>();
 		sdf = new SimpleDateFormat("hh:mm:ssa MMM/dd/yyyy");
 		setResizable(false);
@@ -119,11 +120,7 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 
 		scrollPane.setViewportView(taChatMessages);
 
-		// List<String> users = new ArrayList<String>();
-		// users.add(username);
-		// System.out.println(users);
-		// for (String user : users)
-		// taUsers.append(user + "\n");
+	
 
 		JMenuBar menuBar_1 = new JMenuBar();
 		setJMenuBar(menuBar_1);
@@ -138,58 +135,25 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 		mntmQuit = new JMenuItem("Quit");
 		mntmQuit.addActionListener(this);
 		mnFile.add(mntmQuit);
-		StringBuffer allChat= new StringBuffer("");
+		
+		/*
+		 * displays previous chat saved in the DB
+		 */
+		StringBuffer allChat = new StringBuffer("");
 		List<Chat> tempChat = regTxn.prevChat();
-		
-		for(Chat prev: tempChat ){
-		
-			allChat.append(prev.getUsername() + ": " + prev.getChat() + " - " + prev.getDate()+"\n");
+
+		for (Chat prev : tempChat) {
+
+			allChat.append(prev.getUsername() + ": " + prev.getChat() + " - " + prev.getDate() + "\n");
 		}
 		taChatMessages.setText(allChat.toString());
 
 	}
 
-	// public static void main(String[] args) {
-	// // TODO Auto-generated method stub
-	// try {
-	// for (javax.swing.UIManager.LookAndFeelInfo info :
-	// javax.swing.UIManager.getInstalledLookAndFeels()) {
-	// if ("Nimbus".equals(info.getName())) {
-	// javax.swing.UIManager.setLookAndFeel(info.getClassName());
-	// break;
-	// }
-	// }
-	// } catch (ClassNotFoundException ex) {
-	// java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-	// null,
-	// ex);
-	// } catch (InstantiationException ex) {
-	// java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-	// null,
-	// ex);
-	// } catch (IllegalAccessException ex) {
-	// java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-	// null,
-	// ex);
-	// } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	// java.util.logging.Logger.getLogger(ChatWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-	// null,
-	// ex);
-	// }
-	//
-	// EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// try {
-	// ChatWindow frame = new ChatWindow();
-	// frame.setVisible(true);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
-
 	@Override
+	/**
+	 * this gets all the action performed in the objects in the UI
+	 */
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		Object obj = e.getSource();
@@ -198,16 +162,16 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 
 				Calendar calendar = new GregorianCalendar();
 				System.out.println(sdf.format(calendar.getTime()));
-
+				
 				String message = taChatBox.getText() + "\n";
+				chatClient.sendMessage(username + ": " + message + " - " + sdf.format(calendar.getTime()));//Message Sending to server
+				/*
+				 * Code below adds the users chat to a chat instance class to be saved in the db
+				 */
 
-				chatClient.displayAll(username + ": " + message + " - " + sdf.format(calendar.getTime()));
 				Chat sent = new Chat(username, message, sdf.format(calendar.getTime()));
 				chat.add(sent);
-				// taChatMessages.append(username + ": " +
-				// taChatBox.getText() + "\n");
-				// taChatMessages.append(username + ": " + message + "\n");
-				regTxn.saveChat(sent);
+				regTxn.saveChat(sent);//Save List of Chat to DB
 				taChatBox.setText("");
 				System.out.println("Message Sent");
 			}
@@ -217,7 +181,12 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 
 		} else if (obj == mntmSave) {
 			try {
-				regTxn.logChat(chat);
+				/*
+				 * Save chat as html file
+				 */
+				List<Chat> tempChat = regTxn.prevChat();
+				regTxn.logChat(tempChat);
+
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

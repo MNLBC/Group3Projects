@@ -19,10 +19,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import com.oocl.mnlbc.group3.transaction.RegistrationTransaction;
+import com.oocl.mnlbc.group3.transaction.ChatTransaction;
 
 public class RegistrationWindow extends JFrame implements ActionListener, KeyListener {
-	RegistrationTransaction regTxn;
+	ChatTransaction regTxn;
 	private JFrame frame;
 	private JTextField txtFullname;
 	private JLabel lblFullname;
@@ -82,7 +82,7 @@ public class RegistrationWindow extends JFrame implements ActionListener, KeyLis
 	 */
 	public RegistrationWindow() {
 		initialize();
-		regTxn = new RegistrationTransaction();
+		regTxn = new ChatTransaction();
 
 	}
 
@@ -371,11 +371,15 @@ public class RegistrationWindow extends JFrame implements ActionListener, KeyLis
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		
 		Object obj = e.getSource();
 		boolean usernameValid = false;
 		if (obj == btnClear) {
 			clearFields();
 		} else if (obj == btnSave) {
+			/**
+			 * inserting of data and validating if user exist and completed fields
+			 */
 			if (validateFields()) {
 				usernameValid = regTxn.checkUsername(txtUsername.getText()); 
 				if (usernameValid){
