@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+	Author - Brionse
+	verion - 1.0
+-->
+<html>
+<head><title>Homework 3</title>
+<script type="text/javascript">
+
+function clock ( ){
+	var currentTime = new Date ( );
+	var currentHours = currentTime.getHours ( );
+	var currentMinutes = currentTime.getMinutes ( );
+	var currentSeconds = currentTime.getSeconds ( );
+	
+	currentMinutes = ( currentMinutes < 10 ? "0" : "" ) + currentMinutes;
+	currentSeconds = ( currentSeconds < 10 ? "0" : "" ) + currentSeconds;
+	
+	var timeOfDay = ( currentHours < 12 ) ? "AM" : "PM";
+	currentHours = ( currentHours > 12 ) ? currentHours - 12 : currentHours;
+	currentHours = ( currentHours == 0 ) ? 12 : currentHours;
+	
+	var currentTimeString = currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + timeOfDay;
+	document.getElementById("clock").firstChild.nodeValue = currentTimeString;
+
+}
+</script>
+</head>
+<body onload="clock(); setInterval('clock()', 1000 )">
+<h1>Running clock using javascript </h1>
+<h1><p id = "clock">Date <br> </p>
+</body>
+</html>
