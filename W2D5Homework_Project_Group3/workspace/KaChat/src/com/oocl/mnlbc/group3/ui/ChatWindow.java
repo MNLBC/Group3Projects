@@ -92,8 +92,7 @@ public class ChatWindow extends JFrame implements ActionListener, KeyListener {
 						.addComponent(btnSend, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
 					.addContainerGap())
 		);
-		
-		
+
 		scrollPane_1.setViewportView(taChatBox);
 		panel.setLayout(gl_panel);
 

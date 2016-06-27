@@ -270,8 +270,6 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener {
 			this.login();
 		} 
 		else if (obj == btnRegister){
-			
-			
 			RegistrationWindow regFrame = new RegistrationWindow();
 			regFrame.setVisible(true);
 			this.dispose();
