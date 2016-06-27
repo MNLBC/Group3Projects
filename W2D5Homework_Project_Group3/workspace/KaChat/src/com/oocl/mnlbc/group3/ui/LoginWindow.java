@@ -27,7 +27,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import com.oocl.mnlbc.group3.dao.AccountDAOImpl;
-import com.oocl.mnlbc.group3.transaction.RegistrationTransaction;
+import com.oocl.mnlbc.group3.transaction.ChatTransaction;
 
 /**
  * Login window for KaChat Validates the username and password
@@ -49,14 +49,14 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener {
 	private short loginCounter;
 	private JButton btnRegister;
 	
-	RegistrationTransaction regTxn;
+	ChatTransaction regTxn;
 
 	/**
 	 * Create the frame.
 	 * 
 	 */
 	public LoginWindow() {
-		regTxn = new RegistrationTransaction();
+		regTxn = new ChatTransaction();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// sets the size
@@ -204,7 +204,7 @@ public class LoginWindow extends JFrame implements KeyListener, ActionListener {
 			if (regTxn.validate(username, password)) {
 				JOptionPane.showMessageDialog(this, "Successfuly Logged in!");
 				
-				Main main = new Main();
+				Main main = new Main(username);
 				main.setVisible(true);
 				this.dispose();
 

@@ -23,6 +23,7 @@ public class Main extends JFrame implements ActionListener, KeyListener{
 	private JButton btnConnect;
 	private JButton btnLogout ;
 	private JButton btnExit;
+	private String username;
 	
 
 	/**
@@ -44,8 +45,9 @@ public class Main extends JFrame implements ActionListener, KeyListener{
 	/**
 	 * Create the application.
 	 */
-	public Main() {
+	public Main(String username) {
 		initialize();
+		this.username = username;
 	}
 
 	/**
@@ -136,7 +138,7 @@ public class Main extends JFrame implements ActionListener, KeyListener{
 			login.setVisible(true);
 			this.dispose();
 		}else if(obj==btnConnect){
-			ChatWindow chat = new ChatWindow();
+			ChatWindow chat = new ChatWindow(username);
 			chat.setVisible(true);
 			this.dispose();
 			

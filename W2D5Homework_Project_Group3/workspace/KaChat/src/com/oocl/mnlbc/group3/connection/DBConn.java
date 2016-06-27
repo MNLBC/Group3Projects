@@ -1,17 +1,23 @@
 package com.oocl.mnlbc.group3.connection;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * @author FLOREJE
- *
+ * @author FLOREJE JDBC Connection Class
  */
 public class DBConn {
+
+	/**
+	 * getting connection give the host, port & sid
+	 * 
+	 * @return Connection
+	 */
 	public static Connection getConnection() {
 
 		String driver = "oracle.jdbc.driver.OracleDriver";
-		
+
 		// credentials
 		String user = "system";
 		String password = "admin1234";
@@ -22,7 +28,7 @@ public class DBConn {
 		String sid = "xe";
 
 		String URL = "jdbc:oracle:thin:@" + hostname + ":" + port + ":" + sid;
-		
+
 		Connection conn = null;
 
 		try {

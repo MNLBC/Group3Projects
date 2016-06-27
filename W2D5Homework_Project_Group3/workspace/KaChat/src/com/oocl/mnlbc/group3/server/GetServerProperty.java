@@ -11,7 +11,9 @@ public class GetServerProperty {
 	private String maxBackLog;
 	private String maxConnections;
 	private String port;
-	
+	/**
+	 * Constructor of Class 
+	 */
 	public GetServerProperty(){
 		readConfig();
 	}
@@ -32,7 +34,9 @@ public class GetServerProperty {
 
 
 
- 
+ /**
+  * retrieves the config.properties for the server connection
+  */
   public void readConfig(){
 	  Properties prop = new Properties();
 		InputStream input = null;
