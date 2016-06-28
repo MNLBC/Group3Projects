@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, td {
+  border: 1px solid black;
+}
+</style>
+</head>
+<body>
+  <div align = "center">
+  <p>To create a table dynamically by XML DOM / HTML DOM.</p>
+
+  <table id="myTable">
+    <tr>
+      <td>Default Cell</td>
+      <td>Default Cell</td>
+    </tr>
+    <tr>
+      <td>Default Cell</td>
+      <td>Default Cell</td>
+    </tr>
+    <tr>
+      <td>Default Cell</td>
+      <td>Default Cell</td>
+    </tr>
+  </table>
+  <br>
+  <button onclick="myFunction()">Generate Cells</button>
+</div>
+  <script>
+function myFunction() {
+    var table = document.getElementById("myTable");
+    var row = table.insertRow(0);
+    var col = table.in
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+
+    cell1.innerHTML = "Inserted a Cell";
+    cell2.innerHTML = "Inserted a Cell";
+}
+</script>
+
+</body>
+</html>
