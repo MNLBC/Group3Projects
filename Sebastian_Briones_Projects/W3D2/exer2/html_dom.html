@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+	Author - Brionse
+	verion - 1.0
+	Dynamic html table using HTML DOM
+-->
+<html>
+	<head>
+	<title>HTML Table by DOM </title>
+		
+		<link href="style.css" rel="stylesheet">
+	</head>
+	
+	<body>
+	
+	</body>
+		<script type="text/javascript">
+		
+		var table = document.createElement('table');
+		var tableHeader = document.createElement('th');
+		
+		table.appendChild(tableHeader);
+		var row = document.createElement('tr');   
+		table.appendChild(row);
+		
+		for (var i = 1; i < 9; i++){
+			var row = document.createElement('tr');   
+		
+			var td1 = document.createElement('td');
+			var td2 = document.createElement('td');
+		
+			
+			var text1 = document.createTextNode('Student' + i);
+			var text2 = document.createTextNode('Teacher' + i);
+		
+			td1.style.border = "2px solid blue";
+			td2.style.border = "2px solid blue";
+			
+			td1.appendChild(text1);
+			td2.appendChild(text2);
+			
+			row.appendChild(td1);
+			row.appendChild(td2);
+		
+			table.appendChild(row);
+		}
+		
+		table.style.border = "3px solid green";
+		
+		document.body.appendChild(table);
+		
+	</script>
+</html>
+	
