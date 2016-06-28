@@ -1,0 +1,37 @@
+<html>
+<head>
+
+<h1> 2) dynamically by HTML DOM </h2>
+<style>
+table,td {
+	border: 2px solid black;
+	font-family: 'Comics San MS' ';
+	font-size: 12	px;	
+}
+
+
+</style>
+</head>
+<body bgcolor="#E6E6FA">
+
+<button onclick="createTable()">New</button>
+			
+<script>
+		function createTable() {
+			var x = document.createElement("Table");
+			x.setAttribute("id", "addTable");
+			document.body.appendChild(x);
+
+			var y = document.createElement("tr");
+			y.setAttribute("id", "myTr");
+			document.getElementById("addTable").appendChild(y).style.color = "lightblue";
+
+			var z = document.createElement("td");
+			var t = document.createTextNode("New");
+			z.appendChild(t);
+			document.getElementById("myTr").appendChild(z).style.color = "blue";
+		}
+	</script>
+</body>
+
+</html>
