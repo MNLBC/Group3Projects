@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Week 3 Day 1 Homework1</title>
+<meta http-equiv="Content Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function createTable(){
+var table = document.createElement('table');
+table.setAttribute('border',1);
+for (var i = 1; i < 4; i++){
+    var tr = document.createElement('tr');   
+
+    var td1 = document.createElement('td');
+    var td2 = document.createElement('td');
+
+    var text1 = document.createTextNode('Text1');
+    var text2 = document.createTextNode('Text2');
+
+    td1.appendChild(text1);
+    td2.appendChild(text2);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    table.appendChild(tr);
+}
+document.body.appendChild(table);
+}
+</script>
+</head>
+<body onload="createTable()">
+  
+</body>
+</html>

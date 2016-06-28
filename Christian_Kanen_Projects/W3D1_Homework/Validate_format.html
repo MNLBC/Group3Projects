@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>W3D1</title>
+<script type="text/javascript">
+	function validateEmail() {
+		var validate = document.getElementById('emailValidate').onclick;
+		var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+		var email = document.getElementById("email").value;
+		if (email.match(pattern)) {
+			alert("Valid Email Format");
+		} else {
+			alert("Invalid Email Format");
+		}
+	}
+
+	function validateDate() {
+		var val = document.getElementById('dateValidate').onclick;
+		var pattern = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+		var date = document.getElementById("date").value;
+		// Match the date format through regular expression  
+		if (date.match(pattern)) {
+			alert("Valid Date Format");
+		} else {
+			alert("Invalid Date Format");
+		}
+	}
+	function validateStr() {
+		var valid = document.getElementById('strValidate').onclick;
+		var regex = new RegExp("^\s*$");
+		var inputStr = document.getElementById("str").value;
+
+		if (inputStr.match(regex)) {
+			alert("Using Regular Expression: "+"Empty String");
+		}
+		if(inputStr === ""){
+			alert("Without RegEx: " +"Empty String")
+		} 
+		else {
+			alert("Input : " + inputStr);
+		}
+	}
+
+	function replaceStr() {
+		var valid = document.getElementById('strReplace').onclick;
+		var reg = /\*e|\*E/g;
+		var regNew = /\*[eE]/g;
+		var input = document.getElementById("repStr").value;
+
+		alert("First way (First RegEx): "+ input.replace(reg, '-'));
+		alert("Second way (Second RegEx): "+ input.replace(regNew, '-'));
+	}
+	
+	function removeSpc(){
+		var valid = document.getElementById('spcRemove').onclick;
+		var reg = /(^\s+)|(\s+$)/g;
+		var input = document.getElementById("spcStr").value;
+		
+		alert("Using trim = " + input.trim());
+		alert("Using replace= " + input.replace(reg,""));
+	}
+	
+	function switchStr(){
+		var valid = document.getElementById('strSwitch').onclick;
+		var reg = /(\w+)--(\w+)/g;
+		var delimit = "--";
+		
+		var input = document.getElementById("switchStr").value;
+		
+		var r = input.replace(reg,'$2--$1');
+		var delr = input.split(delimit);
+		var result = delr[1] + "--" + delr[0];
+		
+		alert("Using SPLIT: " + result);
+		alert("Using REPLACE: " + r);
+
+		
+	}
+	
+	
+	
+</script>
+
+</head>
+<body>
+	<p id="help">RegEx Validations</p>
+	<p>
+		E-mail: <input type="text" id="email" name="email">
+	</p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<button id="emailValidate" onclick="validateEmail()">Validate
+		Email</button>
+	<p>
+		Date: <input type="text" id="date" name="date"
+			placeholder="mm/dd/yyyy">
+	</p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<button id="dateValidate" onclick="validateDate()">Validate
+		Date Format</button>
+
+	<p>
+		Input String: <input type="text" id="str" name="str">
+	</p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<button id="strValidate" onclick="validateStr()">Validate
+		String if it is Empty</button>
+
+
+	<p>
+		String Replace: <input type="text" id="repStr" name="repStr"
+			value="abc *ec *Eab" readonly="readonly">
+	</p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<button id="strReplace" onclick="replaceStr()">Replace String</button>
+
+	<p>
+		Input (Remove String): <input type="text" id="spcStr" name="spcStr">
+	</p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<button id="spcRemove" onclick="removeSpc()">Remove Spaces</button>
+
+	<p>
+		Input (Switch): <input type="text" id="switchStr" name="switchStr"
+			value="java--script">
+	</p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<button id="strSwitch" onclick="switchStr()">Switch String</button>
+
+
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>String Object Methods</title>
+<script type="text/javascript">
+	var input = "  Christian^Kanen  ";
+	
+	function startInit(){
+		document.getElementById("sample").innerHTML= input;
+	}
+	
+	function strTrim(){
+		alert("Value: " + input);
+		alert("After Trim: " + input.trim());
+		
+	}
+	
+	function strConcat(){
+		alert(input.concat("Handsome"));
+	}
+	
+	function strUpper(){
+		alert("To Upper Case: "+ input.toUpperCase());
+	}
+	
+	function strLower(){
+		alert("To Lower Case: "+ input.toLowerCase());
+	}
+	
+	function strSplit(){
+		var splitStr = input.split("^");
+		alert("Split[0]: " + splitStr[0] + "  and Split[1]: "+ splitStr[1]);
+	}
+	
+	function strReplace(){
+		alert("Kanen will be replaced by Rice");
+		alert(input.replace("Kanen", "Rice"));
+		
+	}
+</script>
+</head>
+<body onload="startInit()">
+<div align="center" >
+	<h2 id="sample"></h2>
+	<hr>
+	<input type="submit" value="Trim" onclick="strTrim()">
+	<input type="submit" value="Concatenate" onclick="strConcat()">
+	<input type="submit" value="To Upper Case" onclick="strUpper()">
+	<input type="submit" value="to Lower Case" onclick="strLower()">
+	<input type="submit" value="Split" onclick="strSplit()">
+	<input type="submit" value="Replace" onclick="strReplace()">
+</div>
+</body>
+</html>
