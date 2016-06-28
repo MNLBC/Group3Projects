@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Clock</title>
+<script type="text/javascript">
+	function Clock() {
+		var t = new Date();
+
+		var hr = t.getHours();
+		var min = t.getMinutes();
+		var sec = t.getSeconds();
+		if (hr < 10) {
+			hr = "0" + hr;
+		}
+		if (min < 10) {
+			min = "0" + min;
+		}
+		if (sec < 10) {
+			sec = "0" + sec;
+		}
+		document.getElementById("clock").innerHTML = hr + ":" + min + ":" + sec;
+	}
+</script>
+</head>
+<body onload="setInterval('Clock()',1000)">
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<center>
+	<h1 id="clock"></h1>
+</body>
+</html>

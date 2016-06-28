@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>W3D1 Homework</title>
+
+</head>
+<body>
+<div align="center">
+	<br><br><br><br>
+	<h1 id="m1">Post here Message</h1>
+	<br>
+	<br>
+	<h1 id = "m2"></h1>
+</div>
+</body>
+<script type="text/javascript">
+	function superClass(){
+		this.message = function(myMsg){
+			document.getElementById("m1").firstChild.nodeValue = myMsg;
+		}
+	}
+	
+	function subClass(){
+		this.inheritFrom = superClass;
+		this.inheritFrom();
+		
+		this.msg = function(){
+			document.getElementById("m2").innerHTML = "I am from the method of the sub class";
+		}
+	}
+	
+	var classes = new subClass();
+	classes.message("This is from the superclass");
+	classes.msg();
+	
+</script>
+</html>
