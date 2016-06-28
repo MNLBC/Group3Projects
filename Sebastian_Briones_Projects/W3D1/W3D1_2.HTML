@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+	Author - Brionse
+	verion - 1.0
+-->
+<html>
+	<head>
+	<title>Homework 2</title>
+	<script type="text/javascript">
+	
+		/**
+			Parent Class constructor function
+		*/
+		function parent() {
+			this.first = function() {
+				alert("This is the superclass");
+			}
+		}
+		
+		/**
+			Child Class constructor function
+		*/
+		function child() {
+		
+			this.inheritFrom = parent;
+			this.inheritFrom();
+			this.second = function() {
+				alert("This is the child class");
+			}
+			
+		}
+		
+		/**
+		    For testing the constructors
+		*/
+		function display(){
+			var test = new child();
+			test.first();
+			test.second();
+		}
+		
+	</script>
+	</head>
+	<body onload="display()">
+	
+		<h1> Homework 2</h1>
+	</body>
+	
+</html>

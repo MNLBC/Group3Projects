@@ -1,7 +1,8 @@
 package com.oocl.mnlbc.group3.model;
 /**
  * 
- * @author brionse
+ * 
+ * @author BRIONSE
  *
  */
 public class Account {
@@ -31,11 +32,12 @@ public class Account {
 	 * @param username
 	 * @param password
 	 */
-	public Account(String fullname,String username, String password) {
-		this.fullname = fullname;
+	public Account(int accountId, String username, String password, String fullname) {
+		super();
+		this.accountId = accountId;
 		this.username = username;
 		this.password = password;
-		
+		this.fullname = fullname;
 	}
 
 	/**
