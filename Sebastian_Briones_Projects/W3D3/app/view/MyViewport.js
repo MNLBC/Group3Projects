@@ -57,7 +57,20 @@ Ext.define('MyApp.view.MyViewport', {
                                         {
                                             xtype: 'textfield',
                                             margin: 10,
+                                            width: 236,
                                             fieldLabel: 'Username:'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            margin: 10,
+                                            width: 369,
+                                            fieldLabel: 'Password:'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            margin: 10,
+                                            width: 369,
+                                            fieldLabel: 'Confirm'
                                         },
                                         {
                                             xtype: 'textfield',
@@ -101,6 +114,7 @@ Ext.define('MyApp.view.MyViewport', {
                                         },
                                         {
                                             xtype: 'textareafield',
+                                            height: 115,
                                             margin: 10,
                                             width: 417,
                                             fieldLabel: 'Hobbies'
