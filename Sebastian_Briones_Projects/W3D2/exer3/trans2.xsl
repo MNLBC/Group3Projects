@@ -12,10 +12,8 @@
 				<chassis-satellites>
 					<chassis-satellite>
 						
-						<xsl:for-each
-							select="device-specific-rpc-reply-list/device-specific-rpc-reply">
-							<xsl:choose>
-								<xsl:when test="position() =1 ">
+						
+						<xsl:if test="device-specific-rpc-reply-list/device-specific-rpc-reply[1]">
 									<xsl:for-each select="satellite-information/satellite">
 										<xsl:if test="satellite-alias">
 											<satelliteName>
@@ -59,10 +57,8 @@
 										</xsl:if>
 									</xsl:for-each>
 								</xsl:when>
-							</xsl:choose>
 							
-						</xsl:for-each>
-						
+						</xsl:if>
 						<xsl:for-each
 							select="device-specific-rpc-reply-list/device-specific-rpc-reply">
 							<xsl:choose>
