@@ -1,0 +1,4 @@
+Run Homework1 first.
+The sql statement should be run in order. :)
+then run homework 2 can run it one by one but do it in order.
+Thanks.
