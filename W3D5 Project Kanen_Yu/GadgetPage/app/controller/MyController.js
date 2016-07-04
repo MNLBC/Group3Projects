@@ -223,10 +223,14 @@ Ext.define('app.controller.MyController', {
         var price= this.getProdPrice().getValue();
         var prod = Ext.getStore('cartStore');
 
+        if(name===""){
+            Ext.MessageBox.alert('Invalid Product','Kindly select a product.');
+        }else{
+
         var cart = 	[{productname:name ,price:price}];
 
         prod.add(cart);
-
+        }
 
     },
 
@@ -289,9 +293,13 @@ Ext.define('app.controller.MyController', {
                      this.getHomePage().hide();
                     this.getMainContainers().show();
 
-
-
                 }
+        else{
+
+             Ext.MessageBox.alert('Login', 'Invalid Username/Password');
+            this.getLogPassword().setValue('');
+            this.getLogUser().setValue('');
+        }
     },
 
     onRegisterClick: function() {
@@ -353,7 +361,7 @@ Ext.define('app.controller.MyController', {
                                             width: 118,
                                             text: 'Register',
                                             handler:function(){
-                                                alert('you xlcik');
+
 
                 var userStore = Ext.getStore('userStore');
 

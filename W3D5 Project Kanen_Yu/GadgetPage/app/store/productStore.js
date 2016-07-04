@@ -38,25 +38,25 @@ Ext.define('app.store.productStore', {
                 {
                     img: 's7.png',
                     productname: 'Samsung Galaxy S7',
-                    details: '911',
+                    details: 'You cant live without water or your smartphone, which is why the Galaxy S7 and Galaxy S7 edge have a certified water-resistant rating. It repels spills, splashes and even dunks1 without a bulky protective case.',
                     price: 29000
                 },
                 {
                     img: 'laptopasus.jpg',
                     productname: 'Asus ROG',
-                    details: '911',
+                    details: 'ROG GT51 is no ordinary gaming machine. Its engineered with ROG gaming DNA to give you mind-blowing gaming experiences you wont find elsewhere. Pump up the Intel® Core™ i7-6700K CPU to a full-core overclocked 4.6GHz — without rebooting! — while you enjoy the eye-popping 8-million-color dynamic 4-zone LED lighting effects. ROG GT51: be prepared for awesome!',
                     price: 60000
                 },
                 {
                     img: 'macbook.jpg',
                     productname: 'Macbook Pro',
-                    details: '911',
+                    details: '1.6GHz Processor 128 GB Storage 1.6GHz dual-core Intel Core i5 processor Turbo Boost up to 2.7GHz Intel HD Graphics 6000  4GB memory 128GB PCIe-based flash storage1',
                     price: 45000
                 },
                 {
                     img: 'razer.png',
                     productname: 'Razer Blade Pro',
-                    details: '911',
+                    details: 'More Powerful. Insanely Thin. The new Razer Blade has been completely redesigned to deliver even faster performance, all while remaining insanely thin. With the 6th Gen quad-core Intel® Core™ i7 processor, NVIDIA® GeForce® GTX 970M graphics, Thunderbolt™ 3 (USB-C), and groundbreaking PCIe solid state storage performance, the Razer Blade has more power per cubic inch than any ultraportable or gaming notebook in its class. Combined with the visually stunning 14" QHD+ Display, Chroma anti-ghosting keyboard, and Killer™ Wireless-AC, the Razer Blade is the worlds most advanced gaming notebook. Do more, game more, anywhere, anytime. ',
                     price: 110000
                 },
                 {
