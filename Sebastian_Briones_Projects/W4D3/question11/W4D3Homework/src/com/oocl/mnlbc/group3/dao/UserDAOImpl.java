@@ -91,8 +91,8 @@ public class UserDAOImpl implements UserDAO {
 		int i = 0;
 		double userBalance = 0.00;
 
-		String sql = "INSERT INTO USERS(USERNAME,USER_PASSWORD,FULL_NAME,EMAIL,ADDRESS,MOBILE_NUMBER,USER_ROLE,USER_BALANCE) VALUES(?,?,?,?,?,?,?,?)";
-
+		String sql = "INSERT INTO USERS(USERNAME, USER_PASSWORD, FULL_NAME, EMAIL, ADDRESS, MOBILE_NUMBER, USER_ROLE, USER_BALANCE) VALUES(?,?,?,?,?,?,?,?)";
+		
 		try {
 
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);

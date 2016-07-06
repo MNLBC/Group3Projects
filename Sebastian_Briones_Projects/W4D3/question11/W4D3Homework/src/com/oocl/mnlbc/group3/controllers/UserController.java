@@ -2,6 +2,7 @@ package com.oocl.mnlbc.group3.controllers;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +44,7 @@ public class UserController extends HttpServlet {
 		doGet(request, response);
 	}
 
-	public synchronized void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public synchronized void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		String username = request.getParameter("userName");
 		String userPassword = request.getParameter("userPassword");
@@ -54,8 +55,12 @@ public class UserController extends HttpServlet {
 		String userRole = request.getParameter("userRole");
 		String returnOutput = "";
 
+		RequestDispatcher requestDispatcher =
+			    request.getRequestDispatcher("/views/userexists.html");
+		
 		if (userDAO.userExists(username)) {
-			returnOutput = "<html><body><h2>Username is already in use by an existing account!</h2></body></html>";
+			//returnOutput = "<html><body><h2>Username is already in use by an existing account!</h2></body></html>";
+			requestDispatcher.forward(request, response);
 		} else {
 
 			if (userDAO.registerUser(username, userPassword, fullName, email, address, mobileNumber, userRole)) {
