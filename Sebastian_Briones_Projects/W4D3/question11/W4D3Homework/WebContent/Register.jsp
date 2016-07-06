@@ -8,9 +8,10 @@
 <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-
-	<h3>Register an Account!</h3>
-	<form id="loginForm" name="loginForm" action="user"
+	<center>
+	<h2>Register an Account!</h2>
+	</center>
+	<form id="loginForm" name="loginForm" action="user" class="mainForm"
 		onsubmit="return validateLoginForm()">
 
 		Username &nbsp;<input type="text" name="userName"> <br />

@@ -55,16 +55,28 @@ function validateLoginForm() {
 	if (!isEmailValid(email)) {
 		alert("Please enter a valid email!");
 		return false;
-	} else {
-		return true;
 	}
 
+	if (!isPhoneNumberValid(mobileNumber)) {
+		alert("Please enter a valid mobile number!");
+		return false;
+	} 
 }
 
 function isEmailValid(email) {
 
 	var reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	if (reg.test(email)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isPhoneNumberValid(mobileNumber) {
+
+	var reg = /^\d+$/;
+	if (reg.test(mobileNumber)) {
 		return true;
 	} else {
 		return false;
