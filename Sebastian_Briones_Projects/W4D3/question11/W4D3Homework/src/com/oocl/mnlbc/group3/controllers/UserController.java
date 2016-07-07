@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oocl.mnlbc.group3.dao.UserDAO;
 import com.oocl.mnlbc.group3.dao.UserDAOImpl;
@@ -15,6 +16,7 @@ import com.oocl.mnlbc.group3.dao.UserDAOImpl;
 /**
  * Servlet implementation class UserController for User Account related
  * operations
+ * 
  * @author BRIONSE
  */
 @WebServlet("/user")
@@ -44,7 +46,8 @@ public class UserController extends HttpServlet {
 		doGet(request, response);
 	}
 
-	public synchronized void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public synchronized void createUser(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
 		String username = request.getParameter("userName");
 		String userPassword = request.getParameter("userPassword");
@@ -55,11 +58,9 @@ public class UserController extends HttpServlet {
 		String userRole = request.getParameter("userRole");
 		String returnOutput = "";
 
-		RequestDispatcher requestDispatcher =
-			    request.getRequestDispatcher("/views/userexists.html");
-		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/userexists.html");
+
 		if (userDAO.userExists(username)) {
-			//returnOutput = "<html><body><h2>Username is already in use by an existing account!</h2></body></html>";
 			requestDispatcher.forward(request, response);
 		} else {
 
@@ -83,10 +84,15 @@ public class UserController extends HttpServlet {
 		String returnOutput = "";
 
 		if (userDAO.validateAccount(username, userPassword)) {
-			returnOutput = "<html><body><h2>Welcome " + username + "!</h2></body></html>";
+			//returnOutput = "<html><body><h2>Welcome " + username + "!</h2></body></html>";
+			HttpSession session = request.getSession();
+			session.setAttribute("username", username);
+			
+			
 		} else {
 			returnOutput = "<html><body><h2>Invalid username or password!</h2></body></html>";
+			response.getWriter().write(returnOutput);
 		}
-		response.getWriter().write(returnOutput);
+		
 	}
 }

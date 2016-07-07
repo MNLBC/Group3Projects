@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Register</title>
 <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
@@ -12,7 +12,7 @@
 	<h2>Register an Account!</h2>
 	</center>
 	<form id="loginForm" name="loginForm" action="user" class="mainForm"
-		onsubmit="return validateLoginForm()">
+		onsubmit="return validateRegistrationForm()">
 
 		Username &nbsp;<input type="text" name="userName"> <br />
 		Password &nbsp;<input type="password" name="userPassword"> <br />
@@ -29,5 +29,5 @@
 		<input type="submit" value="Register">
 	</form>
 </body>
-<script src="js/validateLoginForm.js"></script>
+<script src="js/validateRegistrationForm.js"></script>
 </html>

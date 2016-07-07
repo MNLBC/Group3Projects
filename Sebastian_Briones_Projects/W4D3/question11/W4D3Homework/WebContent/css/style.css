@@ -2,21 +2,18 @@ body {
 	background: #66d9ff;
 }
 
-h2{
+h2 {
 	color: black;
 	text-transform: uppercase;
 	font-family: 'Open Sans Condensed', sans-serif;
 }
 
-input[type=text]:focus, textarea:focus ,input[type=password]:focus{
-
-   box-shadow: 0 0 5px rgba(240, 131, 15, 1);
-   padding: 3px 0px 3px 3px;
-   margin: 10px 1px 3px 0px;
-   border: 1px solid rgba(240, 131, 15, 1);  
-  
+input[type=text]:focus, textarea:focus, input[type=password]:focus {
+	box-shadow: 0 0 5px rgba(240, 131, 15, 1);
+	padding: 3px 0px 3px 3px;
+	margin: 10px 1px 3px 0px;
+	border: 1px solid rgba(240, 131, 15, 1);
 }
-
 
 .mainForm {
 	font-family: 'Open Sans Condensed', arial, sans;
@@ -40,12 +37,11 @@ input[type=text]:focus, textarea:focus ,input[type=password]:focus{
 	margin: -30px -30px 30px -30px;
 }
 
-.mainForm input[type="text"], .mainForm input[type="date"],
-	.mainForm input[type="datetime"], .mainForm input[type="email"],
-	.mainForm input[type="number"], .mainForm input[type="search"],
-	.mainForm input[type="time"], .mainForm input[type="url"],
-	.mainForm input[type="password"], .mainForm textarea,
-	.mainForm select {
+.mainForm input[type="text"], .mainForm input[type="date"], .mainForm input[type="datetime"],
+	.mainForm input[type="email"], .mainForm input[type="number"],
+	.mainForm input[type="search"], .mainForm input[type="time"], .mainForm input[type="url"],
+	.mainForm input[type="password"], .mainForm textarea, .mainForm select
+	{
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;

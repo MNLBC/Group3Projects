@@ -4,20 +4,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Login</title>
+<link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 
 	
 	<center>
-	<h3>Register an Account!</h3>
-	<form action="user">
+	<h2>Register an Account!</h2>
+	<form action="user" class="mainForm">
 	
 		Username &nbsp;<input type="text" name="userName"> <br/>
 		Password &nbsp;<input type="password" name="userPassword"> <br/>
 		
 		<input type="hidden" name="method" value="validateLogin"> <br/>
-		
 		<input type="submit" value="Login">
 		
 	</form>
