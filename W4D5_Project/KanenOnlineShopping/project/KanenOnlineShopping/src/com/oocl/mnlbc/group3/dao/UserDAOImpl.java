@@ -44,6 +44,8 @@ public class UserDAOImpl implements UserDAO {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
+				return true;
+			}else{
 				return false;
 			}
 
@@ -102,7 +104,8 @@ public class UserDAOImpl implements UserDAO {
 		String sql = "INSERT INTO USERS"
 				+ "(USERNAME,"
 				+ "USER_PASSWORD,"
-				+ "FULL_NAME, EMAIL,"
+				+ "FULL_NAME,"
+				+ "EMAIL,"
 				+ "ADDRESS,"
 				+ "MOBILE_NUMBER,"
 				+ "USER_ROLE)"

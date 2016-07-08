@@ -7,6 +7,10 @@
 <title>Create Account</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Latest compiled and minified CSS -->
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -17,10 +21,62 @@
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
 
+<script>
+	$(document).ready(function() {
+		$('#btnRegister').click(function(e) {
+			e.preventDefault();
+
+			var userName = $('#txtUsername').val();
+			var userPassword = $('#txtPassword').val();
+			var fullName = $('#txtFullName').val();
+			var email = $('#txtEmail').val();
+			var deliveryAddress = $('#txtDeliveryAddress').val();
+			var mobileNumber = $('#txtMobileNumber').val();
+
+			$.ajax({
+				url : 'user',
+				data : {
+					userName : userName,
+					userPassword : userPassword,
+					fullName : fullName,
+					email : email,
+					deliveryAddress : deliveryAddress,
+					mobileNumber : mobileNumber,
+					method : 'registerUser'
+				},
+				method : 'POST',
+				complete : function(responseText) {
+					displayResults(responseText);
+
+				}
+
+			});
+
+		});
+
+	});
+
+	function displayResults(responseText) {
+		var response = JSON.parse(responseText.responseText);
+
+		if (response.data.errormsg.indexOf('usernametaken') > -1) {
+			var usernameExistDiv = document.createElement('div');
+			//usernameExistDiv.class="alert alert-danger"
+			var registrationForm = $('#registrationForm');
+			//registrationForm.insertBefore(usernameExistDiv,registrationForm.firstChild);
+			usernameExistDiv.className = 'alert alert-danger';
+			usernameExistDiv.textContent = 'The username has already been taken.';
+			registrationForm.append(usernameExistDiv);
+		}
+
+		return;
+	};
+</script>
 </head>
 <body>
 	<div class="container">
-		<form class="form-horizontal" action="user" onsubmit="return validateRegistrationForm()">
+		<form id="registrationForm" class="form-horizontal" action=""
+			onsubmit="return validateRegistrationForm()">
 			<fieldset>
 
 				<!-- Form Name -->
@@ -30,8 +86,8 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="txtUsername">Username:</label>
 					<div class="col-md-4">
-						<input id="txtUsername" name="userName" type="text"
-							placeholder="" class="form-control input-md" required>
+						<input id="txtUsername" name="userName" type="text" placeholder=""
+							class="form-control input-md" required>
 
 					</div>
 				</div>
@@ -52,7 +108,8 @@
 						Password:</label>
 					<div class="col-md-4">
 						<input id="txtConfirmPassword" name="txtConfirmPassword"
-							type="password" placeholder="" class="form-control input-md" required>
+							type="password" placeholder="" class="form-control input-md"
+							required>
 
 					</div>
 				</div>
@@ -62,8 +119,8 @@
 					<label class="col-md-4 control-label" for="txtFullName">Full
 						Name:</label>
 					<div class="col-md-4">
-						<input id="txtFullName" name="fullName" type="text"
-							placeholder="" class="form-control input-md" required>
+						<input id="txtFullName" name="fullName" type="text" placeholder=""
+							class="form-control input-md" required>
 
 					</div>
 				</div>
@@ -93,7 +150,7 @@
 					<label class="col-md-4 control-label" for="txtMobileNumber">Mobile
 						Number:</label>
 					<div class="col-md-4">
-						<input id="txtMobileNumber" name="txtMobileNumber" type="text"
+						<input id="txtMobileNumber" name="mobileNumber" type="text"
 							placeholder="" class="form-control input-md" required>
 
 					</div>
@@ -111,11 +168,13 @@
 				</div>
 
 			</fieldset>
-			
+
 			<input type="hidden" name="method" value=registerUser>
 		</form>
 
 	</div>
 </body>
+
 <script src="js/validateRegistrationForm.js"></script>
+
 </html>
