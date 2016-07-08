@@ -20,7 +20,7 @@
 </head>
 <body>
 	<div class="container">
-		<form class="form-horizontal">
+		<form class="form-horizontal" action="">
 			<fieldset>
 
 				<!-- Form Name -->
@@ -31,7 +31,7 @@
 					<label class="col-md-4 control-label" for="txtUsername">Username:</label>
 					<div class="col-md-4">
 						<input id="txtUsername" name="txtUsername" type="text"
-							placeholder="" class="form-control input-md">
+							placeholder="" class="form-control input-md" required>
 
 					</div>
 				</div>
@@ -41,7 +41,7 @@
 					<label class="col-md-4 control-label" for="txtPassword">Password:</label>
 					<div class="col-md-4">
 						<input id="txtPassword" name="txtPassword" type="password"
-							placeholder="" class="form-control input-md">
+							placeholder="" class="form-control input-md" required>
 
 					</div>
 				</div>
@@ -52,7 +52,7 @@
 						Password:</label>
 					<div class="col-md-4">
 						<input id="txtConfirmPassword" name="txtConfirmPassword"
-							type="password" placeholder="" class="form-control input-md">
+							type="password" placeholder="" class="form-control input-md" required>
 
 					</div>
 				</div>
@@ -63,7 +63,7 @@
 						Name:</label>
 					<div class="col-md-4">
 						<input id="txtFullName" name="txtFullName" type="text"
-							placeholder="" class="form-control input-md">
+							placeholder="" class="form-control input-md" required>
 
 					</div>
 				</div>
@@ -72,8 +72,8 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="txtEmail">Email:</label>
 					<div class="col-md-4">
-						<input id="txtEmail" name="txtEmail" type="text" placeholder=""
-							class="form-control input-md">
+						<input id="txtEmail" name="txtEmail" type="email" placeholder=""
+							class="form-control input-md" required>
 
 					</div>
 				</div>
@@ -84,7 +84,7 @@
 						Address</label>
 					<div class="col-md-4">
 						<textarea class="form-control" id="txtDeliveryAddress"
-							name="txtDeliveryAddress"></textarea>
+							name="txtDeliveryAddress" required></textarea>
 					</div>
 				</div>
 
@@ -94,7 +94,7 @@
 						Number:</label>
 					<div class="col-md-4">
 						<input id="txtMobileNumber" name="txtMobileNumber" type="text"
-							placeholder="" class="form-control input-md">
+							placeholder="" class="form-control input-md" required>
 
 					</div>
 				</div>
@@ -104,7 +104,7 @@
 					<label class="col-md-4 control-label" for="btnRegister"></label>
 					<div class="col-md-8">
 						<button id="btnRegister" name="btnRegister"
-							class="btn btn-primary">Good Button</button>
+							class="btn btn-primary">Create Account</button>
 						<button id="btnRegisterCancel" name="btnRegisterCancel"
 							class="btn btn-danger">Cancel</button>
 					</div>
