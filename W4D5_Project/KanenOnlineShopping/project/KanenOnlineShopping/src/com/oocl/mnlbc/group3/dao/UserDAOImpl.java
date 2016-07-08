@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.oocl.mnlbc.group3.connection.DBConnection;
 import com.oocl.mnlbc.group3.model.UserBean;
@@ -37,18 +39,43 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public boolean userExists(String username) {
-		String sql = "SELECT 1 FROM USERS WHERE "
-					+ "USERNAME ='" + username + "'";
+		String sql = "SELECT 1 FROM USERS WHERE " + "USERNAME ='" + username + "'";
 
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
+				return true;
+			} else {
 				return false;
 			}
 
 		} catch (SQLSyntaxErrorException se) {
-			System.out.println("User does not exist.");
+			System.out.println("Error in checking if user exists.");
+			se.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean emailExists(String email) {
+		String sql = "SELECT 1 FROM USERS WHERE " + "EMAIL ='" + email + "'";
+
+		try {
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (SQLSyntaxErrorException se) {
+			System.out.println("Error in checking if email exists.");
+			se.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -59,12 +86,12 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public UserBean validateAccount(String username, String password) {
 		UserBean user = null;
-		String sql = "SELECT * FROM USERS WHERE "
-					+ "USERNAME ='" + username + "' "
-					+ "AND USER_PASSWORD ='" + password + "'";
+		String sql = "SELECT * FROM USERS WHERE " + "USERNAME ='" + username + "' " + "AND USER_PASSWORD ='" + password
+				+ "'";
 
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				String passwordHash = rs.getString("USER_PASSWORD");
@@ -109,14 +136,8 @@ public class UserDAOImpl implements UserDAO {
 
 		int i = 0;
 
-		String sql = "INSERT INTO USERS"
-				+ "(USERNAME,"
-				+ "USER_PASSWORD,"
-				+ "FULL_NAME, EMAIL,"
-				+ "ADDRESS,"
-				+ "MOBILE_NUMBER,"
-				+ "USER_ROLE)"
-				+ "VALUES(?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO USERS" + "(USERNAME," + "USER_PASSWORD," + "FULL_NAME," + "EMAIL," + "ADDRESS,"
+				+ "MOBILE_NUMBER," + "USER_ROLE)" + "VALUES(?,?,?,?,?,?,?)";
 
 		String enryptedPassword = "";
 		try {
@@ -124,7 +145,7 @@ public class UserDAOImpl implements UserDAO {
 		} catch (CannotPerformOperationException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		try {
 
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
@@ -147,6 +168,26 @@ public class UserDAOImpl implements UserDAO {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<UserBean> getBannedUsers() {
+		List<UserBean> bannedUsers = new ArrayList<UserBean>();
+		String sql = "SELECT USER_ID, USERNAME, USER_PASSWORD, FULL_NAME, EMAIL,ADDRESS, MOBILE_NUMBER, USER_ROLE FROM USERS WHERE IS_BLACKLISTED=? ";
+		PreparedStatement pstmt;
+		try {
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			pstmt.setString(1, "YES");
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bannedUsers.add(new UserBean(Integer.parseInt(rs.getString("USER_ID")), rs.getString("USERNAME")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return bannedUsers;
 	}
 
 }

@@ -23,6 +23,31 @@ public class UserBean implements Serializable {
 	private String address;
 	private String mobileNumber;
 	private String userRole;
+	private String isBanned;
+
+	public UserBean() {
+
+	}
+
+	public UserBean(int userId, String userName, String userPassword, String fullName, String email, String address,
+			String mobileNumber, String userRole) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.userPassword = userPassword;
+		this.fullName = fullName;
+		this.email = email;
+		this.address = address;
+		this.mobileNumber = mobileNumber;
+		this.userRole = userRole;
+		this.isBanned = "no";
+	}
+
+	public UserBean(int userId, String userName) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+	}
 
 	public int getUserId() {
 		return userId;
@@ -73,7 +98,7 @@ public class UserBean implements Serializable {
 	}
 
 	public String getMobileNumber() {
-		return mobileNumber;
+		return mobileNumber; Cannot complete the provisioning operation.  Please change your selection and try again. See below for details.
 	}
 
 	public void setMobileNumber(String mobileNumber) {
@@ -88,17 +113,11 @@ public class UserBean implements Serializable {
 		this.userRole = userRole;
 	}
 
-	public UserBean(int userId, String userName, String userPassword, String fullName, String email, String address,
-			String mobileNumber, String userRole) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.userPassword = userPassword;
-		this.fullName = fullName;
-		this.email = email;
-		this.address = address;
-		this.mobileNumber = mobileNumber;
-		this.userRole = userRole;
+	public String getIsBanned() {
+		return isBanned;
+	}
+	public void setIsBanned(String isBanned) {
+		this.isBanned = isBanned;
 	}
 
 }

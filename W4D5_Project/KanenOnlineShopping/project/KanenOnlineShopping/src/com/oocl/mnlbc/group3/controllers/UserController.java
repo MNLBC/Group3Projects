@@ -2,6 +2,7 @@ package com.oocl.mnlbc.group3.controllers;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +44,8 @@ public class UserController extends HttpServlet {
 		doGet(request, response);
 	}
 
-	public void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void createUser(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 		UserBean user = null;
 		String username = request.getParameter("userName");
 		String userPassword = request.getParameter("userPassword");
@@ -52,16 +54,34 @@ public class UserController extends HttpServlet {
 		String deliveryAddress = request.getParameter("deliveryAddress");
 		String mobileNumber = request.getParameter("mobileNumber");
 		String userRole = "customer";
-		String returnJson = "{\"success\":";
 
+		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
+		String errorMsg = "";
 		user = new UserBean(0, username, userPassword, fullName, email, deliveryAddress, mobileNumber, userRole);
-		if (userDAO.registerUser(user)) {
-			returnJson += "true";
-		} else {
-			returnJson += "false";
+
+		if (userDAO.userExists(username)) {
+			errorMsg += "usernametaken";
 		}
 
-		returnJson += "\"messageKey\": \"register.user\",\"data\": {}}";
+		if (userDAO.emailExists(email)) {
+			errorMsg += "emailtaken";
+		}
+
+		if (errorMsg.equals("")) {
+			if (userDAO.registerUser(user)) {
+				errorMsg += "none";
+			} else {
+				errorMsg += "failed";
+			}
+
+		}
+		returnJson += errorMsg;
+		returnJson += "\"}}";
+		
+		// returnJson += "\"messageKey\": \"register.user\",\"data\": {}}";
+		
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(returnJson);
 	}
 
