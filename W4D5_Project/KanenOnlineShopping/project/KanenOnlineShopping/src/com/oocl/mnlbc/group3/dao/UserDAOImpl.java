@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 
 import com.oocl.mnlbc.group3.connection.DBConnection;
-import com.oocl.mnlbc.group3.model.User;
+import com.oocl.mnlbc.group3.model.UserBean;
 
 public class UserDAOImpl implements UserDAO {
 
@@ -70,18 +70,19 @@ public class UserDAOImpl implements UserDAO {
 		return false;
 	}
 
-	public boolean registerUser(String username, String userPassword, String fullName, String email, String address,
-			String mobileNumber, String userRole, double userBalance) {
-		/*
-		 * String username = user.getUserName(); String userPassword =
-		 * user.getUserPassword(); String fullName = user.getFullName(); String
-		 * email = user.getEmail(); String address = user.getAddress(); String
-		 * mobileNumber = user.getMobileNumber(); String userRole =
-		 * user.getUserRole(); double userBalance = user.getUserBalance();
-		 */
+	public boolean registerUser(UserBean user) {
+
+		String username = user.getUserName();
+		String userPassword = user.getUserPassword();
+		String fullName = user.getFullName();
+		String email = user.getEmail();
+		String address = user.getAddress();
+		String mobileNumber = user.getMobileNumber();
+		String userRole = user.getUserRole();
+
 		int i = 0;
 
-		String sql = "INSERT INTO USERS(USERNAME,USER_PASSWORD,FULL_NAME,EMAIL,ADDRESS,MOBILE_NUMBER,USER_ROLE,USER_BALANCE) VALUES(?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO USERS(USERNAME,USER_PASSWORD,FULL_NAME,EMAIL,ADDRESS,MOBILE_NUMBER,USER_ROLE,USER_BALANCE) VALUES(?,?,?,?,?,?,?)";
 
 		try {
 
@@ -93,7 +94,6 @@ public class UserDAOImpl implements UserDAO {
 			pstmt.setString(5, address);
 			pstmt.setString(6, mobileNumber);
 			pstmt.setString(7, userRole);
-			pstmt.setDouble(8, userBalance);
 
 			i = pstmt.executeUpdate();
 

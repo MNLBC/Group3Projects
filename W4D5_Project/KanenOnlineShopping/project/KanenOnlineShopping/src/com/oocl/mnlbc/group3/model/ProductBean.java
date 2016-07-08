@@ -1,13 +1,19 @@
 package com.oocl.mnlbc.group3.model;
 
+import java.io.Serializable;
+
 /**
  * 
  * Product Model Class
  * @author group3
  *
  */
-public class Product {
+public class ProductBean implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int productId;
 	private String productName;
 	private String productDescription;
@@ -63,7 +69,7 @@ public class Product {
 		this.imagePath = imagePath;
 	}
 
-	public Product(int productId, String productName, String productDescription, double productPrice,
+	public ProductBean(int productId, String productName, String productDescription, double productPrice,
 			int productStockQuantity, String imagePath) {
 		super();
 		this.productId = productId;

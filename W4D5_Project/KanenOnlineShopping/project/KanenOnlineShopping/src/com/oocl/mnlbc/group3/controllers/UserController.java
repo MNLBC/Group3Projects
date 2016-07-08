@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oocl.mnlbc.group3.dao.UserDAO;
 import com.oocl.mnlbc.group3.dao.UserDAOImpl;
+import com.oocl.mnlbc.group3.model.UserBean;
 
 /**
  * Servlet implementation class UserController
@@ -40,7 +41,7 @@ public class UserController extends HttpServlet {
 	}
 
 	public void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+		UserBean user = null;
 		String username = request.getParameter("userName");
 		String userPassword = request.getParameter("userPassword");
 		String fullName = request.getParameter("fullName");
@@ -48,11 +49,10 @@ public class UserController extends HttpServlet {
 		String address = request.getParameter("address");
 		String mobileNumber = request.getParameter("mobileNumber");
 		String userRole = request.getParameter("userRole");
-		double userBalance = Double.parseDouble(request.getParameter("userBalance"));
-		
 		String returnJson = "{\"success\":";
 		
-		if(userDAO.registerUser(username, userPassword, fullName, email, address, mobileNumber, userRole, userBalance)){
+		user = new UserBean(0,username, userPassword, fullName, email, address, mobileNumber, userRole);
+		if(userDAO.registerUser(user)){
 			returnJson+="true";
 		}else{
 			returnJson+="false";

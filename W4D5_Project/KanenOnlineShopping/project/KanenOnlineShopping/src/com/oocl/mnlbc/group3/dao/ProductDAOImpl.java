@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.oocl.mnlbc.group3.connection.DBConnection;
-import com.oocl.mnlbc.group3.model.Product;
+import com.oocl.mnlbc.group3.model.ProductBean;
 
 public class ProductDAOImpl implements ProductDAO {
 
@@ -34,8 +34,8 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public List<Product> getProductList() {
-		List<Product> prod = new ArrayList<Product>();
+	public List<ProductBean> getProductList() {
+		List<ProductBean> prod = new ArrayList<ProductBean>();
 		String sql = "SELECT * FROM PRODUCT";
 		PreparedStatement pstmt;
 		try {
@@ -43,7 +43,7 @@ public class ProductDAOImpl implements ProductDAO {
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				prod.add(new Product(Integer.parseInt(rs.getString("PRODUCT_ID")), rs.getString("PRODUCT_NAME"),
+				prod.add(new ProductBean(Integer.parseInt(rs.getString("PRODUCT_ID")), rs.getString("PRODUCT_NAME"),
 						rs.getString("PRODUCT_DESCRIPTION"), Double.parseDouble(rs.getString("PRODUCT_PRICE")),
 						Integer.parseInt(rs.getString("PRODUCT_STOCK_QUANTITY")), rs.getString("PRODUCT_IMAGE_PATH")));
 			}
@@ -53,6 +53,12 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return prod;
 
+	}
+
+	@Override
+	public boolean updateProductList(ProductBean prod) {
+		
+		return false;
 	}
 
 }
