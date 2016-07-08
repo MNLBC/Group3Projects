@@ -43,9 +43,14 @@ public class ProductDAOImpl implements ProductDAO {
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				prod.add(new ProductBean(Integer.parseInt(rs.getString("PRODUCT_ID")), rs.getString("PRODUCT_NAME"),
-						rs.getString("PRODUCT_DESCRIPTION"), Double.parseDouble(rs.getString("PRODUCT_PRICE")),
-						Integer.parseInt(rs.getString("PRODUCT_STOCK_QUANTITY")), rs.getString("PRODUCT_IMAGE_PATH")));
+				int id = Integer.parseInt(rs.getString("PRODUCT_ID"));
+				String prodname = rs.getString("PRODUCT_NAME");
+				String desc = rs.getString("PRODUCT_DESCRIPTION");
+				double price = Double.parseDouble(rs.getString("PRODUCT_PRICE"));
+				int stock = Integer.parseInt(rs.getString("PRODUCT_STOCK_QUANTITY"));
+				String img = rs.getString("PRODUCT_IMAGE_PATH");
+				
+				prod.add(new ProductBean(id,prodname,desc, price,stock,img));
 			}
 
 		} catch (SQLException e) {
@@ -57,14 +62,14 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public boolean updateProductList(ProductBean prod) {
-		
+
 		String id = Integer.toString(prod.getProductId());
-		String quantity= Integer.toString(prod.getProductStockQuantity());
+		String quantity = Integer.toString(prod.getProductStockQuantity());
 
 		int i = 0;
 
-		String sql = "UPDATE product SET PRODUCT_STOCK_QUANTITY= ?"
-				+ "WHERE PRODUCT_ID=? ";
+		String sql = "UPDATE product SET PRODUCT_STOCK_QUANTITY= ?" 
+					+ "WHERE PRODUCT_ID=? ";
 
 		try {
 

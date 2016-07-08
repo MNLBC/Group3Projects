@@ -57,7 +57,8 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public boolean validateAccount(String username, String password) {
+	public UserBean validateAccount(String username, String password) {
+		UserBean user = null;
 		String sql = "SELECT * FROM USERS WHERE "
 					+ "USERNAME ='" + username + "' "
 					+ "AND USER_PASSWORD ='" + password + "'";
@@ -66,17 +67,26 @@ public class UserDAOImpl implements UserDAO {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				String passwordHash = rs.getString(1);
+				String passwordHash = rs.getString("USER_PASSWORD");
 				try {
 					if (PasswordEncrypter.verifyPassword(password, passwordHash)) {
-						return true;
+						int id =Integer.parseInt(rs.getString("USER_ID"));
+						username =rs.getString("USERNAME");
+						String fullName = rs.getString("FULL_NAME");
+						String email =rs.getString("EMAIL");
+						String deliveryAddress = rs.getString("ADDRESS");
+						String mobileNumber = rs.getString("MOBILE_NUMBER");
+						String userRole = rs.getString("USER_ROLE");
+						
+						user = new UserBean(id,username,passwordHash,fullName,email,deliveryAddress,mobileNumber,userRole);
+						return user;
 					}
 				} catch (CannotPerformOperationException e) {
 					e.printStackTrace();
 				} catch (InvalidHashException e) {
 					e.printStackTrace();
 				}
-				return false;
+				return null;
 
 			}
 		} catch (SQLSyntaxErrorException se) {
@@ -84,7 +94,7 @@ public class UserDAOImpl implements UserDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return null;
 	}
 
 	public boolean registerUser(UserBean user) {

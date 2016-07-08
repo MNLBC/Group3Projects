@@ -88,7 +88,6 @@ public class UserBean implements Serializable {
 		this.userRole = userRole;
 	}
 
-
 	public UserBean(int userId, String userName, String userPassword, String fullName, String email, String address,
 			String mobileNumber, String userRole) {
 		super();

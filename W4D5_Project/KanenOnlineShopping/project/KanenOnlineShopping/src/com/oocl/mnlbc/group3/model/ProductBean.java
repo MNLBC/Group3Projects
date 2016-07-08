@@ -5,6 +5,7 @@ import java.io.Serializable;
 /**
  * 
  * Product Model Class
+ * 
  * @author group3
  *
  */
@@ -80,6 +81,4 @@ public class ProductBean implements Serializable {
 		this.imagePath = imagePath;
 	}
 
-	
-	
 }

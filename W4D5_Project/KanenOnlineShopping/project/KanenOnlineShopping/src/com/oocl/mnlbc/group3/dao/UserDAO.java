@@ -5,9 +5,9 @@ import com.oocl.mnlbc.group3.model.UserBean;
 public interface UserDAO {
 
 	public boolean userExists(String username);
-	
-	public boolean validateAccount(String username, String password);
-	
-	public boolean registerUser(UserBean user );
-	
+
+	public UserBean validateAccount(String username, String password);
+
+	public boolean registerUser(UserBean user);
+
 }
