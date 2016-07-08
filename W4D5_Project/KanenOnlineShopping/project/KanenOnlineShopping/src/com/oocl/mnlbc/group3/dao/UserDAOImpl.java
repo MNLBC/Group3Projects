@@ -37,7 +37,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public boolean userExists(String username) {
-		String sql = "SELECT 1 FROM USERS WHERE USERNAME ='" + username + "'";
+		String sql = "SELECT 1 FROM USERS WHERE "
+					+ "USERNAME ='" + username + "'";
 
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
@@ -57,7 +58,9 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public boolean validateAccount(String username, String password) {
-		String sql = "SELECT USER_PASSWORD FROM USERS WHERE USERNAME ='" + username + "'";
+		String sql = "SELECT * FROM USERS WHERE "
+					+ "USERNAME ='" + username + "' "
+					+ "AND USER_PASSWORD ='" + password + "'";
 
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
@@ -96,14 +99,15 @@ public class UserDAOImpl implements UserDAO {
 
 		int i = 0;
 
-		String enryptedPassword = "";
-		try {
-			enryptedPassword = PasswordEncrypter.createHash(userPassword);
-		} catch (CannotPerformOperationException e1) {
-			e1.printStackTrace();
-		}
-
-		String sql = "INSERT INTO USERS(USERNAME,USER_PASSWORD,FULL_NAME,EMAIL,ADDRESS,MOBILE_NUMBER,USER_ROLE) VALUES(?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO USERS"
+				+ "(USERNAME,"
+				+ "USER_PASSWORD,"
+				+ "FULL_NAME,EMAIL,"
+				+ "ADDRESS,"
+				+ "MOBILE_NUMBER,"
+				+ "USER_ROLE,"
+				+ "USER_BALANCE) "
+				+ "VALUES(?,?,?,?,?,?,?)";
 
 		try {
 

@@ -58,6 +58,30 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public boolean updateProductList(ProductBean prod) {
 		
+		String id = Integer.toString(prod.getProductId());
+		String quantity= Integer.toString(prod.getProductStockQuantity());
+
+		int i = 0;
+
+		String sql = "UPDATE product SET PRODUCT_STOCK_QUANTITY= ?"
+				+ "WHERE PRODUCT_ID=? ";
+
+		try {
+
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			pstmt.setString(1, quantity);
+			pstmt.setString(2, id);
+
+			i = pstmt.executeUpdate();
+
+			pstmt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (!(i == 0)) {
+			return true;
+		}
 		return false;
 	}
 
