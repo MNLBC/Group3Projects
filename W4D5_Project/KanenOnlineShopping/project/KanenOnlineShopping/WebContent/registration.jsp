@@ -84,7 +84,7 @@
 						Address</label>
 					<div class="col-md-4">
 						<textarea class="form-control" id="txtDeliveryAddress"
-							name="deliverAddress" required></textarea>
+							name="deliveryAddress" required></textarea>
 					</div>
 				</div>
 
@@ -117,4 +117,5 @@
 
 	</div>
 </body>
+<script src="js/validateRegistrationForm.js"></script>
 </html>
