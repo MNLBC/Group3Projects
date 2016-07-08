@@ -8,6 +8,9 @@ import java.sql.SQLSyntaxErrorException;
 
 import com.oocl.mnlbc.group3.connection.DBConnection;
 import com.oocl.mnlbc.group3.model.UserBean;
+import com.oocl.mnlbc.group3.security.PasswordEncrypter;
+import com.oocl.mnlbc.group3.security.PasswordEncrypter.CannotPerformOperationException;
+import com.oocl.mnlbc.group3.security.PasswordEncrypter.InvalidHashException;
 
 public class UserDAOImpl implements UserDAO {
 
@@ -54,13 +57,24 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public boolean validateAccount(String username, String password) {
-		String sql = "SELECT 1 FROM USERS WHERE USERNAME ='" + username + "' AND USER_PASSWORD ='" + password + "'";
+		String sql = "SELECT USER_PASSWORD FROM USERS WHERE USERNAME ='" + username + "'";
 
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				return true;
+				String passwordHash = rs.getString(1);
+				try {
+					if (PasswordEncrypter.verifyPassword(password, passwordHash)) {
+						return true;
+					}
+				} catch (CannotPerformOperationException e) {
+					e.printStackTrace();
+				} catch (InvalidHashException e) {
+					e.printStackTrace();
+				}
+				return false;
+
 			}
 		} catch (SQLSyntaxErrorException se) {
 			se.printStackTrace();
@@ -76,22 +90,29 @@ public class UserDAOImpl implements UserDAO {
 		String userPassword = user.getUserPassword();
 		String fullName = user.getFullName();
 		String email = user.getEmail();
-		String address = user.getAddress();
+		String deliveryAddress = user.getAddress();
 		String mobileNumber = user.getMobileNumber();
 		String userRole = user.getUserRole();
 
 		int i = 0;
 
-		String sql = "INSERT INTO USERS(USERNAME,USER_PASSWORD,FULL_NAME,EMAIL,ADDRESS,MOBILE_NUMBER,USER_ROLE,USER_BALANCE) VALUES(?,?,?,?,?,?,?)";
+		String enryptedPassword = "";
+		try {
+			enryptedPassword = PasswordEncrypter.createHash(userPassword);
+		} catch (CannotPerformOperationException e1) {
+			e1.printStackTrace();
+		}
+
+		String sql = "INSERT INTO USERS(USERNAME,USER_PASSWORD,FULL_NAME,EMAIL,ADDRESS,MOBILE_NUMBER,USER_ROLE) VALUES(?,?,?,?,?,?,?)";
 
 		try {
 
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			pstmt.setString(1, username);
-			pstmt.setString(2, userPassword);
+			pstmt.setString(2, enryptedPassword);
 			pstmt.setString(3, fullName);
 			pstmt.setString(4, email);
-			pstmt.setString(5, address);
+			pstmt.setString(5, deliveryAddress);
 			pstmt.setString(6, mobileNumber);
 			pstmt.setString(7, userRole);
 

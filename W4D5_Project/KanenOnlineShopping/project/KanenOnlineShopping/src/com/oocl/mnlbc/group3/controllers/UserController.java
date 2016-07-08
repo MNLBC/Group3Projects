@@ -13,7 +13,10 @@ import com.oocl.mnlbc.group3.dao.UserDAOImpl;
 import com.oocl.mnlbc.group3.model.UserBean;
 
 /**
- * Servlet implementation class UserController
+ * Servlet implementation class UserController for User Account related
+ * operations
+ * 
+ * @author Group 3
  */
 @WebServlet("/user")
 public class UserController extends HttpServlet {
@@ -46,16 +49,16 @@ public class UserController extends HttpServlet {
 		String userPassword = request.getParameter("userPassword");
 		String fullName = request.getParameter("fullName");
 		String email = request.getParameter("email");
-		String address = request.getParameter("address");
+		String deliveryAddress = request.getParameter("deliveryAddress");
 		String mobileNumber = request.getParameter("mobileNumber");
-		String userRole = request.getParameter("userRole");
+		String userRole = "customer";
 		String returnJson = "{\"success\":";
-		
-		user = new UserBean(0,username, userPassword, fullName, email, address, mobileNumber, userRole);
-		if(userDAO.registerUser(user)){
-			returnJson+="true";
-		}else{
-			returnJson+="false";
+
+		user = new UserBean(0, username, userPassword, fullName, email, deliveryAddress, mobileNumber, userRole);
+		if (userDAO.registerUser(user)) {
+			returnJson += "true";
+		} else {
+			returnJson += "false";
 		}
 
 		returnJson += "\"messageKey\": \"register.user\",\"data\": {}}";

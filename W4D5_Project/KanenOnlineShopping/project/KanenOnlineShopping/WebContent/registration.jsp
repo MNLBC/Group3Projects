@@ -20,7 +20,7 @@
 </head>
 <body>
 	<div class="container">
-		<form class="form-horizontal" action="">
+		<form class="form-horizontal" action="user" onsubmit="return validateRegistrationForm()">
 			<fieldset>
 
 				<!-- Form Name -->
@@ -30,7 +30,7 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="txtUsername">Username:</label>
 					<div class="col-md-4">
-						<input id="txtUsername" name="txtUsername" type="text"
+						<input id="txtUsername" name="userName" type="text"
 							placeholder="" class="form-control input-md" required>
 
 					</div>
@@ -40,7 +40,7 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="txtPassword">Password:</label>
 					<div class="col-md-4">
-						<input id="txtPassword" name="txtPassword" type="password"
+						<input id="txtPassword" name="userPassword" type="password"
 							placeholder="" class="form-control input-md" required>
 
 					</div>
@@ -62,7 +62,7 @@
 					<label class="col-md-4 control-label" for="txtFullName">Full
 						Name:</label>
 					<div class="col-md-4">
-						<input id="txtFullName" name="txtFullName" type="text"
+						<input id="txtFullName" name="fullName" type="text"
 							placeholder="" class="form-control input-md" required>
 
 					</div>
@@ -72,7 +72,7 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="txtEmail">Email:</label>
 					<div class="col-md-4">
-						<input id="txtEmail" name="txtEmail" type="email" placeholder=""
+						<input id="txtEmail" name="email" type="email" placeholder=""
 							class="form-control input-md" required>
 
 					</div>
@@ -84,7 +84,7 @@
 						Address</label>
 					<div class="col-md-4">
 						<textarea class="form-control" id="txtDeliveryAddress"
-							name="txtDeliveryAddress" required></textarea>
+							name="deliverAddress" required></textarea>
 					</div>
 				</div>
 
@@ -111,6 +111,8 @@
 				</div>
 
 			</fieldset>
+			
+			<input type="hidden" name="method" value=registerUser>
 		</form>
 
 	</div>
