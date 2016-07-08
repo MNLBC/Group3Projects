@@ -16,101 +16,103 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
-	
+
 </head>
 <body>
+	<div class="container">
+		<form class="form-horizontal">
+			<fieldset>
 
-	<form class="form-horizontal">
-		<fieldset>
+				<!-- Form Name -->
+				<legend>Create Account</legend>
 
-			<!-- Form Name -->
-			<legend>Create Account</legend>
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="txtUsername">Username:</label>
+					<div class="col-md-4">
+						<input id="txtUsername" name="txtUsername" type="text"
+							placeholder="" class="form-control input-md">
 
-			<!-- Text input-->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="txtUsername">Username:</label>
-				<div class="col-md-4">
-					<input id="txtUsername" name="txtUsername" type="text"
-						placeholder="" class="form-control input-md">
-
+					</div>
 				</div>
-			</div>
 
-			<!-- Password input-->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="txtPassword">Password:</label>
-				<div class="col-md-4">
-					<input id="txtPassword" name="txtPassword" type="password"
-						placeholder="" class="form-control input-md">
+				<!-- Password input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="txtPassword">Password:</label>
+					<div class="col-md-4">
+						<input id="txtPassword" name="txtPassword" type="password"
+							placeholder="" class="form-control input-md">
 
+					</div>
 				</div>
-			</div>
 
-			<!-- Password input-->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="txtConfirmPassword">Confirm
-					Password:</label>
-				<div class="col-md-4">
-					<input id="txtConfirmPassword" name="txtConfirmPassword"
-						type="password" placeholder="" class="form-control input-md">
+				<!-- Password input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="txtConfirmPassword">Confirm
+						Password:</label>
+					<div class="col-md-4">
+						<input id="txtConfirmPassword" name="txtConfirmPassword"
+							type="password" placeholder="" class="form-control input-md">
 
+					</div>
 				</div>
-			</div>
 
-			<!-- Text input-->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="txtFullName">Full
-					Name:</label>
-				<div class="col-md-4">
-					<input id="txtFullName" name="txtFullName" type="text"
-						placeholder="" class="form-control input-md">
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="txtFullName">Full
+						Name:</label>
+					<div class="col-md-4">
+						<input id="txtFullName" name="txtFullName" type="text"
+							placeholder="" class="form-control input-md">
 
+					</div>
 				</div>
-			</div>
 
-			<!-- Text input-->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="txtEmail">Email:</label>
-				<div class="col-md-4">
-					<input id="txtEmail" name="txtEmail" type="text" placeholder=""
-						class="form-control input-md">
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="txtEmail">Email:</label>
+					<div class="col-md-4">
+						<input id="txtEmail" name="txtEmail" type="text" placeholder=""
+							class="form-control input-md">
 
+					</div>
 				</div>
-			</div>
 
-			<!-- Textarea -->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="txtDeliveryAddress">Delivery
-					Address</label>
-				<div class="col-md-4">
-					<textarea class="form-control" id="txtDeliveryAddress"
-						name="txtDeliveryAddress"></textarea>
+				<!-- Textarea -->
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="txtDeliveryAddress">Delivery
+						Address</label>
+					<div class="col-md-4">
+						<textarea class="form-control" id="txtDeliveryAddress"
+							name="txtDeliveryAddress"></textarea>
+					</div>
 				</div>
-			</div>
 
-			<!-- Text input-->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="txtMobileNumber">Mobile
-					Number:</label>
-				<div class="col-md-4">
-					<input id="txtMobileNumber" name="txtMobileNumber" type="text"
-						placeholder="" class="form-control input-md">
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="txtMobileNumber">Mobile
+						Number:</label>
+					<div class="col-md-4">
+						<input id="txtMobileNumber" name="txtMobileNumber" type="text"
+							placeholder="" class="form-control input-md">
 
+					</div>
 				</div>
-			</div>
 
-			<!-- Button (Double) -->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="btnRegister"></label>
-				<div class="col-md-8">
-					<button id="btnRegister" name="btnRegister" class="btn btn-primary">Good
-						Button</button>
-					<button id="btnRegisterCancel" name="btnRegisterCancel"
-						class="btn btn-danger">Cancel</button>
+				<!-- Button (Double) -->
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="btnRegister"></label>
+					<div class="col-md-8">
+						<button id="btnRegister" name="btnRegister"
+							class="btn btn-primary">Good Button</button>
+						<button id="btnRegisterCancel" name="btnRegisterCancel"
+							class="btn btn-danger">Cancel</button>
+					</div>
 				</div>
-			</div>
 
-		</fieldset>
-	</form>
+			</fieldset>
+		</form>
+
+	</div>
 </body>
 </html>
