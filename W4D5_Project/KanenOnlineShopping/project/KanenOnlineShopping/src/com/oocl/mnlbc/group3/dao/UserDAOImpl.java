@@ -102,13 +102,19 @@ public class UserDAOImpl implements UserDAO {
 		String sql = "INSERT INTO USERS"
 				+ "(USERNAME,"
 				+ "USER_PASSWORD,"
-				+ "FULL_NAME,EMAIL,"
+				+ "FULL_NAME, EMAIL,"
 				+ "ADDRESS,"
 				+ "MOBILE_NUMBER,"
-				+ "USER_ROLE,"
-				+ "USER_BALANCE) "
+				+ "USER_ROLE)"
 				+ "VALUES(?,?,?,?,?,?,?)";
 
+		String enryptedPassword = "";
+		try {
+			enryptedPassword = PasswordEncrypter.createHash(userPassword);
+		} catch (CannotPerformOperationException e1) {
+			e1.printStackTrace();
+		}
+		
 		try {
 
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
