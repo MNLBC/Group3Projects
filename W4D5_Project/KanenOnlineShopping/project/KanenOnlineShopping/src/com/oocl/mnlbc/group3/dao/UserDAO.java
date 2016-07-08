@@ -6,6 +6,8 @@ public interface UserDAO {
 
 	public boolean userExists(String username);
 	
+	public boolean emailExists(String email);
+	
 	public boolean validateAccount(String username, String password);
 	
 	public boolean registerUser(UserBean user );

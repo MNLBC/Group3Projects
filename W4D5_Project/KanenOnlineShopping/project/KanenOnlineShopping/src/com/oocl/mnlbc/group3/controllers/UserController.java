@@ -54,26 +54,32 @@ public class UserController extends HttpServlet {
 		String deliveryAddress = request.getParameter("deliveryAddress");
 		String mobileNumber = request.getParameter("mobileNumber");
 		String userRole = "customer";
-		
-		
-		String returnJson = "{\"success\":";
 
+		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
+		String errorMsg = "";
 		user = new UserBean(0, username, userPassword, fullName, email, deliveryAddress, mobileNumber, userRole);
 
-		//RequestDispatcher requestDispatcher = request.getRequestDispatcher("/registration.jsp");
 		if (userDAO.userExists(username)) {
-			//requestDispatcher.forward(request, response);
-			returnJson += "false,\"messageKey\": \"register.user\",\"data\": {\"errormsg\": \"usernametaken\"}}";
-		} else {
+			errorMsg += "usernametaken";
+		}
+
+		if (userDAO.emailExists(email)) {
+			errorMsg += "emailtaken";
+		}
+
+		if (errorMsg.equals("")) {
 			if (userDAO.registerUser(user)) {
-				returnJson += "true,\"messageKey\": \"register.user\",\"data\": {\"errormsg\": \"none\"}}";
+				errorMsg += "none";
 			} else {
-				returnJson += "false,\"messageKey\": \"register.user\",\"data\": {\"errormsg\": \"failed\"}}";
+				errorMsg += "failed";
 			}
 
 		}
-
-		//returnJson += "\"messageKey\": \"register.user\",\"data\": {}}";
+		returnJson += errorMsg;
+		returnJson += "\"}}";
+		
+		// returnJson += "\"messageKey\": \"register.user\",\"data\": {}}";
+		
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(returnJson);

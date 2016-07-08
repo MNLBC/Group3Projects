@@ -23,8 +23,26 @@
 
 <script>
 	$(document).ready(function() {
+
 		$('#btnRegister').click(function(e) {
 			e.preventDefault();
+
+			var usernameTakenDiv = document.getElementById("usernametaken");
+			if (usernameTakenDiv != null) {
+				usernameTakenDiv.parentNode.removeChild(usernameTakenDiv);
+			}
+
+			var emailTakenDiv = document.getElementById("emailtaken");
+			if (emailTakenDiv != null) {
+				emailTakenDiv.parentNode.removeChild(emailTakenDiv);
+			}
+
+			 var accountRegisteredDiv = document
+					.getElementById("accountregistered");
+			if (accountRegisteredDiv != null) {
+				accountRegisteredDiv.parentNode
+						.removeChild(accountRegisteredDiv);
+			} 
 
 			var userName = $('#txtUsername').val();
 			var userPassword = $('#txtPassword').val();
@@ -61,13 +79,33 @@
 
 		if (response.data.errormsg.indexOf('usernametaken') > -1) {
 			var usernameExistDiv = document.createElement('div');
-			//usernameExistDiv.class="alert alert-danger"
 			var registrationForm = $('#registrationForm');
-			//registrationForm.insertBefore(usernameExistDiv,registrationForm.firstChild);
+
+			usernameExistDiv.id = 'usernametaken';
 			usernameExistDiv.className = 'alert alert-danger';
 			usernameExistDiv.textContent = 'The username has already been taken.';
 			registrationForm.append(usernameExistDiv);
 		}
+
+		if (response.data.errormsg.indexOf('emailtaken') > -1) {
+			var emailExistDiv = document.createElement('div');
+			var registrationForm = $('#registrationForm');
+
+			emailExistDiv.id = 'emailtaken';
+			emailExistDiv.className = 'alert alert-danger';
+			emailExistDiv.textContent = 'The email has already been taken.';
+			registrationForm.append(emailExistDiv);
+		}
+
+		 if (response.data.errormsg.indexOf('none') > -1) {
+			var registrationSuccessDiv = document.createElement('div');
+			var registrationForm = $('#registrationForm');
+
+			registrationSuccessDiv.id = 'accountregistered';
+			registrationSuccessDiv.className = 'alert alert-success';
+			registrationSuccessDiv.textContent = 'Account registered successfully.';
+			registrationForm.append(registrationSuccessDiv);
+		} 
 
 		return;
 	};
