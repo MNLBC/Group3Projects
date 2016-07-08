@@ -10,9 +10,10 @@ public interface UserDAO {
 
 	public UserBean validateAccount(String username, String password);
 	
-
 	public boolean registerUser(UserBean user);
 	
 	public List<UserBean> getBannedUsers();
+
+	boolean emailExists(String email);
 
 }

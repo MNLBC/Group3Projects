@@ -98,7 +98,7 @@ public class UserBean implements Serializable {
 	}
 
 	public String getMobileNumber() {
-		return mobileNumber; Cannot complete the provisioning operation.  Please change your selection and try again. See below for details.
+		return mobileNumber;
 	}
 
 	public void setMobileNumber(String mobileNumber) {
