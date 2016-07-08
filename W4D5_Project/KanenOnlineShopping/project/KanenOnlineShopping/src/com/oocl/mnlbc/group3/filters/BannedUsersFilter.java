@@ -37,7 +37,7 @@ public class BannedUsersFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		
-		String username = request.getParameter("username");
+		String username = httpRequest.getParameter("username");
 		boolean isUserBanned = false;
 		
 		for(UserBean user : bannedUserList){
