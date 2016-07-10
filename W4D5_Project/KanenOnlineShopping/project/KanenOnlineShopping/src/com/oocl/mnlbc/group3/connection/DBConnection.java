@@ -24,7 +24,7 @@ public class DBConnection {
 
 		// database connection details
 		//String hostname = "zha-ita122-w7";
-		String hostname = "localhost";
+		String hostname = "zha-ita122-w7";
 		//String hostname = "desktop-gm54mok";
 		String port = "1521";
 		String sid = "xe";
