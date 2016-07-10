@@ -40,6 +40,8 @@ public class UserController extends HttpServlet {
 			this.loginUser(request, response);
 		} else if (method.equals("checkIfHasSession")) {
 			this.checkIfHasSession(request, response);
+		} else if(method.equals("logoutUser")){
+			this.logoutUser(request,response);
 		}
 
 	}
@@ -104,7 +106,7 @@ public class UserController extends HttpServlet {
 			if (user != null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("userid", user.getUserId());
-				if(session.getAttribute("itemCart") == null){
+				if (session.getAttribute("itemCart") == null) {
 					session.setAttribute("itemCart", new CartBean());
 				}
 				errorMsg += "none:" + user.getUserId();
@@ -130,11 +132,20 @@ public class UserController extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		if (session.getAttribute("userid") != null) {
-			returnJson += "\"" +session.getAttribute("userid") + "\"";
+			returnJson += "\"" + session.getAttribute("userid") + "\"";
 		} else {
-			returnJson += "\""+"nouser"+"\"";
+			returnJson += "\"" + "nouser" + "\"";
 		}
 		returnJson += "}";
+		response.getWriter().write(returnJson);
+	}
+
+	public void logoutUser(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		HttpSession session = request.getSession();
+		session.invalidate();
+		String returnJson = "{\"success\":true}";
 		response.getWriter().write(returnJson);
 	}
 

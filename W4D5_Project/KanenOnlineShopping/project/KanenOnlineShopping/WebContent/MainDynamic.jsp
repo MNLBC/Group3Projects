@@ -55,7 +55,7 @@ var loggedInUserId = '';
 								//displayResults(responseText);
 								var data = JSON.parse(responseText.responseText);
 								if(data.userid == 'nouser'){
-									
+									$('#logout-link-href').hide();
 								}else{
 									$('#login-link-href').hide();
 									$('#signup-link-href').hide();
@@ -66,6 +66,34 @@ var loggedInUserId = '';
 
 						});
 
+						$(document)
+						.on(
+								"click",
+								"#logout-link-href",
+								function() {
+									$.ajax({
+										url : 'user',
+										data : {
+											method : 'logoutUser'
+										},
+										method : 'POST',
+										complete : function(responseText) {
+											//displayResults(responseText);
+											var data = JSON.parse(responseText.responseText);
+											if(data.success == true){
+												/* $('#logout-link-href').hide();
+												$('#login-link-href').show();
+												$('#signup-link-href').show(); */
+												
+											}
+											
+										}
+
+									});
+									
+								}
+							);
+						
 						$(document)
 								.on(
 										"click",
@@ -384,6 +412,9 @@ var loggedInUserId = '';
 				
 			<a href="Register_Modal.jsp" id="signup-link-href" class="logout-button" class="selected"
 				data-toggle="modal" data-target="#registerModal">Sign up</a>
+				
+			<a href="" id="logout-link-href" class="logout-button" class="selected">Logout</a>
+					
 			<!-- Aica <3 JayBee Merge-->
 			<!--  	<a href="#" class="logout-button">Logout</a>-->
 		</ul>
