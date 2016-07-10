@@ -4,6 +4,7 @@
 package com.oocl.mnlbc.group3.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,10 +22,14 @@ public class OrderBean implements Serializable {
 	private String orderDate;
 	private double totalCost;
 	private String orderStatus;
-	private List<ItemsBean> items;
+	private List<CartItemBean> items;
 
+	public OrderBean(){
+		items = new ArrayList<CartItemBean>();
+	}
+	
 	public OrderBean(long orderId, int userId, String orderDate, double totalCost, String orderStatus,
-			List<ItemsBean> items) {
+			List<CartItemBean> items) {
 		super();
 		this.orderId = orderId;
 		this.userId = userId;
@@ -112,7 +117,7 @@ public class OrderBean implements Serializable {
 	/**
 	 * @return the items
 	 */
-	public List<ItemsBean> getItems() {
+	public List<CartItemBean> getItems() {
 		return items;
 	}
 
@@ -120,10 +125,12 @@ public class OrderBean implements Serializable {
 	 * @param items
 	 *            the items to set
 	 */
-	public void setItems(List<ItemsBean> items) {
+	public void setItems(List<CartItemBean> items) {
 		this.items = items;
 	}
 
-	
+	public void addItem(CartItemBean item){
+		this.items.add(item);
+	}
 
 }

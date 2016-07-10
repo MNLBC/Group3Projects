@@ -78,9 +78,7 @@ public class CartItemBean implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public double getproductPrice() {
-		return productPrice;
-	}
+	
 
 	public void setproductPrice(double productPrice) {
 		this.productPrice = productPrice;

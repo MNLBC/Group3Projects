@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.oocl.mnlbc.group3.connection.DBConnection;
+import com.oocl.mnlbc.group3.model.CartItemBean;
 import com.oocl.mnlbc.group3.model.ItemsBean;
 import com.oocl.mnlbc.group3.model.OrderBean;
 import com.oocl.mnlbc.group3.model.UserBean;
@@ -54,24 +55,31 @@ public class OrderDAOImpl implements OrderDAO {
 	public boolean createOrder(OrderBean cart) {
 
 		String userId = Integer.toString(cart.getUserId());
-		String orderDate = cart.getOrderDate();
+		//int userId = cart.getUserId();
+
+		//String orderDate = cart.getOrderDate();
 		String totalCost = Double.toString(cart.getTotalCost());
+		//double totalCost = cart.getTotalCost();
 		String orderStatus = cart.getOrderStatus();
-		List<ItemsBean> items = cart.getItems();
+		List<CartItemBean> items = cart.getItems();
 
 		int i = 0;
 
 		String sql = "Insert into ORDERS(" + "USER_ID," + "ORDER_DATE," + "TOTAL_COST," + "ORDER_STATUS) "
-				+ "values(?,?,?,?);";
-
+					+ "values(?,SYSDATE,?,?)";
+		
 		try {
 
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
-			pstmt.setString(2, orderDate);
-			pstmt.setString(3, totalCost);
-			pstmt.setString(4, orderStatus);
-
+			//pstmt.setString(2, "TESTDATE");
+			pstmt.setString(2, totalCost);
+			pstmt.setString(3, orderStatus);
+            
+			System.out.println(userId);
+			System.out.println(totalCost);
+			System.out.println(orderStatus);
+			
 			i = pstmt.executeUpdate();
 
 			pstmt.close();
@@ -81,9 +89,9 @@ public class OrderDAOImpl implements OrderDAO {
 		}
 
 		if (!(i == 0)) {
-			int orderId = getOrderId();
+			long orderId = getOrderId();
 
-			for (ItemsBean item : items) {
+			for (CartItemBean item : items) {
 				if (saveCart(item, orderId)) {
 				} else {
 					return false;
@@ -104,11 +112,11 @@ public class OrderDAOImpl implements OrderDAO {
 	 * ItemsBean)
 	 */
 	@Override
-	public boolean saveCart(ItemsBean items, long orderId) {
+	public boolean saveCart(CartItemBean items, long orderId) {
 		String id = Long.toString(orderId);
 		String orderDate = Integer.toString(items.getProductId());
 		String quantity = Integer.toString(items.getQuantity());
-		String orderPrice = Double.toString(items.getItemPrice());
+		String orderPrice = Double.toString(items.getProductPrice());
 
 		int i = 0;
 
@@ -213,14 +221,14 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public int getOrderId() {
-		String sql = "SELECT MAX(ORDER_ID) FROM ORDERS";
-		int orderId = 0;
+	public long getOrderId() {
+		String sql = "SELECT MAX(ORDER_ID) AS ORDER_ID FROM ORDERS";
+		long orderId = 0;
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				orderId = Integer.parseInt(rs.getString("ORDER_ID"));
+				orderId = Long.parseLong((rs.getString("ORDER_ID")));
 			}
 
 		} catch (SQLSyntaxErrorException se) {
