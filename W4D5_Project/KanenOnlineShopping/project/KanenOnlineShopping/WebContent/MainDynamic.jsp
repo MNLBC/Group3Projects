@@ -41,6 +41,33 @@
 			}
 
 		});
+
+		$(document).on("click", ".hidden-sm", function() {
+			
+			var productId = this.id;
+			var prodPrice = this.productPrice;
+			$.ajax({
+				url : 'product',
+				data : {
+					method : 'addProductToCart',
+					productId : productId,
+					productPrice : prodPrice
+				},
+				method : 'POST',
+				complete : function(responseText) {
+					var isProductAdded = JSON.parse(responseText.responseText).success;
+					if(isProductAdded == true){
+						alert('Product added to cart.');
+					}else{
+						alert('Item quantity increased.');
+					}
+				}
+
+			});
+
+			
+		});
+
 	});
 
 	function displayResults(responseText) {
@@ -55,18 +82,18 @@
 
 		var productStartCounter = 0;
 		var productEndCounter = 4;
-		
+
 		var documentBody = document.getElementById("body");
-		
+
 		for (var i = 0; i < numerOfProductRows; i++) {
-			
+
 			var containerDiv = document.createElement('div');
 			containerDiv.id = 'containerdiv' + containerDivCounter;
 			containerDiv.className = 'container';
 			containerDiv.style = 'margin-top: 50px'
 			documentBody.appendChild(containerDiv);
 			containerDivCounter += 1;
-			
+
 			var rowDiv = document.createElement('div');
 			rowDiv.id = 'rowdiv' + rowDivCounter;
 			rowDiv.className = 'row';
@@ -74,90 +101,94 @@
 
 			containerDiv.appendChild(rowDiv);
 
-		    for (var j = productStartCounter; j < productEndCounter;j++ ) {
-		    	
+			for (var j = productStartCounter; j < productEndCounter; j++) {
+
 				var colxsDiv = document.createElement('div');
 				colxsDiv.className = 'col-xs-12 col-sm-6 col-md-3';
 				rowDiv.appendChild(colxsDiv);
-				
-			 	var colItemDiv = document.createElement('div');
-			 	colItemDiv.className = 'col-item';
-				colxsDiv.appendChild(colItemDiv);  
-				
+
+				var colItemDiv = document.createElement('div');
+				colItemDiv.className = 'col-item';
+				colxsDiv.appendChild(colItemDiv);
+
 				var imgContentDiv = document.createElement('div');
 				imgContentDiv.className = 'post-img-content';
-				colItemDiv.appendChild(imgContentDiv);  
-				
+				colItemDiv.appendChild(imgContentDiv);
+
 				var image = document.createElement('img');
 				image.className = 'img-responsive';
 				image.src = productListArray[j].imagePath;
 				imgContentDiv.appendChild(image);
-				
+
 				var imageSpan = document.createElement('span');
 				imageSpan.className = 'post-title';
-				imgContentDiv.appendChild(imageSpan); 
-				
-				
+				imgContentDiv.appendChild(imageSpan);
+
 				var infoDiv = document.createElement('div');
 				infoDiv.className = 'info';
-				colItemDiv.appendChild(infoDiv);  
-				
+				colItemDiv.appendChild(infoDiv);
+
 				var productRowDiv = document.createElement('div');
 				productRowDiv.className = 'row';
-				infoDiv.appendChild(productRowDiv); 
-				
+				infoDiv.appendChild(productRowDiv);
+
 				var priceDiv = document.createElement('div');
 				priceDiv.className = 'price col-md-6';
 				productRowDiv.appendChild(priceDiv);
-				
+
 				var productNameText = document.createElement('h5');
 				productNameText.textContent = productListArray[j].productName;
 				priceDiv.appendChild(productNameText);
-				
+
 				var priceText = document.createElement('h5');
 				priceText.textContent = '$' + productListArray[j].productPrice;
 				priceText.className = 'price-text-color';
 				priceDiv.appendChild(priceText);
-				
+
 				var separatorDiv = document.createElement('h5');
 				separatorDiv.className = 'separator clear-left';
-				infoDiv.appendChild(separatorDiv); 
-				
+				infoDiv.appendChild(separatorDiv);
+
 				var addToCartP = document.createElement('p');
 				addToCartP.className = 'btn-add';
 				separatorDiv.appendChild(addToCartP)
-				
+
 				var iFaShoppingCart = document.createElement('i');
 				iFaShoppingCart.className = 'fa fa-shopping-cart';
 				addToCartP.appendChild(iFaShoppingCart);
-				
+
 				var addToCartLink = document.createElement('a');
-				addToCartLink.href = 'product?method=addProductToCart&productId=' +  productListArray[j].productId;
+				addToCartLink.id = productListArray[j].productId;
+				addToCartLink.productPrice = productListArray[j].productPrice;
+				
+				addToCartLink.href = '#';
+				//addToCartLink.href = 'product?method=addProductToCart&productId=' +  productListArray[j].productId;
 				addToCartLink.className = 'hidden-sm';
 				addToCartLink.textContent = 'Add to cart';
 				addToCartP.appendChild(addToCartLink);
-				
+
 				var detailsP = document.createElement('p');
 				detailsP.className = 'btn-details';
 				separatorDiv.appendChild(detailsP)
-				
+
 				var faList = document.createElement('i');
 				faList.className = 'fa fa-list';
 				detailsP.appendChild(faList);
-				
+
 				var moreDetailsLink = document.createElement('a');
-				moreDetailsLink.href = 'product?method=viewProductDetails&productId=' +  productListArray[j].productId;
+				moreDetailsLink.href = 'product?method=viewProductDetails&productId='
+						+ productListArray[j].productId;
 				moreDetailsLink.className = 'hidden-sm';
 				moreDetailsLink.textContent = 'MoreDetails';
 				detailsP.appendChild(moreDetailsLink);
-				
+
 			}
-			
-			 productStartCounter +=4;
-			productEndCounter +=4; 
+
+			productStartCounter += 4;
+			productEndCounter += 4;
 
 		}
-		
+
 		return;
 	};
 </script>
@@ -168,9 +199,6 @@
 
 
 	<div class="header-limiter">
-
-
-
 
 		<nav> <a href="#">Products</a> <!-- Aica JayBee Merge--> <a
 			href="Cart_Modal.jsp" class="selected" data-toggle="modal"

@@ -35,6 +35,8 @@ public class UserController extends HttpServlet {
 
 		if (method.equals("registerUser")) {
 			this.createUser(request, response);
+		}else if(method.equals("loginUser")){
+			this.loginUser(request, response);
 		}
 
 	}
@@ -85,4 +87,34 @@ public class UserController extends HttpServlet {
 		response.getWriter().write(returnJson);
 	}
 
+	public void loginUser(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		UserBean user = null;
+		String username = request.getParameter("userName");
+		String userPassword = request.getParameter("userPassword");
+
+
+		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
+		String errorMsg = "";
+
+		
+		user =userDAO.validateAccount(username, userPassword);
+		if (errorMsg.equals("")) {
+			if (user!=null) {
+				errorMsg += "none";
+			} else {
+				errorMsg += "incorrectcredentials";
+			}
+
+		}
+		returnJson += errorMsg;
+		returnJson += "\"}}";
+		
+		// returnJson += "\"messageKey\": \"register.user\",\"data\": {}}";
+		
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(returnJson);
+	}
+	
 }
