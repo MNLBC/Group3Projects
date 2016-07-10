@@ -153,6 +153,7 @@ var loggedInUserId = '';
 											complete : function(responseText) {
 												//displayResults(responseText);
 												alert('Order successfully created');
+												window.location.reload();
 											}
 
 										});

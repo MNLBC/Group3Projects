@@ -50,7 +50,7 @@ public class ProductController extends HttpServlet {
 			this.deleteProduct(request, response);
 		} else if (method.equals("updateProductQty")) {
 			this.updateProductQty(request, response);
-		}
+		} 
 
 	}
 
@@ -162,10 +162,12 @@ public class ProductController extends HttpServlet {
 
 		OrderDAO orderDao = OrderDAOImpl.getInstance();
 		orderDao.createOrder(order);
-
+		
+		this.clearCart(request, response);
+		
 		String returnJson = "{\"success\":true}";
 		response.getWriter().write(returnJson);
-
+		
 	}
 
 	public void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -201,4 +203,10 @@ public class ProductController extends HttpServlet {
 		response.getWriter().write(returnJson);
 	}
 
+	
+	public void clearCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
+		//CartBean itemCart = (CartBean) session.getAttribute("itemCart");
+		session.setAttribute("itemCart", null);
+	}
 }
