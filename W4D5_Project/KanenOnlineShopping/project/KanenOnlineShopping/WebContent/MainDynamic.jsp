@@ -204,7 +204,7 @@
 				addToCartLink.productPrice = productListArray[j].productPrice;
 				addToCartLink.imagePath = productListArray[j].imagePath;
 
-				addToCartLink.href = '#';
+			
 				//addToCartLink.href = 'product?method=addProductToCart&productId=' +  productListArray[j].productId;
 				addToCartLink.className = 'hidden-sm';
 				addToCartLink.textContent = 'Add to cart';

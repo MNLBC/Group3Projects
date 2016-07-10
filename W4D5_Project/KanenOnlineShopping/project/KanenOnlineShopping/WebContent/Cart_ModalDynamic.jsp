@@ -13,6 +13,7 @@
 		var responseData = JSON.parse(responseText.responseText).data;
 		console.log(responseData);
 		var itemsInCart = responseData.itemsInCart;
+		var totalPrice =0;
 		//console.log(itemsInCart);
 		for (var i = 0; i < itemsInCart.length; i++) {
 			//alert('item number' + i);
@@ -81,6 +82,7 @@
 			productQuantity.type = 'text';
 			productQuantity.className = 'form-control input-sm';
 			productQuantity.id = 'txtQty' + itemsInCart[i].productId;
+			productQuantity.value=itemsInCart[i].quantity;
 			colxsItemDiv.appendChild(productQuantity);
 			
 			var trashButtonDiv = document.createElement('button');
@@ -94,7 +96,11 @@
 
 			var divBodyCartModal = document.getElementById('divBodyCartModal');
 			divBodyCartModal.appendChild(rowDiv);
+			
+				totalPrice+=(itemsInCart[i].productPrice *itemsInCart[i].quantity);
 		}
+		var totalInCart = document.getElementById('totalInCart');
+		totalInCart.textContent='$'+totalPrice;
 	}
 </script>
 
@@ -167,9 +173,9 @@
 	<div class="panel-footer">
 		<div class="row text-center">
 
-			<div class="col-xs-7">
+			<div class="col-xs-7" >
 				<h4 class="text-right">
-					Total <strong>$50.00</strong>
+					Total <strong id="totalInCart"></strong>
 				</h4>
 			</div>
 
