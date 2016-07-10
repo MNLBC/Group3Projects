@@ -36,7 +36,7 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public List<ProductBean> getProductList() {
 		List<ProductBean> prod = new ArrayList<ProductBean>();
-		String sql = "SELECT * FROM PRODUCT";
+		String sql = "SELECT PRODUCT_ID, PRODUCT_NAME, PRODUCT_DESCRIPTION, PRODUCT_PRICE, PRODUCT_STOCK_QUANTITY, PRODUCT_IMAGE_PATH  FROM PRODUCT";
 		PreparedStatement pstmt;
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);

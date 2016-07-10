@@ -19,7 +19,7 @@ import com.oocl.mnlbc.group3.model.UserBean;
 /**
  * Servlet Filter for blacklisting users
  */
-@WebFilter("/BannedUsersFilter")
+//@WebFilter("/BannedUsersFilter")
 public class BannedUsersFilter implements Filter {
 
     List<UserBean> bannedUserList;
@@ -56,7 +56,7 @@ public class BannedUsersFilter implements Filter {
 
 	
 	public void init(FilterConfig fConfig) throws ServletException {
-		bannedUserList = userDAO.getBannedUsers();
+		//bannedUserList = userDAO.getBannedUsers();
 	}
 
 }
