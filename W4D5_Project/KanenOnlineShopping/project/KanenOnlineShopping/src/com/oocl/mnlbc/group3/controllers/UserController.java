@@ -33,7 +33,6 @@ public class UserController extends HttpServlet {
 
 	private static UserDAO userDAO = UserDAOImpl.getInstance();
 	private static OrderDAO orderDAO = OrderDAOImpl.getInstance();
-	
 
 	public UserController() {
 		super();
@@ -45,9 +44,13 @@ public class UserController extends HttpServlet {
 
 		if (method.equals("registerUser")) {
 			this.createUser(request, response);
-		}else if(method.equals("loginUser")){
+		} else if (method.equals("loginUser")) {
 			this.loginUser(request, response);
-		}else if(method.equals("userTrans")){
+		} else if (method.equals("checkIfHasSession")) {
+			this.checkIfHasSession(request, response);
+		} else if (method.equals("logoutUser")) {
+			this.logoutUser(request, response);
+		} else if (method.equals("userTrans")) {
 			this.getOrderList(request, response);
 		}
 	}
@@ -90,9 +93,9 @@ public class UserController extends HttpServlet {
 		}
 		returnJson += errorMsg;
 		returnJson += "\"}}";
-		
+
 		// returnJson += "\"messageKey\": \"register.user\",\"data\": {}}";
-		
+
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(returnJson);
@@ -103,18 +106,21 @@ public class UserController extends HttpServlet {
 		UserBean user = null;
 		String username = request.getParameter("userName");
 		String userPassword = request.getParameter("userPassword");
-		
-		String userid;
 
+		String userid;
 
 		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
 		String errorMsg = "";
 
-
-		user =userDAO.validateAccount(username, userPassword);
+		user = userDAO.validateAccount(username, userPassword);
 		if (errorMsg.equals("")) {
-			if (user!=null) {
-				errorMsg += "none";
+			if (user != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("userid", user.getUserId());
+				if (session.getAttribute("itemCart") == null) {
+					session.setAttribute("itemCart", new CartBean());
+				}
+				errorMsg += "none:" + user.getUserId();
 			} else {
 				errorMsg += "incorrectcredentials";
 			}
@@ -122,25 +128,24 @@ public class UserController extends HttpServlet {
 		}
 		returnJson += errorMsg;
 		returnJson += "\"}}";
-		
+
 		// returnJson += "\"messageKey\": \"register.user\",\"data\": {}}";
-		
+
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(returnJson);
 	}
+
 	public void userTrans(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-List<OrderBean> order = new ArrayList<OrderBean>();
-
+		List<OrderBean> order = new ArrayList<OrderBean>();
 
 		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
 		String errorMsg = "";
 
-		
-		order =orderDAO.getTransactions(1000000039);
+		order = orderDAO.getTransactions(1000000039);
 		if (errorMsg.equals("")) {
-			if (order!=null) {
+			if (order != null) {
 				errorMsg += "none";
 			} else {
 				errorMsg += "notrans";
@@ -149,53 +154,74 @@ List<OrderBean> order = new ArrayList<OrderBean>();
 		}
 		returnJson += errorMsg;
 		returnJson += "\"}}";
-		
+
 		// returnJson += "\"messageKey\": \"register.user\",\"data\": {}}";
-		
+
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(returnJson);
 	}
 
+	private void getOrderList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String returnJson = "{\"success\":true,\"data\":{\"orders\":[";
 
-private void getOrderList(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	String returnJson = "{\"success\":true,\"data\":{\"orders\":[";
+		List<OrderBean> order = orderDAO.getTransactions(1000000039);
 
-	List<OrderBean> order = orderDAO.getTransactions(1000000039);
+		/*
+		 * //Sets the product list into the session HttpSession session =
+		 * request.getSession(); ProductList prodList =
+		 * ProductList.getInstance(); prodList.setProductList(products);
+		 * session.setAttribute("prodList", prodList);
+		 */
+		HttpSession session = request.getSession();
+		session.setAttribute("itemCart", new CartBean());
+		long orderId = 0;
 
-	/*
-	 * //Sets the product list into the session HttpSession session =
-	 * request.getSession(); ProductList prodList =
-	 * ProductList.getInstance(); prodList.setProductList(products);
-	 * session.setAttribute("prodList", prodList);
-	 */
-	HttpSession session = request.getSession();
-	session.setAttribute("itemCart", new CartBean());
-	long orderId=0;
+		Gson gson = new Gson();
+		for (OrderBean ord : order) {
+			returnJson += gson.toJson(ord) + ",";
+			orderId = ord.getOrderId();
+		}
 
-	Gson gson = new Gson();
-	for (OrderBean ord : order) {
-		returnJson += gson.toJson(ord) + ",";
-		orderId=ord.getOrderId();
+		returnJson = returnJson.substring(0, returnJson.length() - 1);
+		returnJson += "],";
+
+		List<ItemsBean> itemList = orderDAO.getItems(orderId);
+		returnJson += "\"items\":[";
+		for (ItemsBean item : itemList) {
+			returnJson += gson.toJson(item) + ",";
+		}
+		returnJson = returnJson.substring(0, returnJson.length() - 1);
+		returnJson += "]}}";
+
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(returnJson);
+
 	}
-	
 
-	returnJson = returnJson.substring(0, returnJson.length() - 1);
-	returnJson += "],";
-	
-	List<ItemsBean> itemList = orderDAO.getItems(orderId);
-	returnJson+="\"items\":[";
-	for (ItemsBean item : itemList ) {
-		returnJson += gson.toJson(item) + ",";
+	public void checkIfHasSession(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		String returnJson = "{\"userid\":";
+
+		HttpSession session = request.getSession();
+		if (session.getAttribute("userid") != null) {
+			returnJson += "\"" + session.getAttribute("userid") + "\"";
+		} else {
+			returnJson += "\"" + "nouser" + "\"";
+		}
+		returnJson += "}";
+		response.getWriter().write(returnJson);
 	}
-	returnJson = returnJson.substring(0, returnJson.length() - 1);
-	returnJson+="]}}";
 
-	response.setContentType("text/plain");
-	response.setCharacterEncoding("UTF-8");
-	response.getWriter().write(returnJson);
+	public void logoutUser(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		HttpSession session = request.getSession();
+		session.invalidate();
+		String returnJson = "{\"success\":true}";
+		response.getWriter().write(returnJson);
+	}
 
 }
-	
-}
-
