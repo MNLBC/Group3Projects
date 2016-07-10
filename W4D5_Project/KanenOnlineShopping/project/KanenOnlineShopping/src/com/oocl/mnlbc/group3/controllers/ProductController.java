@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.oocl.mnlbc.group3.dao.ProductDAO;
 import com.oocl.mnlbc.group3.dao.ProductDAOImpl;
 import com.oocl.mnlbc.group3.model.CartBean;
+import com.oocl.mnlbc.group3.model.CartItemBean;
 import com.oocl.mnlbc.group3.model.ProductBean;
 
 /**
@@ -38,7 +39,11 @@ public class ProductController extends HttpServlet {
 			this.getProductList(request, response);
 		} else if (method.equals("addProductToCart")) {
 			this.addProductToCart(request, response);
+		}else if (method.equals("getItemsinCart")){
+			this.getItemsinCart(request, response);
 		}
+		
+		
 
 	}
 
@@ -84,12 +89,14 @@ public class ProductController extends HttpServlet {
 	private void addProductToCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		double productPrice = Double.parseDouble(request.getParameter("productPrice"));
-
+		String productName = request.getParameter("productName");
+		String productDescription = request.getParameter("productDescription");
+		String imagePath = request.getParameter("imagePath");
 		HttpSession session = request.getSession();
 
 		CartBean itemCart = (CartBean) session.getAttribute("itemCart");
 
-		boolean isItemAddedToCart = itemCart.addItemToCart(productId, productPrice);
+		boolean isItemAddedToCart = itemCart.addItemToCart(productId, productName, productDescription, productPrice,imagePath);
 		session.setAttribute("itemCart", itemCart);
 
 		String returnJson = "{\"success\":";
@@ -106,6 +113,25 @@ public class ProductController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(returnJson);
 
+	}
+
+	public void getItemsinCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String returnJson = "{\"success\":true,\"data\":{\"itemsInCart\":[";
+		HttpSession session = request.getSession();
+
+		CartBean itemCart = (CartBean) session.getAttribute("itemCart");
+		Gson gson = new Gson();
+		for (CartItemBean item : itemCart.getItems()) {
+			returnJson += gson.toJson(item) + ",";
+
+		}
+		returnJson = returnJson.substring(0, returnJson.length() - 1);
+		returnJson += "] }}";
+		
+
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(returnJson);
 	}
 
 }

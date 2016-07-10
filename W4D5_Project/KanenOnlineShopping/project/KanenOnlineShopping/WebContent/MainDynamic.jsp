@@ -27,48 +27,88 @@
 }
 </style>
 <script>
-	$(document).ready(function() {
+	$(document)
+			.ready(
+					function() {
 
-		$.ajax({
-			url : 'product',
-			data : {
-				method : 'getProducts'
-			},
-			method : 'POST',
-			complete : function(responseText) {
-				displayResults(responseText);
+						$.ajax({
+							url : 'product',
+							data : {
+								method : 'getProducts'
+							},
+							method : 'POST',
+							complete : function(responseText) {
+								displayResults(responseText);
 
-			}
+							}
 
-		});
+						});
 
-		$(document).on("click", ".hidden-sm", function() {
-			
-			var productId = this.id;
-			var prodPrice = this.productPrice;
-			$.ajax({
-				url : 'product',
-				data : {
-					method : 'addProductToCart',
-					productId : productId,
-					productPrice : prodPrice
-				},
-				method : 'POST',
-				complete : function(responseText) {
-					var isProductAdded = JSON.parse(responseText.responseText).success;
-					if(isProductAdded == true){
-						alert('Product added to cart.');
-					}else{
-						alert('Item quantity increased.');
-					}
-				}
+						$(document)
+								.on(
+										"click",
+										".hidden-sm",
+										function() {
 
-			});
+											var productId = this.id;
+											var prodPrice = this.productPrice;
+											var productDescription = this.productDescription;
+											var productName = this.productName;
+											var productImagePath = this.imagePath;
+											$
+													.ajax({
+														url : 'product',
+														data : {
+															method : 'addProductToCart',
+															productId : productId,
+															productName : productName,
+															productDescription : productDescription,
+															imagePath : productImagePath,
+															productPrice : prodPrice
+														},
+														method : 'POST',
+														complete : function(
+																responseText) {
+															var isProductAdded = JSON
+																	.parse(responseText.responseText).success;
+															if (isProductAdded == true) {
+																alert('Product added to cart.');
+															} else {
+																alert('Item quantity increased.');
+															}
+														}
 
-			
-		});
+													});
 
-	});
+										});
+						
+						$(document)
+						.on(
+								"click",
+								"#melvinPogi",
+								function() {
+									
+							var divBodyCartModal = document.getElementById('divBodyCartModal');				
+							if(divBodyCartModal!=null){
+								$('#divBodyCartModal').empty();
+									}
+						
+						$.ajax({
+							url : 'product',
+							data : {
+								method : 'getItemsinCart'
+							},
+							method : 'POST',
+							complete : function(responseText) {
+								//	displayResults(responseText);
+								var myvar;
+								displayResults(responseText);
+							}
+
+						});
+					});
+
+					});
 
 	function displayResults(responseText) {
 
@@ -159,8 +199,11 @@
 
 				var addToCartLink = document.createElement('a');
 				addToCartLink.id = productListArray[j].productId;
+				addToCartLink.productName = productListArray[j].productName;
+				addToCartLink.productDescription = productListArray[j].productDescription;
 				addToCartLink.productPrice = productListArray[j].productPrice;
-				
+				addToCartLink.imagePath = productListArray[j].imagePath;
+
 				addToCartLink.href = '#';
 				//addToCartLink.href = 'product?method=addProductToCart&productId=' +  productListArray[j].productId;
 				addToCartLink.className = 'hidden-sm';
@@ -192,6 +235,8 @@
 		return;
 	};
 </script>
+
+
 </head>
 <body id="body">
 
@@ -201,8 +246,8 @@
 	<div class="header-limiter">
 
 		<nav> <a href="#">Products</a> <!-- Aica JayBee Merge--> <a
-			href="Cart_Modal.jsp" class="selected" data-toggle="modal"
-			data-target="#cartModal">View Cart</a> <!-- Aica JayBee Merge--> </nav>
+			href="Cart_ModalDynamic.jsp" class="selected" data-toggle="modal"
+			data-target="#cartModal" id = "melvinPogi">View Cart</a> <!-- Aica JayBee Merge--> </nav>
 
 		<ul>
 			<!-- Aica JayBee Merge-->
@@ -271,7 +316,25 @@
 
 	</br>
 
+	<!-- Aica JayBee Merge-->
+	<div class="modal fade" id="cartModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content"></div>
+		</div>
+	</div>
 
+	<div class="modal fade" id="loginModal" role="dialog">
+		<div class="modal-login">
+			<div class="modal-content"></div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="registerModal" role="dialog">
+		<div class="modal-registration">
+			<div class="modal-content"></div>
+		</div>
+	</div>
+	<!-- Aica JayBee Merge-->
 
 </body>
 </html>
