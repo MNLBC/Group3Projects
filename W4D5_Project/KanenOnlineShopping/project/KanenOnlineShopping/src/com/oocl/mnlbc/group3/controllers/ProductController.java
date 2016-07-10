@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.oocl.mnlbc.group3.dao.OrderDAO;
+import com.oocl.mnlbc.group3.dao.OrderDAOImpl;
 import com.oocl.mnlbc.group3.dao.ProductDAO;
 import com.oocl.mnlbc.group3.dao.ProductDAOImpl;
 import com.oocl.mnlbc.group3.model.CartBean;
 import com.oocl.mnlbc.group3.model.CartItemBean;
+import com.oocl.mnlbc.group3.model.OrderBean;
 import com.oocl.mnlbc.group3.model.ProductBean;
 
 /**
@@ -140,8 +143,26 @@ public class ProductController extends HttpServlet {
 
 	public void checkoutCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
+		//int userId = Integer.parseInt(request.getParameter("userid"));
 		CartBean itemCart = (CartBean) session.getAttribute("itemCart");
-		
+
+		OrderBean order = new OrderBean();
+		// order.setUserId(userId);
+		order.setUserId(1000000002);
+		order.setOrderStatus("ondelivery");
+		double totalCost = 0.00;
+		for (CartItemBean item : itemCart.getItems()) {
+			order.addItem(item);
+			totalCost += item.getProductPrice();
+		}
+		order.setTotalCost(totalCost);
+
+		OrderDAO orderDao = OrderDAOImpl.getInstance();
+		orderDao.createOrder(order);
+
+		String returnJson = "{\"success\":true}";
+		response.getWriter().write(returnJson);
+
 	}
 
 	public void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -162,19 +183,18 @@ public class ProductController extends HttpServlet {
 		HttpSession session = request.getSession();
 		String productsToUpdate = request.getParameter("productsToUpdate");
 		CartBean itemCart = (CartBean) session.getAttribute("itemCart");
-		
-		String productArray [] = productsToUpdate.split("~");
-		for(String product: productArray){
+
+		String productArray[] = productsToUpdate.split("~");
+		for (String product : productArray) {
 			int productId = Integer.parseInt(product.split(",")[0].split(":")[1].replaceAll("txtQty", ""));
 			System.out.println(String.valueOf(productId));
 			int productQty = Integer.parseInt(product.split(",")[1].split(":")[1]);
 			System.out.println(String.valueOf(productQty));
-			
+
 			itemCart.update(productId, productQty);
-			
+
 		}
-	
-		
+
 		response.getWriter().write(returnJson);
 	}
 

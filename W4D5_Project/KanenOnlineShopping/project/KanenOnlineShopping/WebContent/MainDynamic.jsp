@@ -99,7 +99,7 @@
 											method : 'POST',
 											complete : function(responseText) {
 												//displayResults(responseText);
-
+												alert('Order successfully created');
 											}
 
 										});
