@@ -74,7 +74,7 @@
 
 			containerDiv.appendChild(rowDiv);
 
-		    for (var j = productStartCounter; j < productEndCounter; ) {
+		    for (var j = productStartCounter; j < productEndCounter;j++ ) {
 				var colxsDiv = document.createElement('div');
 				colxsDiv.className = 'col-xs-12 col-sm-6 col-md-3';
 				rowDiv.appendChild(colxsDiv);
@@ -89,7 +89,7 @@
 				
 				var image = document.createElement('img');
 				image.className = 'img-responsive';
-				image.src = productListArray[0].imagePath;
+				image.src = productListArray[j].imagePath;
 				imgContentDiv.appendChild(image);
 				
 				var imageSpan = document.createElement('span');
@@ -98,8 +98,8 @@
 				
 			}
 			
-			/* productStartCounter +=4;
-			productEndCounter +=4; */
+			 productStartCounter +=4;
+			productEndCounter +=4; 
 
 		}
 		/* for(var i=0; i< productListArray.length; i++){
