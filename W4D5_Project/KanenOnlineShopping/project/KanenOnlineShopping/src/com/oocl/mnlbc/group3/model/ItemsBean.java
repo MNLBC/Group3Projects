@@ -15,12 +15,12 @@ public class ItemsBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int orderId;
+	private long orderId;
 	private int productId;
 	private int quantity;
 	private double itemPrice;
 
-	public ItemsBean(int orderId, int productId, String orderDate, int quantity, double itemPrice) {
+	public ItemsBean(long orderId, int productId,  int quantity, double itemPrice) {
 		super();
 		this.orderId = orderId;
 		this.productId = productId;
@@ -28,7 +28,7 @@ public class ItemsBean implements Serializable {
 		this.itemPrice = itemPrice;
 	}
 
-	public int getOrderId() {
+	public long getOrderId() {
 		return orderId;
 	}
 

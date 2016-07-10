@@ -245,7 +245,7 @@
 
 	<div class="header-limiter">
 
-		<nav> <a href="#">Products</a> <!-- Aica JayBee Merge--> <a
+		<nav> <a href="UserTransaction.jsp">My Transaction</a> <!-- Aica JayBee Merge--> <a
 			href="Cart_ModalDynamic.jsp" class="selected" data-toggle="modal"
 			data-target="#cartModal" id = "melvinPogi">View Cart</a> <!-- Aica JayBee Merge--> </nav>
 
