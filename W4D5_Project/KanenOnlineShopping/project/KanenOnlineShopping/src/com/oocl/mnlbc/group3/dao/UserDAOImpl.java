@@ -86,8 +86,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public UserBean validateAccount(String username, String password) {
 		UserBean user = null;
-		String sql = "SELECT * FROM USERS WHERE " + "USERNAME ='" + username + "' " + "AND USER_PASSWORD ='" + password
-				+ "'";
+		String sql = "SELECT * FROM USERS WHERE " + "USERNAME ='" + username + "'" ;
+		//+ "AND USER_PASSWORD ='" + password + "'";
 
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
@@ -97,6 +97,7 @@ public class UserDAOImpl implements UserDAO {
 				String passwordHash = rs.getString("USER_PASSWORD");
 				try {
 					if (PasswordEncrypter.verifyPassword(password, passwordHash)) {
+						System.out.println("fasdfasfas");
 						int id =Integer.parseInt(rs.getString("USER_ID"));
 						username =rs.getString("USERNAME");
 						String fullName = rs.getString("FULL_NAME");
