@@ -84,7 +84,7 @@ var loggedInUserId = '';
 												/* $('#logout-link-href').hide();
 												$('#login-link-href').show();
 												$('#signup-link-href').show(); */
-												
+												window.location.reload();
 											}
 											
 										}
