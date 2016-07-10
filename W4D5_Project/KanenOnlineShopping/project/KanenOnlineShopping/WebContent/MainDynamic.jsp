@@ -75,6 +75,7 @@
 			containerDiv.appendChild(rowDiv);
 
 		    for (var j = productStartCounter; j < productEndCounter;j++ ) {
+		    	
 				var colxsDiv = document.createElement('div');
 				colxsDiv.className = 'col-xs-12 col-sm-6 col-md-3';
 				rowDiv.appendChild(colxsDiv);
@@ -96,18 +97,67 @@
 				imageSpan.className = 'post-title';
 				imgContentDiv.appendChild(imageSpan); 
 				
+				
+				var infoDiv = document.createElement('div');
+				infoDiv.className = 'info';
+				colItemDiv.appendChild(infoDiv);  
+				
+				var productRowDiv = document.createElement('div');
+				productRowDiv.className = 'row';
+				infoDiv.appendChild(productRowDiv); 
+				
+				var priceDiv = document.createElement('div');
+				priceDiv.className = 'price col-md-6';
+				productRowDiv.appendChild(priceDiv);
+				
+				var productNameText = document.createElement('h5');
+				productNameText.textContent = productListArray[j].productName;
+				priceDiv.appendChild(productNameText);
+				
+				var priceText = document.createElement('h5');
+				priceText.textContent = '$' + productListArray[j].productPrice;
+				priceText.className = 'price-text-color';
+				priceDiv.appendChild(priceText);
+				
+				var separatorDiv = document.createElement('h5');
+				separatorDiv.className = 'separator clear-left';
+				infoDiv.appendChild(separatorDiv); 
+				
+				var addToCartP = document.createElement('p');
+				addToCartP.className = 'btn-add';
+				separatorDiv.appendChild(addToCartP)
+				
+				var iFaShoppingCart = document.createElement('i');
+				iFaShoppingCart.className = 'fa fa-shopping-cart';
+				addToCartP.appendChild(iFaShoppingCart);
+				
+				var addToCartLink = document.createElement('a');
+				addToCartLink.href = 'product?method=addProductToCart&productId=' +  productListArray[j].productId;
+				addToCartLink.className = 'hidden-sm';
+				addToCartLink.textContent = 'Add to cart';
+				addToCartP.appendChild(addToCartLink);
+				
+				var detailsP = document.createElement('p');
+				detailsP.className = 'btn-details';
+				separatorDiv.appendChild(detailsP)
+				
+				var faList = document.createElement('i');
+				faList.className = 'fa fa-list';
+				detailsP.appendChild(faList);
+				
+				var moreDetailsLink = document.createElement('a');
+				moreDetailsLink.href = 'product?method=viewProductDetails&productId=' +  productListArray[j].productId;
+				moreDetailsLink.className = 'hidden-sm';
+				moreDetailsLink.textContent = 'MoreDetails';
+				detailsP.appendChild(moreDetailsLink);
+				
 			}
 			
 			 productStartCounter +=4;
 			productEndCounter +=4; 
 
 		}
-		/* for(var i=0; i< productListArray.length; i++){
-			var product = productListArray[i];
-			productsRowCounter += 1;
-			
-			
-		}	 */
+		
 		return;
 	};
 </script>

@@ -33,12 +33,17 @@ public class ProductController extends HttpServlet {
 		String method = request.getParameter("method");
 
 		if (method.equals("getProducts")) {
-			this.getProducList(request, response);
+			this.getProductList(request, response);
 		}
 
 	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
 
-	private void getProducList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void getProductList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String returnJson = "{\"success\":true,\"data\":{\"products\":[";
 
 		List<ProductBean> products = productDAO.getProductList();
@@ -56,9 +61,6 @@ public class ProductController extends HttpServlet {
 		response.getWriter().write(returnJson);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
-	}
+	
 
 }
