@@ -5,6 +5,7 @@ package com.oocl.mnlbc.group3.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -51,6 +52,34 @@ public class CartBean implements Serializable {
 		
 		items.add(new CartItemBean(productId, productName, productDescription, 1, productPrice,imagePath));
 		return true;
+	}
+	
+	public void removeItem(int productId){
+		Iterator<CartItemBean>iter = items.iterator();
+		while(iter.hasNext()){
+			CartItemBean item = iter.next();
+			if(item.getProductId()==productId){
+				// if the item is found remove it
+				items.remove(item);
+				return;
+			}
+		}
+	}
+	
+	public boolean update(int id, int quantity){
+		
+		// find the item in the cart
+		
+		Iterator <CartItemBean>	iter = items.iterator();
+		while(iter.hasNext()){
+			CartItemBean item = iter.next();
+			if(item.getProductId()==id){
+				item.setQuantity(quantity);
+				return true;	
+			}
+		}
+		// if the item is not found
+		return false;
 	}
 
 }

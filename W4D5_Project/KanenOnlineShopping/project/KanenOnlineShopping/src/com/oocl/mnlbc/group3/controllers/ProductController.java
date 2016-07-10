@@ -39,11 +39,15 @@ public class ProductController extends HttpServlet {
 			this.getProductList(request, response);
 		} else if (method.equals("addProductToCart")) {
 			this.addProductToCart(request, response);
-		}else if (method.equals("getItemsinCart")){
+		} else if (method.equals("getItemsinCart")) {
 			this.getItemsinCart(request, response);
+		} else if (method.equals("checkoutCart")) {
+			this.checkoutCart(request, response);
+		} else if (method.equals("deleteProduct")) {
+			this.deleteProduct(request, response);
+		} else if (method.equals("updateProductQty")) {
+			this.updateProductQty(request, response);
 		}
-		
-		
 
 	}
 
@@ -96,7 +100,8 @@ public class ProductController extends HttpServlet {
 
 		CartBean itemCart = (CartBean) session.getAttribute("itemCart");
 
-		boolean isItemAddedToCart = itemCart.addItemToCart(productId, productName, productDescription, productPrice,imagePath);
+		boolean isItemAddedToCart = itemCart.addItemToCart(productId, productName, productDescription, productPrice,
+				imagePath);
 		session.setAttribute("itemCart", itemCart);
 
 		String returnJson = "{\"success\":";
@@ -127,10 +132,49 @@ public class ProductController extends HttpServlet {
 		}
 		returnJson = returnJson.substring(0, returnJson.length() - 1);
 		returnJson += "] }}";
-		
 
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(returnJson);
+	}
+
+	public void checkoutCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
+		CartBean itemCart = (CartBean) session.getAttribute("itemCart");
+		
+	}
+
+	public void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String returnJson = "{\"success\":true}";
+		HttpSession session = request.getSession();
+		int productId = Integer.parseInt(request.getParameter("productId"));
+		CartBean itemCart = (CartBean) session.getAttribute("itemCart");
+
+		itemCart.removeItem(productId);
+
+		session.setAttribute("itemCart", itemCart);
+		response.getWriter().write(returnJson);
+
+	}
+
+	public void updateProductQty(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String returnJson = "{\"success\":true}";
+		HttpSession session = request.getSession();
+		String productsToUpdate = request.getParameter("productsToUpdate");
+		CartBean itemCart = (CartBean) session.getAttribute("itemCart");
+		
+		String productArray [] = productsToUpdate.split("~");
+		for(String product: productArray){
+			int productId = Integer.parseInt(product.split(",")[0].split(":")[1].replaceAll("txtQty", ""));
+			System.out.println(String.valueOf(productId));
+			int productQty = Integer.parseInt(product.split(",")[1].split(":")[1]);
+			System.out.println(String.valueOf(productQty));
+			
+			itemCart.update(productId, productQty);
+			
+		}
+	
+		
 		response.getWriter().write(returnJson);
 	}
 

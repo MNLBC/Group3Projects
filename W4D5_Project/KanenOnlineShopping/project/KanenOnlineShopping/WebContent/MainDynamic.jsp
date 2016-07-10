@@ -27,6 +27,7 @@
 }
 </style>
 <script>
+
 	$(document)
 			.ready(
 					function() {
@@ -82,12 +83,96 @@
 
 										});
 
-						
+						$(document)
+						.on(
+								"click",
+								"#btnCheckout",
+								function() {
+									//fnOpenNormalDialog();
+									//alert('test checkout');
+									if(confirm('Are you sure you want to proceed to checkout?')){
+										$.ajax({
+											url : 'product',
+											data : {
+												method : 'checkoutCart'
+											},
+											method : 'POST',
+											complete : function(responseText) {
+												//displayResults(responseText);
 
+											}
+
+										});
+									}else{
+										
+									}
+								}
+						);
+						
+						$(document)
+						.on(
+								"click",
+								".btn-btn-link-btn-xs",
+								function() {
+									 var productId = this.productId;
+									$.ajax({
+										url : 'product',
+										data : {
+											method : 'deleteProduct',
+											productId : productId
+										},
+										method : 'POST',
+										complete : function(responseText) {
+											//displayResults(responseText);
+											
+										}
+
+									});
+									 
+									 
+									 var modalClosingBtn = document.getElementById('modal-closing');
+									 modalClosingBtn.click();
+										
+									 //document.getElementById('viewCart').click(); 
+									
+								}
+						);
+						
+						$(document)
+						.on(
+								"click",
+								"#cart_update_btn",
+								function() {
+									var productQtyTxts = $('input');
+									var productsToUpdateStr = '';
+									
+									for(var i=0; i< productQtyTxts.length; i++){
+										productsToUpdateStr += 'prodId:'+ productQtyTxts[i].id+',';
+										productsToUpdateStr += 'qty:' + productQtyTxts[i].value + '~';
+									}
+									productsToUpdateStr = productsToUpdateStr.substr(0,productsToUpdateStr.length-1);
+									$.ajax({
+										url : 'product',
+										data : {
+											method : 'updateProductQty',
+											productsToUpdate : productsToUpdateStr
+										},
+										method : 'POST',
+										complete : function(responseText) {
+											//displayResults(responseText);
+											//console.log(responseText);
+										}
+
+									});
+									
+									var modalClosingBtn = document.getElementById('modal-closing');
+									modalClosingBtn.click();
+									
+								});
 						$(document)
 								.on(
 										"click",
-										"#melvinPogi",
+										"#viewCart",
 										function() {
 
 											var divBodyCartModal = document
@@ -264,7 +349,7 @@
 
 		<nav> <a href="#">Products</a> <!-- Aica JayBee Merge--> <a
 			href="Cart_ModalDynamic.jsp" class="selected" data-toggle="modal"
-			data-target="#cartModal" id="melvinPogi">View Cart</a> <!-- Aica JayBee Merge-->
+			data-target="#cartModal" id="viewCart">View Cart</a> <!-- Aica JayBee Merge-->
 		</nav>
 
 		<ul>

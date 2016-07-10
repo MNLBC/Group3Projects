@@ -10,19 +10,23 @@
 </head>
 <script>
 	//$(document).ready(function() {
-		$(document).on('change', '.form-control-input-sm', function() {
-			//alert('hello');
-			var prodQuantityTextFields = $('.form-control-input-sm');
-				console.log(prodQuantityTextFields[0].value);
-				console.log(prodQuantityTextFields[0].productPrice);
-			var totalCost = 0.00;
-			for(var i=0; i< prodQuantityTextFields.length; i++){
-				totalCost += (prodQuantityTextFields[i].value * prodQuantityTextFields[i].productPrice);
-			}
-			var totalInCart =$('#totalInCart')[0];
-			totalInCart.textContent = '$' + totalCost;
-			
-		});
+	$(document)
+			.on(
+					'change',
+					'.form-control-input-sm',
+					function() {
+						//alert('hello');
+						var prodQuantityTextFields = $('.form-control-input-sm');
+						console.log(prodQuantityTextFields[0].value);
+						console.log(prodQuantityTextFields[0].productPrice);
+						var totalCost = 0.00;
+						for (var i = 0; i < prodQuantityTextFields.length; i++) {
+							totalCost += (prodQuantityTextFields[i].value * prodQuantityTextFields[i].productPrice);
+						}
+						var totalInCart = $('#totalInCart')[0];
+						totalInCart.textContent = '$' + totalCost;
+
+					});
 
 	//});
 
@@ -36,81 +40,102 @@
 
 			var colxsDiv = document.createElement('div');
 			colxsDiv.className = 'col-xs-2';
-			rowDiv.appendChild(colxsDiv);
 
 			var imgContentDiv = document.createElement('img');
 			imgContentDiv.className = 'img-responsive';
 			imgContentDiv.src = itemsInCart[i].imagePath;
+			//imgContentDiv.src = 'resources/testlaptop.jpg';
 			colxsDiv.appendChild(imgContentDiv);
+			rowDiv.appendChild(colxsDiv);
+			//checked
 
 			var colxsProductDiv = document.createElement('div');
 			colxsProductDiv.className = 'col-xs-4';
-			rowDiv.appendChild(colxsProductDiv);
 
 			var productNameDiv = document.createElement('h4');
 			productNameDiv.className = 'product-name';
-			productNameDiv.textContent = itemsInCart[i].productName;
-			colxsProductDiv.appendChild(productNameDiv);
 
 			var strongProductName = document.createElement('strong');
+			strongProductName.textContent = itemsInCart[i].productName;
 			productNameDiv.appendChild(strongProductName);
 
-			var h4ProductDesc = document.createElement('h4');
-			colxsProductDiv.appendChild(h4ProductDesc);
+			colxsProductDiv.appendChild(productNameDiv);
 
+			var h4ProductDesc = document.createElement('h4');
 			var smallProductDesc = document.createElement('small');
 			smallProductDesc.textContent = itemsInCart[i].productDescription;
 			h4ProductDesc.appendChild(smallProductDesc);
+			colxsProductDiv.appendChild(h4ProductDesc);
+
+			rowDiv.appendChild(colxsProductDiv);
 
 			var colxsItemDiv = document.createElement('div');
 			colxsItemDiv.className = 'col-xs-6';
-			rowDiv.appendChild(colxsItemDiv);
 
 			var colxsItemCartDiv = document.createElement('div');
 			colxsItemCartDiv.className = 'col-xs-6 text-right';
-			colxsItemDiv.appendChild(colxsItemCartDiv);
-
+			
 			var h6ProductPrice = document.createElement('h6');
-			colxsItemCartDiv.appendChild(h6ProductPrice);
-
 			var strongProductPrice = document.createElement('strong');
-			h6ProductPrice.appendChild(strongProductPrice);
-
+			
 			var labelProductPrice = document.createElement('label');
 			labelProductPrice.textContent = itemsInCart[i].productPrice;
 			strongProductPrice.appendChild(labelProductPrice);
-
+			
 			var spanProductPrice = document.createElement('span');
 			spanProductPrice.className = 'text-muted';
 			strongProductPrice.appendChild(spanProductPrice);
 
+			h6ProductPrice.appendChild(strongProductPrice);
+			colxsItemCartDiv.appendChild(h6ProductPrice);
+			colxsItemDiv.appendChild(colxsItemCartDiv);
+
+			//checked
+		
 			var colxsInputDiv = document.createElement('div');
 			colxsInputDiv.className = 'col-xs-4';
-			rowDiv.appendChild(colxsInputDiv);
+			
 
 			var productQuantity = document.createElement('input');
 			productQuantity.type = 'text';
-			productQuantity.className = 'form-control-input-sm';
+			productQuantity.className = 'form-control input-sm';
 			productQuantity.productPrice = itemsInCart[i].productPrice;
 			productQuantity.id = 'txtQty' + itemsInCart[i].productId;
 
 			productQuantity.value = itemsInCart[i].quantity;
-			colxsItemDiv.appendChild(productQuantity);
+			colxsInputDiv.appendChild(productQuantity);
 
-			var trashButtonDiv = document.createElement('button');
-			trashButtonDiv.type = 'button';
-			trashButtonDiv.className = 'btn btn-link btn-xs';
-			colxsItemDiv.appendChild(trashButtonDiv);
+			var btnColXs2Div = document.createElement('div');
+			btnColXs2Div.className = 'col-xs-2';
+			
+			var trashButton= document.createElement('button');
+			trashButton.type = 'button';
+			//trashButton.className = 'btn btn-link btn-xs';
+			trashButton.productId = itemsInCart[i].productId;
+			trashButton.className = 'btn-btn-link-btn-xs';
+			
+			
+			var trashSpan = document.createElement('span');
+			trashSpan.className = 'glyphicon glyphicon-trash';
+			trashButton.appendChild(trashSpan);
 
-			var trashButton = document.createElement('span');
-			trashButton.className = 'glyphicon glyphicon-trash';
-			trashButtonDiv.appendChild(trashButton);
+			btnColXs2Div.appendChild(trashButton);
+			colxsItemDiv.appendChild(colxsInputDiv);
+			colxsItemDiv.appendChild(btnColXs2Div);
 
+			//rowDiv.appendChild(colxsInputDiv);
+			
+			rowDiv.appendChild(colxsItemDiv);
+			
 			var divBodyCartModal = document.getElementById('divBodyCartModal');
 			divBodyCartModal.appendChild(rowDiv);
-
+			
+			var hrElement = document.createElement('hr');
+			divBodyCartModal.appendChild(hrElement);
+			
 			totalPrice += (itemsInCart[i].productPrice * itemsInCart[i].quantity);
 		}
+
 		var totalInCart = document.getElementById('totalInCart');
 		totalInCart.textContent = '$' + totalPrice;
 	}
@@ -120,7 +145,7 @@
 <body>
 
 	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		<button id="modal-closing" type="button" class="close" data-dismiss="modal">&times;</button>
 		<h4 class="modal-title">Your Items</h4>
 	</div>
 
@@ -153,17 +178,20 @@
 
 						<div class="panel-body">
 
-							<div id="divBodyCartModal"></div>
+							<div id="divBodyCartModal">
+							
+							</div>
 							<!-- end of div body cart modal,end of dynamic content  -->
 							<div class="row">
 								<div class="text-center">
 									<div class="col-xs-9">
-										<!--  <h6 class="text-right">Added items?</h6>-->
+										 <h6 class="text-right">Added items?</h6>
 									</div>
 									<div class="col-xs-3">
-									    <!--  
-										<button type="button" class="btn btn-default btn-sm btn-block"
-											onclick="myFunction()">Update cart</button>-->
+										<!-- <button id="cart_update_btn" type="button" class="btn btn-default btn-sm btn-block"
+											onclick="myFunction()">Update cart</button> -->
+										<button id="cart_update_btn" type="button" class="btn btn-default btn-sm btn-block"
+											onclick="myFunction()">Update cart</button>
 									</div>
 								</div>
 							</div>
@@ -191,7 +219,7 @@
 			</div>
 
 			<div class="col-xs-3">
-				<button type="button" class="btn btn-success btn-block">Checkout</button>
+				<button type="button" id="btnCheckout" class="btn btn-success btn-block">Checkout</button>
 			</div>
 
 			<div class="col-xs-2">

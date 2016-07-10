@@ -46,7 +46,7 @@
 							</div>
 						</div>
 
-						<div class="panel-body">
+						<div id="cartModalPanelBody" class="panel-body">
 
 							<div id="divBodyCartModal">
 								<!-- start of item -->
@@ -62,6 +62,7 @@
 											<small>Product description</small>
 										</h4>
 									</div>
+									
 									<div class="col-xs-6">
 										<div class="col-xs-6 text-right">
 											<h6>
@@ -78,6 +79,7 @@
 												<span class="glyphicon glyphicon-trash"> </span>
 											</button>
 										</div>
+										
 									</div>
 								</div>
 								<!-- end of row  -->
