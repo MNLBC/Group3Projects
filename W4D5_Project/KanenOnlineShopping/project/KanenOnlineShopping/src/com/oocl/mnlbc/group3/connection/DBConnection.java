@@ -19,11 +19,13 @@ public class DBConnection {
 		String driver = "oracle.jdbc.driver.OracleDriver";
 
 		// credentials
-		String user = "kanenos";
-		String password = "cjkanen";
+		String user = "system";
+		String password = "admin123";
 
 		// database connection details
-		String hostname = "zha-ita122-w7";
+		//String hostname = "zha-ita122-w7";
+		String hostname = "desktop-gm54mok";
+		//String hostname = "desktop-gm54mok";
 		String port = "1521";
 		String sid = "xe";
 
