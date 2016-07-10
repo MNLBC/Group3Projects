@@ -2,15 +2,16 @@ package com.oocl.mnlbc.group3.controllers;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oocl.mnlbc.group3.dao.UserDAO;
 import com.oocl.mnlbc.group3.dao.UserDAOImpl;
+import com.oocl.mnlbc.group3.model.CartBean;
 import com.oocl.mnlbc.group3.model.UserBean;
 
 /**
@@ -35,8 +36,10 @@ public class UserController extends HttpServlet {
 
 		if (method.equals("registerUser")) {
 			this.createUser(request, response);
-		}else if(method.equals("loginUser")){
+		} else if (method.equals("loginUser")) {
 			this.loginUser(request, response);
+		} else if (method.equals("checkIfHasSession")) {
+			this.checkIfHasSession(request, response);
 		}
 
 	}
@@ -79,9 +82,9 @@ public class UserController extends HttpServlet {
 		}
 		returnJson += errorMsg;
 		returnJson += "\"}}";
-		
+
 		// returnJson += "\"messageKey\": \"register.user\",\"data\": {}}";
-		
+
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(returnJson);
@@ -93,15 +96,18 @@ public class UserController extends HttpServlet {
 		String username = request.getParameter("userName");
 		String userPassword = request.getParameter("userPassword");
 
-
 		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
 		String errorMsg = "";
 
-		
-		user =userDAO.validateAccount(username, userPassword);
+		user = userDAO.validateAccount(username, userPassword);
 		if (errorMsg.equals("")) {
-			if (user!=null) {
-				errorMsg += "none";
+			if (user != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("userid", user.getUserId());
+				if(session.getAttribute("itemCart") == null){
+					session.setAttribute("itemCart", new CartBean());
+				}
+				errorMsg += "none:" + user.getUserId();
 			} else {
 				errorMsg += "incorrectcredentials";
 			}
@@ -109,12 +115,27 @@ public class UserController extends HttpServlet {
 		}
 		returnJson += errorMsg;
 		returnJson += "\"}}";
-		
+
 		// returnJson += "\"messageKey\": \"register.user\",\"data\": {}}";
-		
+
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(returnJson);
 	}
-	
+
+	public void checkIfHasSession(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		String returnJson = "{\"userid\":";
+
+		HttpSession session = request.getSession();
+		if (session.getAttribute("userid") != null) {
+			returnJson += "\"" +session.getAttribute("userid") + "\"";
+		} else {
+			returnJson += "\""+"nouser"+"\"";
+		}
+		returnJson += "}";
+		response.getWriter().write(returnJson);
+	}
+
 }

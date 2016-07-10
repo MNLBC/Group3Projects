@@ -71,7 +71,10 @@ public class ProductController extends HttpServlet {
 		 * session.setAttribute("prodList", prodList);
 		 */
 		HttpSession session = request.getSession();
-		session.setAttribute("itemCart", new CartBean());
+		if(session.getAttribute("itemCart") == null){
+			session.setAttribute("itemCart", new CartBean());
+		}
+		//session.setAttribute("itemCart", new CartBean());
 
 		Gson gson = new Gson();
 		for (ProductBean product : products) {

@@ -56,6 +56,7 @@
 
 	});
 
+	var userId = '';
 	function displayResults(responseText) {
 		var response = JSON.parse(responseText.responseText);
 
@@ -68,6 +69,14 @@
 			usernameExistDiv.textContent = 'Credential that has been input is invalid.';
 			registrationForm.append(usernameExistDiv);
 		}
+		
+		if (response.data.errormsg.indexOf('none') > -1) {
+			console.log(response.data.errormsg);
+			//userId = 
+			alert('Logging in.');
+			window.location.reload();
+			
+		}
 
 		return;
 	};
@@ -75,7 +84,7 @@
 </head>
 <body>
       <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" id="login-close-btn" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Login</h4>
         </div>
         <div class="modal-body">

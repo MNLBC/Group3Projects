@@ -27,7 +27,7 @@
 }
 </style>
 <script>
-
+var loggedInUserId = '';
 	$(document)
 			.ready(
 					function() {
@@ -41,6 +41,27 @@
 							complete : function(responseText) {
 								displayResults(responseText);
 
+							}
+
+						});
+						
+						$.ajax({
+							url : 'user',
+							data : {
+								method : 'checkIfHasSession'
+							},
+							method : 'POST',
+							complete : function(responseText) {
+								//displayResults(responseText);
+								var data = JSON.parse(responseText.responseText);
+								if(data.userid == 'nouser'){
+									
+								}else{
+									$('#login-link-href').hide();
+									$('#signup-link-href').hide();
+									loggedInUserId = data.userid;
+								}
+								
 							}
 
 						});
@@ -90,6 +111,10 @@
 								function() {
 									//fnOpenNormalDialog();
 									//alert('test checkout');
+									if(loggedInUserId == ''){
+										alert('Please login first.');
+										return;
+									}
 									if(confirm('Are you sure you want to proceed to checkout?')){
 										$.ajax({
 											url : 'product',
@@ -354,9 +379,10 @@
 
 		<ul>
 			<!-- Aica JayBee Merge-->
-			<a href="Login_Modal.jsp" class="logout-button" class="selected"
+			<a href="Login_Modal.jsp" id="login-link-href" class="logout-button" class="selected"
 				data-toggle="modal" data-target="#loginModal">Login</a>
-			<a href="Register_Modal.jsp" class="logout-button" class="selected"
+				
+			<a href="Register_Modal.jsp" id="signup-link-href" class="logout-button" class="selected"
 				data-toggle="modal" data-target="#registerModal">Sign up</a>
 			<!-- Aica <3 JayBee Merge-->
 			<!--  	<a href="#" class="logout-button">Logout</a>-->
