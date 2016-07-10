@@ -4,9 +4,9 @@
 
 function validateRegistrationForm() {
 
-	var userPassword = document.forms["loginForm"]["userPassword"].value;
-	var confirmPassword = document.forms["loginForm"]["confirmPassword"].value;
-	var mobileNumber = document.forms["loginForm"]["mobileNumber"].value;
+	var userPassword = document.forms["registrationFormModal"]["txtPassword"].value;
+	var confirmPassword = document.forms["registrationFormModal"]["txtConfirmPassword"].value;
+	var mobileNumber = document.forms["registrationFormModal"]["txtMobileNumber"].value;
 
 	if (userPassword != confirmPassword) {
 		alert("Passwords do not match.");

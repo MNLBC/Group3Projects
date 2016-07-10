@@ -85,7 +85,7 @@
 
 		if (response.data.errormsg.indexOf('usernametaken') > -1) {
 			var usernameExistDiv = document.createElement('div');
-			var registrationForm = $('#registrationForm');
+			var registrationForm = $('#registrationFormModal');
 
 			usernameExistDiv.id = 'usernametaken';
 			usernameExistDiv.className = 'alert alert-danger';
@@ -95,7 +95,7 @@
 
 		if (response.data.errormsg.indexOf('emailtaken') > -1) {
 			var emailExistDiv = document.createElement('div');
-			var registrationForm = $('#registrationForm');
+			var registrationForm = $('#registrationFormModal');
 
 			emailExistDiv.id = 'emailtaken';
 			emailExistDiv.className = 'alert alert-danger';
@@ -105,7 +105,7 @@
 
 		if (response.data.errormsg.indexOf('none') > -1) {
 			var registrationSuccessDiv = document.createElement('div');
-			var registrationForm = $('#registrationForm');
+			var registrationForm = $('#registrationFormModal');
 
 			registrationSuccessDiv.id = 'accountregistered';
 			registrationSuccessDiv.className = 'alert alert-success';
@@ -118,14 +118,14 @@
 </script>
 
 </head>
-<body>
+<body onload="clearFields()">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">&times;</button>
 		<h4 class="modal-title">Register</h4>
 	</div>
 	<div class="modal-body">
 
-		<form class="form-horizontal" action="">
+		<form class="form-horizontal" action="" id="registrationFormModal" >
 			<fieldset>
 
 				<!-- Form Name -->
@@ -231,4 +231,24 @@
 	</div>
 
 </body>
+
+<script src="js/validateRegistrationForm.js"></script>
+
+<script type="text/javascript">
+
+function clearFields(){
+	document.getElementById('txtUsername').value = '';
+	document.getElementById('txtPassword').value = '';
+	document.getElementById('txtConfirmPassword').value = '';
+	document.getElementById('txtFullName').value = '';
+	document.getElementById('txtEmail').value = '';
+	document.getElementById('txtDeliveryAddress').value = '';
+	document.getElementById('txtMobileNumber').value = '';
+	
+}
+	
+
+
+</script>
+
 </html>
