@@ -10,7 +10,7 @@
  <script src="js/jquery-1-10-2-min.js"></script>
  <script src="js/bootstrap-min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <title>Kanen Online Shopping</title>
-
+<link rel="stylesheet" href="css/footer-basic-centered.css">
 <link rel="stylesheet" href="css/demo.css">
 <link rel="stylesheet" href="css/main.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -517,6 +517,27 @@ margin: auto;
 </div>
 <!-- Aica JayBee Merge-->
 
+<footer class="footer-basic-centered">
+
+			<p class="footer-company-motto"></p>
+
+			<p class="footer-links">
+				<a href="#">Home</a>
+				·
+				<a href="#">Blog</a>
+				·
+				<a href="#">Pricing</a>
+				·
+				<a href="#">About</a>
+				·
+				<a href="#">Faq</a>
+				·
+				<a href="#">Contact</a>
+			</p>
+
+			<p class="footer-company-name">Kanen Online Shopping &copy; 2016</p>
+
+		</footer>
 
 </body>
 
