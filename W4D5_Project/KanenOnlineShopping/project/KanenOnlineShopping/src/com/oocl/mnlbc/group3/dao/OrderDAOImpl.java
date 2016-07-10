@@ -11,7 +11,7 @@ import java.sql.SQLSyntaxErrorException;
 import java.util.List;
 
 import com.oocl.mnlbc.group3.connection.DBConnection;
-import com.oocl.mnlbc.group3.model.CartBean;
+import com.oocl.mnlbc.group3.model.OrderBean;
 import com.oocl.mnlbc.group3.model.ItemsBean;
 
 /**
@@ -49,7 +49,7 @@ public class OrderDAOImpl implements OrderDAO {
 	 * model.CartBean)
 	 */
 	@Override
-	public boolean createOrder(CartBean cart) {
+	public boolean createOrder(OrderBean cart) {
 
 		String userId = Integer.toString(cart.getUserId());
 		String orderDate = cart.getOrderDate();
@@ -152,7 +152,7 @@ public class OrderDAOImpl implements OrderDAO {
 	 * model.CartBean)
 	 */
 	@Override
-	public List<CartBean> getTransactions(CartBean cart) {
+	public List<OrderBean> getTransactions(OrderBean cart) {
 		return null;
 	}
 

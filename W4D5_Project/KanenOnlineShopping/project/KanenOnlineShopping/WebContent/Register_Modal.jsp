@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <title>Create Account</title>
- <meta charset="utf-8">
- <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Latest compiled and minified CSS -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- 
@@ -21,57 +21,64 @@
 	crossorigin="anonymous"></script> -->
 
 <script>
-	$(document).ready(function() {
+	$(document).ready(
+			function() {
 
-		$('#btnRegister').click(function(e) {
-			e.preventDefault();
+				$('#btnRegister').click(
+						function(e) {
+							e.preventDefault();
 
-			var usernameTakenDiv = document.getElementById("usernametaken");
-			if (usernameTakenDiv != null) {
-				usernameTakenDiv.parentNode.removeChild(usernameTakenDiv);
-			}
+							var usernameTakenDiv = document
+									.getElementById("usernametaken");
+							if (usernameTakenDiv != null) {
+								usernameTakenDiv.parentNode
+										.removeChild(usernameTakenDiv);
+							}
 
-			var emailTakenDiv = document.getElementById("emailtaken");
-			if (emailTakenDiv != null) {
-				emailTakenDiv.parentNode.removeChild(emailTakenDiv);
-			}
+							var emailTakenDiv = document
+									.getElementById("emailtaken");
+							if (emailTakenDiv != null) {
+								emailTakenDiv.parentNode
+										.removeChild(emailTakenDiv);
+							}
 
-			 var accountRegisteredDiv = document
-					.getElementById("accountregistered");
-			if (accountRegisteredDiv != null) {
-				accountRegisteredDiv.parentNode
-						.removeChild(accountRegisteredDiv);
-			} 
+							var accountRegisteredDiv = document
+									.getElementById("accountregistered");
+							if (accountRegisteredDiv != null) {
+								accountRegisteredDiv.parentNode
+										.removeChild(accountRegisteredDiv);
+							}
 
-			var userName = $('#txtUsername').val();
-			var userPassword = $('#txtPassword').val();
-			var fullName = $('#txtFullName').val();
-			var email = $('#txtEmail').val();
-			var deliveryAddress = $('#txtDeliveryAddress').val();
-			var mobileNumber = $('#txtMobileNumber').val();
+							var userName = $('#txtUsername').val();
+							var userPassword = $('#txtPassword').val();
+							var fullName = $('#txtFullName').val();
+							var email = $('#txtEmail').val();
+							var deliveryAddress = $('#txtDeliveryAddress')
+									.val();
+							var mobileNumber = $('#txtMobileNumber').val();
 
-			$.ajax({
-				url : 'user',
-				data : {
-					userName : userName,
-					userPassword : userPassword,
-					fullName : fullName,
-					email : email,
-					deliveryAddress : deliveryAddress,
-					mobileNumber : mobileNumber,
-					method : 'registerUser'
-				},
-				method : 'POST',
-				complete : function(responseText) {
-					displayResults(responseText);
+							$.ajax({
+								url : 'user',
+								data : {
+									userName : userName,
+									userPassword : userPassword,
+									fullName : fullName,
+									email : email,
+									deliveryAddress : deliveryAddress,
+									mobileNumber : mobileNumber,
+									method : 'registerUser'
+								},
+								method : 'POST',
+								complete : function(responseText) {
+									displayResults(responseText);
 
-				}
+								}
+
+							});
+
+						});
 
 			});
-
-		});
-
-	});
 
 	function displayResults(responseText) {
 		var response = JSON.parse(responseText.responseText);
@@ -96,7 +103,7 @@
 			registrationForm.append(emailExistDiv);
 		}
 
-		 if (response.data.errormsg.indexOf('none') > -1) {
+		if (response.data.errormsg.indexOf('none') > -1) {
 			var registrationSuccessDiv = document.createElement('div');
 			var registrationForm = $('#registrationForm');
 
@@ -104,7 +111,7 @@
 			registrationSuccessDiv.className = 'alert alert-success';
 			registrationSuccessDiv.textContent = 'Account registered successfully.';
 			registrationForm.append(registrationSuccessDiv);
-		} 
+		}
 
 		return;
 	};
@@ -112,21 +119,21 @@
 
 </head>
 <body>
-      <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Register</h4>
-        </div>
-        <div class="modal-body">
-		
-<form class="form-horizontal" action="">
-<fieldset>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		<h4 class="modal-title">Register</h4>
+	</div>
+	<div class="modal-body">
+
+		<form class="form-horizontal" action="">
+			<fieldset>
 
 				<!-- Form Name -->
-			<!--	<legend>Create Account</legend>-->
+				<!--	<legend>Create Account</legend>-->
 
 				<!-- Text input-->
 				<div class="form-group">
-					<label class="col-md-4 control-label" for="txtUsername" >Username:</label>
+					<label class="col-md-4 control-label" for="txtUsername">Username:</label>
 					<div class="col-md-7">
 						<input id="txtUsername" name="txtUsername" type="text"
 							placeholder="" class="form-control input-md" required>
@@ -150,7 +157,8 @@
 						Password:</label>
 					<div class="col-md-7">
 						<input id="txtConfirmPassword" name="txtConfirmPassword"
-							type="password" placeholder="" class="form-control input-md" required>
+							type="password" placeholder="" class="form-control input-md"
+							required>
 
 					</div>
 				</div>
@@ -212,13 +220,15 @@
 
 			</fieldset>
 		</form>
+	</div>
+	<div>
+		<div class="modal-footer">
+			<button id="btnRegister" name="btnRegister" class="btn btn-primary">Create
+				Account</button>
+			<button id="btnRegisterCancel" name="btnRegisterCancel"
+				class="btn btn-danger" data-dismiss="modal">Cancel</button>
 		</div>
- <div>
-        <div class="modal-footer">
-		<button id="btnRegister" name="btnRegister" class="btn btn-primary">Create Account</button>
-		<button id="btnRegisterCancel" name="btnRegisterCancel" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-        </div>
-</div>
-		
+	</div>
+
 </body>
 </html>
