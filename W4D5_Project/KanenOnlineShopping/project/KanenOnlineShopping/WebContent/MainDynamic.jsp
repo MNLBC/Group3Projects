@@ -81,32 +81,37 @@
 													});
 
 										});
-						
-						$(document)
-						.on(
-								"click",
-								"#melvinPogi",
-								function() {
-									
-							var divBodyCartModal = document.getElementById('divBodyCartModal');				
-							if(divBodyCartModal!=null){
-								$('#divBodyCartModal').empty();
-									}
-						
-						$.ajax({
-							url : 'product',
-							data : {
-								method : 'getItemsinCart'
-							},
-							method : 'POST',
-							complete : function(responseText) {
-								//	displayResults(responseText);
-								var myvar;
-								displayResults(responseText);
-							}
 
-						});
-					});
+						
+
+						$(document)
+								.on(
+										"click",
+										"#melvinPogi",
+										function() {
+
+											var divBodyCartModal = document
+													.getElementById('divBodyCartModal');
+											if (divBodyCartModal != null) {
+												$('#divBodyCartModal').empty();
+											}
+
+											$
+													.ajax({
+														url : 'product',
+														data : {
+															method : 'getItemsinCart'
+														},
+														method : 'POST',
+														complete : function(
+																responseText) {
+															//	displayResults(responseText);
+															var myvar;
+															displayResults(responseText);
+														}
+
+													});
+										});
 
 					});
 
@@ -184,14 +189,19 @@
 				priceText.textContent = '$' + productListArray[j].productPrice;
 				priceText.className = 'price-text-color';
 				priceDiv.appendChild(priceText);
-
-				var separatorDiv = document.createElement('h5');
+				
+				//<div class="rating hidden-sm col-md-6"></div>
+				var ratingHiddenDiv = document.createElement('div');
+				ratingHiddenDiv.className = 'rating hidden-sm col-md-6';
+				productRowDiv.appendChild(ratingHiddenDiv);
+				
+				var separatorDiv = document.createElement('div');
 				separatorDiv.className = 'separator clear-left';
 				infoDiv.appendChild(separatorDiv);
 
 				var addToCartP = document.createElement('p');
 				addToCartP.className = 'btn-add';
-				separatorDiv.appendChild(addToCartP)
+				
 
 				var iFaShoppingCart = document.createElement('i');
 				iFaShoppingCart.className = 'fa fa-shopping-cart';
@@ -204,16 +214,16 @@
 				addToCartLink.productPrice = productListArray[j].productPrice;
 				addToCartLink.imagePath = productListArray[j].imagePath;
 
-			
 				//addToCartLink.href = 'product?method=addProductToCart&productId=' +  productListArray[j].productId;
 				addToCartLink.className = 'hidden-sm';
 				addToCartLink.textContent = 'Add to cart';
 				addToCartP.appendChild(addToCartLink);
 
+				separatorDiv.appendChild(addToCartP)
+				
 				var detailsP = document.createElement('p');
 				detailsP.className = 'btn-details';
-				separatorDiv.appendChild(detailsP)
-
+				
 				var faList = document.createElement('i');
 				faList.className = 'fa fa-list';
 				detailsP.appendChild(faList);
@@ -224,6 +234,13 @@
 				moreDetailsLink.className = 'hidden-sm';
 				moreDetailsLink.textContent = 'MoreDetails';
 				detailsP.appendChild(moreDetailsLink);
+				
+				separatorDiv.appendChild(detailsP)
+
+				//<div class="clearfix"></div>
+				
+				
+				
 
 			}
 
@@ -247,7 +264,8 @@
 
 		<nav> <a href="#">Products</a> <!-- Aica JayBee Merge--> <a
 			href="Cart_ModalDynamic.jsp" class="selected" data-toggle="modal"
-			data-target="#cartModal" id = "melvinPogi">View Cart</a> <!-- Aica JayBee Merge--> </nav>
+			data-target="#cartModal" id="melvinPogi">View Cart</a> <!-- Aica JayBee Merge-->
+		</nav>
 
 		<ul>
 			<!-- Aica JayBee Merge-->

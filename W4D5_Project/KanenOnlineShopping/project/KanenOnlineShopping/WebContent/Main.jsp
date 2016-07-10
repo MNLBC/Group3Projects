@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-	<%@ page import="com.oocl.mnlbc.group3.listener.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,7 +12,7 @@
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
 <title>Kanen Online Shopping</title>
-<link rel="stylesheet" href="css/footer-basic-centered.css">
+
 <link rel="stylesheet" href="css/demo.css">
 <link rel="stylesheet" href="css/main.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,17 +32,12 @@
 
 	<header class="header-login-signup">
 
-	<div class="header-limiter">
-	
-<p>Session ID:<%=session.getId()%></p>
-<%
-Integer counter=(Integer)application.getAttribute("counter");
-%>
-<hr>
-The total online visitors: <%=counter %> <br>
 
-		<nav> <a href="#">Products</a> <!-- Aica JayBee Merge--> <a
-			href="Cart_Modal.jsp" class="selected" data-toggle="modal"
+	<div class="header-limiter">
+
+
+
+
 		<nav> <a href="#">Products</a> <!-- Aica JayBee Merge--> <a
 			href="Cart_Modal.jsp" class="selected" data-toggle="modal"
 			data-target="#cartModal">View Cart</a> <!-- Aica JayBee Merge--> </nav>
@@ -53,8 +47,8 @@ The total online visitors: <%=counter %> <br>
 			<a href="Login_Modal.jsp" class="logout-button" class="selected"
 				data-toggle="modal" data-target="#loginModal">Login</a>
 			<a href="Register_Modal.jsp" class="logout-button" class="selected"
-				data-toggle="modal" data-target="#registerModal" onclick="clearFields()">Sign up</a>
-			<!-- Aica JayBee Merge-->
+				data-toggle="modal" data-target="#registerModal">Sign up</a>
+			<!-- Aica <3 JayBee Merge-->
 			<!--  	<a href="#" class="logout-button">Logout</a>-->
 		</ul>
 
@@ -431,7 +425,7 @@ The total online visitors: <%=counter %> <br>
 							</p>
 						</div>
 						<div class="clearfix"></div>
-
+						
 					</div>
 				</div>
 			</div>
@@ -562,27 +556,6 @@ The total online visitors: <%=counter %> <br>
 	</div>
 	<!-- Aica JayBee Merge-->
 
-<footer class="footer-basic-centered">
-
-			<p class="footer-company-motto"></p>
-
-			<p class="footer-links">
-				<a href="#">Home</a>
-				·
-				<a href="#">Blog</a>
-				·
-				<a href="#">Pricing</a>
-				·
-				<a href="#">About</a>
-				·
-				<a href="#">Faq</a>
-				·
-				<a href="#">Contact</a>
-			</p>
-
-			<p class="footer-company-name">Kanen Online Shopping &copy; 2016</p>
-
-		</footer>
 
 </body>
 
