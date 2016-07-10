@@ -23,7 +23,8 @@ public class DBConnection {
 		String password = "cjkanen";
 
 		// database connection details
-		String hostname = "zha-ita122-w7";
+		//String hostname = "zha-ita122-w7";
+		String hostname = "localhost";
 		String port = "1521";
 		String sid = "xe";
 
