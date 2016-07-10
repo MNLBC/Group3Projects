@@ -22,6 +22,56 @@
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script> -->
 
+<script>
+	$(document).ready(function() {
+
+		$('#btnLogin').click(function(e) {
+			e.preventDefault();
+
+			var usernameLogin = document.getElementById("incorrectcredentials");
+			if (usernameLogin != null) {
+				usernameLogin.parentNode.removeChild(incorrectcredentials);
+			}
+ 
+
+			var userName = $('#username').val();
+			var userPassword = $('#password').val();
+
+			$.ajax({
+				url : 'user',
+				data : {
+					userName : userName,
+					userPassword : userPassword,
+					method : 'loginUser'
+				},
+				method : 'POST',
+				complete : function(responseText) {
+					displayResults(responseText);
+
+				}
+
+			});
+
+		});
+
+	});
+
+	function displayResults(responseText) {
+		var response = JSON.parse(responseText.responseText);
+
+		if (response.data.errormsg.indexOf('incorrectcredentials') > -1) {
+			var usernameExistDiv = document.createElement('div');
+			var registrationForm = $('#loginForm');
+
+			usernameExistDiv.id = 'incorrectcredentials';
+			usernameExistDiv.className = 'alert alert-danger';
+			usernameExistDiv.textContent = 'Credential that has been input is invalid.';
+			registrationForm.append(usernameExistDiv);
+		}
+
+		return;
+	};
+</script>
 </head>
 <body>
       <div class="modal-header">
@@ -30,7 +80,7 @@
         </div>
         <div class="modal-body">
 		
-<form class="form-horizontal">
+		<form id="loginForm" class="form-horizontal" action="">
 <fieldset>
 
 			<!-- Form Name -->
