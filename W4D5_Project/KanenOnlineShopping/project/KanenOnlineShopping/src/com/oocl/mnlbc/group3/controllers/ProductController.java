@@ -152,7 +152,7 @@ public class ProductController extends HttpServlet {
 		OrderBean order = new OrderBean();
 		// order.setUserId(userId);
 		order.setUserId(userId);
-		order.setOrderStatus("ondelivery");
+		order.setOrderStatus("On Delivery");
 		double totalCost = 0.00;
 		for (CartItemBean item : itemCart.getItems()) {
 			order.addItem(item);

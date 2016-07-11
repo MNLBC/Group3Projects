@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ page import="com.oocl.mnlbc.group3.listener.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,6 +27,7 @@
 	margin: auto;
 }
 </style>
+
 <script>
 var loggedInUserId = '';
 	$(document)
@@ -269,7 +271,7 @@ var loggedInUserId = '';
 		var productEndCounter = 4;
 
 		var documentBody = document.getElementById("body");
-
+	
 		for (var i = 0; i < numerOfProductRows; i++) {
 
 			var containerDiv = document.createElement('div');
@@ -401,7 +403,7 @@ var loggedInUserId = '';
 
 
 	<div class="header-limiter">
-
+	
 		<nav> <a href="UserTransaction.jsp" id="userTransaction">My Transaction</a> <!-- Aica JayBee Merge--> <a
 			href="Cart_ModalDynamic.jsp" class="selected" data-toggle="modal"
 			data-target="#cartModal" id="viewCart">View Cart</a> <!-- Aica JayBee Merge-->
@@ -413,12 +415,23 @@ var loggedInUserId = '';
 				data-toggle="modal" data-target="#loginModal">Login</a>
 				
 			<a href="Register_Modal.jsp" id="signup-link-href" class="logout-button" class="selected"
-				data-toggle="modal" data-target="#registerModal">Sign up</a>
+				data-toggle="modal" data-target="#registerModal" onclick="clearFields">Sign up</a>
 				
 			<a href="" id="logout-link-href" class="logout-button" class="selected">Logout</a>
 					
 			<!-- Aica <3 JayBee Merge-->
 			<!--  	<a href="#" class="logout-button">Logout</a>-->
+				<%
+		Integer counter=(Integer)application.getAttribute("counter");
+				if (counter == null){
+					counter = 0;
+				}
+		%>
+		</br>
+		<br><br><br><br><br><br>
+
+		 
+			
 		</ul>
 
 

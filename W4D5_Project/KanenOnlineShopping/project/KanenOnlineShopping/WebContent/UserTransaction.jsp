@@ -25,12 +25,11 @@
 <script>
 	$(document).ready(
 			function() {
-				
+
 
 							$.ajax({
 								url : 'user',
 								data : {
-									userId: loggedInUserId,
 									method : 'userTrans'
 								},
 								method : 'POST',

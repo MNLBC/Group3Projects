@@ -139,12 +139,11 @@ public class UserController extends HttpServlet {
 	public void userTrans(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		List<OrderBean> order = new ArrayList<OrderBean>();
-		int userId= Integer.parseInt( request.getParameter("userId"));
 
 		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
 		String errorMsg = "";
 
-		order = orderDAO.getTransactions(userId);
+		order = orderDAO.getTransactions(1000000039);
 		if (errorMsg.equals("")) {
 			if (order != null) {
 				errorMsg += "none";
@@ -165,8 +164,9 @@ public class UserController extends HttpServlet {
 
 	private void getOrderList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String returnJson = "{\"success\":true,\"data\":{\"orders\":[";
-		
-		List<OrderBean> order = orderDAO.getTransactions(1000000039);
+		HttpSession session = request.getSession();
+		int userId= Integer.parseInt(session.getAttribute("userid").toString());
+		List<OrderBean> order = orderDAO.getTransactions(userId);
 
 		/*
 		 * //Sets the product list into the session HttpSession session =
@@ -174,7 +174,7 @@ public class UserController extends HttpServlet {
 		 * ProductList.getInstance(); prodList.setProductList(products);
 		 * session.setAttribute("prodList", prodList);
 		 */
-		HttpSession session = request.getSession();
+
 		session.setAttribute("itemCart", new CartBean());
 		long orderId = 0;
 

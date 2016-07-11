@@ -121,7 +121,7 @@ public class OrderDAOImpl implements OrderDAO {
 		int i = 0;
 
 		String sql = "Insert into ORDER_ITEM(" + "ORDER_ID," + "PRODUCT_ID," + "QUANTITY," + "ORDERED_PRICE) "
-				+ "values(?,?,?,?);";
+				+ "values(?,?,?,?)";
 
 		try {
 
