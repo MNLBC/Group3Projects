@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-	<%@ page import="com.oocl.mnlbc.group3.listener.*" %>
+<%@ page import="com.oocl.mnlbc.group3.listener.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -29,7 +29,7 @@
 </style>
 
 <script>
-var loggedInUserId = '';
+	var loggedInUserId = '';
 	$(document)
 			.ready(
 					function() {
@@ -46,7 +46,7 @@ var loggedInUserId = '';
 							}
 
 						});
-						
+
 						$.ajax({
 							url : 'user',
 							data : {
@@ -55,48 +55,52 @@ var loggedInUserId = '';
 							method : 'POST',
 							complete : function(responseText) {
 								//displayResults(responseText);
-								var data = JSON.parse(responseText.responseText);
-								if(data.userid == 'nouser'){
+								var data = JSON
+										.parse(responseText.responseText);
+								if (data.userid == 'nouser') {
 									$('#logout-link-href').hide();
 									$('#userTransaction').hide();
-								}else{
+								} else {
 									$('#login-link-href').hide();
 									$('#signup-link-href').hide();
 									loggedInUserId = data.userid;
-									
+
 								}
-								
+
 							}
 
 						});
 						$(document)
-						.on(
-								"click",
-								"#logout-link-href",
-								function() {
-									$.ajax({
-										url : 'user',
-										data : {
-											method : 'logoutUser'
-										},
-										method : 'POST',
-										complete : function(responseText) {
-											//displayResults(responseText);
-											var data = JSON.parse(responseText.responseText);
-											if(data.success == true){
-												/* $('#logout-link-href').hide();
-												$('#login-link-href').show();
-												$('#signup-link-href').show(); */
-												window.location.reload();
-											}
-											
-										}
+								.on(
+										"click",
+										"#logout-link-href",
+										function() {
+											$
+													.ajax({
+														url : 'user',
+														data : {
+															method : 'logoutUser'
+														},
+														method : 'POST',
+														complete : function(
+																responseText) {
+															//displayResults(responseText);
+															var data = JSON
+																	.parse(responseText.responseText);
+															if (data.success == true) {
+																/* $('#logout-link-href').hide();
+																$('#login-link-href').show();
+																$('#signup-link-href').show(); */
+																window.location
+																		.reload();
+															}
 
-									});
-									
-								}
-							);
-						
+														}
+
+													});
+
+										});
+
 						$(document)
 								.on(
 										"click",
@@ -136,42 +140,43 @@ var loggedInUserId = '';
 										});
 
 						$(document)
-						.on(
-								"click",
-								"#btnCheckout",
-								function() {
-									//fnOpenNormalDialog();
-									//alert('test checkout');
-									if(loggedInUserId == ''){
-										alert('Please login first.');
-										return;
-									}
-									if(confirm('Are you sure you want to proceed to checkout?')){
-										$.ajax({
-											url : 'product',
-											data : {
-												method : 'checkoutCart'
-											},
-											method : 'POST',
-											complete : function(responseText) {
-												//displayResults(responseText);
-												alert('Order successfully created');
-												window.location.reload();
+								.on(
+										"click",
+										"#btnCheckout",
+										function() {
+											//fnOpenNormalDialog();
+											//alert('test checkout');
+											if (loggedInUserId == '') {
+												alert('Please login first.');
+												return;
 											}
+											if (confirm('Are you sure you want to proceed to checkout?')) {
+												$
+														.ajax({
+															url : 'product',
+															data : {
+																method : 'checkoutCart'
+															},
+															method : 'POST',
+															complete : function(
+																	responseText) {
+																//displayResults(responseText);
+																alert('Order successfully created');
+																window.location
+																		.reload();
+															}
 
+														});
+											} else {
+
+											}
 										});
-									}else{
-										
-									}
-								}
-						);
-						
-						$(document)
-						.on(
+
+						$(document).on(
 								"click",
 								".btn-btn-link-btn-xs",
 								function() {
-									 var productId = this.productId;
+									var productId = this.productId;
 									$.ajax({
 										url : 'product',
 										data : {
@@ -181,51 +186,60 @@ var loggedInUserId = '';
 										method : 'POST',
 										complete : function(responseText) {
 											//displayResults(responseText);
-											
+
 										}
 
 									});
-									 
-									 
-									 var modalClosingBtn = document.getElementById('modal-closing');
-									 modalClosingBtn.click();
-										
-									 //document.getElementById('viewCart').click(); 
-									
-								}
-						);
-						
-						$(document)
-						.on(
-								"click",
-								"#cart_update_btn",
-								function() {
-									var productQtyTxts = $('input');
-									var productsToUpdateStr = '';
-									
-									for(var i=0; i< productQtyTxts.length; i++){
-										productsToUpdateStr += 'prodId:'+ productQtyTxts[i].id+',';
-										productsToUpdateStr += 'qty:' + productQtyTxts[i].value + '~';
-									}
-									productsToUpdateStr = productsToUpdateStr.substr(0,productsToUpdateStr.length-1);
-									$.ajax({
-										url : 'product',
-										data : {
-											method : 'updateProductQty',
-											productsToUpdate : productsToUpdateStr
-										},
-										method : 'POST',
-										complete : function(responseText) {
-											//displayResults(responseText);
-											//console.log(responseText);
-										}
 
-									});
-									
-									var modalClosingBtn = document.getElementById('modal-closing');
+									var modalClosingBtn = document
+											.getElementById('modal-closing');
 									modalClosingBtn.click();
-									
+
+									//document.getElementById('viewCart').click(); 
+
 								});
+
+						$(document)
+								.on(
+										"click",
+										"#cart_update_btn",
+										function() {
+											var productQtyTxts = $('input');
+											var productsToUpdateStr = '';
+
+											for (var i = 0; i < productQtyTxts.length; i++) {
+												productsToUpdateStr += 'prodId:'
+														+ productQtyTxts[i].id
+														+ ',';
+												productsToUpdateStr += 'qty:'
+														+ productQtyTxts[i].value
+														+ '~';
+											}
+											productsToUpdateStr = productsToUpdateStr
+													.substr(
+															0,
+															productsToUpdateStr.length - 1);
+											$
+													.ajax({
+														url : 'product',
+														data : {
+															method : 'updateProductQty',
+															productsToUpdate : productsToUpdateStr
+														},
+														method : 'POST',
+														complete : function(
+																responseText) {
+															//displayResults(responseText);
+															//console.log(responseText);
+														}
+
+													});
+
+											var modalClosingBtn = document
+													.getElementById('modal-closing');
+											modalClosingBtn.click();
+
+										});
 						$(document)
 								.on(
 										"click",
@@ -255,6 +269,28 @@ var loggedInUserId = '';
 													});
 										});
 
+						$(document).on(
+								"click",
+								"#signup-link-href",
+								function() {
+
+									var imageCaptcha = document
+											.getElementById('imageCaptcha');
+
+									$.ajax({
+										url : 'user',
+										data : {
+											method : 'doCaptcha'
+										},
+										method : 'POST',
+										complete : function(responseText) {
+											//	displayResults(responseText);
+											
+										}
+
+									});
+								});
+
 					});
 
 	function displayResults(responseText) {
@@ -271,7 +307,7 @@ var loggedInUserId = '';
 		var productEndCounter = 4;
 
 		var documentBody = document.getElementById("body");
-	
+
 		for (var i = 0; i < numerOfProductRows; i++) {
 
 			var containerDiv = document.createElement('div');
@@ -331,19 +367,18 @@ var loggedInUserId = '';
 				priceText.textContent = '$' + productListArray[j].productPrice;
 				priceText.className = 'price-text-color';
 				priceDiv.appendChild(priceText);
-				
+
 				//<div class="rating hidden-sm col-md-6"></div>
 				var ratingHiddenDiv = document.createElement('div');
 				ratingHiddenDiv.className = 'rating hidden-sm col-md-6';
 				productRowDiv.appendChild(ratingHiddenDiv);
-				
+
 				var separatorDiv = document.createElement('div');
 				separatorDiv.className = 'separator clear-left';
 				infoDiv.appendChild(separatorDiv);
 
 				var addToCartP = document.createElement('p');
 				addToCartP.className = 'btn-add';
-				
 
 				var iFaShoppingCart = document.createElement('i');
 				iFaShoppingCart.className = 'fa fa-shopping-cart';
@@ -362,10 +397,10 @@ var loggedInUserId = '';
 				addToCartP.appendChild(addToCartLink);
 
 				separatorDiv.appendChild(addToCartP)
-				
+
 				var detailsP = document.createElement('p');
 				detailsP.className = 'btn-details';
-				
+
 				var faList = document.createElement('i');
 				faList.className = 'fa fa-list';
 				detailsP.appendChild(faList);
@@ -376,13 +411,10 @@ var loggedInUserId = '';
 				moreDetailsLink.className = 'hidden-sm';
 				moreDetailsLink.textContent = 'MoreDetails';
 				detailsP.appendChild(moreDetailsLink);
-				
+
 				separatorDiv.appendChild(detailsP)
 
 				//<div class="clearfix"></div>
-				
-				
-				
 
 			}
 
@@ -403,35 +435,42 @@ var loggedInUserId = '';
 
 
 	<div class="header-limiter">
-	
-		<nav> <a href="UserTransaction.jsp" id="userTransaction">My Transaction</a> <!-- Aica JayBee Merge--> <a
-			href="Cart_ModalDynamic.jsp" class="selected" data-toggle="modal"
-			data-target="#cartModal" id="viewCart">View Cart</a> <!-- Aica JayBee Merge-->
-		</nav>
+
+		<nav> <a href="UserTransaction.jsp" id="userTransaction">My
+			Transaction</a> <!-- Aica JayBee Merge--> <a href="Cart_ModalDynamic.jsp"
+			class="selected" data-toggle="modal" data-target="#cartModal"
+			id="viewCart">View Cart</a> <!-- Aica JayBee Merge--> </nav>
 
 		<ul>
 			<!-- Aica JayBee Merge-->
-			<a href="Login_Modal.jsp" id="login-link-href" class="logout-button" class="selected"
-				data-toggle="modal" data-target="#loginModal">Login</a>
-				
-			<a href="Register_Modal.jsp" id="signup-link-href" class="logout-button" class="selected"
-				data-toggle="modal" data-target="#registerModal" onclick="clearFields">Sign up</a>
-				
-			<a href="" id="logout-link-href" class="logout-button" class="selected">Logout</a>
-					
+			<a href="Login_Modal.jsp" id="login-link-href" class="logout-button"
+				class="selected" data-toggle="modal" data-target="#loginModal">Login</a>
+
+			<a href="Register_Modal.jsp" id="signup-link-href"
+				class="logout-button" class="selected" data-toggle="modal"
+				data-target="#registerModal" onclick="clearFields()">Sign up</a>
+
+			<a href="" id="logout-link-href" class="logout-button"
+				class="selected">Logout</a>
+
 			<!-- Aica <3 JayBee Merge-->
 			<!--  	<a href="#" class="logout-button">Logout</a>-->
-				<%
-		Integer counter=(Integer)application.getAttribute("counter");
-				if (counter == null){
+			<%
+				Integer counter = (Integer) application.getAttribute("counter");
+				if (counter == null) {
 					counter = 0;
 				}
-		%>
-		</br>
-		<br><br><br><br><br><br>
+			%>
+			</br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
 
-		 
-			
+
+
 		</ul>
 
 
