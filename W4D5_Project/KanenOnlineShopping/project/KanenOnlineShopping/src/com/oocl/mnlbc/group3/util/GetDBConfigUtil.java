@@ -1,7 +1,5 @@
 package com.oocl.mnlbc.group3.util;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -10,7 +8,7 @@ import java.util.Properties;
  * 
  * @author GROUP3
  *
- *         Utility class for reading the database configuration
+ * Utility class for reading the database configuration
  */
 public class GetDBConfigUtil {
 

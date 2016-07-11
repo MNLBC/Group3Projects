@@ -50,6 +50,8 @@ public class ProductController extends HttpServlet {
 			this.deleteProduct(request, response);
 		} else if (method.equals("updateProductQty")) {
 			this.updateProductQty(request, response);
+		} else if (method.equals("clearCart")) {
+			this.clearCart(request, response);
 		} 
 
 	}
@@ -206,7 +208,12 @@ public class ProductController extends HttpServlet {
 	
 	public void clearCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
-		//CartBean itemCart = (CartBean) session.getAttribute("itemCart");
-		session.setAttribute("itemCart", null);
+		
+		CartBean itemCart = (CartBean) session.getAttribute("itemCart");
+		itemCart = null;
+		
+		session.setAttribute("itemCart", new CartBean());
+		String returnJson = "{\"success\":true}";
+		response.getWriter().write(returnJson);
 	}
 }

@@ -81,12 +81,9 @@ var loggedInUserId = '';
 										},
 										method : 'POST',
 										complete : function(responseText) {
-											//displayResults(responseText);
 											var data = JSON.parse(responseText.responseText);
 											if(data.success == true){
-												/* $('#logout-link-href').hide();
-												$('#login-link-href').show();
-												$('#signup-link-href').show(); */
+												
 												window.location.reload();
 											}
 											
@@ -140,8 +137,7 @@ var loggedInUserId = '';
 								"click",
 								"#btnCheckout",
 								function() {
-									//fnOpenNormalDialog();
-									//alert('test checkout');
+									
 									if(loggedInUserId == ''){
 										alert('Please login first.');
 										return;
@@ -154,7 +150,6 @@ var loggedInUserId = '';
 											},
 											method : 'POST',
 											complete : function(responseText) {
-												//displayResults(responseText);
 												alert('Order successfully created');
 												window.location.reload();
 											}
@@ -180,7 +175,6 @@ var loggedInUserId = '';
 										},
 										method : 'POST',
 										complete : function(responseText) {
-											//displayResults(responseText);
 											
 										}
 
@@ -189,8 +183,32 @@ var loggedInUserId = '';
 									 
 									 var modalClosingBtn = document.getElementById('modal-closing');
 									 modalClosingBtn.click();
-										
-									 //document.getElementById('viewCart').click(); 
+									
+								}
+						);
+						
+						$(document)
+						.on(
+								"click",
+								"#btn-clear-cart",
+								function() {
+									 var productId = this.productId;
+									$.ajax({
+										url : 'product',
+										data : {
+											method : 'clearCart',
+										},
+										method : 'POST',
+										complete : function(responseText) {
+											alert('Your cart is now cleared.');
+											window.location.reload();
+										}
+
+									});
+									 
+									 
+									 //var modalClosingBtn = document.getElementById('modal-closing');
+									 //modalClosingBtn.click();
 									
 								}
 						);
@@ -216,8 +234,7 @@ var loggedInUserId = '';
 										},
 										method : 'POST',
 										complete : function(responseText) {
-											//displayResults(responseText);
-											//console.log(responseText);
+											
 										}
 
 									});
@@ -247,7 +264,6 @@ var loggedInUserId = '';
 														method : 'POST',
 														complete : function(
 																responseText) {
-															//	displayResults(responseText);
 															var myvar;
 															displayResults(responseText);
 														}
@@ -259,7 +275,6 @@ var loggedInUserId = '';
 
 	function displayResults(responseText) {
 
-		//alert(responseText);
 		var responseData = JSON.parse(responseText.responseText).data;
 		var productListArray = responseData.products;
 		var numerOfProductRows = Math.ceil(productListArray.length / 4);
@@ -332,7 +347,6 @@ var loggedInUserId = '';
 				priceText.className = 'price-text-color';
 				priceDiv.appendChild(priceText);
 				
-				//<div class="rating hidden-sm col-md-6"></div>
 				var ratingHiddenDiv = document.createElement('div');
 				ratingHiddenDiv.className = 'rating hidden-sm col-md-6';
 				productRowDiv.appendChild(ratingHiddenDiv);
@@ -356,7 +370,6 @@ var loggedInUserId = '';
 				addToCartLink.productPrice = productListArray[j].productPrice;
 				addToCartLink.imagePath = productListArray[j].imagePath;
 
-				//addToCartLink.href = 'product?method=addProductToCart&productId=' +  productListArray[j].productId;
 				addToCartLink.className = 'hidden-sm';
 				addToCartLink.textContent = 'Add to cart';
 				addToCartP.appendChild(addToCartLink);
@@ -378,11 +391,6 @@ var loggedInUserId = '';
 				detailsP.appendChild(moreDetailsLink);
 				
 				separatorDiv.appendChild(detailsP)
-
-				//<div class="clearfix"></div>
-				
-				
-				
 
 			}
 
@@ -430,10 +438,7 @@ var loggedInUserId = '';
 		</br>
 		<br><br><br><br><br><br>
 
-		 
-			
 		</ul>
-
 
 		<center>
 			<h1>
@@ -445,7 +450,6 @@ var loggedInUserId = '';
 			</h1>
 
 		</center>
-
 
 	</div>
 
