@@ -1,6 +1,5 @@
 package com.oocl.mnlbc.group3.controllers;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class ProductController extends HttpServlet {
 
 	private void getProductList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String returnJson = "{\"success\":true,\"data\":{\"products\":[";
-		
+
 		List<ProductBean> products = productDAO.getProductList();
 
 		/*
@@ -82,8 +81,7 @@ public class ProductController extends HttpServlet {
 			returnJson += gson.toJson(product) + ",";
 
 		}
-		
-		
+
 		returnJson = returnJson.substring(0, returnJson.length() - 1);
 		returnJson += "]}}";
 
@@ -91,7 +89,6 @@ public class ProductController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(returnJson);
 
-		
 	}
 
 	/**
