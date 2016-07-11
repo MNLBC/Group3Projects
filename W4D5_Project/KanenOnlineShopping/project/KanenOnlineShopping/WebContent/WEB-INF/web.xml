@@ -9,4 +9,19 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>safe</display-name>
+    <servlet-name>safe</servlet-name>
+    <servlet-class>com.oocl.training.w4d4.SafeServlet</servlet-class>
+    <init-param>
+      <description>description1</description>
+      <param-name>name1</param-name>
+      <param-value>value1</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>safe</servlet-name>
+    <url-pattern>/safe.jpg</url-pattern>
+  </servlet-mapping>
 </web-app>
