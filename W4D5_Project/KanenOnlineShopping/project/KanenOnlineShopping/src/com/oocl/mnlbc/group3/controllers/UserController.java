@@ -139,11 +139,12 @@ public class UserController extends HttpServlet {
 	public void userTrans(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		List<OrderBean> order = new ArrayList<OrderBean>();
+		int userId= Integer.parseInt( request.getParameter("userId"));
 
 		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
 		String errorMsg = "";
 
-		order = orderDAO.getTransactions(1000000039);
+		order = orderDAO.getTransactions(userId);
 		if (errorMsg.equals("")) {
 			if (order != null) {
 				errorMsg += "none";
@@ -164,7 +165,7 @@ public class UserController extends HttpServlet {
 
 	private void getOrderList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String returnJson = "{\"success\":true,\"data\":{\"orders\":[";
-
+		
 		List<OrderBean> order = orderDAO.getTransactions(1000000039);
 
 		/*

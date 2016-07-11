@@ -148,10 +148,10 @@ public class ProductController extends HttpServlet {
 		HttpSession session = request.getSession();
 		//int userId = Integer.parseInt(request.getParameter("userid"));
 		CartBean itemCart = (CartBean) session.getAttribute("itemCart");
-
+		int userId= Integer.parseInt( session.getAttribute("userid").toString());
 		OrderBean order = new OrderBean();
 		// order.setUserId(userId);
-		order.setUserId(1000000002);
+		order.setUserId(userId);
 		order.setOrderStatus("ondelivery");
 		double totalCost = 0.00;
 		for (CartItemBean item : itemCart.getItems()) {

@@ -56,16 +56,17 @@ var loggedInUserId = '';
 								var data = JSON.parse(responseText.responseText);
 								if(data.userid == 'nouser'){
 									$('#logout-link-href').hide();
+									$('#userTransaction').hide();
 								}else{
 									$('#login-link-href').hide();
 									$('#signup-link-href').hide();
 									loggedInUserId = data.userid;
+									
 								}
 								
 							}
 
 						});
-
 						$(document)
 						.on(
 								"click",
@@ -401,7 +402,7 @@ var loggedInUserId = '';
 
 	<div class="header-limiter">
 
-		<nav> <a href="UserTransaction.jsp">My Transaction</a> <!-- Aica JayBee Merge--> <a
+		<nav> <a href="UserTransaction.jsp" id="userTransaction">My Transaction</a> <!-- Aica JayBee Merge--> <a
 			href="Cart_ModalDynamic.jsp" class="selected" data-toggle="modal"
 			data-target="#cartModal" id="viewCart">View Cart</a> <!-- Aica JayBee Merge-->
 		</nav>
