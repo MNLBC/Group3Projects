@@ -46,7 +46,7 @@ public class BannedUsersFilter implements Filter {
 		if (isUserBanned) {
 			String returnJson = "{\"banned\":true}";
 
-			System.out.println("User Banned");
+			//System.out.println("User Banned");
 			response.getWriter().write(returnJson);
 
 		} else {
