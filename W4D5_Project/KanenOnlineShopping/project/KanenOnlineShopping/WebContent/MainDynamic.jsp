@@ -420,17 +420,17 @@ $(document)
 					
 			<!-- Aica <3 JayBee Merge-->
 			<!--  	<a href="#" class="logout-button">Logout</a>-->
-<%
+
+	<%
 OnlineCounterListener counter = (OnlineCounterListener) session
 .getAttribute(OnlineCounterListener.session_cnt);
 %>
-	
 </br> 
 		</br>
 		<br><br><br><br>
 
 	Number of Online Users:
-<%=counter.getOnlineUsers()%>
+<%=counter.getOnlineUsers()%> 
  
 			
 		</ul>
