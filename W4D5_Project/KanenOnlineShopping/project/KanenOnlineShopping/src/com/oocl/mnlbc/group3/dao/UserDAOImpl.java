@@ -175,11 +175,11 @@ public class UserDAOImpl implements UserDAO {
 	public List<UserBean> getBannedUsers() {
 		List<UserBean> bannedUsers = new ArrayList<UserBean>();
 		//String sql = "SELECT USER_ID, USERNAME, USER_PASSWORD, FULL_NAME, EMAIL,ADDRESS, MOBILE_NUMBER, USER_ROLE FROM USERS WHERE IS_BLACKLISTED=? ";
-		String sql = "SELECT USER_ID, USERNAME, USER_PASSWORD, FULL_NAME, EMAIL,ADDRESS, MOBILE_NUMBER, USER_ROLE FROM USERS WHERE USERNAME=? ";
+		String sql = "SELECT USER_ID, USERNAME, USER_PASSWORD, FULL_NAME, EMAIL,ADDRESS, MOBILE_NUMBER, USER_ROLE FROM USERS WHERE IS_BLACKLISTED=? ";
 		PreparedStatement pstmt;
 		try {
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
-			pstmt.setString(1, "jscott");
+			pstmt.setString(1, "YES");
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
