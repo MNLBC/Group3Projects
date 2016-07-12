@@ -72,7 +72,7 @@ form {
 
 <body>
 <h2>Mobile.jsp</h2>
-
+<p>should contains 11 digits only</p>
 <form:form method="POST" commandName="userForm">
 <form:errors path="*" cssClass="errorblock" element="div"/>
 

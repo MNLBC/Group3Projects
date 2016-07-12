@@ -12,9 +12,10 @@ import com.oocl.mnlbc.model.User;
 import com.oocl.mnlbc.validator.RegisterValidator;
 
 public class RegisterController extends AbstractWizardFormController{
-
+	RegisterValidator validator;
 	public RegisterController(){
 		setCommandName("userForm");
+		
 	}
 	
 	@Override
@@ -51,7 +52,7 @@ public class RegisterController extends AbstractWizardFormController{
 	@Override
 	protected void validatePage(Object command, Errors errors, int page) {
 		
-		RegisterValidator validator = (RegisterValidator) getValidator();
+		validator = (RegisterValidator) getValidator();
 		
 		//page is 0-indexed
 		switch (page) {

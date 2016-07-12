@@ -72,12 +72,12 @@ form {
 
 <body>
 <h2>Email.jsp</h2>
-
+<p>enter a valid email address</p>
 <form:form method="POST" commandName="userForm">
 <form:errors path="*" cssClass="errorblock" element="div"/>
 <table>
 <tr>
-<td>Remark : </td>
+<td>Email : </td>
 <td><form:input path="email" /></td>
 <td><form:errors path="email" cssClass="error" /></td>
 </tr>

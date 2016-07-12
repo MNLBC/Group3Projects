@@ -72,7 +72,7 @@ form {
 
 <body>
 <h2>Fullname.jsp</h2>
-
+<p>should not contain non character value</p>
 <form:form method="POST" commandName="userForm" >
 <form:errors path="*" cssClass="errorblock" element="div"/>
 <table>
