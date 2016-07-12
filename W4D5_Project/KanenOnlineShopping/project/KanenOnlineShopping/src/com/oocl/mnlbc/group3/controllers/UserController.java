@@ -1,6 +1,8 @@
 package com.oocl.mnlbc.group3.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,9 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.oocl.mnlbc.group3.dao.OrderDAO;
+import com.oocl.mnlbc.group3.dao.OrderDAOImpl;
 import com.oocl.mnlbc.group3.dao.UserDAO;
 import com.oocl.mnlbc.group3.dao.UserDAOImpl;
 import com.oocl.mnlbc.group3.model.CartBean;
+import com.oocl.mnlbc.group3.model.ItemsBean;
+import com.oocl.mnlbc.group3.model.OrderBean;
 import com.oocl.mnlbc.group3.model.UserBean;
 
 /**
@@ -25,6 +32,7 @@ public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static UserDAO userDAO = UserDAOImpl.getInstance();
+	private static OrderDAO orderDAO = OrderDAOImpl.getInstance();
 
 	public UserController() {
 		super();
@@ -40,10 +48,11 @@ public class UserController extends HttpServlet {
 			this.loginUser(request, response);
 		} else if (method.equals("checkIfHasSession")) {
 			this.checkIfHasSession(request, response);
-		} else if(method.equals("logoutUser")){
-			this.logoutUser(request,response);
+		} else if (method.equals("logoutUser")) {
+			this.logoutUser(request, response);
+		} else if (method.equals("userTrans")) {
+			this.getOrderList(request, response);
 		}
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -60,12 +69,18 @@ public class UserController extends HttpServlet {
 		String email = request.getParameter("email");
 		String deliveryAddress = request.getParameter("deliveryAddress");
 		String mobileNumber = request.getParameter("mobileNumber");
+		String captcha = request.getParameter("captcha");
 		String userRole = "customer";
 
 		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
 		String errorMsg = "";
 		user = new UserBean(0, username, userPassword, fullName, email, deliveryAddress, mobileNumber, userRole);
 
+		
+		if (!captcha.equalsIgnoreCase(request.getSession().getAttribute("safecode").toString())) {
+			errorMsg += "captchamismatch";
+		} 
+		
 		if (userDAO.userExists(username)) {
 			errorMsg += "usernametaken";
 		}
@@ -80,7 +95,6 @@ public class UserController extends HttpServlet {
 			} else {
 				errorMsg += "failed";
 			}
-
 		}
 		returnJson += errorMsg;
 		returnJson += "\"}}";
@@ -97,6 +111,8 @@ public class UserController extends HttpServlet {
 		UserBean user = null;
 		String username = request.getParameter("userName");
 		String userPassword = request.getParameter("userPassword");
+
+		String userid;
 
 		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
 		String errorMsg = "";
@@ -123,6 +139,71 @@ public class UserController extends HttpServlet {
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(returnJson);
+	}
+
+	public void userTrans(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		List<OrderBean> order = new ArrayList<OrderBean>();
+
+		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
+		String errorMsg = "";
+
+		order = orderDAO.getTransactions(1000000039);
+		if (errorMsg.equals("")) {
+			if (order != null) {
+				errorMsg += "none";
+			} else {
+				errorMsg += "notrans";
+			}
+
+		}
+		returnJson += errorMsg;
+		returnJson += "\"}}";
+
+		// returnJson += "\"messageKey\": \"register.user\",\"data\": {}}";
+
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(returnJson);
+	}
+
+	private void getOrderList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String returnJson = "{\"success\":true,\"data\":{\"orders\":[";
+		HttpSession session = request.getSession();
+		int userId= Integer.parseInt(session.getAttribute("userid").toString());
+		List<OrderBean> order = orderDAO.getTransactions(userId);
+
+		/*
+		 * //Sets the product list into the session HttpSession session =
+		 * request.getSession(); ProductList prodList =
+		 * ProductList.getInstance(); prodList.setProductList(products);
+		 * session.setAttribute("prodList", prodList);
+		 */
+
+		session.setAttribute("itemCart", new CartBean());
+		long orderId = 0;
+
+		Gson gson = new Gson();
+		for (OrderBean ord : order) {
+			returnJson += gson.toJson(ord) + ",";
+			orderId = ord.getOrderId();
+		}
+
+		returnJson = returnJson.substring(0, returnJson.length() - 1);
+		returnJson += "],";
+
+		List<ItemsBean> itemList = orderDAO.getItems(orderId);
+		returnJson += "\"items\":[";
+		for (ItemsBean item : itemList) {
+			returnJson += gson.toJson(item) + ",";
+		}
+		returnJson = returnJson.substring(0, returnJson.length() - 1);
+		returnJson += "]}}";
+
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(returnJson);
+
 	}
 
 	public void checkIfHasSession(HttpServletRequest request, HttpServletResponse response)

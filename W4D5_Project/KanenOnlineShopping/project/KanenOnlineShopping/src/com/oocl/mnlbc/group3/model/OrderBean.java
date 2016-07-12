@@ -17,7 +17,7 @@ public class OrderBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int orderId;
+	private long orderId;
 	private int userId;
 	private String orderDate;
 	private double totalCost;
@@ -28,7 +28,7 @@ public class OrderBean implements Serializable {
 		items = new ArrayList<CartItemBean>();
 	}
 	
-	public OrderBean(int orderId, int userId, String orderDate, double totalCost, String orderStatus,
+	public OrderBean(long orderId, int userId, String orderDate, double totalCost, String orderStatus,
 			List<CartItemBean> items) {
 		super();
 		this.orderId = orderId;
@@ -42,7 +42,7 @@ public class OrderBean implements Serializable {
 	/**
 	 * @return the orderId
 	 */
-	public int getOrderId() {
+	public long getOrderId() {
 		return orderId;
 	}
 

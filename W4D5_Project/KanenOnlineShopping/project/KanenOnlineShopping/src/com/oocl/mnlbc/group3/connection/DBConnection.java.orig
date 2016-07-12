@@ -3,30 +3,36 @@ package com.oocl.mnlbc.group3.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import com.oocl.mnlbc.group3.util.GetDBConfigUtil;
 
 /**
- * @author FLOREJE Database Connection Class
+ * @author FLOREJE JDBC Connection Class
  */
 public class DBConnection {
 
 	/**
-	 * 
-	 * Establishes the database connection
+	 * getting connection give the host, port & SID
 	 * 
 	 * @return Connection
 	 */
 	public static Connection getConnection() {
 
-		GetDBConfigUtil dbUtil = new GetDBConfigUtil();
+		String driver = "oracle.jdbc.driver.OracleDriver";
 
-		String driver = dbUtil.getDriver();
-		String hostname = dbUtil.getHostname();
-		String port = dbUtil.getPort();
-		String sid = dbUtil.getSid();
+		// credentials
+		String user = "kanenos";
+		String password = "cjkanen";
 
-		String user = dbUtil.getUser();
-		String password = dbUtil.getPassword();
+		// database connection details
+<<<<<<< Updated upstream
+		//String hostname = "zha-ita122-w7";
+		String hostname = "zha-ita122-w7";
+		//String hostname = "desktop-gm54mok";
+=======
+		String hostname = "zha-ita122-w7";
+			
+>>>>>>> Stashed changes
+		String port = "1521";
+		String sid = "xe";
 
 		String URL = "jdbc:oracle:thin:@" + hostname + ":" + port + ":" + sid;
 

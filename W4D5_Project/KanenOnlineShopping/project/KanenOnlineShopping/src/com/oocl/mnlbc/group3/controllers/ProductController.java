@@ -50,6 +50,8 @@ public class ProductController extends HttpServlet {
 			this.deleteProduct(request, response);
 		} else if (method.equals("updateProductQty")) {
 			this.updateProductQty(request, response);
+		} else if (method.equals("clearCart")) {
+			this.clearCart(request, response);
 		} 
 
 	}
@@ -148,11 +150,11 @@ public class ProductController extends HttpServlet {
 		HttpSession session = request.getSession();
 		//int userId = Integer.parseInt(request.getParameter("userid"));
 		CartBean itemCart = (CartBean) session.getAttribute("itemCart");
-
+		int userId= Integer.parseInt( session.getAttribute("userid").toString());
 		OrderBean order = new OrderBean();
 		// order.setUserId(userId);
-		order.setUserId(1000000002);
-		order.setOrderStatus("ondelivery");
+		order.setUserId(userId);
+		order.setOrderStatus("On Delivery");
 		double totalCost = 0.00;
 		for (CartItemBean item : itemCart.getItems()) {
 			order.addItem(item);
@@ -206,7 +208,12 @@ public class ProductController extends HttpServlet {
 	
 	public void clearCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
-		//CartBean itemCart = (CartBean) session.getAttribute("itemCart");
-		session.setAttribute("itemCart", null);
+		
+		CartBean itemCart = (CartBean) session.getAttribute("itemCart");
+		itemCart = null;
+		
+		session.setAttribute("itemCart", new CartBean());
+		String returnJson = "{\"success\":true}";
+		response.getWriter().write(returnJson);
 	}
 }

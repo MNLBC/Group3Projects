@@ -12,9 +12,9 @@ public interface OrderDAO {
 	
 	public boolean saveCart(CartItemBean items, long orderId);
 	
-	public  List<OrderBean> getTransactions(OrderBean cart);
+	public  List<OrderBean> getTransactions(int userId);
 	
-	public List<ItemsBean> getItems(ItemsBean items);
+	public List<ItemsBean> getItems(long orderId);
 	
 	public long getOrderId();
 }
