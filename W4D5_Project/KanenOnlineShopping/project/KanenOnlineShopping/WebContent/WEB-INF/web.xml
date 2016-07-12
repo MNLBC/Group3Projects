@@ -9,6 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <listener>
+<listener-class>
+com.oocl.mnlbc.group3.listener.OnlineCounterListener  
+</listener-class>
+</listener>
+  
+<session-config>
+<session-timeout>1</session-timeout>
+</session-config>
   <servlet>
     <description></description>
     <display-name>CaptchaServlet</display-name>
