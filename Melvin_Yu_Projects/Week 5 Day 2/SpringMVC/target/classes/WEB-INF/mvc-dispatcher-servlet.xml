@@ -1,0 +1,42 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
+    
+    <bean class="com.oocl.mnlbc.controller.HomeController" />
+    
+    <bean class="com.oocl.mnlbc.controller.RegisterController" >
+    	<property name="pages">
+			<list>
+			<!-- follow sequence -->
+			<value>Fullname</value> <!-- Name -->
+			<value>Username</value> <!-- User -->
+			<value>Password</value> <!-- Pass -->
+			<value>Email</value> <!-- Email -->
+			<value>Mobile</value> <!-- Phone -->
+			</list>
+    	</property>
+		<property name="validator">
+			<bean class="com.oocl.mnlbc.validator.RegisterValidator" />
+		</property>
+    </bean>
+
+	<!-- Register User.properties for validation error message -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="User" />
+	</bean>
+	
+	<bean id="viewResolver"
+      class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+         <property name="prefix">
+             <value>/WEB-INF/pages/</value>
+          </property>
+         <property name="suffix">
+            <value>.jsp</value>
+         </property>
+    </bean>
+	
+</beans>
