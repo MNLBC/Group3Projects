@@ -46,7 +46,13 @@
 				},
 				method : 'POST',
 				complete : function(responseText) {
+					var data = JSON.parse(responseText.responseText);
+					if (data.banned == true) {
+						alert('Your account is blocked.');
+					}
+					
 					displayResults(responseText);
+					
 
 				}
 
@@ -59,15 +65,15 @@
 	var userId = '';
 	function displayResults(responseText) {
 		var response = JSON.parse(responseText.responseText);
-
+		 
 		if (response.data.errormsg.indexOf('incorrectcredentials') > -1) {
 			var usernameExistDiv = document.createElement('div');
-			var registrationForm = $('#loginForm');
+			var loginForm = $('#loginForm');
 
 			usernameExistDiv.id = 'incorrectcredentials';
 			usernameExistDiv.className = 'alert alert-danger';
 			usernameExistDiv.textContent = 'Credential that has been input is invalid.';
-			registrationForm.append(usernameExistDiv);
+			loginForm.append(usernameExistDiv);
 		}
 		
 		if (response.data.errormsg.indexOf('none') > -1) {
@@ -89,7 +95,7 @@
         </div>
         <div class="modal-body">
 		
-		<form id="loginForm" class="form-horizontal" action="">
+		<form id="loginForm" class="form-horizontal" action="" >
 <fieldset>
 
 			<!-- Form Name -->

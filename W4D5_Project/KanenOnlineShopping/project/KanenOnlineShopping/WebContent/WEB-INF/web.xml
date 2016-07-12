@@ -11,9 +11,9 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>safe</display-name>
-    <servlet-name>safe</servlet-name>
-    <servlet-class>com.oocl.training.w4d4.SafeServlet</servlet-class>
+    <display-name>CaptchaServlet</display-name>
+    <servlet-name>CaptchaServlet</servlet-name>
+    <servlet-class>com.oocl.mnlbc.group3.controllers.CaptchaServlet</servlet-class>
     <init-param>
       <description>description1</description>
       <param-name>name1</param-name>
@@ -21,7 +21,17 @@
     </init-param>
   </servlet>
   <servlet-mapping>
-    <servlet-name>safe</servlet-name>
+    <servlet-name>CaptchaServlet</servlet-name>
     <url-pattern>/safe.jpg</url-pattern>
   </servlet-mapping>
+  
+  <filter>
+		<display-name>BannedUsersFilter</display-name>
+		<filter-name>BannedUsersFilter</filter-name>
+		<filter-class>com.oocl.mnlbc.group3.filters.BannedUsersFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>BannedUsersFilter</filter-name>
+		<url-pattern>/user</url-pattern>
+	</filter-mapping>
 </web-app>
