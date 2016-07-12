@@ -212,8 +212,8 @@
 			</div>
 
 			<div class="col-xs-2">
-				<button id="btn-clear-cart" name="btnClearCart"
-					class="btn btn-danger btn-block" data-dismiss="modal">Clear Cart</button>
+				<button name="btnClearCart"
+					class="btn btn-danger btn-block" data-dismiss="modal">Back</button>
 			</div>
 
 		</div>
