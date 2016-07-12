@@ -65,7 +65,7 @@
 			
 			
 			var colDiv2 = document.createElement('td');
-			var txtCost =document.createTextNode(userTrans[i].totalCost);
+			var txtCost =document.createTextNode('$'+userTrans[i].totalCost);
 			
 			
 			var colDiv3 = document.createElement('td');

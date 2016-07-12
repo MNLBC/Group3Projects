@@ -49,6 +49,13 @@
 										.removeChild(accountRegisteredDiv);
 							}
 
+							var captchamismatchDiv = document
+									.getElementById("captchamismatch");
+							if (captchamismatchDiv != null) {
+								captchamismatchDiv.parentNode
+										.removeChild(captchamismatchDiv);
+							}
+
 							var userName = $('#txtUsername').val();
 							var userPassword = $('#txtPassword').val();
 							var fullName = $('#txtFullName').val();
@@ -56,6 +63,7 @@
 							var deliveryAddress = $('#txtDeliveryAddress')
 									.val();
 							var mobileNumber = $('#txtMobileNumber').val();
+							var captcha = $('#txtCaptcha').val();
 
 							$.ajax({
 								url : 'user',
@@ -66,6 +74,7 @@
 									email : email,
 									deliveryAddress : deliveryAddress,
 									mobileNumber : mobileNumber,
+									captcha : captcha,
 									method : 'registerUser'
 								},
 								method : 'POST',
@@ -82,6 +91,16 @@
 
 	function displayResults(responseText) {
 		var response = JSON.parse(responseText.responseText);
+
+		if (response.data.errormsg.indexOf('captchamismatch') > -1) {
+			var captchamismatchDiv = document.createElement('div');
+			var registrationForm = $('#registrationFormModal');
+
+			captchamismatchDiv.id = 'captchamismatch';
+			captchamismatchDiv.className = 'alert alert-danger';
+			captchamismatchDiv.textContent = 'Captcha mismatch';
+			registrationForm.append(captchamismatchDiv);
+		}
 
 		if (response.data.errormsg.indexOf('usernametaken') > -1) {
 			var usernameExistDiv = document.createElement('div');
@@ -125,7 +144,7 @@
 	</div>
 	<div class="modal-body">
 
-		<form class="form-horizontal" action="" id="registrationFormModal" >
+		<form class="form-horizontal" action="" id="registrationFormModal">
 			<fieldset>
 
 				<!-- Form Name -->
@@ -194,6 +213,7 @@
 					</div>
 				</div>
 
+
 				<!-- Text input-->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="txtMobileNumber">Mobile
@@ -204,6 +224,22 @@
 
 					</div>
 				</div>
+				<!-- <input
+			name="safe"><img id="safe" src=""> -->
+				<div class="form-group">
+				<a class="col-md-2 control-label" for="txtCaptcha" onclick="reloadCaptcha()">Reload Captcha.</a>
+					<div class="col-xs-2">
+						<img class="img-responsive" src="http://placehold.it/100x70"
+							id="imageCaptcha">
+					</div>
+					<div class="col-md-7">
+						<input id="txtCaptcha" name="txtCaptcha" type="text"
+							placeholder="Enter Captcha" class="form-control input-md" required>
+
+					</div>
+				</div>
+
+
 
 				<!-- Button (Double) -->
 				<!--
@@ -235,20 +271,32 @@
 <script src="js/validateRegistrationForm.js"></script>
 
 <script type="text/javascript">
+	function clearFields() {
+		document.getElementById('txtUsername').value = '';
+		document.getElementById('txtPassword').value = '';
+		document.getElementById('txtConfirmPassword').value = '';
+		document.getElementById('txtFullName').value = '';
+		document.getElementById('txtEmail').value = '';
+		document.getElementById('txtDeliveryAddress').value = '';
+		document.getElementById('txtMobileNumber').value = '';
+		document.getElementById('txtCaptcha').value = '';
+		document.getElementById("imageCaptcha").setAttribute("src",
+				"CaptchaServlet?" + new Date().getMilliseconds());
 
-function clearFields(){
-	document.getElementById('txtUsername').value = '';
-	document.getElementById('txtPassword').value = '';
-	document.getElementById('txtConfirmPassword').value = '';
-	document.getElementById('txtFullName').value = '';
-	document.getElementById('txtEmail').value = '';
-	document.getElementById('txtDeliveryAddress').value = '';
-	document.getElementById('txtMobileNumber').value = '';
-	
-}
-	
+	}
+</script>
+
+<script type="text/javascript">
+	document.getElementById("imageCaptcha").setAttribute("src",
+			"CaptchaServlet?" + new Date().getMilliseconds());
+</script>
 
 
+<script type="text/javascript">
+	function reloadCaptcha() {
+		document.getElementById("imageCaptcha").setAttribute("src",
+				"CaptchaServlet?" + new Date().getMilliseconds());
+	}
 </script>
 
 </html>

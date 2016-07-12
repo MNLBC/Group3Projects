@@ -9,13 +9,11 @@
 
 </head>
 <script>
-	//$(document).ready(function() {
 	$(document)
 			.on(
 					'change',
 					'.form-control-input-sm',
 					function() {
-						//alert('hello');
 						var prodQuantityTextFields = $('.form-control-input-sm');
 						console.log(prodQuantityTextFields[0].value);
 						console.log(prodQuantityTextFields[0].productPrice);
@@ -27,8 +25,6 @@
 						totalInCart.textContent = '$' + totalCost;
 
 					});
-
-	//});
 
 	function displayResults(responseText) {
 		var responseData = JSON.parse(responseText.responseText).data;
@@ -44,10 +40,9 @@
 			var imgContentDiv = document.createElement('img');
 			imgContentDiv.className = 'img-responsive';
 			imgContentDiv.src = itemsInCart[i].imagePath;
-			//imgContentDiv.src = 'resources/testlaptop.jpg';
+
 			colxsDiv.appendChild(imgContentDiv);
 			rowDiv.appendChild(colxsDiv);
-			//checked
 
 			var colxsProductDiv = document.createElement('div');
 			colxsProductDiv.className = 'col-xs-4';
@@ -74,14 +69,14 @@
 
 			var colxsItemCartDiv = document.createElement('div');
 			colxsItemCartDiv.className = 'col-xs-6 text-right';
-			
+
 			var h6ProductPrice = document.createElement('h6');
 			var strongProductPrice = document.createElement('strong');
-			
+
 			var labelProductPrice = document.createElement('label');
 			labelProductPrice.textContent = itemsInCart[i].productPrice;
 			strongProductPrice.appendChild(labelProductPrice);
-			
+
 			var spanProductPrice = document.createElement('span');
 			spanProductPrice.className = 'text-muted';
 			strongProductPrice.appendChild(spanProductPrice);
@@ -90,11 +85,8 @@
 			colxsItemCartDiv.appendChild(h6ProductPrice);
 			colxsItemDiv.appendChild(colxsItemCartDiv);
 
-			//checked
-		
 			var colxsInputDiv = document.createElement('div');
 			colxsInputDiv.className = 'col-xs-4';
-			
 
 			var productQuantity = document.createElement('input');
 			productQuantity.type = 'text';
@@ -107,14 +99,12 @@
 
 			var btnColXs2Div = document.createElement('div');
 			btnColXs2Div.className = 'col-xs-2';
-			
-			var trashButton= document.createElement('button');
+
+			var trashButton = document.createElement('button');
 			trashButton.type = 'button';
-			//trashButton.className = 'btn btn-link btn-xs';
 			trashButton.productId = itemsInCart[i].productId;
 			trashButton.className = 'btn-btn-link-btn-xs';
-			
-			
+
 			var trashSpan = document.createElement('span');
 			trashSpan.className = 'glyphicon glyphicon-trash';
 			trashButton.appendChild(trashSpan);
@@ -123,16 +113,14 @@
 			colxsItemDiv.appendChild(colxsInputDiv);
 			colxsItemDiv.appendChild(btnColXs2Div);
 
-			//rowDiv.appendChild(colxsInputDiv);
-			
 			rowDiv.appendChild(colxsItemDiv);
-			
+
 			var divBodyCartModal = document.getElementById('divBodyCartModal');
 			divBodyCartModal.appendChild(rowDiv);
-			
+
 			var hrElement = document.createElement('hr');
 			divBodyCartModal.appendChild(hrElement);
-			
+
 			totalPrice += (itemsInCart[i].productPrice * itemsInCart[i].quantity);
 		}
 
@@ -145,7 +133,8 @@
 <body>
 
 	<div class="modal-header">
-		<button id="modal-closing" type="button" class="close" data-dismiss="modal">&times;</button>
+		<button id="modal-closing" type="button" class="close"
+			data-dismiss="modal">&times;</button>
 		<h4 class="modal-title">Your Items</h4>
 	</div>
 
@@ -178,19 +167,18 @@
 
 						<div class="panel-body">
 
-							<div id="divBodyCartModal">
-							
-							</div>
+							<div id="divBodyCartModal"></div>
 							<!-- end of div body cart modal,end of dynamic content  -->
 							<div class="row">
 								<div class="text-center">
 									<div class="col-xs-9">
-										 <h6 class="text-right">Added items?</h6>
+										<h6 class="text-right">Added items?</h6>
 									</div>
 									<div class="col-xs-3">
 										<!-- <button id="cart_update_btn" type="button" class="btn btn-default btn-sm btn-block"
 											onclick="myFunction()">Update cart</button> -->
-										<button id="cart_update_btn" type="button" class="btn btn-default btn-sm btn-block"
+										<button id="cart_update_btn" type="button"
+											class="btn btn-default btn-sm btn-block"
 											onclick="myFunction()">Update cart</button>
 									</div>
 								</div>
@@ -219,12 +207,13 @@
 			</div>
 
 			<div class="col-xs-3">
-				<button type="button" id="btnCheckout" class="btn btn-success btn-block">Checkout</button>
+				<button type="button" id="btnCheckout"
+					class="btn btn-success btn-block">Checkout</button>
 			</div>
 
 			<div class="col-xs-2">
-				<button id="btnRegisterCancel" name="btnRegisterCancel"
-					class="btn btn-danger btn-block" data-dismiss="modal">Cancel</button>
+				<button name="btnClearCart"
+					class="btn btn-danger btn-block" data-dismiss="modal">Back</button>
 			</div>
 
 		</div>

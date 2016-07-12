@@ -27,10 +27,9 @@
 	margin: auto;
 }
 </style>
-
 <script>
 var loggedInUserId = '';
-	$(document)
+$(document)
 			.ready(
 					function() {
 
@@ -421,16 +420,18 @@ var loggedInUserId = '';
 					
 			<!-- Aica <3 JayBee Merge-->
 			<!--  	<a href="#" class="logout-button">Logout</a>-->
-				<%
-		Integer counter=(Integer)application.getAttribute("counter");
-				if (counter == null){
-					counter = 0;
-				}
-		%>
-		</br>
-		<br><br><br><br><br><br>
 
-		 
+	<%
+OnlineCounterListener counter = (OnlineCounterListener) session
+.getAttribute(OnlineCounterListener.session_cnt);
+%>
+</br> 
+		</br>
+		<br><br><br><br>
+
+	Number of Online Users:
+<%=counter.getOnlineUsers()%> 
+ 
 			
 		</ul>
 
