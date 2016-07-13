@@ -3,7 +3,6 @@ package com.oocl.mnlbc.group3.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
 /**
  * 
  * @author GROUP3
