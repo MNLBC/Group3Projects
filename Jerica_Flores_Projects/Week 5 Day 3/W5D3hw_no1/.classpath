@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/floreje/.m2/repository/org/springframework/spring-core/4.3.0.RELEASE/spring-core-4.3.0.RELEASE.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.springframework"/>
+			<attribute name="maven.artifactId" value="spring-core"/>
+			<attribute name="maven.version" value="4.3.0.RELEASE"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="//Zha-ita012-w7/mnlbc/PauJars/ant-1.9.6.jar"/>
+	<classpathentry kind="lib" path="//Zha-ita012-w7/mnlbc/PauJars/ant-launcher-1.9.6.jar"/>
+	<classpathentry kind="lib" path="//Zha-ita012-w7/mnlbc/PauJars/asm-5.1.jar"/>
+	<classpathentry kind="lib" path="//Zha-ita012-w7/mnlbc/PauJars/cglib-3.2.4.jar"/>
+	<classpathentry kind="lib" path="//Zha-ita012-w7/mnlbc/PauJars/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="//Zha-ita012-w7/mnlbc/PauJars/junit-3.8.1.jar"/>
+	<classpathentry kind="lib" path="//Zha-ita012-w7/mnlbc/PauJars/spring-aop-4.3.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="//Zha-ita012-w7/mnlbc/PauJars/spring-beans-4.3.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="//Zha-ita012-w7/mnlbc/PauJars/spring-context-4.3.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="//Zha-ita012-w7/mnlbc/PauJars/spring-core-4.3.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="//Zha-ita012-w7/mnlbc/PauJars/spring-expression-4.3.1.RELEASE.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
