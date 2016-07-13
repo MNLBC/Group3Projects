@@ -258,7 +258,7 @@
           <tags>removeOnHide</tags>
         </children>
         <children xsi:type="basic:Part" xmi:id="_BYV-cDuGEeaziuBwJ8-E4g" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="ChatWindow.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ChatWindow.java&quot; partName=&quot;ChatWindow.java&quot; title=&quot;ChatWindow.java&quot; tooltip=&quot;KaChat/src/com/oocl/mnlbc/group3/ui/ChatWindow.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/KaChat/src/com/oocl/mnlbc/group3/ui/ChatWindow.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;3786&quot; selectionTopPixel=&quot;2588&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ChatWindow.java&quot; partName=&quot;ChatWindow.java&quot; title=&quot;ChatWindow.java&quot; tooltip=&quot;KaChat/src/com/oocl/mnlbc/group3/ui/ChatWindow.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/KaChat/src/com/oocl/mnlbc/group3/ui/ChatWindow.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;2&quot; selectionOffset=&quot;3785&quot; selectionTopPixel=&quot;2588&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
           <tags>removeOnHide</tags>
@@ -334,7 +334,7 @@
       </children>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_7et4fDqnEeaXP738MWBOgg" elementId="org.eclipse.ui.navigator.ProjectExplorer" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Project Explorer" iconURI="platform:/plugin/org.eclipse.ui.navigator.resources/icons/full/eview16/resource_persp.gif" closeable="true">
-      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view CommonNavigator.LINKING_ENABLED=&quot;1&quot; currentWorkingSetName=&quot;Aggregate for window 1466834175930&quot; org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets=&quot;0&quot;/>"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view CommonNavigator.LINKING_ENABLED=&quot;1&quot; org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets=&quot;0&quot;/>"/>
       <tags>View</tags>
       <tags>categoryTag:General</tags>
       <menus xmi:id="_7et4fTqnEeaXP738MWBOgg" elementId="org.eclipse.ui.navigator.ProjectExplorer">
@@ -589,7 +589,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_7et5GDqnEeaXP738MWBOgg" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_kt4-oDulEeaG__Nazl356Q" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_7evs8TqnEeaXP738MWBOgg"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_-aUZIEihEea_pu5HUWcs3Q" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_7evs8TqnEeaXP738MWBOgg"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_7et5JjqnEeaXP738MWBOgg" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -619,7 +619,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_7et5dDqnEeaXP738MWBOgg" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_kt7a4DulEeaG__Nazl356Q" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_7evJdDqnEeaXP738MWBOgg"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_-aUZKkihEea_pu5HUWcs3Q" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_7evJdDqnEeaXP738MWBOgg"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_7et5gDqnEeaXP738MWBOgg" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -695,6 +695,7 @@
     <bindings xmi:id="_7et5sDqnEeaXP738MWBOgg" keySequence="CTRL+INSERT" command="_7evIojqnEeaXP738MWBOgg"/>
     <bindings xmi:id="_7et5sTqnEeaXP738MWBOgg" keySequence="ALT+SHIFT+F1" command="_7evHRTqnEeaXP738MWBOgg"/>
     <bindings xmi:id="_7et5sjqnEeaXP738MWBOgg" keySequence="SHIFT+DEL" command="_7evH2TqnEeaXP738MWBOgg"/>
+    <bindings xmi:id="_9dEtw0ihEea_pu5HUWcs3Q" keySequence="ALT+SHIFT+/" command="_9cBk9EihEea_pu5HUWcs3Q"/>
   </bindingTables>
   <bindingTables xmi:id="_7et5szqnEeaXP738MWBOgg" elementId="org.eclipse.tm.terminal.TerminalContext" bindingContext="_7eufWzqnEeaXP738MWBOgg">
     <bindings xmi:id="_7et5tDqnEeaXP738MWBOgg" keySequence="ALT+D" command="_7evIsjqnEeaXP738MWBOgg"/>
@@ -882,6 +883,8 @@
     <bindings xmi:id="_e1rfoDtZEea-XovQpEZ3gg" keySequence="ALT+CTRL+SHIFT+T" command="_e0soNjtZEea-XovQpEZ3gg"/>
     <bindings xmi:id="_e1stwDtZEea-XovQpEZ3gg" keySequence="ALT+CTRL+T" command="_e0tPQTtZEea-XovQpEZ3gg"/>
     <bindings xmi:id="_e1vKADtZEea-XovQpEZ3gg" keySequence="ALT+CTRL+B" command="_7evJODqnEeaXP738MWBOgg"/>
+    <bindings xmi:id="_9c-nIkihEea_pu5HUWcs3Q" keySequence="CTRL+F5" command="_9cBk50ihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9dEtxEihEea_pu5HUWcs3Q" keySequence="CTRL+SHIFT+F5" command="_9cBk90ihEea_pu5HUWcs3Q"/>
   </bindingTables>
   <bindingTables xmi:id="_7et6WDqnEeaXP738MWBOgg" elementId="org.eclipse.jdt.ui.javaEditorScope" bindingContext="_7eufMzqnEeaXP738MWBOgg">
     <bindings xmi:id="_7et6WTqnEeaXP738MWBOgg" keySequence="CTRL+SHIFT+C" command="_7evIuDqnEeaXP738MWBOgg"/>
@@ -1226,6 +1229,30 @@
     <bindings xmi:id="_e1tU0TtZEea-XovQpEZ3gg" keySequence="CTRL+1" command="_e0tPTDtZEea-XovQpEZ3gg"/>
   </bindingTables>
   <bindingTables xmi:id="_SKPZ4Tt8EeaziuBwJ8-E4g" bindingContext="_SKPZ4Dt8EeaziuBwJ8-E4g"/>
+  <bindingTables xmi:id="_9cyZ4EihEea_pu5HUWcs3Q" elementId="com.spket.ui.textEditScope" bindingContext="_9cHrgEihEea_pu5HUWcs3Q">
+    <bindings xmi:id="_9c4ggEihEea_pu5HUWcs3Q" keySequence="ALT+CTRL+C" command="_9cBk9kihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9c4ggUihEea_pu5HUWcs3Q" keySequence="ALT+CTRL+SPACE" command="_9cBk9UihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9c4ggkihEea_pu5HUWcs3Q" keySequence="CTRL+O" command="_9cBk-kihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9c4gg0ihEea_pu5HUWcs3Q" keySequence="CTRL+SHIFT+F" command="_9cBk7EihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9c-nIEihEea_pu5HUWcs3Q" keySequence="ALT+SHIFT+O" command="_9cBk6kihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9c-nIUihEea_pu5HUWcs3Q" keySequence="CTRL+/" command="_9cBk60ihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9c-nJUihEea_pu5HUWcs3Q" keySequence="CTRL+T" command="_9cBk8EihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9dEtwEihEea_pu5HUWcs3Q" keySequence="F3" command="_9cBk_0ihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9dEtwUihEea_pu5HUWcs3Q" keySequence="F2" command="_9cBk_UihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9dEtwkihEea_pu5HUWcs3Q" keySequence="CTRL+SHIFT+/" command="_9cBk_kihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9dEtxkihEea_pu5HUWcs3Q" keySequence="ALT+CTRL+I" command="_9cBk_EihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9dEtx0ihEea_pu5HUWcs3Q" keySequence="CTRL+SHIFT+\" command="_9cBk-0ihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9dEtyEihEea_pu5HUWcs3Q" keySequence="CTRL+]" command="_9cBk7UihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9dEtyUihEea_pu5HUWcs3Q" keySequence="CTRL+SHIFT+]" command="_9cBk5UihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9dEty0ihEea_pu5HUWcs3Q" keySequence="CTRL+2 R" command="_9cBk40ihEea_pu5HUWcs3Q"/>
+  </bindingTables>
+  <bindingTables xmi:id="_9c-nI0ihEea_pu5HUWcs3Q" elementId="com.spket.ui.textFormatScope" bindingContext="_9cHrgUihEea_pu5HUWcs3Q">
+    <bindings xmi:id="_9c-nJEihEea_pu5HUWcs3Q" keySequence="CTRL+SHIFT+U" command="_9cBk6EihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9dEtxUihEea_pu5HUWcs3Q" keySequence="CTRL+SHIFT+I" command="_9cBk7kihEea_pu5HUWcs3Q"/>
+    <bindings xmi:id="_9dEtykihEea_pu5HUWcs3Q" keySequence="CTRL+SHIFT+B" command="_9cBk8UihEea_pu5HUWcs3Q"/>
+  </bindingTables>
+  <bindingTables xmi:id="_-J6loUihEea_pu5HUWcs3Q" bindingContext="_-J6loEihEea_pu5HUWcs3Q"/>
+  <bindingTables xmi:id="_-J6lo0ihEea_pu5HUWcs3Q" bindingContext="_-J6lokihEea_pu5HUWcs3Q"/>
   <rootContext xmi:id="_7eufKTqnEeaXP738MWBOgg" elementId="org.eclipse.ui.contexts.dialogAndWindow" contributorURI="platform:/plugin/org.eclipse.platform" name="In Dialogs and Windows" description="Either a dialog or a window is open">
     <children xmi:id="_7eufKjqnEeaXP738MWBOgg" elementId="org.eclipse.ui.contexts.window" contributorURI="platform:/plugin/org.eclipse.platform" name="In Windows" description="A window is open">
       <children xmi:id="_7eufKzqnEeaXP738MWBOgg" elementId="org.eclipse.e4.ui.contexts.views" contributorURI="platform:/plugin/org.eclipse.platform" name="%bindingcontext.name.bindingView"/>
@@ -1269,6 +1296,8 @@
         <children xmi:id="_7eufTjqnEeaXP738MWBOgg" elementId="org.eclipse.jdt.ui.propertiesEditorScope" name="Editing Properties Files" description="Editing Properties Files Context"/>
         <children xmi:id="_7eufTzqnEeaXP738MWBOgg" elementId="org.eclipse.jst.jsf.facesconfig.editorContext" name="In Faces Config Editor" description="Key binding context when using the Faces Config Editor"/>
         <children xmi:id="_e0wSkDtZEea-XovQpEZ3gg" elementId="org.eclipse.jdt.ui.classFileEditorScope" name="Browsing attached Java Source" description="Browsing attached Java Source Context"/>
+        <children xmi:id="_9cHrgEihEea_pu5HUWcs3Q" elementId="com.spket.ui.textEditScope" name="Editing Text" description="Editing Text Context"/>
+        <children xmi:id="_9cHrgUihEea_pu5HUWcs3Q" elementId="com.spket.ui.textFormatScope" name="Formatting Text" description="Formatting Text Context"/>
       </children>
       <children xmi:id="_7eufUDqnEeaXP738MWBOgg" elementId="org.eclipse.compare.compareEditorScope" name="Comparing in an Editor" description="Comparing in an Editor"/>
       <children xmi:id="_7eufUTqnEeaXP738MWBOgg" elementId="org.eclipse.debug.ui.memoryview" name="In Memory View" description="In memory view"/>
@@ -1348,6 +1377,8 @@
   <rootContext xmi:id="_7euflzqnEeaXP738MWBOgg" elementId="org.eclipse.wst.ws.explorer.explorer" name="Auto::org.eclipse.wst.ws.explorer.explorer"/>
   <rootContext xmi:id="_7eufmDqnEeaXP738MWBOgg" elementId="org.eclipse.wb.core.ui.actionset" name="Auto::org.eclipse.wb.core.ui.actionset"/>
   <rootContext xmi:id="_SKPZ4Dt8EeaziuBwJ8-E4g" elementId="org.eclipse.jdt.launching.localJavaApplication.internal.org.eclipse.debug.ui.DebugPerspective" name="Auto::org.eclipse.jdt.launching.localJavaApplication.internal.org.eclipse.debug.ui.DebugPerspective"/>
+  <rootContext xmi:id="_-J6loEihEea_pu5HUWcs3Q" elementId="com.spket.ui.text.actionSet.presentation" name="Auto::com.spket.ui.text.actionSet.presentation"/>
+  <rootContext xmi:id="_-J6lokihEea_pu5HUWcs3Q" elementId="com.spket.sted.actionSet.editors" name="Auto::com.spket.sted.actionSet.editors"/>
   <descriptors xmi:id="_7eufmTqnEeaXP738MWBOgg" elementId="org.eclipse.e4.ui.compatibility.editor" allowMultiple="true" category="org.eclipse.e4.primaryDataStack" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor">
     <tags>Editor</tags>
   </descriptors>
@@ -1738,6 +1769,18 @@
   <descriptors xmi:id="_e4N2QDtZEea-XovQpEZ3gg" elementId="org.eclipse.tcf.te.ui.terminals.TerminalsView" label="Terminals (Old)" iconURI="platform:/plugin/org.eclipse.tm.terminal.view.ui/icons/eview16/terminal_view.gif" tooltip="" allowMultiple="true" category="Other" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
     <tags>View</tags>
     <tags>categoryTag:Other</tags>
+  </descriptors>
+  <descriptors xmi:id="_9rFUkEihEea_pu5HUWcs3Q" elementId="com.spket.ui.paletteViewer" label="Snippets" iconURI="platform:/plugin/com.spket.ui/icons/full/eview16/snippets_view.gif" tooltip="" category="Spket" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <tags>View</tags>
+    <tags>categoryTag:Spket</tags>
+  </descriptors>
+  <descriptors xmi:id="_9rLbMEihEea_pu5HUWcs3Q" elementId="com.spket.ui.docview" label="Documentation" iconURI="platform:/plugin/com.spket.ui/icons/full/eview16/doc_view.gif" tooltip="" category="Spket" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <tags>View</tags>
+    <tags>categoryTag:Spket</tags>
+  </descriptors>
+  <descriptors xmi:id="_9rRh0EihEea_pu5HUWcs3Q" elementId="com.spket.xpc.cview" label="Profile Explorer" iconURI="platform:/plugin/com.spket.js/icons/full/view16/cview.png" tooltip="" category="Spket" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <tags>View</tags>
+    <tags>categoryTag:Spket</tags>
   </descriptors>
   <trimContributions xmi:id="_2r10UF9tEeO-yojH_y4TJA" elementId="org.eclipse.ui.ide.application.trimcontribution.QuickAccess" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" toBeRendered="false" parentId="org.eclipse.ui.main.toolbar" positionInParent="last">
     <children xsi:type="menu:ToolControl" xmi:id="_76uUAF9tEeO-yojH_y4TJA" elementId="Spacer Glue" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.LayoutModifierToolControl">
@@ -2988,6 +3031,36 @@
   <commands xmi:id="_e5K4gDtZEea-XovQpEZ3gg" elementId="org.eclipse.egit.ui.team.CompareWithCommit" commandName="org.eclipse.egit.ui.team.CompareWithCommit"/>
   <commands xmi:id="_e5MGoDtZEea-XovQpEZ3gg" elementId="org.eclipse.egit.ui.team.CompareWithRevision" commandName="org.eclipse.egit.ui.team.CompareWithRevision"/>
   <commands xmi:id="_e5MtsDtZEea-XovQpEZ3gg" elementId="org.eclipse.egit.ui.team.ReplaceWithPrevious" commandName="org.eclipse.egit.ui.team.ReplaceWithPrevious"/>
+  <commands xmi:id="_9cBk40ihEea_pu5HUWcs3Q" elementId="com.spket.ui.correction.renameInFile.assist" commandName="Quick Assist - Rename in file" description="Invokes quick assist and selects 'Rename in file'" category="_9cBk4kihEea_pu5HUWcs3Q"/>
+  <commands xmi:id="_9cBk5EihEea_pu5HUWcs3Q" elementId="com.spket.sted.cmd.zoomIn" commandName="Zoom In" category="_7evuXjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk5UihEea_pu5HUWcs3Q" elementId="com.spket.ui.edit.text.select.matching.bracket" commandName="Select Matching Bracket" description="Select the text between the matching bracket" category="_7evuYjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk5kihEea_pu5HUWcs3Q" elementId="com.spket.sted.cmd.wordWrap" commandName="Word Wrap" category="_7evuXjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk50ihEea_pu5HUWcs3Q" elementId="com.spket.ui.tasks.refresh_tasks" commandName="Refresh Tasks" category="_7evucDqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk6EihEea_pu5HUWcs3Q" elementId="com.spket.ui.text.format.underline" commandName="Underline" category="_9cBk4UihEea_pu5HUWcs3Q"/>
+  <commands xmi:id="_9cBk6UihEea_pu5HUWcs3Q" elementId="com.spket.js.format_all" commandName="Format JavaScript" category="_7evuZzqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk6kihEea_pu5HUWcs3Q" elementId="com.spket.ui.edit.toggleMarkOccurrences" commandName="Toggle Mark Occurrences" description="Toggles mark occurrences in editors" category="_9cBk4kihEea_pu5HUWcs3Q"/>
+  <commands xmi:id="_9cBk60ihEea_pu5HUWcs3Q" elementId="com.spket.ui.edit.text.toggle.comment" commandName="Toggle Comment" description="Toggle comment the selected lines" category="_9cBk4kihEea_pu5HUWcs3Q"/>
+  <commands xmi:id="_9cBk7EihEea_pu5HUWcs3Q" elementId="com.spket.ui.edit.text.format" commandName="Format" category="_7evuXjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk7UihEea_pu5HUWcs3Q" elementId="com.spket.ui.edit.text.goto.matching.bracket" commandName="Go to Matching Bracket" description="Moves the cursor to the matching bracket" category="_7evuYjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk7kihEea_pu5HUWcs3Q" elementId="com.spket.ui.text.format.italic" commandName="Italic" category="_9cBk4UihEea_pu5HUWcs3Q"/>
+  <commands xmi:id="_9cBk70ihEea_pu5HUWcs3Q" elementId="com.spket.sted.cmd.showIndentGuides" commandName="Show Indentation Guides" category="_7evuXjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk8EihEea_pu5HUWcs3Q" elementId="com.spket.ui.edit.open_hierarchy" commandName="Quick Type Hierarchy" category="_7evuYjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk8UihEea_pu5HUWcs3Q" elementId="com.spket.ui.text.format.bold" commandName="Bold" category="_9cBk4UihEea_pu5HUWcs3Q"/>
+  <commands xmi:id="_9cBk8kihEea_pu5HUWcs3Q" elementId="com.spket.sted.cmd.showEOL" commandName="Show End of Line" category="_7evuXjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk80ihEea_pu5HUWcs3Q" elementId="com.spket.sted.cmd.zoomOut" commandName="Zoom Out" category="_7evuXjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk9EihEea_pu5HUWcs3Q" elementId="com.spket.mime.edit.codeassist" commandName="JavaScript Content Assist" category="_7evuWDqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk9UihEea_pu5HUWcs3Q" elementId="com.spket.ui.edit.text.tab2space" commandName="Tabs to Spaces" category="_7evuXjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk9kihEea_pu5HUWcs3Q" elementId="com.spket.ui.edit.text.capitalize" commandName="Capitalize" category="_7evuXjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk90ihEea_pu5HUWcs3Q" elementId="com.spket.js.reload_profiles" commandName="Reload JavaScript Profile" category="_7evucDqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk-EihEea_pu5HUWcs3Q" elementId="com.spket.yuic.export" commandName="Run YUI Compressor" category="_7evuZzqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk-UihEea_pu5HUWcs3Q" elementId="com.spket.sted.cmd.zoomReset" commandName="Zoom Reset" category="_7evuXjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk-kihEea_pu5HUWcs3Q" elementId="com.spket.ui.edit.show_outline" commandName="Quick Outline" category="_7evuYjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk-0ihEea_pu5HUWcs3Q" elementId="com.spket.ui.edit.text.remove.comment" commandName="Remove Block Comment" description="Remove the block comment enclosing the selection" category="_9cBk4kihEea_pu5HUWcs3Q"/>
+  <commands xmi:id="_9cBk_EihEea_pu5HUWcs3Q" elementId="com.spket.ui.edit.text.invertCase" commandName="Invert Case" category="_7evuXjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk_UihEea_pu5HUWcs3Q" elementId="com.spket.ui.edit.show_info" commandName="Show Tooltip" category="_7evuWDqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_9cBk_kihEea_pu5HUWcs3Q" elementId="com.spket.ui.edit.text.add.comment" commandName="Add Block Comment" description="Enclose the selection with a block comment" category="_9cBk4kihEea_pu5HUWcs3Q"/>
+  <commands xmi:id="_9cBk_0ihEea_pu5HUWcs3Q" elementId="com.spket.ui.edit.open_editor" commandName="Open Declaration" category="_7evuYjqnEeaXP738MWBOgg"/>
+  <commands xmi:id="_-IfCQEihEea_pu5HUWcs3Q" elementId="AUTOGEN:::com.spket.sted.actionSet.editors/com.spket.sted.action.languages" commandName="Language" category="_7evugjqnEeaXP738MWBOgg"/>
   <addons xmi:id="_7evuSzqnEeaXP738MWBOgg" elementId="org.eclipse.e4.core.commands.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_7evuTDqnEeaXP738MWBOgg" elementId="org.eclipse.e4.ui.contexts.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_7evuTTqnEeaXP738MWBOgg" elementId="org.eclipse.e4.ui.bindings.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
@@ -3050,4 +3123,6 @@
   <categories xmi:id="_e0raEDtZEea-XovQpEZ3gg" elementId="org.eclipse.tm.terminal.view.ui.commands.category" name="Terminal Commands"/>
   <categories xmi:id="_e0raETtZEea-XovQpEZ3gg" elementId="org.eclipse.oomph" name="Oomph"/>
   <categories xmi:id="_e0raEjtZEea-XovQpEZ3gg" elementId="org.eclipse.oomph.commands" name="Oomph"/>
+  <categories xmi:id="_9cBk4UihEea_pu5HUWcs3Q" elementId="com.spket.ui.category.formattingText" name="Text Formatting" description="Text Formatting Commands"/>
+  <categories xmi:id="_9cBk4kihEea_pu5HUWcs3Q" elementId="com.spket.ui.category.source" name="Spket Source" description="Spket Source Actions"/>
 </application:Application>
