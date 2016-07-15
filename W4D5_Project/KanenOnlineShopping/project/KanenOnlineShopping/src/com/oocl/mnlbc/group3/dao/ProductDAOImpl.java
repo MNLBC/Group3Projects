@@ -62,7 +62,6 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public boolean updateProductList(ProductBean prod) {
-
 		String id = Integer.toString(prod.getProductId());
 		String quantity = Integer.toString(prod.getProductStockQuantity());
 
@@ -72,7 +71,6 @@ public class ProductDAOImpl implements ProductDAO {
 					+ "WHERE PRODUCT_ID=? ";
 
 		try {
-
 			pstmt = (PreparedStatement) conn.prepareStatement(sql);
 			pstmt.setString(1, quantity);
 			pstmt.setString(2, id);
