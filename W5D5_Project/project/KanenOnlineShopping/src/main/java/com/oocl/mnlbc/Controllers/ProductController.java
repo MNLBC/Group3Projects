@@ -1,8 +1,7 @@
 package com.oocl.mnlbc.Controllers;
 
 import java.io.IOException;
-
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.oocl.mnlbc.model.ProductBean;
 import com.oocl.mnlbc.service.ProductService;
 
 @Controller
@@ -23,11 +24,9 @@ public class ProductController {
 	@ResponseBody
 	public String getProductList() throws IOException {
 		StringBuilder builder = new StringBuilder();
-		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
+		String returnJson ="{\"success\":true,\"data\":{\"products\":[";
 		builder.append(returnJson);
 		List<ProductBean> products = productDAO.getProductList();
-
-	
 
 		Gson gson = new Gson();
 		for (ProductBean product : products) {
@@ -38,10 +37,7 @@ public class ProductController {
 		returnJson = returnJson.substring(0, returnJson.length() - 1);
 		returnJson += "]}}";
 
-		
-		
 		return returnJson;
-		
 
 	}
 
