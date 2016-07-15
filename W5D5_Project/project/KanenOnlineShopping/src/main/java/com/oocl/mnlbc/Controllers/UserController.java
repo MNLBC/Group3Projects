@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.oocl.mnlbc.model.UserBean;
+import com.oocl.mnlbc.service.UserService;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -21,7 +24,8 @@ public class UserController {
 			@RequestParam(value = "fullName", required = true) String fullName,
 			@RequestParam(value = "email", required = true) String email,
 			@RequestParam(value = "deliveryAddress", required = true) String deliveryAddress,
-			@RequestParam(value = "mobileNumber", required = true) String mobileNumber) throws Exception {
+			@RequestParam(value = "mobileNumber", required = true) String mobileNumber,
+			@RequestParam(value = "userRole", required = true) String userRole) throws Exception {
 
 		StringBuilder builder = new StringBuilder();
 		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
@@ -35,14 +39,36 @@ public class UserController {
 		System.out.println(fullName);
 		System.out.println(deliveryAddress);
 		System.out.println(mobileNumber);
+		System.out.println(userRole);
+
+		UserBean user = new UserBean(0, userName, userPassword, fullName, email, deliveryAddress, mobileNumber,
+				userRole);
+
+		if (userDAO.userExists(userName)) {
+			errorMsg += "usernametaken";
+		}
+		if (userDAO.emailExists(email)) {
+			errorMsg += "emailtaken";
+		}
+
+		if (errorMsg.equals("")) {
+			if (userDAO.registerUser(user)) {
+				errorMsg += "none";
+			} else {
+				errorMsg += "failed";
+			}
+		}
+		returnJson += errorMsg;
+		returnJson += "\"}}";
+
+		return returnJson;
 
 	}
 
 	@RequestMapping(value = "/login", method = { RequestMethod.POST })
 	@ResponseBody
 	public String loginUser(@RequestParam(value = "userName", required = true) String userName,
-			@RequestParam(value = "userPassword", required = true) String userPassword,
-			@RequestParam(value = "fullName", required = true) String fullName) throws Exception {
+			@RequestParam(value = "userPassword", required = true) String userPassword) throws Exception {
 
 		StringBuilder builder = new StringBuilder();
 		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
@@ -52,6 +78,7 @@ public class UserController {
 
 		System.out.println(userName);
 		System.out.println(userPassword);
+		return returnJson;
 
 	}
 
@@ -61,6 +88,7 @@ public class UserController {
 		StringBuilder builder = new StringBuilder();
 		String returnJson = "{\"success\":true,\"data\":{\"orders\":[";
 		builder.append(returnJson);
+		return returnJson;
 	}
 
 	@RequestMapping(value = "/session", method = { RequestMethod.POST })
@@ -69,6 +97,7 @@ public class UserController {
 		StringBuilder builder = new StringBuilder();
 		String returnJson = "{\"userid\":";
 		builder.append(returnJson);
+		return returnJson;
 	}
 
 	@RequestMapping(value = "/logout", method = { RequestMethod.POST })
@@ -77,5 +106,6 @@ public class UserController {
 		StringBuilder builder = new StringBuilder();
 		String returnJson = "{\"success\":true}";
 		builder.append(returnJson);
+		return returnJson;
 	}
 }
