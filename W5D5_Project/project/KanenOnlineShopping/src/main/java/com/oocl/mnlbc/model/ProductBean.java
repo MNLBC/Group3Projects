@@ -9,6 +9,7 @@ import java.io.Serializable;
  * @author group3
  *
  */
+	
 public class ProductBean implements Serializable {
 
 	/**
@@ -22,6 +23,9 @@ public class ProductBean implements Serializable {
 	private int productStockQuantity;
 	private String imagePath;
 
+	public ProductBean(){
+		
+	}
 	public int getProductId() {
 		return productId;
 	}

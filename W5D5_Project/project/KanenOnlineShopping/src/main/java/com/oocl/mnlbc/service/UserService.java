@@ -1,7 +1,5 @@
 package com.oocl.mnlbc.service;
 
-import java.sql.SQLException;
-import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,10 +108,12 @@ public class UserService implements UserDAO {
 		} catch (CannotPerformOperationException e1) {
 			e1.printStackTrace();
 		}
-
-		jdbcTemplateObject.update(sql,username,userPassword,fullName,email,deliveryAddress,mobileNumber,userRole);
-
-
+		try{
+			jdbcTemplateObject.update(sql,username,userPassword,fullName,email,deliveryAddress,mobileNumber,userRole);
+		}catch (Exception e) {
+	    	  
+	      }
+		
 		if (!(i == 0)) {
 			return true;
 		}
