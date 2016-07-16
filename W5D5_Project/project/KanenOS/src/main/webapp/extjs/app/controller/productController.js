@@ -50,13 +50,26 @@ Ext.define('KanenOnlineShopping.controller.productController', {
     ],
 
     onBtnBuyClicked: function(button, e, eOpts) {
-        var isUserLoggedIn = (Ext.getStore('userStore').count() > 0);
+        var userStore =Ext.getStore('userStore');
+        var isUserLoggedIn = ( userStore.count() > 0);
 
         if(isUserLoggedIn){
            Ext.Msg.confirm('Place Order', 'Order these items?', function(btn)
            {
               if(btn=='yes'){
                   Ext.MessageBox.alert('','Order successfully created. Please wait for confirmation.');
+
+
+                  var cartStore = Ext.getStore('cartStore');
+
+                  var jsonData = '{ "userId": ' + userStore.getAt(0).data.userId;
+
+                  jsonData += ',"product": ';
+                  jsonData += Ext.encode(Ext.pluck(cartStore.data.items, 'data'));
+
+                  jsonData += ']';
+                  debugger;
+
               }
 
            }, this, true);
