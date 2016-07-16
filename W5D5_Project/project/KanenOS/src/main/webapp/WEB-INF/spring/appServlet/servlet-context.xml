@@ -15,7 +15,7 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
-	<resources mapping="/resources/**" location="/resources/" />
+
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -27,6 +27,8 @@
 
 	<context:component-scan base-package="com.oocl.mnlbc">
 	</context:component-scan>
+
+
 
 	<beans:bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -47,4 +49,14 @@
 		scope="singleton">
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>
+
+	<resources mapping="/extjs/**" location="/extjs/" />
+	<resources location="extjs/app/controller/**" mapping="app/controller/*.js" />
+	<resources location="extjs/app/model/**" mapping="app/model/*.js" />
+	<resources location="extjs/app/store/**" mapping="app/store/*.js" />
+	<resources location="extjs/app/view/**" mapping="app/view/*.js" />
+
+	<resources location="extjs/resource/**" mapping="resource/*.jpg" />
+	<resources location="extjs/resource/**" mapping="resource/*.png" />
+
 </beans:beans>
