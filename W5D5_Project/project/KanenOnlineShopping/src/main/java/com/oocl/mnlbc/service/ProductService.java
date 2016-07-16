@@ -28,7 +28,7 @@ public class ProductService implements ProductDAO {
 		String sql = "SELECT PRODUCT_ID, PRODUCT_NAME, PRODUCT_DESCRIPTION, PRODUCT_PRICE, PRODUCT_STOCK_QUANTITY, PRODUCT_IMAGE_PATH  FROM PRODUCT";
 		List<ProductBean> products = jdbcTemplateObject.query(sql, new ProductMapper());
 		ProductBean product = new ProductBean();
-		
+
 		if (!products.isEmpty()) {
 			int id = product.getProductId();
 			String prodname = product.getProductName();
@@ -47,17 +47,15 @@ public class ProductService implements ProductDAO {
 		String id = Integer.toString(prod.getProductId());
 		String quantity = Integer.toString(prod.getProductStockQuantity());
 
-		int i = 0;
-		
-		String sql = "UPDATE product SET PRODUCT_STOCK_QUANTITY= ?" 
-					+ "WHERE PRODUCT_ID=? ";
+		String sql = "UPDATE product SET PRODUCT_STOCK_QUANTITY= ?" + "WHERE PRODUCT_ID=? ";
 
-		jdbcTemplateObject.update(sql,quantity,id);
-
-		if (!(i == 0)) {
+		try {
+			jdbcTemplateObject.update(sql, quantity, id);
 			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
-	
+
 }

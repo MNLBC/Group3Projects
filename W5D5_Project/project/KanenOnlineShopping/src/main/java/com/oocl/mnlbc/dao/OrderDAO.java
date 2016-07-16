@@ -2,8 +2,7 @@ package com.oocl.mnlbc.dao;
 
 import java.util.List;
 
-import javax.activation.DataSource;
-
+import javax.sql.DataSource;
 import com.oocl.mnlbc.model.CartItemBean;
 import com.oocl.mnlbc.model.ItemsBean;
 import com.oocl.mnlbc.model.OrderBean;
