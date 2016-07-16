@@ -25,49 +25,7 @@ Ext.define('KanenOnlineShopping.store.productsStore', {
         cfg = cfg || {};
         me.callParent([Ext.apply({
             model: 'KanenOnlineShopping.model.Product',
-            storeId: 'productsStore',
-            data: [
-                {
-                    productId: 1,
-                    productName: 'Laptop 1',
-                    productDescription: 'Laptop 1 ProductDescription',
-                    productPrice: 901.00,
-                    productStockQuantity: 10,
-                    productImagePath: 'resource/laptop.png'
-                },
-                {
-                    productId: 2,
-                    productName: 'Laptop 2',
-                    productDescription: 'Laptop 2 ProductDescription',
-                    productPrice: 859.00,
-                    productStockQuantity: 20,
-                    productImagePath: 'resource/laptop2.jpg'
-                },
-                {
-                    productId: 3,
-                    productName: 'Laptop 3',
-                    productDescription: 'Laptop 3 ProductDescription',
-                    productPrice: 107.00,
-                    productStockQuantity: 13,
-                    productImagePath: 'resource/laptop3.jpg'
-                },
-                {
-                    productId: 4,
-                    productName: 'Phone 1',
-                    productDescription: 'Phone 1ProductDescription',
-                    productPrice: 654.00,
-                    productStockQuantity: 5,
-                    productImagePath: 'resource/phone.jpg'
-                },
-                {
-                    productId: 5,
-                    productName: 'Phone4',
-                    productDescription: 'ProductDescription 5',
-                    productPrice: 229.00,
-                    productStockQuantity: 721,
-                    productImagePath: 'resource/phone4.jpg'
-                }
-            ]
+            storeId: 'productsStore'
         }, cfg)]);
     }
 });

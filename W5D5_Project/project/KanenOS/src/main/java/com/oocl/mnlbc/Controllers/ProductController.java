@@ -20,7 +20,7 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
-	@RequestMapping(value = "/productList", method = { RequestMethod.GET })
+	@RequestMapping(value = "/productList", method = { RequestMethod.POST })
 	@ResponseBody
 	public String getProductList() throws IOException {
 		List<ProductBean> products = productService.getProductList();

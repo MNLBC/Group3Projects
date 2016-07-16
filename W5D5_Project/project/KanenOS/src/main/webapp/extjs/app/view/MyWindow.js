@@ -17,19 +17,16 @@ Ext.define('KanenOnlineShopping.view.MyWindow', {
     extend: 'Ext.window.Window',
 
     requires: [
-        'Ext.form.Panel',
         'Ext.form.field.Text',
-        'Ext.toolbar.Toolbar',
-        'Ext.toolbar.Spacer',
+        'Ext.container.Container',
         'Ext.button.Button'
     ],
 
-    draggable: false,
-    height: 141,
-    id: 'loginWindow',
-    itemId: 'loginWindow',
-    width: 386,
-    title: 'Login',
+    height: 202,
+    width: 472,
+    resizable: false,
+    bodyPadding: 10,
+    title: 'Login Window',
     modal: true,
 
     initComponent: function() {
@@ -38,59 +35,63 @@ Ext.define('KanenOnlineShopping.view.MyWindow', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'form',
-                    height: 109,
-                    id: 'frmLogin',
-                    itemId: 'frmLogin',
-                    width: 376,
-                    bodyPadding: 10,
+                    xtype: 'textfield',
+                    id: 'txtUsername',
+                    itemId: 'txtUsername',
+                    width: 400,
+                    fieldLabel: 'Username'
+                },
+                {
+                    xtype: 'textfield',
+                    id: 'txtPassword',
+                    itemId: 'txtPassword',
+                    width: 400,
+                    fieldLabel: 'Password',
+                    inputType: 'password'
+                },
+                {
+                    xtype: 'container',
+                    height: 66,
+                    id: 'buttonContainer',
+                    itemId: 'buttonContainer',
+                    width: 392,
+                    layout: {
+                        type: 'hbox',
+                        align: 'middle',
+                        pack: 'center'
+                    },
                     items: [
                         {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            id: 'txtLoginUsername',
-                            itemId: 'txtLoginUsername',
-                            fieldLabel: 'Username:'
+                            xtype: 'button',
+                            margins: '2',
+                            height: 33,
+                            id: 'btnId',
+                            itemId: 'btnLogin',
+                            padding: 10,
+                            width: 130,
+                            text: 'Login'
                         },
                         {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            id: 'txtLoginPassword',
-                            itemId: 'txtLoginPassword',
-                            fieldLabel: 'Password'
-                        }
-                    ],
-                    dockedItems: [
+                            xtype: 'button',
+                            flex: 1,
+                            height: 33,
+                            id: 'btnRegister',
+                            itemId: 'btnRegister',
+                            padding: 10,
+                            width: 130,
+                            text: 'Register'
+                        },
                         {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'tbspacer',
-                                    width: 150
-                                },
-                                {
-                                    xtype: 'button',
-                                    id: 'btnLoginRegister',
-                                    itemId: 'btnLoginRegister',
-                                    width: 70,
-                                    text: 'Register'
-                                },
-                                {
-                                    xtype: 'button',
-                                    id: 'btnLogin',
-                                    itemId: 'btnLogin',
-                                    width: 70,
-                                    text: 'Login'
-                                },
-                                {
-                                    xtype: 'button',
-                                    id: 'btnLoginCancel',
-                                    itemId: 'btnLoginCancel',
-                                    width: 70,
-                                    text: 'Cancel'
-                                }
-                            ]
+                            xtype: 'button',
+                            flex: 1,
+                            margins: '2',
+                            height: 33,
+                            id: 'btnCancel',
+                            itemId: 'btnCancel',
+                            margin: 2,
+                            padding: 10,
+                            width: 130,
+                            text: 'Cancel'
                         }
                     ]
                 }

@@ -33,7 +33,19 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         },
         {
             ref: 'frmLogin',
-            selector: 'frmLogin'
+            selector: '#frmLogin'
+        },
+        {
+            ref: 'frmRegister',
+            selector: '#frmRegister'
+        },
+        {
+            ref: 'registerWindow',
+            selector: '#registerWindow'
+        },
+        {
+            ref: 'loginWindow',
+            selector: '#loginWindow'
         }
     ],
 
@@ -118,85 +130,9 @@ Ext.define('KanenOnlineShopping.controller.productController', {
     },
 
     btnMainLoginClicked: function(button, e, eOpts) {
-        // Ext.create('Ext.window.Window',
-        //            {
-        //                renderTo : Ext.getBody(),
-        //                bodyPadding: 10,
-        //                title: 'Login Window',
-        //                id: 'loginWindow',
-        //                itemId: 'loginWindow',
-        //                closable: true,
-        //                autoShow: true,
-        //                resizable: false,
-        //                width:430,
-        //                height:200,
-        //    items: [
-        //                 {
-        //                     xtype: 'form',
-        //                     height: 152,
-        //                     id: 'frmLogin',
-        //                     itemId: 'frmLogin',
-        //                     width: 376,
-        //                     bodyPadding: 10,
-        // //                     title: 'Login',
-        //                     items: [
-        //                         {
-        //                             xtype: 'textfield',
-        //                             anchor: '100%',
-        //                             id: 'txtLoginUsername',
-        //                             itemId: 'txtLoginUsername',
-        //                             fieldLabel: 'Username:'
-        //                         },
-        //                         {
-        //                             xtype: 'textfield',
-        //                             anchor: '100%',
-        //                             id: 'txtLoginPassword',
-        //                             itemId: 'txtLoginPassword',
-        //                             fieldLabel: 'Password'
-        //                         }
-        //                     ],
-        //                     dockedItems: [
-        //                         {
-        //                             xtype: 'toolbar',
-        //                             dock: 'bottom',
-        //                             items: [
-        //                                 {
-        //                                     xtype: 'tbspacer',
-        //                                     width: 150
-        //                                 },
-        //                                 {
-        //                                     xtype: 'button',
-        //                                     id: 'btnLoginRegister',
-        //                                     itemId: 'btnLoginRegister',
-        //                                     width: 70,
-        //                                     text: 'Register'
-        //                                 },
-        //                                 {
-        //                                     xtype: 'button',
-        //                                     id: 'btnLogin',
-        //                                     itemId: 'btnLogin',
-        //                                     width: 70,
-        //                                     text: 'Login'
-        //                                 },
-        //                                 {
-        //                                     xtype: 'button',
-        //                                     id: 'btnLoginCancel',
-        //                                     itemId: 'btnLoginCancel',
-        //                                     width: 70,
-        //                                     text: 'Cancel'
-        //                                 }
-        //                             ]
-        //                         }
-        //                     ]
-        //                 }
-        //             ]
 
-        //            });
 
-        // // this.frmLogin = this.getFrmLogin();
-        debugger;
-        var frmLogin = Ext.create('KanenOnlineShopping.view.LoginWindow',{});
-        frmLogin.show();
+        this.loginWindow.show();
     },
 
     btnLoginClicked: function(button, e, eOpts) {
@@ -210,22 +146,22 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         var userPassword = frmLogin.query('#txtLoginPassword')[0].getValue();
         //var userStore  = Ext.getStore('userStore');
 
-        Ext.Ajax.Request({
+        // Ext.Ajax.Request({
 
-            url: '/user/login',
-            method: POST,
+        //     url: '/user/login',
+        //     method: POST,
 
-            params: {
-            userName: userName,
-            userPassword: userPassword
-        },
-            scope: this,
-            success: function(response){
-                var responseText = JSON.parse(response.responseText);
-                alert(responseText.data);
-        //         responseText.u
-            }
-        });
+        //     params: {
+        //     userName: userName,
+        //     userPassword: userPassword
+        // },
+        //     scope: this,
+        //     success: function(response){
+        //         var responseText = JSON.parse(response.responseText);
+        //         alert(responseText.data);
+        // //         responseText.u
+        //     }
+        // });
 
 
 
@@ -248,9 +184,105 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         alert(userName);
     },
 
-    onBtnMainRegisterClicked: function(button, e, eOpts) {
-        var regWindow = Ext.create('registrationWindow');
-        regWindow.show();
+    onBtnMainRegisterClick: function(button, e, eOpts) {
+        // var windowReg = Ext.create('KanenOnlineShopping.view.RegisterWindow', {});
+        this.registerWindow.show();
+    },
+
+    onBtnRegRegisterClick: function(button, e, eOpts) {
+        var frmRegister = Ext.getCmp('frmRegister');
+        var userName = frmRegister.query('#txtRegUsername')[0].getValue();
+        var password = frmRegister.query('#txtRegPassword')[0].getValue();
+        var confirmPassword = frmRegister.query('#txtRegConfirmPassword')[0].getValue();
+        var fullName = frmRegister.query('#txtRegFullname')[0].getValue();
+        var email = frmRegister.query('#txtRegEmail')[0].getValue();
+        var address = frmRegister.query('#txtRegAddress')[0].getValue();
+        var contactNumber = frmRegister.query('#txtRegContactNumber')[0].getValue();
+        var userRole = 'Customer';
+        var userStore = Ext.getStore('userStore');
+
+
+        Ext.Ajax.Request({
+
+            url: '/user/register',
+            method: POST,
+
+            params: {
+                userName: userName,
+                userPassword: userPassword,
+                fullName: fullName,
+                email: email,
+                deliveryAddress: address,
+                mobileNumber: contactNumber,
+                userRole: userRole
+        },
+            scope: this,
+            success: function(response){
+                var responseText = JSON.parse(response.responseText);
+                alert(responseText.data);
+        //         responseText.u
+            }
+        });
+
+
+
+
+
+        if(frmRegister.isValid()){
+                    if(password == confirmPassword){
+                        if(this.checkIfUserExist(userName, userStore)){
+                            return;
+                        }else{
+                            var user = {
+                                //    userId: this.userIdSequence+=1,
+                                    userName: userName,
+                                    userPassword: password,
+                                    userFullName: fullName,
+                                    userEmail: email,
+                                    userAddress: address,
+                                    userMobileNumber: mobileNumber
+                                // userRole
+                                // userAddress
+                            };
+                            userStore.add(user);
+                            Ext.MessageBox.alert('Registation','Account Created, You are now registered!');
+                            this.resetRegistrationFields();
+                            frmRegister.hide();
+                        }
+                    }else{
+                        Ext.MessageBox.alert('Invalid confirmPassword','Passowrd does not match');
+                    }
+                }else{
+                    Ext.MessageBox.alert('','Invalid!');
+                }
+
+    },
+
+    onBtnRegResetClick: function(button, e, eOpts) {
+        this.resetRegistrationFields();
+    },
+
+    onBtnRegCancelClick: function(button, e, eOpts) {
+        // var registerWindow = Ext.getCmp('registerWindow');
+        this.registerWindow.hide();
+    },
+
+    onBtnLoginCancelClick: function(button, e, eOpts) {
+        // var loginWindow = Ext.getCmp('loginWindow');
+        this.loginWindow.hide();
+
+    },
+
+    onBtnLoginRegisterClick: function(button, e, eOpts) {
+
+        // var loginWindow = Ext.getCmp('loginWindow');
+
+
+        // var registerWindow = Ext.getCmp('registerWindow');
+        this.loginWindow.hide();
+        this.registerWindow.show();
+
+
     },
 
     onLaunch: function() {
@@ -260,13 +292,40 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         this.productStore = Ext.getStore('productsStore');
         this.loadProducts(this.productStore);
+        this.registerWindow = Ext.create('KanenOnlineShopping.view.RegisterWindow', {});
+        this.registerWindow.hide();
+
+        this.loginWindow = Ext.create('KanenOnlineShopping.view.LoginWindow',{});
+        this.loginWindow.hide();
+
+
 
     },
 
     loadProducts: function(productStore) {
-        var mystr ='';
+        Ext.Ajax.request({
+            url: 'product/productList',
+            method: 'POST',
+            params: {
 
-        var productPanel = Ext.getCmp('productPanel');
+            },
+            success: function(response){
+                debugger;
+                var responseData = Ext.decode(response.responseText).data;
+
+                for(var i=0; i < responseData.products.length; i++){
+                    var product = {
+                       productId: responseData.products[i].productId,
+                       productName: responseData.products[i].productName,
+                       productDescription: responseData.products[i].productDescription,
+                       productPrice: responseData.products[i].productPrice,
+                       productStockQuantity: responseData.products[i].productStockQuantity,
+                       productImagePath: responseData.products[i].imagePath
+
+                 };
+                    productStore.add(product);
+                }
+                var productPanel = Ext.getCmp('productPanel');
         productStore.each(function(record){
             var mystr ='';
 
@@ -303,6 +362,48 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         });
 
+            }
+        });
+
+
+        /*
+        var productPanel = Ext.getCmp('productPanel');
+        productStore.each(function(record){
+            var mystr ='';
+
+           // debugger;
+
+          var itemContainer = Ext.create('KanenOnlineShopping.view.itemContainer', {
+
+          });
+
+          itemContainer.productId = record.data.productId;
+          itemContainer.productName = record.data.productName;
+          itemContainer.productDescription = record.data.productDescription;
+          itemContainer.productPrice = record.data.productPrice;
+          itemContainer.productStockQuantity = record.data.productStockQuantity;
+          itemContainer.productImagePath = record.data.productImagePath;
+
+          var itemImage = itemContainer.items.items[0];
+          itemImage.src = record.data.productImagePath;
+
+          var itemNameLabel = itemContainer.items.items[1];
+          itemNameLabel.text = record.data.productName + record.data.productDescription;
+
+          //var itemDescriptionLabel = itemContainer.items.items[2];
+          //itemDescriptionLabel.text = record.data.productDescription;
+          var itemBtn = itemContainer.items.items[2];
+
+
+           // debugger;
+          itemBtn.tooltip=record.data.productDescription;
+
+          productPanel.add(itemContainer);
+          productPanel.doLayout();
+
+
+        });
+        */
 
     },
 
@@ -367,6 +468,32 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     },
 
+    resetRegistrationFields: function() {
+
+                var frmRegister = Ext.getCmp('frmRegister');
+
+                frmRegister.query('#txtRegUsername')[0].setValue('');
+                frmRegister.query('#txtRegPassword')[0].setValue('');
+                frmRegister.query('#txtRegConfirmPassword')[0].setValue('');
+                frmRegister.query('#txtRegFullname')[0].setValue('');
+                frmRegister.query('#txtRegEmail')[0].setValue('');
+                frmRegister.query('#txtRegAddress')[0].setValue('');
+                frmRegister.query('#txtRegContactNumber')[0].setValue('');
+        //frmRegister.invalidate();
+    },
+
+    checkIfUserExist: function(userName, userStore) {
+                        var userNameArray = userStore.queryBy(function(record){
+                            return record.data.userName == userName;
+                        });
+                        if(userNameArray.length > 0){
+                            Ext.MessageBox.alert('User exist', 'Username already exist.');
+                            return true;
+                        }else{
+                            return false;
+                        }
+    },
+
     init: function(application) {
         this.control({
             "#btnClearCart": {
@@ -381,8 +508,23 @@ Ext.define('KanenOnlineShopping.controller.productController', {
             "#btnLogin": {
                 click: this.btnLoginClicked
             },
-            "#btnMainregister": {
-                click: this.onBtnMainRegisterClicked
+            "#btnMainRegister": {
+                click: this.onBtnMainRegisterClick
+            },
+            "#btnRegRegister": {
+                click: this.onBtnRegRegisterClick
+            },
+            "#btnRegReset": {
+                click: this.onBtnRegResetClick
+            },
+            "#btnRegCancel": {
+                click: this.onBtnRegCancelClick
+            },
+            "#btnLoginCancel": {
+                click: this.onBtnLoginCancelClick
+            },
+            "#btnLoginRegister": {
+                click: this.onBtnLoginRegisterClick
             }
         });
     }
