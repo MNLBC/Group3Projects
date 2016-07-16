@@ -39,11 +39,11 @@ Ext.application({
         'itemContainer',
         'MyViewport1',
         'LoginWindow',
-        'RegistrationWindow'
+        'RegistrationWindow',
+        'RegisterWindow'
     ],
     controllers: [
-        'productController',
-        'MyController'
+        'productController'
     ],
     name: 'KanenOnlineShopping',
 

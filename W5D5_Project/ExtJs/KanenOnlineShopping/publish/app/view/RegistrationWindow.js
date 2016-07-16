@@ -36,8 +36,10 @@ Ext.define('KanenOnlineShopping.view.RegistrationWindow', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'form',
+                    xtype: 'frmRegister',
                     height: 282,
+                    id: 'frmRegister',
+                    itemId: 'frmRegister',
                     bodyPadding: 10,
                     items: [
                         {
@@ -104,14 +106,6 @@ Ext.define('KanenOnlineShopping.view.RegistrationWindow', {
                         }
                     ],
                     dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'top',
-                            layout: {
-                                type: 'hbox',
-                                padding: 50
-                            }
-                        },
                         {
                             xtype: 'toolbar',
                             dock: 'bottom',

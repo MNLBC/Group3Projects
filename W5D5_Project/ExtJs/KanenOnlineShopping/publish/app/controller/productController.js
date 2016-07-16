@@ -33,7 +33,11 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         },
         {
             ref: 'frmLogin',
-            selector: 'frmLogin'
+            selector: '#frmLogin'
+        },
+        {
+            ref: 'frmRegister',
+            selector: '#frmRegister'
         }
     ],
 
@@ -248,9 +252,10 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         alert(userName);
     },
 
-    onBtnMainRegisterClicked: function(button, e, eOpts) {
-        var regWindow = Ext.create('registrationWindow');
-        regWindow.show();
+    onBtnMainRegisterClick: function(button, e, eOpts) {
+        debugger;
+        var frmReg = Ext.create('KanenOnlineShopping.view.registerWindow', {});
+        frmReg.show();
     },
 
     onLaunch: function() {
@@ -381,8 +386,8 @@ Ext.define('KanenOnlineShopping.controller.productController', {
             "#btnLogin": {
                 click: this.btnLoginClicked
             },
-            "#btnMainregister": {
-                click: this.onBtnMainRegisterClicked
+            "#btnMainRegister": {
+                click: this.onBtnMainRegisterClick
             }
         });
     }
