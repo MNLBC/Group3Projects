@@ -22,6 +22,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
         'Ext.grid.column.Number',
         'Ext.button.Button',
         'Ext.toolbar.Toolbar',
+        'Ext.form.Label',
         'Ext.toolbar.Spacer',
         'Ext.grid.column.Date'
     ],
@@ -60,6 +61,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             xtype: 'panel',
                                             id: 'productPanel',
                                             itemId: 'productPanel',
+                                            autoScroll: true,
                                             layout: 'column',
                                             title: 'My Panel'
                                         }
@@ -115,8 +117,16 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             items: [
                                                 {
                                                     xtype: 'button',
+                                                    height: 26,
                                                     id: 'btnClearCart',
-                                                    text: 'View Order History'
+                                                    width: 114,
+                                                    text: 'Clear Cart'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    height: 30,
+                                                    width: 162,
+                                                    text: 'Checkout Items'
                                                 }
                                             ]
                                         }
@@ -131,10 +141,36 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                             height: 150,
                             id: 'topContainer',
                             itemId: 'topContainer',
+                            layout: 'border',
                             items: [
                                 {
                                     xtype: 'toolbar',
+                                    region: 'west',
+                                    width: 150,
+                                    layout: {
+                                        type: 'hbox',
+                                        pack: 'end'
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'label',
+                                            height: 16,
+                                            id: 'lblViewOrderHistory',
+                                            itemId: 'lblViewOrderHistory',
+                                            padding: '',
+                                            width: 110,
+                                            text: 'Order History'
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'toolbar',
+                                    region: 'center',
                                     id: 'loginToolbar',
+                                    layout: {
+                                        type: 'hbox',
+                                        pack: 'end'
+                                    },
                                     items: [
                                         {
                                             xtype: 'tbspacer',
@@ -159,6 +195,11 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             text: 'Logout'
                                         }
                                     ]
+                                },
+                                {
+                                    xtype: 'container',
+                                    region: 'south',
+                                    height: 110
                                 }
                             ]
                         }
