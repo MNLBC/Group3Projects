@@ -18,13 +18,20 @@ Ext.define('KanenOnlineShopping.view.RegisterWindow', {
 
     requires: [
         'Ext.form.Panel',
-        'Ext.form.field.Text'
+        'Ext.form.field.TextArea',
+        'Ext.toolbar.Toolbar',
+        'Ext.toolbar.Spacer',
+        'Ext.button.Button'
     ],
 
-    height: 448,
+    draggable: false,
+    height: 474,
     id: 'registerWindow',
     itemId: 'registerWindow',
-    width: 641,
+    width: 626,
+    resizable: false,
+    layout: 'fit',
+    closable: false,
     title: 'Registration',
 
     initComponent: function() {
@@ -35,33 +42,131 @@ Ext.define('KanenOnlineShopping.view.RegisterWindow', {
                 {
                     xtype: 'form',
                     height: 329,
+                    id: 'frmRegister',
+                    itemId: 'frmRegister',
+                    padding: 10,
                     bodyPadding: 10,
-                    title: 'My Form',
                     items: [
                         {
                             xtype: 'textfield',
                             anchor: '100%',
-                            fieldLabel: 'Label'
+                            height: 30,
+                            id: 'txtRegUsername',
+                            itemId: 'txtRegUsername',
+                            padding: 5,
+                            fieldLabel: 'Username',
+                            labelWidth: 150,
+                            allowBlank: false,
+                            allowOnlyWhitespace: false
                         },
                         {
                             xtype: 'textfield',
                             anchor: '100%',
-                            fieldLabel: 'Label'
+                            height: 33,
+                            id: 'txtRegPassword',
+                            itemId: 'txtRegPassword',
+                            padding: 5,
+                            fieldLabel: 'Password',
+                            labelWidth: 150,
+                            inputType: 'password',
+                            allowBlank: false,
+                            allowOnlyWhitespace: false
                         },
                         {
                             xtype: 'textfield',
                             anchor: '100%',
-                            fieldLabel: 'Label'
+                            height: 33,
+                            id: 'txtRegConfirmPassword',
+                            itemId: 'txtRegConfirmPassword',
+                            padding: 5,
+                            fieldLabel: 'Confirm Password',
+                            labelWidth: 150,
+                            inputType: 'password',
+                            allowBlank: false,
+                            allowOnlyWhitespace: false
                         },
                         {
                             xtype: 'textfield',
                             anchor: '100%',
-                            fieldLabel: 'Label'
+                            height: 33,
+                            id: 'txtRegFullname',
+                            itemId: 'txtRegFullname',
+                            padding: 5,
+                            fieldLabel: 'Full Name',
+                            labelWidth: 150,
+                            allowBlank: false,
+                            allowOnlyWhitespace: false
+                        },
+                        {
+                            xtype: 'textareafield',
+                            anchor: '100%',
+                            id: 'txtRegAddress',
+                            itemId: 'txtRegAddress',
+                            padding: 5,
+                            fieldLabel: 'Address',
+                            labelWidth: 150
                         },
                         {
                             xtype: 'textfield',
                             anchor: '100%',
-                            fieldLabel: 'Label'
+                            height: 33,
+                            id: 'txtRegEmail',
+                            itemId: 'txtRegEmail',
+                            padding: 5,
+                            fieldLabel: 'E-mail Address',
+                            labelWidth: 150,
+                            inputType: 'email',
+                            allowBlank: false,
+                            allowOnlyWhitespace: false
+                        },
+                        {
+                            xtype: 'textfield',
+                            anchor: '100%',
+                            height: 33,
+                            id: 'txtRegContactNumber',
+                            itemId: 'txtRegContactNumber',
+                            padding: 5,
+                            fieldLabel: 'Contact Number',
+                            labelWidth: 150,
+                            inputType: 'tel',
+                            allowBlank: false,
+                            allowOnlyWhitespace: false
+                        }
+                    ],
+                    dockedItems: [
+                        {
+                            xtype: 'toolbar',
+                            dock: 'bottom',
+                            items: [
+                                {
+                                    xtype: 'tbspacer',
+                                    width: 150
+                                },
+                                {
+                                    xtype: 'button',
+                                    height: 33,
+                                    id: 'btnRegReset',
+                                    itemId: 'btnRegReset',
+                                    width: 130,
+                                    text: 'Reset'
+                                },
+                                {
+                                    xtype: 'button',
+                                    height: 33,
+                                    id: 'btnRegRegister',
+                                    itemId: 'btnRegRegister',
+                                    width: 130,
+                                    text: 'Register'
+                                },
+                                {
+                                    xtype: 'button',
+                                    height: 33,
+                                    id: 'btnRegCancel',
+                                    itemId: 'btnRegCancel',
+                                    width: 130,
+                                    text: 'Cancel'
+                                }
+                            ]
                         }
                     ]
                 }

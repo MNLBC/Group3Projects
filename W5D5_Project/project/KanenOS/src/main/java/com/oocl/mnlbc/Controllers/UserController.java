@@ -1,7 +1,5 @@
 package com.oocl.mnlbc.Controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.oocl.mnlbc.model.ProductBean;
 import com.oocl.mnlbc.model.UserBean;
 import com.oocl.mnlbc.service.UserService;
 
@@ -21,7 +18,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/register", method = { RequestMethod.GET })
+	@RequestMapping(value = "/register", method = { RequestMethod.POST })
 	@ResponseBody
 	public String createUser(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword,
@@ -73,7 +70,7 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/login", method = { RequestMethod.GET })
+	@RequestMapping(value = "/login", method = { RequestMethod.POST })
 	@ResponseBody
 	public String loginUser(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword) throws Exception {

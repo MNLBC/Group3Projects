@@ -67,7 +67,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                 },
                                 {
                                     xtype: 'container',
-                                    flex: 6,
+                                    flex: 8,
                                     region: 'east',
                                     width: 150,
                                     layout: 'border',
@@ -83,6 +83,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             columns: [
                                                 {
                                                     xtype: 'gridcolumn',
+                                                    width: 160,
                                                     dataIndex: 'productName',
                                                     text: 'Product Name'
                                                 },
@@ -94,7 +95,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                 },
                                                 {
                                                     xtype: 'numbercolumn',
-                                                    width: 85,
+                                                    width: 99,
                                                     dataIndex: 'productPrice',
                                                     text: 'Price'
                                                 },

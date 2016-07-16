@@ -17,9 +17,7 @@ Ext.define('KanenOnlineShopping.store.orderItemStore', {
     extend: 'Ext.data.Store',
 
     requires: [
-        'KanenOnlineShopping.model.OrderItem',
-        'Ext.data.proxy.Ajax',
-        'Ext.data.reader.Json'
+        'KanenOnlineShopping.model.OrderItem'
     ],
 
     constructor: function(cfg) {
@@ -27,13 +25,7 @@ Ext.define('KanenOnlineShopping.store.orderItemStore', {
         cfg = cfg || {};
         me.callParent([Ext.apply({
             model: 'KanenOnlineShopping.model.OrderItem',
-            storeId: 'orderItemStore',
-            proxy: {
-                type: 'ajax',
-                reader: {
-                    type: 'json'
-                }
-            }
+            storeId: 'orderItemStore'
         }, cfg)]);
     }
 });

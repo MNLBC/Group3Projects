@@ -130,13 +130,11 @@ Ext.define('KanenOnlineShopping.controller.productController', {
     },
 
     btnMainLoginClicked: function(button, e, eOpts) {
-
-
         this.loginWindow.show();
     },
 
     btnLoginClicked: function(button, e, eOpts) {
-        alert('HAHA');
+
         // debugger;
         // this.loginWindow = Ext.getCmp('LogiNwindow');
         //this.frmLogin = this.getFrmLogin();
@@ -144,42 +142,64 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         var frmLogin = Ext.getCmp('frmLogin');
         var userName = frmLogin.query('#txtLoginUsername')[0].getValue();
         var userPassword = frmLogin.query('#txtLoginPassword')[0].getValue();
-        //var userStore  = Ext.getStore('userStore');
+        var userStore  = Ext.getStore('userStore');
+        userStore.removeAll();
 
-        // Ext.Ajax.Request({
+        Ext.Ajax.request({
 
-        //     url: '/user/login',
-        //     method: POST,
+             url: window.location.pathname +'user/login',
+             method: 'POST',
 
-        //     params: {
-        //     userName: userName,
-        //     userPassword: userPassword
-        // },
-        //     scope: this,
-        //     success: function(response){
-        //         var responseText = JSON.parse(response.responseText);
-        //         alert(responseText.data);
-        // //         responseText.u
-        //     }
-        // });
+             params: {
+             userName: userName,
+             userPassword: userPassword
+         },
+             scope: this,
+             success: function(response){
+
+                 debugger;
+                 var responseText = Ext.decode(response.responseText);
+                 var responseData = responseText.data;
+                 var user = responseData.user[0];
+
+                 var loggedInUser = {
+                     userId: user.userId,
+                     userName: user.userName,
+                     userFullName: user.fullName,
+                     userEmail: user.email,
+                     userAddress: user.address,
+                     userMobileNumber : user.mobileNumber,
+                     userRole: user.userRole,
+                     userPassword: ''
+                 };
+
+                 userStore.add(loggedInUser);
+
+                 debugger;
+
+             },
+             failure: function(){
+                 Ext.MessageBox.alert('Login failed', 'Unable to connect to server, please try again.');
+             }
+         });
+
+        /*
+
+         if(validateAccount(userName, password, userStore)){
+             frmLogin.query('#txtLoginUsername')[0].setValue('');
+             frmLogin.query('#txtPassword')[0].setValue('');
 
 
+             var userNameArray = userStore.queryBy(function(record){
+                                 return record.data.userName == userName;
+                             });
 
-        // if(validateAccount(userName, password, userStore)){
-        //     frmLogin.query('#txtLoginUsername')[0].setValue('');
-        //     frmLogin.query('#txtPassword')[0].setValue('');
+              this.userId = userNameArray.items[0].data.userId;
+              this.userFullName = userNameArray.items[0].data.fullName;
+         }else{
 
-
-        //     var userNameArray = userStore.queryBy(function(record){
-        //                         return record.data.userName == userName;
-        //                     });
-
-        //      this.userId = userNameArray.items[0].data.userId;
-        //      this.userFullName = userNameArray.items[0].data.fullName;
-        // }else{
-        //     Ext.MessageBox.alert('Login failed', 'Enter valid username or password');
-        // }
-
+         }
+         */
 
         alert(userName);
     },
@@ -310,7 +330,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
             },
             success: function(response){
-                debugger;
+
                 var responseData = Ext.decode(response.responseText).data;
 
                 for(var i=0; i < responseData.products.length; i++){
@@ -326,10 +346,9 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                     productStore.add(product);
                 }
                 var productPanel = Ext.getCmp('productPanel');
-        productStore.each(function(record){
+            productStore.each(function(record){
             var mystr ='';
 
-           // debugger;
 
           var itemContainer = Ext.create('KanenOnlineShopping.view.itemContainer', {
 
@@ -425,7 +444,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         if(itemAlreadyInCart){
            Ext.getCmp('cartGrid').getView().refresh();
            Ext.Msg.alert('Status', 'Item quantity increased.');
-           debugger;
+
         }else{
 
            var item = {

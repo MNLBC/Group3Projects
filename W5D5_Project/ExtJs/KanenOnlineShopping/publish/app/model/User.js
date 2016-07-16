@@ -28,19 +28,22 @@ Ext.define('KanenOnlineShopping.model.User', {
             name: 'userName'
         },
         {
-            name: 'fullName'
+            name: 'userFullName'
         },
         {
-            name: 'email'
+            name: 'userEmail'
         },
         {
-            name: 'address'
+            name: 'userAddress'
         },
         {
-            name: 'mobileNumber'
+            name: 'userMobileNumber'
         },
         {
             name: 'userRole'
+        },
+        {
+            name: 'userPassword'
         }
     ]
 });
