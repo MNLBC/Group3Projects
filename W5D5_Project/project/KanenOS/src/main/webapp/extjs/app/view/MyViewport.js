@@ -125,6 +125,8 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                 {
                                                     xtype: 'button',
                                                     height: 30,
+                                                    id: 'btnMainCheckout',
+                                                    itemId: 'btnMainCheckout',
                                                     width: 162,
                                                     text: 'Checkout Items'
                                                 }

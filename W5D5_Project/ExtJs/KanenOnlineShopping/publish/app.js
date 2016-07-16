@@ -40,7 +40,8 @@ Ext.application({
         'MyViewport1',
         'LoginWindow',
         'RegistrationWindow',
-        'RegisterWindow'
+        'RegisterWindow',
+        'CartWindow'
     ],
     controllers: [
         'productController'

@@ -49,24 +49,43 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         }
     ],
 
+    onBtnBuyClicked: function(button, e, eOpts) {
+        var isUserLoggedIn = (Ext.getStore('userStore').count() > 0);
+
+        if(isUserLoggedIn){
+           Ext.Msg.confirm('Place Order', 'Order these items?', function(btn)
+           {
+              if(btn=='yes'){
+                  Ext.MessageBox.alert('','Order successfully created. Please wait for confirmation.');
+              }
+
+           }, this, true);
+
+        }else{
+           Ext.MessageBox.alert('','You must be logged on to order.');
+        }
+
+    },
+
     clearCart: function(button, e, eOpts) {
-        // Ext.getCmp('myViewport').hide();
+        var cartStore = Ext.getStore('cartStore');
 
-        //debugger;
-        alert('');
-        //var orderHistoryContainer = Ext.getCmp('orderHistoryContainer');
+        if(cartStore.count() > 0){
 
-          //  this.orderHistoryContainer = Ext.create('KanenOnlineShopping.view.orderHistoryContainer', {
+            Ext.Msg.confirm('Clear Cart', 'Remove all items from your cart?', function(btn)
+        	{
+        	if(btn=='yes'){
+        		Ext.getStore('cartStore').removeAll();
+        		Ext.MessageBox.alert('','Cart cleared!');
+        	}
 
-         //   });
+        	}, this, true);
 
-        //this.orderHistoryContainer.show();
-        // Ext.getCmp('orderViewport').show();
+        }else{
+            Ext.MessageBox.alert('','Your cart is empty!');
+        }
 
-        this.getMainContainer().hide();
-        debugger;
-        // this.getOrderHistoryContainer().show();
-        alert('');
+
     },
 
     onOrderItemsGridPanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
@@ -157,7 +176,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
              scope: this,
              success: function(response){
 
-                 debugger;
+
                  var responseText = Ext.decode(response.responseText);
                  var responseData = responseText.data;
                  var user = responseData.user[0];
@@ -175,7 +194,15 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
                  userStore.add(loggedInUser);
 
-                 debugger;
+                 Ext.getCmp('btnMainLogin').hide();
+                 Ext.getCmp('btnMainRegister').hide();
+                 Ext.getCmp('btnMainLogout').show();
+
+                 Ext.getCmp('loginWindow').hide();
+                    debugger;
+                 Ext.getCmp('loginToolbar').doLayout();
+
+                 Ext.Msg.alert('Status', 'Logged in successfully');
 
              },
              failure: function(){
@@ -183,25 +210,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
              }
          });
 
-        /*
-
-         if(validateAccount(userName, password, userStore)){
-             frmLogin.query('#txtLoginUsername')[0].setValue('');
-             frmLogin.query('#txtPassword')[0].setValue('');
-
-
-             var userNameArray = userStore.queryBy(function(record){
-                                 return record.data.userName == userName;
-                             });
-
-              this.userId = userNameArray.items[0].data.userId;
-              this.userFullName = userNameArray.items[0].data.fullName;
-         }else{
-
-         }
-         */
-
-        alert(userName);
     },
 
     onBtnMainRegisterClick: function(button, e, eOpts) {
@@ -288,21 +296,60 @@ Ext.define('KanenOnlineShopping.controller.productController', {
     },
 
     onBtnLoginCancelClick: function(button, e, eOpts) {
-        // var loginWindow = Ext.getCmp('loginWindow');
         this.loginWindow.hide();
 
     },
 
     onBtnLoginRegisterClick: function(button, e, eOpts) {
 
-        // var loginWindow = Ext.getCmp('loginWindow');
-
-
-        // var registerWindow = Ext.getCmp('registerWindow');
         this.loginWindow.hide();
         this.registerWindow.show();
 
 
+    },
+
+    onBtnMainLogoutClicked: function(button, e, eOpts) {
+        Ext.getCmp('btnMainLogin').show();
+        Ext.getCmp('btnMainRegister').show();
+        Ext.getCmp('btnMainLogout').hide();
+
+
+        Ext.getCmp('loginToolbar').doLayout();
+        var userStore  = Ext.getStore('userStore');
+        userStore.removeAll();
+
+        Ext.Msg.alert('Status', 'Signing out.');
+
+    },
+
+    onViewOrderHistoryClicked: function(label) {
+        this.getMainContainer().hide();
+
+
+    },
+
+    onBtnMainCheckoutClicked: function(button, e, eOpts) {
+        var cartStore = Ext.getStore('cartStore');
+
+        if(cartStore.count() > 0){
+
+            var totalCost = 0.00;
+            cartStore.each(function(record){
+                totalCost = totalCost + record.data.productPrice;
+            });
+
+
+            Ext.getCmp('lblCheckoutTotalCost').text = '$' + totalCost;
+            this.cartWindow.show();
+        }else{
+            Ext.MessageBox.alert('','Your cart is empty!');
+        }
+
+
+    },
+
+    onCartWindowCancelClicked: function(button, e, eOpts) {
+        this.cartWindow.hide();
     },
 
     onLaunch: function() {
@@ -318,8 +365,10 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         this.loginWindow = Ext.create('KanenOnlineShopping.view.LoginWindow',{});
         this.loginWindow.hide();
 
+        this.cartWindow = Ext.create('KanenOnlineShopping.view.CartWindow',{});
+        this.cartWindow.hide();
 
-
+        Ext.getCmp('btnMainLogout').hide();
     },
 
     loadProducts: function(productStore) {
@@ -515,6 +564,9 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     init: function(application) {
         this.control({
+            "#btnBuy": {
+                click: this.onBtnBuyClicked
+            },
             "#btnClearCart": {
                 click: this.clearCart
             },
@@ -544,6 +596,18 @@ Ext.define('KanenOnlineShopping.controller.productController', {
             },
             "#btnLoginRegister": {
                 click: this.onBtnLoginRegisterClick
+            },
+            "#btnMainLogout": {
+                click: this.onBtnMainLogoutClicked
+            },
+            "#lblViewOrderHistory": {
+                click: this.onViewOrderHistoryClicked
+            },
+            "#btnMainCheckout": {
+                click: this.onBtnMainCheckoutClicked
+            },
+            "#btnCartWindowCancel": {
+                click: this.onCartWindowCancelClicked
             }
         });
     }
