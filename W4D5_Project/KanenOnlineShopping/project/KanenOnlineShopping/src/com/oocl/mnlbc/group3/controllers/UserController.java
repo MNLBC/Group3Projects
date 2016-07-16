@@ -69,17 +69,17 @@ public class UserController extends HttpServlet {
 		String email = request.getParameter("email");
 		String deliveryAddress = request.getParameter("deliveryAddress");
 		String mobileNumber = request.getParameter("mobileNumber");
-		String captcha = request.getParameter("captcha");
+//		String captcha = request.getParameter("captcha");
 		String userRole = "customer";
 
 		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
 		String errorMsg = "";
 		user = new UserBean(0, username, userPassword, fullName, email, deliveryAddress, mobileNumber, userRole);
 
-		
-		if (!captcha.equalsIgnoreCase(request.getSession().getAttribute("safecode").toString())) {
-			errorMsg += "captchamismatch";
-		} 
+//		
+//		if (!captcha.equalsIgnoreCase(request.getSession().getAttribute("safecode").toString())) {
+//			errorMsg += "captchamismatch";
+//		} 
 		
 		if (userDAO.userExists(username)) {
 			errorMsg += "usernametaken";

@@ -1,5 +1,7 @@
 package com.oocl.mnlbc.Controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.oocl.mnlbc.model.ProductBean;
 import com.oocl.mnlbc.model.UserBean;
 import com.oocl.mnlbc.service.UserService;
 
@@ -31,7 +35,6 @@ public class UserController {
 		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
 		String errorMsg = "";
 		builder.append(returnJson);
-		builder.append(errorMsg);
 
 		System.out.println(userName);
 		System.out.println(userPassword);
@@ -43,12 +46,15 @@ public class UserController {
 
 		UserBean user = new UserBean(0, userName, userPassword, fullName, email, deliveryAddress, mobileNumber,
 				userRole);
-
+    System.out.println(user.getFullName());
 		if (userService.userExists(userName)) {
 			errorMsg += "usernametaken";
+			System.out.println(errorMsg);
 		}
+		System.out.println(email);
 		if (userService.emailExists(email)) {
 			errorMsg += "emailtaken";
+			System.out.println(errorMsg);
 		}
 
 		if (errorMsg.equals("")) {
@@ -58,28 +64,43 @@ public class UserController {
 				errorMsg += "failed";
 			}
 		}
-		returnJson += errorMsg;
+	builder.append(errorMsg);
 
 		builder.append("\"}}");
-
-		return returnJson;
+		System.out.println(builder.toString());
+		return builder.toString();
+	
 
 	}
 
-	@RequestMapping(value = "/login", method = { RequestMethod.POST })
+	@RequestMapping(value = "/login", method = { RequestMethod.GET })
 	@ResponseBody
 	public String loginUser(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword) throws Exception {
 
+	
+		
+		UserBean user = userService.validateAccount(userName, userPassword);
+		String returnJson = "";
 		StringBuilder builder = new StringBuilder();
-		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
-		String errorMsg = "";
-		builder.append(returnJson);
-		builder.append(errorMsg);
+		if (user!=null) {
+			returnJson = "{\"success\":true,\"data\":{\"user\":[";
+			builder.append(returnJson);
 
-		System.out.println(userName);
-		System.out.println(userPassword);
-		return returnJson;
+			Gson gson = new Gson();
+				builder.append( gson.toJson(user));
+
+		} else {
+			
+			returnJson = "{\"success\":true,\"data\":{\"user\":[";
+			builder.append(returnJson);
+			Gson gson = new Gson();
+			builder.append( gson.toJson(user));
+		}
+	
+		builder.append("]}}");
+
+		return builder.toString();
 
 	}
 
