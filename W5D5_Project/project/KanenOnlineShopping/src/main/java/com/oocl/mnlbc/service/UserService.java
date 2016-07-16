@@ -30,8 +30,6 @@ public class UserService implements UserDAO {
 	@Override
 	public boolean userExists(String username) {
 		String sql = "SELECT 1 FROM USERS WHERE " + "USERNAME ='" + username + "'";
-		// List<UserBean> users = jdbcTemplateObject.query(sql, new
-		// UserMapper());
 		UserBean user = jdbcTemplateObject.queryForObject(sql, new Object[] { username }, new UserMapper());
 
 		if (!user.getUserName().equals("")) {
@@ -44,8 +42,6 @@ public class UserService implements UserDAO {
 	@Override
 	public boolean emailExists(String email) {
 		String sql = "SELECT 1 FROM USERS WHERE " + "EMAIL ='" + email + "'";
-		// List<UserBean> users = jdbcTemplateObject.query(sql, new
-		// UserMapper());
 		UserBean user = jdbcTemplateObject.queryForObject(sql, new Object[] { email }, new UserMapper());
 
 		if (!user.getEmail().equals("")) {
