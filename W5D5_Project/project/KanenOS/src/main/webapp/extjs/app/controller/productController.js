@@ -66,7 +66,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         this.getMainContainer().hide();
         debugger;
         // this.getOrderHistoryContainer().show();
-        alert('');
+
     },
 
     onOrderItemsGridPanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
@@ -157,7 +157,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
              scope: this,
              success: function(response){
 
-                 debugger;
+
                  var responseText = Ext.decode(response.responseText);
                  var responseData = responseText.data;
                  var user = responseData.user[0];
@@ -175,7 +175,15 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
                  userStore.add(loggedInUser);
 
-                 debugger;
+                 Ext.getCmp('btnMainLogin').hide();
+                 Ext.getCmp('btnMainRegister').hide();
+                 Ext.getCmp('btnMainLogout').show();
+
+                 Ext.getCmp('loginWindow').hide();
+
+                 Ext.getCmp('loginToolbar').doLayout();
+
+                 Ext.Msg.alert('Status', 'Logged in successfully');
 
              },
              failure: function(){
@@ -183,25 +191,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
              }
          });
 
-        /*
-
-         if(validateAccount(userName, password, userStore)){
-             frmLogin.query('#txtLoginUsername')[0].setValue('');
-             frmLogin.query('#txtPassword')[0].setValue('');
-
-
-             var userNameArray = userStore.queryBy(function(record){
-                                 return record.data.userName == userName;
-                             });
-
-              this.userId = userNameArray.items[0].data.userId;
-              this.userFullName = userNameArray.items[0].data.fullName;
-         }else{
-
-         }
-         */
-
-        alert(userName);
     },
 
     onBtnMainRegisterClick: function(button, e, eOpts) {
@@ -288,20 +277,29 @@ Ext.define('KanenOnlineShopping.controller.productController', {
     },
 
     onBtnLoginCancelClick: function(button, e, eOpts) {
-        // var loginWindow = Ext.getCmp('loginWindow');
         this.loginWindow.hide();
 
     },
 
     onBtnLoginRegisterClick: function(button, e, eOpts) {
 
-        // var loginWindow = Ext.getCmp('loginWindow');
-
-
-        // var registerWindow = Ext.getCmp('registerWindow');
         this.loginWindow.hide();
         this.registerWindow.show();
 
+
+    },
+
+    onBtnMainLogoutClicked: function(button, e, eOpts) {
+        Ext.getCmp('btnMainLogin').show();
+        Ext.getCmp('btnMainRegister').show();
+        Ext.getCmp('btnMainLogout').hide();
+
+
+        Ext.getCmp('loginToolbar').doLayout();
+        var userStore  = Ext.getStore('userStore');
+        userStore.removeAll();
+
+        Ext.Msg.alert('Status', 'Signing out.');
 
     },
 
@@ -319,7 +317,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         this.loginWindow.hide();
 
 
-
+        Ext.getCmp('btnMainLogout').hide();
     },
 
     loadProducts: function(productStore) {
@@ -544,6 +542,9 @@ Ext.define('KanenOnlineShopping.controller.productController', {
             },
             "#btnLoginRegister": {
                 click: this.onBtnLoginRegisterClick
+            },
+            "#btnMainLogout": {
+                click: this.onBtnMainLogoutClicked
             }
         });
     }

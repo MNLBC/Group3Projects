@@ -134,6 +134,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                             items: [
                                 {
                                     xtype: 'toolbar',
+                                    id: 'loginToolbar',
                                     items: [
                                         {
                                             xtype: 'tbspacer',
@@ -150,6 +151,12 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             id: 'btnMainRegister',
                                             itemId: 'btnMainRegister',
                                             text: 'Register'
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            id: 'btnMainLogout',
+                                            itemId: 'btnMainLogout',
+                                            text: 'Logout'
                                         }
                                     ]
                                 }
