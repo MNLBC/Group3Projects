@@ -21,6 +21,11 @@ public class OrderService implements OrderDAO {
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplateObject;
 
+	private String cUserId;
+	private String cTotalCost;
+	private String cOrderStatus;
+	private List<CartItemBean> cItems;
+
 	private PlatformTransactionManager transactionManager;
 
 	public PlatformTransactionManager getTransactionManager() {
@@ -37,11 +42,6 @@ public class OrderService implements OrderDAO {
 		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
 	}
 
-	String cUserId;
-	String cTotalCost;
-	String cOrderStatus;
-	List<CartItemBean> cItems;
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean createOrder(OrderBean cart) {
@@ -57,11 +57,13 @@ public class OrderService implements OrderDAO {
 
 		// int i = 0;
 
-		String sql = "Insert into ORDER_ITEM(" + "ORDER_ID," + "PRODUCT_ID," + "QUANTITY," + "ORDERED_PRICE) "
-				+ "values(?,?,?,?)";
+		String sql = "Insert into ORDER_ITEM(" + "ORDER_ID," + "PRODUCT_ID," + "QUANTITY,"
+				+ "ORDERED_PRICE) " + "values(?,?,?,?)";
 		try {
 			jdbcTemplateObject.update(sql, id, orderDate, quantity, orderPrice);
 			return true;
+		} catch (DataAccessException de) {
+			de.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

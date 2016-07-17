@@ -7,14 +7,13 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.oocl.mnlbc.HomeController;
+import com.google.gson.JsonParser;
 import com.oocl.mnlbc.model.CartItemBean;
 import com.oocl.mnlbc.model.ItemsBean;
 import com.oocl.mnlbc.model.OrderBean;
@@ -61,52 +60,79 @@ public class OrderController {
 
 	}
 
-	/*
-	 * @RequestMapping(value = "/saveOrder", method = { RequestMethod.GET })
-	 * 
-	 * @ResponseBody public String saveOrder(
-	 * 
-	 * @RequestParam(value = "userId", required = true) String userId,
-	 * 
-	 * @RequestParam(value = "orderDate", required = true) String orderDate,
-	 * 
-	 * @RequestParam(value = "totalCost", required = true) String totalCost,
-	 * 
-	 * @RequestParam(value = "orderStatus", required = true) String orderStatus,
-	 * 
-	 * @RequestParam(value = "productId", required = true) String productId,
-	 * 
-	 * @RequestParam(value = "quantity", required = true) String quantity,
-	 * 
-	 * @RequestParam(value = "productPrice", required = true) String
-	 * productPrice) throws Exception { StringBuilder builder = new
-	 * StringBuilder(); String returnJson =
-	 * "{\"success\":true,\"data\":{\"errormsg\":\""; String errorMsg = "";
-	 * builder.append(returnJson);
-	 * 
-	 * OrderBean cart = new OrderBean(0, Long.parseLong(userId), orderDate,
-	 * Double.parseDouble(totalCost), orderStatus, null); List<CartItemBean>
-	 * items = new ArrayList<CartItemBean>(); items.add(new
-	 * CartItemBean(Integer.parseInt(productId), "", "",
-	 * Integer.parseInt(quantity), Double.parseDouble(productPrice), ""));
-	 * cart.setItems(items); orderDAO.createOrder(cart);
-	 * 
-	 * errorMsg += "none"; builder.append(errorMsg);
-	 * 
-	 * builder.append("\"}}"); System.out.println(builder.toString()); return
-	 * builder.toString();
-	 * 
-	 * }
-	 */
+	/*@RequestMapping(value = "/saveOrder", method = { RequestMethod.GET })
 
+	@ResponseBody
+	public String saveOrder2(
+
+			@RequestParam(value = "userId", required = true) String userId,
+
+			@RequestParam(value = "orderDate", required = true) String orderDate,
+
+			@RequestParam(value = "totalCost", required = true) String totalCost,
+
+			@RequestParam(value = "orderStatus", required = true) String orderStatus,
+
+			@RequestParam(value = "productId", required = true) String productId,
+
+			@RequestParam(value = "quantity", required = true) String quantity,
+
+			@RequestParam(value = "productPrice", required = true) String productPrice) throws Exception {
+		StringBuilder builder = new StringBuilder();
+		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
+		String errorMsg = "";
+		builder.append(returnJson);
+
+		OrderBean cart = new OrderBean(0, Long.parseLong(userId), orderDate, Double.parseDouble(totalCost), orderStatus,
+				null);
+		List<CartItemBean> items = new ArrayList<CartItemBean>();
+		items.add(new CartItemBean(Integer.parseInt(productId), "", "", Integer.parseInt(quantity),
+				Double.parseDouble(productPrice), ""));
+		cart.setItems(items);
+		if (orderDAO.createOrder(cart)) {
+			errorMsg += "none";
+		} else {
+			errorMsg += "failed";
+		}
+
+		builder.append(errorMsg);
+
+		builder.append("\"}}");
+		System.out.println(builder.toString());
+		return builder.toString();
+
+	}
+*/
 	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST)
 	@ResponseBody
-	public OrderBean saveOrder(@RequestBody OrderBean order) throws IOException {
-		System.out.println("User id : " + order.getUserId());
-		System.out.println("Total Cost: " + order.getTotalCost());
-		logger.info("Saving order transaction..");
-		logger.info("Order transaction successfully saved!");
-		return order;
+	public String saveOrder(@RequestParam(value = "jsonData", required = true) String jsonData) throws IOException {
+
+		Gson gson = new Gson();
+		OrderBean order = gson.fromJson(jsonData, OrderBean.class);
+		order.setOrderId(0);
+
+		StringBuilder builder = new StringBuilder();
+		String errorMsg = "";
+
+		builder.append("{\"success\":true,\"data\":{\"errormsg\":\"");
+		if (orderDAO.createOrder(order)) {
+			errorMsg += "none";
+		} else {
+			errorMsg += "failed";
+		}
+
+		builder.append(errorMsg);
+
+		builder.append("\"}}");
+		System.out.println(builder.toString());
+
+		System.out.println(order.getUserId());
+		System.out.println(order.getTotalCost());
+
+		System.out.println(order.getItems().get(0).getProductName());
+
+		return builder.toString();
+
 	}
 
 }
