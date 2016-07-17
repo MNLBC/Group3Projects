@@ -20,7 +20,7 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
-	@RequestMapping(value = "/productList", method = { RequestMethod.GET })
+	@RequestMapping(value = "/productList", method = { RequestMethod.POST })
 	@ResponseBody
 	public String getProductList() throws IOException {
 		List<ProductBean> products = productService.getProductList();
@@ -29,19 +29,19 @@ public class ProductController {
 		if (products.isEmpty()) {
 
 		} else {
-			
+
 			returnJson = "{\"success\":true,\"data\":{\"products\":[";
 			builder.append(returnJson);
 
 			Gson gson = new Gson();
 			for (ProductBean product : products) {
-				builder.append( gson.toJson(product) + ",");
-              
+				builder.append(gson.toJson(product) + ",");
+
 			}
 
 		}
-         builder = new StringBuilder (builder.substring(0, builder.length() - 1));
-	
+		builder = new StringBuilder(builder.substring(0, builder.length() - 1));
+
 		builder.append("]}}");
 
 		return builder.toString();

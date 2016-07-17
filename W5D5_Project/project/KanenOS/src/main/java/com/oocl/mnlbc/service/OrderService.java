@@ -78,9 +78,9 @@ public class OrderService implements OrderDAO {
 	}
 
 	@Override
-	public List<ItemsBean> getItems(long orderId) {
-		String sql = "SELECT * FROM ORDER_ITEM WHERE ORDER_ID=?";
-		List<ItemsBean> itemList = jdbcTemplateObject.query(sql, new Object[] { orderId }, new ItemsMapper());
+	public List<CartItemBean> getItems(long orderId) {
+		String sql = "SELECT OI.ORDER_ID, P.PRODUCT_ID, P.PRODUCT_NAME, OI.QUANTITY, P.PRODUCT_DESCRIPTION, P.PRODUCT_PRICE FROM ORDER_ITEM OI INNER JOIN PRODUCT P ON P.PRODUCT_ID = OI.PRODUCT_ID WHERE OI.ORDER_ID =?";
+		List<CartItemBean> itemList = jdbcTemplateObject.query(sql, new Object[] { orderId }, new OrderDetailsMapper());
 
 		return itemList;
 

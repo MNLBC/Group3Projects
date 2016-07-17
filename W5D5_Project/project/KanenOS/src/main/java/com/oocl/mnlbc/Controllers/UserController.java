@@ -24,7 +24,7 @@ public class UserController {
 	 
 	
 
-	@RequestMapping(value = "/register", method = { RequestMethod.GET })
+	@RequestMapping(value = "/register", method = { RequestMethod.POST })
 	@ResponseBody
 	public String createUser(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword,
@@ -75,7 +75,7 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/login", method = { RequestMethod.GET })
+	@RequestMapping(value = "/login", method = { RequestMethod.POST })
 	@ResponseBody
 	public String loginUser(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword) throws Exception {

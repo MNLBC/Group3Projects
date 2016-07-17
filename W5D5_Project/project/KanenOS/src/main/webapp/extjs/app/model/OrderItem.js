@@ -35,6 +35,9 @@ Ext.define('KanenOnlineShopping.model.OrderItem', {
         },
         {
             name: 'productPrice'
+        },
+        {
+            name: 'orderId'
         }
     ]
 });

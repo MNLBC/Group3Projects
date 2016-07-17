@@ -14,69 +14,17 @@
  */
 
 Ext.define('KanenOnlineShopping.store.orderStore', {
-    extend: 'Ext.data.Store',
+	extend : 'Ext.data.Store',
 
-    requires: [
-        'KanenOnlineShopping.model.Order',
-        'Ext.data.proxy.Ajax',
-        'Ext.data.reader.Json'
-    ],
+	requires : [ 'KanenOnlineShopping.model.Order', 'Ext.data.proxy.Ajax',
+			'Ext.data.reader.Json' ],
 
-    constructor: function(cfg) {
-        var me = this;
-        cfg = cfg || {};
-        me.callParent([Ext.apply({
-            model: 'KanenOnlineShopping.model.Order',
-            storeId: 'orderStore',
-            data: [
-                {
-                    orderId: 'OrderId 1',
-                    userId: 'UserId 1',
-                    orderDate: 'OrderDate 1',
-                    totalCost: 'TotalCost 1',
-                    orderStatus: 'OrderStatus 1',
-                    items: 'Items 1'
-                },
-                {
-                    orderId: 'OrderId 2',
-                    userId: 'UserId 2',
-                    orderDate: 'OrderDate 2',
-                    totalCost: 'TotalCost 2',
-                    orderStatus: 'OrderStatus 2',
-                    items: 'Items 2'
-                },
-                {
-                    orderId: 'OrderId 3',
-                    userId: 'UserId 3',
-                    orderDate: 'OrderDate 3',
-                    totalCost: 'TotalCost 3',
-                    orderStatus: 'OrderStatus 3',
-                    items: 'Items 3'
-                },
-                {
-                    orderId: 'OrderId 4',
-                    userId: 'UserId 4',
-                    orderDate: 'OrderDate 4',
-                    totalCost: 'TotalCost 4',
-                    orderStatus: 'OrderStatus 4',
-                    items: 'Items 4'
-                },
-                {
-                    orderId: 'OrderId 5',
-                    userId: 'UserId 5',
-                    orderDate: 'OrderDate 5',
-                    totalCost: 'TotalCost 5',
-                    orderStatus: 'OrderStatus 5',
-                    items: 'Items 5'
-                }
-            ],
-            proxy: {
-                type: 'ajax',
-                url: 'order/allOrders',
-                reader: {
-                    type: 'json'
-                }
-            }
-        }, cfg)]);
-    }
+	constructor : function(cfg) {
+		var me = this;
+		cfg = cfg || {};
+		me.callParent([ Ext.apply({
+			model : 'KanenOnlineShopping.model.Order',
+			storeId : 'orderStore'
+		}, cfg) ]);
+	}
 });

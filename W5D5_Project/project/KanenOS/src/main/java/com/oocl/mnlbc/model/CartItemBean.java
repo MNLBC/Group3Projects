@@ -19,6 +19,15 @@ public class CartItemBean implements Serializable {
 	private String imagePath;
 	private int quantity;
 	private double productPrice;
+	private long orderId;
+
+	public long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
+	}
 
 	public String getImagePath() {
 		return imagePath;
@@ -52,6 +61,12 @@ public class CartItemBean implements Serializable {
 		this.quantity = quantity;
 		this.productPrice = productPrice;
 		this.imagePath = imagePath;
+	}
+
+
+
+	public CartItemBean() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getProductId() {

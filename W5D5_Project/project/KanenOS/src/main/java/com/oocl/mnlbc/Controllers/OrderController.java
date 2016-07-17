@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.oocl.mnlbc.model.CartItemBean;
 import com.oocl.mnlbc.model.ItemsBean;
 import com.oocl.mnlbc.model.OrderBean;
+import com.oocl.mnlbc.model.ProductBean;
 import com.oocl.mnlbc.service.OrderService;
 
 @Controller
@@ -28,8 +29,7 @@ public class OrderController {
 	@ResponseBody
 	public String getOrderList(@RequestParam(value = "userId", required = true) String userId) throws Exception {
 		String returnJson = "{\"success\":true,\"data\":{\"orders\":[";
-		
-		
+
 		List<OrderBean> order = orderDAO.getTransactions(Long.parseLong(userId));
 
 		long orderId = 0;
@@ -37,67 +37,107 @@ public class OrderController {
 		Gson gson = new Gson();
 		for (OrderBean ord : order) {
 			returnJson += gson.toJson(ord) + ",";
-			orderId = ord.getOrderId();
 		}
 
 		returnJson = returnJson.substring(0, returnJson.length() - 1);
 		returnJson += "],";
 
-		List<ItemsBean> itemList = orderDAO.getItems(orderId);
+		
 		returnJson += "\"items\":[";
-		for (ItemsBean item : itemList) {
+		for (OrderBean ord : order) {
+			
+			orderId = ord.getOrderId();
+		List<CartItemBean> itemList = orderDAO.getItems(orderId);
+		for (CartItemBean item : itemList) {
 			returnJson += gson.toJson(item) + ",";
+			
+		}
+		
 		}
 		returnJson = returnJson.substring(0, returnJson.length() - 1);
+		
+		
+		
 		returnJson += "]}}";
-//		StringBuilder builder = new StringBuilder();
-//		String returnJson = "{\"success\":true,\"data\":{\"orders\":[";
-//		builder.append(returnJson);
+		// StringBuilder builder = new StringBuilder();
+		// String returnJson = "{\"success\":true,\"data\":{\"orders\":[";
+		// builder.append(returnJson);
 		return returnJson;
-		
-	}
-	
-	
 
-	/*@RequestMapping(value = "/saveOrder", method = { RequestMethod.GET })
-	@ResponseBody
-	public String saveOrder(
-			@RequestParam(value = "userId", required = true) String userId,
-			@RequestParam(value = "orderDate", required = true) String orderDate,
-			@RequestParam(value = "totalCost", required = true) String totalCost,
-			@RequestParam(value = "orderStatus", required = true) String orderStatus,
-			@RequestParam(value = "productId", required = true) String productId,
-			@RequestParam(value = "quantity", required = true) String quantity,
-			@RequestParam(value = "productPrice", required = true) String productPrice) throws Exception {
-		StringBuilder builder = new StringBuilder();
-		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
-		String errorMsg = "";
-		builder.append(returnJson);
-		
-		OrderBean cart = new OrderBean(0, Long.parseLong(userId), orderDate, Double.parseDouble(totalCost), orderStatus, null);
-		List<CartItemBean> items = new ArrayList<CartItemBean>();
-		items.add(new CartItemBean(Integer.parseInt(productId), "", "", Integer.parseInt(quantity), Double.parseDouble(productPrice), ""));
-		cart.setItems(items);
-		orderDAO.createOrder(cart);
-		
-		errorMsg += "none";
-		builder.append(errorMsg);
-		
-		builder.append("\"}}");
-		System.out.println(builder.toString());
-		return builder.toString();
-		
-	}*/
-	
+	}
+
+	/*
+	 * @RequestMapping(value = "/saveOrder", method = { RequestMethod.GET })
+	 * 
+	 * @ResponseBody public String saveOrder(
+	 * 
+	 * @RequestParam(value = "userId", required = true) String userId,
+	 * 
+	 * @RequestParam(value = "orderDate", required = true) String orderDate,
+	 * 
+	 * @RequestParam(value = "totalCost", required = true) String totalCost,
+	 * 
+	 * @RequestParam(value = "orderStatus", required = true) String orderStatus,
+	 * 
+	 * @RequestParam(value = "productId", required = true) String productId,
+	 * 
+	 * @RequestParam(value = "quantity", required = true) String quantity,
+	 * 
+	 * @RequestParam(value = "productPrice", required = true) String
+	 * productPrice) throws Exception { StringBuilder builder = new
+	 * StringBuilder(); String returnJson =
+	 * "{\"success\":true,\"data\":{\"errormsg\":\""; String errorMsg = "";
+	 * builder.append(returnJson);
+	 * 
+	 * OrderBean cart = new OrderBean(0, Long.parseLong(userId), orderDate,
+	 * Double.parseDouble(totalCost), orderStatus, null); List<CartItemBean>
+	 * items = new ArrayList<CartItemBean>(); items.add(new
+	 * CartItemBean(Integer.parseInt(productId), "", "",
+	 * Integer.parseInt(quantity), Double.parseDouble(productPrice), ""));
+	 * cart.setItems(items); orderDAO.createOrder(cart);
+	 * 
+	 * errorMsg += "none"; builder.append(errorMsg);
+	 * 
+	 * builder.append("\"}}"); System.out.println(builder.toString()); return
+	 * builder.toString();
+	 * 
+	 * }
+	 */
+
 	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST)
-    @ResponseBody
-    public OrderBean saveOrder(@RequestBody OrderBean order) throws IOException
-    {
-        System.out.println("User id : "+ order.getUserId());
-        System.out.println("Total Cost: "+ order.getTotalCost());
-        
-        
-        return order;
-    }
-	
+	@ResponseBody
+	public OrderBean saveOrder(@RequestBody OrderBean order) throws IOException {
+		System.out.println("User id : " + order.getUserId());
+		System.out.println("Total Cost: " + order.getTotalCost());
+
+		return order;
+	}
+
+//	@RequestMapping(value = "/userOrderDetails", method = { RequestMethod.POST })
+//	@ResponseBody
+//	public String getOrderDetails(@RequestParam(value = "orderId", required = true) Long orderId) throws Exception {
+//		List<ItemsBean> items = orderDAO.getItems(orderId);
+//		StringBuilder builder = new StringBuilder();
+//		String returnJson = "";
+//
+//		if (items.isEmpty()) {
+//
+//		} else {
+//
+//			returnJson = "{\"success\":true,\"data\":{\"items\":[";
+//			builder.append(returnJson);
+//			Gson gson = new Gson();
+//			for (ItemsBean item : items) {
+//				builder.append(gson.toJson(item) + ",");
+//
+//			}
+//
+//		}
+//		builder = new StringBuilder(builder.substring(0, builder.length() - 1));
+//
+//		builder.append("]}}");
+//
+//		return builder.toString();
+//	}
+
 }
