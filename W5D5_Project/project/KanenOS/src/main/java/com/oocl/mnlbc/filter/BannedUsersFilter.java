@@ -51,8 +51,8 @@ public class BannedUsersFilter implements Filter {
 		bannedUserList = new ArrayList<String>();
 		bannedUserList.add("Scott");
 		bannedUserList.add("Johns");
-		bannedUserList.add("brionse");
-		System.out.println("AAAAAAA");
+		//bannedUserList.add("brionse");
+		//System.out.println("AAAAAAA");
 		String returnJson = "";
 		StringBuilder builder = new StringBuilder();
 		String username = request.getParameter("userName");
@@ -68,9 +68,6 @@ public class BannedUsersFilter implements Filter {
 			returnJson = "{\"success\":true,\"data\":{\"banned\":true}}";
 			builder.append(returnJson);
 			logger.info(username + " is banned.");
-			
-	
-
 			response.getWriter().write(builder.toString());
 
 		} else {

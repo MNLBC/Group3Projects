@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<%@ page import="com.oocl.mnlbc.listener.*" %>
 <!-- Auto Generated with Sencha Architect -->
 <!-- Modifications to this file will be overwritten. -->
 <html>
@@ -11,5 +11,12 @@
     <link rel="stylesheet" href="http://cdn.sencha.com/ext/gpl/4.2.1/packages/ext-theme-neptune/build/resources/ext-theme-neptune-all.css">
     <script type="text/javascript" src="extjs/app.js"></script>
 </head>
-<body></body>
+
+	<%
+OnlineCounterListener counter = (OnlineCounterListener) session
+.getAttribute(OnlineCounterListener.session_cnt);
+%>
+</br> 
+<body>
+ </body>
 </html>

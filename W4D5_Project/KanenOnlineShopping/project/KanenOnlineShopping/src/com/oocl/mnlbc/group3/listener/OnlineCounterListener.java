@@ -2,7 +2,6 @@ package com.oocl.mnlbc.group3.listener;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;

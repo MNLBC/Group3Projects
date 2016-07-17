@@ -46,4 +46,10 @@
 		<filter-name>BannedUsersFilter</filter-name>
 		<url-pattern>/user/login</url-pattern>
 	</filter-mapping>
+	  <listener>
+		<listener-class>
+			com.oocl.mnlbc.listener.OnlineCounterListener  
+		</listener-class>
+	</listener>
+
 </web-app>
