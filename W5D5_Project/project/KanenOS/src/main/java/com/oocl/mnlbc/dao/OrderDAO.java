@@ -21,7 +21,7 @@ public interface OrderDAO {
 	
 	public  List<OrderBean> getTransactions(long userId);
 	
-	public List<ItemsBean> getItems(long orderId);
+	public List<CartItemBean> getItems(long orderId);
 	
 	public long getOrderId();
 }

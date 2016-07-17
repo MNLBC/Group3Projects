@@ -12,7 +12,13 @@ public class ItemsMapper implements RowMapper<ItemsBean> {
 
 	@Override
 	public ItemsBean mapRow(ResultSet rs, int rowNum) throws SQLException {
-		ItemsBean item = new ItemsBean(1,1,1,1);
+		ItemsBean item = new ItemsBean();
+		item.setOrderId(rs.getLong("ORDER_ID"));
+		item.setProductId(rs.getInt("PRODUCT_ID"));
+		item.setQuantity(rs.getInt("QUANTITY"));
+		item.setItemPrice(rs.getDouble("ORDERED_PRICE"));
+		
+
 //		user.setUserId(rs.getInt("USER_ID"));
 //		user.setUserName(rs.getString("USERNAME"));
 //		user.setUserPassword(rs.getString("USER_PASSWORD"));

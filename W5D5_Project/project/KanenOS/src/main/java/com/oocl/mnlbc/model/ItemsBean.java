@@ -28,11 +28,15 @@ public class ItemsBean implements Serializable {
 		this.itemPrice = itemPrice;
 	}
 
+	public ItemsBean() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(int orderId) {
+	public void setOrderId(long orderId) {
 		this.orderId = orderId;
 	}
 

@@ -24,9 +24,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
         'Ext.toolbar.Spacer',
         'Ext.button.Button',
         'Ext.Img',
-        'Ext.toolbar.Toolbar',
-        'Ext.form.Label',
-        'Ext.grid.column.Date'
+        'Ext.toolbar.Toolbar'
     ],
 
     id: 'myViewport',
@@ -82,8 +80,12 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             region: 'center',
                                             id: 'cartGrid',
                                             itemId: 'cartGrid',
+                                            bodyBorder: true,
                                             title: 'My Grid Panel',
                                             store: 'cartStore',
+                                            viewConfig: {
+                                                border: 30
+                                            },
                                             columns: [
                                                 {
                                                     xtype: 'gridcolumn',
@@ -143,7 +145,8 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             height: 150,
                                             layout: {
                                                 type: 'vbox',
-                                                align: 'stretch'
+                                                align: 'stretch',
+                                                pack: 'center'
                                             },
                                             items: [
                                                 {
@@ -155,7 +158,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                     xtype: 'button',
                                                     height: 46,
                                                     id: 'btnClearCart',
-                                                    width: 114,
+                                                    width: 414,
                                                     text: 'Clear Cart'
                                                 },
                                                 {
@@ -190,7 +193,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                 {
                                     xtype: 'tbspacer',
                                     flex: 0,
-                                    width: 530
+                                    width: 540
                                 },
                                 {
                                     xtype: 'image',
@@ -204,7 +207,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                             xtype: 'container',
                             flex: 0,
                             region: 'north',
-                            height: 61,
+                            height: 45,
                             id: 'topContainer',
                             itemId: 'topContainer',
                             style: 'background-color:#292c2f',
@@ -212,41 +215,28 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                             items: [
                                 {
                                     xtype: 'toolbar',
-                                    region: 'west',
-                                    width: 150,
-                                    layout: {
-                                        type: 'hbox',
-                                        pack: 'end'
-                                    },
-                                    items: [
-                                        {
-                                            xtype: 'label',
-                                            height: 16,
-                                            id: 'lblViewOrderHistory',
-                                            itemId: 'lblViewOrderHistory',
-                                            padding: '',
-                                            width: 110,
-                                            text: 'Order History'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'toolbar',
                                     region: 'center',
                                     id: 'loginToolbar',
-                                    style: 'background: -webkit-linear-gradient(bottom, rgb(60, 60, 62) 0%, rgba(60, 60, 62, 0.52) 26%, rgba(95, 102, 125, 0.1) 50%, rgba(167, 189, 255, 0.99) 100%);\r\nbackground: -o-linear-gradient(bottom, rgb(60, 60, 62) 0%, rgba(60, 60, 62, 0.52) 26%, rgba(95, 102, 125, 0.1) 50%, rgba(167, 189, 255, 0.99) 100%);\r\nbackground: -ms-linear-gradient(bottom, rgb(60, 60, 62) 0%, rgba(60, 60, 62, 0.52) 26%, rgba(95, 102, 125, 0.1) 50%, rgba(167, 189, 255, 0.99) 100%);\r\nbackground: -moz-linear-gradient(bottom, rgb(60, 60, 62) 0%, rgba(60, 60, 62, 0.52) 26%, rgba(95, 102, 125, 0.1) 50%, rgba(167, 189, 255, 0.99) 100%);\r\nbackground: linear-gradient(to top, rgb(60, 60, 62) 0%, rgba(60, 60, 62, 0.52) 26%, rgba(95, 102, 125, 0.1) 50%, rgba(167, 189, 255, 0.99) 100%);',
+                                    style: 'background: -webkit-linear-gradient(60deg, rgba(88, 88, 96, 0.99) 0%, rgba(92, 126, 146, 0.1) 50%, rgba(95, 164, 195, 0.99) 100%);\r\nbackground: -o-linear-gradient(60deg, rgba(88, 88, 96, 0.99) 0%, rgba(92, 126, 146, 0.1) 50%, rgba(95, 164, 195, 0.99) 100%);\r\nbackground: -ms-linear-gradient(60deg, rgba(88, 88, 96, 0.99) 0%, rgba(92, 126, 146, 0.1) 50%, rgba(95, 164, 195, 0.99) 100%);\r\nbackground: -moz-linear-gradient(60deg, rgba(88, 88, 96, 0.99) 0%, rgba(92, 126, 146, 0.1) 50%, rgba(95, 164, 195, 0.99) 100%);\r\nbackground: linear-gradient(30deg, rgba(88, 88, 96, 0.99) 0%, rgba(92, 126, 146, 0.1) 50%, rgba(95, 164, 195, 0.99) 100%);',
                                     layout: {
                                         type: 'hbox',
                                         pack: 'end'
                                     },
                                     items: [
                                         {
+                                            xtype: 'button',
+                                            height: 33,
+                                            id: 'btnHistory',
+                                            width: 96,
+                                            text: 'Order HIstory'
+                                        },
+                                        {
                                             xtype: 'tbspacer',
-                                            width: 1000
+                                            width: 1500
                                         },
                                         {
                                             xtype: 'button',
-                                            height: 37,
+                                            height: 30,
                                             id: 'btnMainLogin',
                                             itemId: 'btnMainLogin',
                                             width: 87,
@@ -254,7 +244,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                         },
                                         {
                                             xtype: 'button',
-                                            height: 39,
+                                            height: 30,
                                             id: 'btnMainRegister',
                                             itemId: 'btnMainRegister',
                                             width: 86,
@@ -262,7 +252,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                         },
                                         {
                                             xtype: 'button',
-                                            height: 41,
+                                            height: 30,
                                             id: 'btnMainLogout',
                                             itemId: 'btnMainLogout',
                                             width: 85,
@@ -281,65 +271,40 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                     itemId: 'orderHistoryContainer',
                     style: 'background-color:#292c2f',
                     width: 1138,
-                    layout: 'border',
+                    layout: {
+                        type: 'hbox',
+                        align: 'stretch'
+                    },
                     items: [
                         {
                             xtype: 'container',
-                            region: 'north',
-                            height: 150,
-                            id: 'orderHeaderContainer',
-                            style: 'background-color:#292c2f',
+                            flex: 1,
+                            height: 50,
+                            id: 'orderBodyContainer',
                             layout: {
-                                type: 'hbox',
+                                type: 'vbox',
                                 align: 'stretch'
                             },
                             items: [
                                 {
-                                    xtype: 'tbspacer',
-                                    flex: 1,
-                                    width: 530
-                                },
-                                {
-                                    xtype: 'image',
-                                    height: 150,
-                                    width: 644,
-                                    src: 'resource/logo1.png'
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            flex: 1,
-                            region: 'center',
-                            id: 'orderBodyContainer',
-                            layout: 'fit',
-                            items: [
-                                {
                                     xtype: 'gridpanel',
+                                    id: 'orderItemsGridPanel',
                                     itemId: 'orderItemsGridPanel',
                                     title: 'Transactions',
                                     store: 'orderStore',
                                     columns: [
                                         {
-                                            xtype: 'numbercolumn',
+                                            xtype: 'gridcolumn',
                                             width: 500,
                                             dataIndex: 'orderId',
                                             text: 'Order Id',
-                                            flex: 1,
-                                            format: '0,000'
-                                        },
-                                        {
-                                            xtype: 'datecolumn',
-                                            width: 500,
-                                            dataIndex: 'orderDate',
-                                            text: 'Order Date',
                                             flex: 1
                                         },
                                         {
-                                            xtype: 'numbercolumn',
+                                            xtype: 'gridcolumn',
                                             width: 500,
-                                            dataIndex: 'totalCost',
-                                            text: 'Total Cost:',
+                                            dataIndex: 'orderDate',
+                                            text: 'Order Date',
                                             flex: 1
                                         },
                                         {
@@ -347,6 +312,13 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             width: 500,
                                             dataIndex: 'orderStatus',
                                             text: 'Order Status',
+                                            flex: 1
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            width: 500,
+                                            dataIndex: 'totalCost',
+                                            text: 'Total Cost:',
                                             flex: 1
                                         }
                                     ]

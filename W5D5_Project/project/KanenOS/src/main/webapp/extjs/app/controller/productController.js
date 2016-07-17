@@ -71,9 +71,9 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                   jsonData += ',"totalCost": ' + totalCost;
                   jsonData += '}';
 
-
+                  /*
                   Ext.Ajax.request({
-                     url : 'order/saveOrder',
+                     url : 'order/checkout',
                      method: 'POST',
                      params: {
                          jsonData: jsonData,
@@ -100,6 +100,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                   });
 
                   
+                  */
               }
 
            }, this, true);
@@ -133,7 +134,20 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     onOrderItemsGridPanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
 
-        alert('Sample');
+        // debugger;
+        var orderItemsGridPanel = Ext.getCmp('orderItemsGridPanel');
+        var  orderItemStore = Ext.getStore('orderItemStore');
+        var selModel = orderItemsGridPanel.getSelectionModel();
+        var selectedRecords = selModel.getSelection();
+        var selectionCount = selModel.getCount();
+        var orderId = selectedRecords[0].data.orderId;
+
+        // for(var i =0;i<selectionCount;i++) {
+        // alert(selectedRecords[i]);
+        // }
+        orderItemStore.clearFilter(true);
+        orderItemStore.filter('orderId', orderId);
+        // debugger;
         Ext.create('Ext.window.Window',{
 
                        rendetTo: Ext.getBody(),
@@ -149,20 +163,22 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                        items:[ {
 
                                             xtype: 'gridpanel',
+                                            id: 'orderSummaryGridPanel',
                                             itemId: 'orderSummaryGridPanel',
                                             title: 'Transactions',
                                             store: 'orderItemStore',
                                             columns: [
                                                 {
-                                                    xtype: 'numbercolumn',
+                                                    xtype: 'gridcolumn',
                                                     width: 500,
+                                                    flex:1,
                                                     dataIndex: 'productId',
-                                                    text: 'Product Id',
-                                                    format: '0,000'
+                                                    text: 'Product Id'
                                                 },
                                                  {
                                                     xtype: 'gridcolumn',
                                                     width: 200,
+                                                      flex:1,
                                                     dataIndex: 'productName',
                                                     text: 'Product Name'
                                                 },
@@ -170,18 +186,21 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                                                 {
                                                     xtype: 'gridcolumn',
                                                     width: 310,
+                                                     flex:1,
                                                     dataIndex: 'productDescription',
                                                     text: 'Product Description'
                                                 },
                                                {
                                                     xtype: 'numbercolumn',
                                                     width: 272,
+                                                    flex:1,
                                                     dataIndex: 'quantity',
                                                     text: 'Quantity'
                                                 },
                                                {
                                                     xtype: 'numbercolumn',
                                                     width: 272,
+                                                    flex:1,
                                                     dataIndex: 'productPrice',
                                                     text: 'Price'
                                                 }
@@ -189,6 +208,54 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                                 }
                               ]
         });
+
+
+
+        var  userStore = Ext.getStore('userStore');
+
+        var  orderStore = Ext.getStore('orderStore');
+
+        var orderId = orderStore.data.items[0].data.orderId;
+
+
+        // Ext.Ajax.request({
+
+        //      url: window.location.pathname +'order/userOrderDetails',
+        //      method: 'POST',
+
+        //      params: {
+        //      orderId: orderId
+
+        //  },
+        //      scope: this,
+        //      success: function(response){
+
+
+        //          var responseText = Ext.decode(response.responseText);
+        //          var responseData = responseText.data;
+        //          debugger;
+
+
+        //          for(var i=0; i < responseData.items.length; i++){
+        //          var items = {
+        //               productId: responseData.items[i].productId,
+        //               productName: responseData.items[i].productName,
+        //               productDescription: responseData.items[i].productDescription,
+        //               quantity: responseData.items[i].quantity,
+        //               productPrice: responseData.items[i].productPrice
+        //         };
+        //         orderItemStore.add(items);
+
+        // }
+
+
+
+        //      },
+        //      failure: function(){
+        //          Ext.MessageBox.alert('Login failed', 'Unable to connect to server, please try again.');
+        //      }
+        //  });
+
     },
 
     btnMainLoginClicked: function(button, e, eOpts) {
@@ -243,7 +310,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                  this.resetLoginFields();
                  Ext.getCmp('loginWindow').hide();
                  Ext.getCmp('loginToolbar').doLayout();
-
+                 Ext.getCmp('btnHistory').show();
                  Ext.Msg.alert('Status', 'Logged in successfully');
 
 
@@ -388,6 +455,73 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         this.cartWindow.hide();
     },
 
+    onBtnHistoryClick: function(button, e, eOpts) {
+        this.orderHistoryContainer.show();
+        this.mainContainer.hide();
+
+
+        var  userStore = Ext.getStore('userStore');
+        var  orderStore = Ext.getStore('orderStore');
+        var  orderItemStore = Ext.getStore('orderItemStore');
+
+        var userId = userStore.data.items[0].data.userId;
+
+        Ext.Ajax.request({
+
+             url: window.location.pathname +'order/userOrder',
+             method: 'POST',
+
+             params: {
+             userId: userId
+
+         },
+             scope: this,
+             success: function(response){
+
+
+                 var responseText = Ext.decode(response.responseText);
+                 var responseData = responseText.data;
+
+                 for(var i=0; i < responseData.orders.length; i++){
+                   var order = {
+                      orderId: responseData.orders[i].orderId,
+                      userId: responseData.orders[i].userId,
+                      orderDate: responseData.orders[i].orderDate,
+                      totalCost: responseData.orders[i].totalCost,
+                      orderStatus: responseData.orders[i].orderStatus,
+                      items: responseData.orders[i].items
+
+
+                };
+                      orderStore.add(order);
+                 }
+
+
+                 for(var i=0; i < responseData.items.length; i++){
+                 var items = {
+                     orderId: responseData.items[i].orderId,
+                      productId: responseData.items[i].productId,
+                      productName: responseData.items[i].productName,
+                      productDescription: responseData.items[i].productDescription,
+                      quantity: responseData.items[i].quantity,
+                      productPrice: responseData.items[i].productPrice
+                       };
+                orderItemStore.add(items);
+                 }
+        debugger;
+
+
+
+
+
+             },
+             failure: function(){
+                 Ext.MessageBox.alert('Login failed', 'Unable to connect to server, please try again.');
+             }
+         });
+
+    },
+
     onLaunch: function() {
 
         this.bodyContainer = this.getBodyContainer();
@@ -404,7 +538,11 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         this.cartWindow = Ext.create('KanenOnlineShopping.view.CartWindow',{});
         this.cartWindow.hide();
 
+        this.orderHistoryContainer = Ext.getCmp('orderHistoryContainer');
+        this.mainContainer = Ext.getCmp('mainContainer');
+
         Ext.getCmp('btnMainLogout').hide();
+        Ext.getCmp('btnHistory').hide();
     },
 
     loadProducts: function(productStore) {
@@ -651,6 +789,9 @@ Ext.define('KanenOnlineShopping.controller.productController', {
             },
             "#btnCartWindowCancel": {
                 click: this.onCartWindowCancelClicked
+            },
+            "#btnHistory": {
+                click: this.onBtnHistoryClick
             }
         });
     }
