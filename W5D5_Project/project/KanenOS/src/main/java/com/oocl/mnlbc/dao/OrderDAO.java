@@ -2,7 +2,7 @@ package com.oocl.mnlbc.dao;
 
 import java.util.List;
 
-import javax.activation.DataSource;
+import javax.sql.DataSource;
 
 import com.oocl.mnlbc.model.CartItemBean;
 import com.oocl.mnlbc.model.ItemsBean;
@@ -19,7 +19,7 @@ public interface OrderDAO {
 	
 	public boolean saveCart(CartItemBean items, long orderId);
 	
-	public  List<OrderBean> getTransactions(int userId);
+	public  List<OrderBean> getTransactions(long userId);
 	
 	public List<ItemsBean> getItems(long orderId);
 	

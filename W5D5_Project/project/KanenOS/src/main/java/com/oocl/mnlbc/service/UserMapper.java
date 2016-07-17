@@ -10,7 +10,7 @@ public class UserMapper implements RowMapper<UserBean> {
 	@Override
 	public UserBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 		UserBean user = new UserBean();
-		user.setUserId(rs.getInt("USER_ID"));
+		user.setUserId(rs.getLong("USER_ID"));
 		user.setUserName(rs.getString("USERNAME"));
 		user.setUserPassword(rs.getString("USER_PASSWORD"));
 		user.setFullName(rs.getString("FULL_NAME"));

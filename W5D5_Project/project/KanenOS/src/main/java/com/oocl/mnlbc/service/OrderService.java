@@ -1,19 +1,38 @@
-/*package com.oocl.mnlbc.service;
+package com.oocl.mnlbc.service;
 
 import java.util.List;
 
 import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
+
 import com.oocl.mnlbc.dao.OrderDAO;
-import com.oocl.mnlbc.model.OrderBean;
 import com.oocl.mnlbc.model.CartItemBean;
 import com.oocl.mnlbc.model.ItemsBean;
+import com.oocl.mnlbc.model.OrderBean;
 
 public class OrderService implements OrderDAO {
 
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplateObject;
-	private final static OrderService orderDAO = new OrderService();
+	@Autowired
+	private final static OrderService orderDAO = null;
+
+	private PlatformTransactionManager transactionManager;
+
+	public PlatformTransactionManager getTransactionManager() {
+		return transactionManager;
+	}
+
+	public void setTransactionManager(PlatformTransactionManager transactionManager) {
+		this.transactionManager = transactionManager;
+	}
 
 	public static OrderService getInstance() {
 		return orderDAO;
@@ -25,36 +44,54 @@ public class OrderService implements OrderDAO {
 		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
 	}
 
+	String cUserId;
+	String cTotalCost;
+	String cOrderStatus;
+	List<CartItemBean> cItems;
+
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean createOrder(OrderBean cart) {
-		String userId = Integer.toString(cart.getUserId());
-		// int userId = cart.getUserId();
+		TransactionTemplate tt = new TransactionTemplate(getTransactionManager());
+		cUserId = Long.toString(cart.getUserId());
 
-		// String orderDate = cart.getOrderDate();
-		String totalCost = Double.toString(cart.getTotalCost());
-		// double totalCost = cart.getTotalCost();
-		String orderStatus = cart.getOrderStatus();
-		List<CartItemBean> items = cart.getItems();
+		cTotalCost = Double.toString(cart.getTotalCost());
 
-		String sql = "Insert into ORDERS(" + "USER_ID," + "ORDER_DATE," + "TOTAL_COST," + "ORDER_STATUS) "
-				+ "values(?,SYSDATE,?,?)";
+		cOrderStatus = cart.getOrderStatus();
+		cItems = cart.getItems();
+		boolean result;
 		try {
-			jdbcTemplateObject.update(sql, userId, totalCost, orderStatus, items);
-			return true;
-			// i = pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// long orderId = getOrderId();
-		//
-		// for (CartItemBean item : items) {
-		// if (saveCart(item, orderId)) {
-		// } else {
-		// return false;
-		// }
-		// }
+			 result = tt.execute(new TransactionCallback() {
 
-		return false;
+				public Object doInTransaction(TransactionStatus status) {
+
+					JdbcTemplate jt = new JdbcTemplate(dataSource);
+					int i = 0;
+					String sql = "Insert into ORDERS(" + "USER_ID," + "ORDER_DATE," + "TOTAL_COST," + "ORDER_STATUS) "
+							+ "values(?,SYSDATE,?,?)";
+					i = jt.update(sql, cUserId, cTotalCost, cOrderStatus);
+
+					if (!(i == 0)) {
+						long orderId = getOrderId();
+
+						for (CartItemBean item : cItems) {
+							if (saveCart(item, orderId)) {
+							} else {
+								return false;
+							}
+						}
+
+						return true;
+					}
+					return false;
+				}
+
+			});
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			result = false;
+		}
+		return result;
 	}
 
 	@Override
@@ -80,9 +117,9 @@ public class OrderService implements OrderDAO {
 	}
 
 	@Override
-	public List<OrderBean> getTransactions(int userId) {
-		String sql = "SELECT * FROM ORDERS WHERE USER_ID=?";
-		List<OrderBean> orderList = jdbcTemplateObject.query(sql, new Object[] { userId }, new OrderMapper());
+	public List<OrderBean> getTransactions(long userId) {
+		String sql = "SELECT * FROM ORDERS WHERE USER_ID='" + userId + "'";
+		List<OrderBean> orderList = jdbcTemplateObject.query(sql, new OrderMapper());
 		return orderList;
 	}
 
@@ -104,4 +141,3 @@ public class OrderService implements OrderDAO {
 
 	}
 }
-*/

@@ -15,7 +15,7 @@ public class UserBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int userId;
+	private long userId;
 	private String userName;
 	private String userPassword;
 	private String fullName;
@@ -29,7 +29,7 @@ public class UserBean implements Serializable {
 
 	}
 
-	public UserBean(int userId, String userName, String userPassword, String fullName, String email, String address,
+	public UserBean(long userId, String userName, String userPassword, String fullName, String email, String address,
 			String mobileNumber, String userRole) {
 		super();
 		this.userId = userId;
@@ -43,17 +43,17 @@ public class UserBean implements Serializable {
 		this.isBanned = "no";
 	}
 
-	public UserBean(int userId, String userName) {
+	public UserBean(long userId, String userName) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
 	}
 
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 

@@ -48,6 +48,16 @@
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>
 
+	<beans:bean id="orderService" class="com.oocl.mnlbc.service.OrderService"
+		scope="singleton">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+	
+	<beans:bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+	
 	<resources mapping="/extjs/**" location="/extjs/" />
 	<resources location="extjs/app/controller/**" mapping="app/controller/*.js" />
 	<resources location="extjs/app/model/**" mapping="app/model/*.js" />

@@ -3,20 +3,22 @@ package com.oocl.mnlbc.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import com.oocl.mnlbc.dao.UserDAO;
 import com.oocl.mnlbc.model.UserBean;
 import com.oocl.mnlbc.security.PasswordEncrypter;
 import com.oocl.mnlbc.security.PasswordEncrypter.CannotPerformOperationException;
 import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
 
-import javax.sql.DataSource;
-
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-
 public class UserService implements UserDAO {
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplateObject;
+	
 
 	@Override
 	public void setDataSource(DataSource dataSource) {
@@ -108,7 +110,7 @@ public class UserService implements UserDAO {
 			e1.printStackTrace();
 		}
 		try{
-			i= jdbcTemplateObject.update(sql,username,userPassword,fullName,email,deliveryAddress,mobileNumber,userRole);
+			i= jdbcTemplateObject.update(sql,username,enryptedPassword,fullName,email,deliveryAddress,mobileNumber,userRole);
 			
 		}catch(DataAccessException e){
 			  e.printStackTrace();
@@ -126,15 +128,10 @@ public class UserService implements UserDAO {
 
 	@Override
 	public List<UserBean> getBannedUsers() {
-		List<UserBean> bannedUsers = new ArrayList<UserBean>();
 		String sql = "SELECT USER_ID, USERNAME, USER_PASSWORD, FULL_NAME, EMAIL,ADDRESS, MOBILE_NUMBER, USER_ROLE FROM USERS WHERE IS_BLACKLISTED='YES'";
 		List<UserBean> users = jdbcTemplateObject.query(sql, new UserMapper());
-		if (!users.isEmpty()) {
-			for (UserBean user : users) {
-				bannedUsers.add(new UserBean(user.getUserId(), user.getUserName()));
-			}
-		}
-		return bannedUsers;
+		
+		return users;
 	}
 
 }

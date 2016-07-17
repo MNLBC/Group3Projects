@@ -9,11 +9,11 @@ public class OrderMapper implements RowMapper<OrderBean>{
 	@Override
 	public OrderBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 		OrderBean order = new OrderBean();
-		order.setOrderId(rs.getInt("orderId"));
-		order.setUserId(rs.getInt("userId"));
-		order.setOrderDate(rs.getString("orderDate"));
-		order.setTotalCost(rs.getDouble("totalCost"));
-		order.setOrderStatus(rs.getString("orderStatus"));
+		order.setOrderId(rs.getLong("ORDER_ID"));
+		order.setUserId(rs.getLong("USER_ID"));
+		order.setOrderDate(rs.getString("ORDER_DATE"));
+		order.setTotalCost(rs.getDouble("TOTAL_COST"));
+		order.setOrderStatus(rs.getString("ORDER_STATUS"));
 	      return order;
 	}
 }
