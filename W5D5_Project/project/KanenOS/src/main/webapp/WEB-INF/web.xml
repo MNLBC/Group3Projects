@@ -37,5 +37,13 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	
+	  <filter>
+		<display-name>BannedUsersFilter</display-name>
+		<filter-name>BannedUsersFilter</filter-name>
+		<filter-class>com.oocl.mnlbc.filter.BannedUsersFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>BannedUsersFilter</filter-name>
+		<url-pattern>/user/login</url-pattern>
+	</filter-mapping>
 </web-app>
