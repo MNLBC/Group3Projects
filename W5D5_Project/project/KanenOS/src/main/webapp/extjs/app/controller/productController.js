@@ -64,9 +64,9 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
                   var jsonData = '{ "userId": ' + userStore.getAt(0).data.userId;
 
-                  jsonData += ',"product": ';
+                  jsonData += ',"items": ';
                   jsonData += Ext.encode(Ext.pluck(cartStore.data.items, 'data'));
-                 // debugger;
+                
                   var totalCost = Ext.getCmp('lblCheckoutTotalCost').text.substr(1,Ext.getCmp('lblCheckoutTotalCost').text.length);
                   jsonData += ',"totalCost": ' + totalCost;
                   jsonData += '}';
@@ -75,19 +75,31 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                   Ext.Ajax.request({
                      url : 'order/saveOrder',
                      method: 'POST',
-                     headers: { 'Content-Type': 'application/json' },
-                     jsonData: jsonData,
+                     params: {
+                         jsonData: jsonData,
+                         
+                     },
+                   
                      success: function (response) {
-                         var jsonResp = Ext.util.JSON.decode(response.responseText);
-
+                    	 var responseText = Ext.decode(response.responseText);
+                         var responseeErrormsg = responseText.data.errormsg;
+                         if(responseeErrormsg == 'none'){
+                        	 Ext.Msg.alert("Success",'Your order has been placed.');
+                        	 Ext.getStore('cartStore').removeAll();
+                         }
+                         if(responseeErrormsg == 'failed'){
+                        	 Ext.Msg.alert("Failed",'Unable to place your order.');
+                         }
+                    	 
+                    	 
                      },
                   failure: function (response) {
 
-                     Ext.Msg.alert("Error",'Unable to checkout cart.');
+                     Ext.Msg.alert("Error",'Unable to connect to server.');
                   }
                   });
 
-
+                  
               }
 
            }, this, true);
