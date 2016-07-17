@@ -66,10 +66,28 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
                   jsonData += ',"product": ';
                   jsonData += Ext.encode(Ext.pluck(cartStore.data.items, 'data'));
+                 // debugger;
+                  var totalCost = Ext.getCmp('lblCheckoutTotalCost').text.substr(1,Ext.getCmp('lblCheckoutTotalCost').text.length);
+                  jsonData += ',"totalCost": ' + totalCost;
+                  jsonData += '}';
 
-                  jsonData += ']';
-                  debugger;
+                  /*
+                  Ext.Ajax.request({
+                     url : 'order/checkout',
+                     method: 'POST',
+                     headers: { 'Content-Type': 'application/json' },
+                     jsonData: jsonData,
+                     success: function (response) {
+                         var jsonResp = Ext.util.JSON.decode(response.responseText);
 
+                     },
+                  failure: function (response) {
+
+                     Ext.Msg.alert("Error",'Unable to checkout cart.');
+                  }
+                  });
+
+                  */
               }
 
            }, this, true);
@@ -210,12 +228,12 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                  Ext.getCmp('btnMainLogin').hide();
                  Ext.getCmp('btnMainRegister').hide();
                  Ext.getCmp('btnMainLogout').show();
-
+                 this.resetLoginFields();
                  Ext.getCmp('loginWindow').hide();
-                    debugger;
                  Ext.getCmp('loginToolbar').doLayout();
 
                  Ext.Msg.alert('Status', 'Logged in successfully');
+
 
              },
              failure: function(){
@@ -233,70 +251,61 @@ Ext.define('KanenOnlineShopping.controller.productController', {
     onBtnRegRegisterClick: function(button, e, eOpts) {
         var frmRegister = Ext.getCmp('frmRegister');
         var userName = frmRegister.query('#txtRegUsername')[0].getValue();
-        var password = frmRegister.query('#txtRegPassword')[0].getValue();
+        var userPassword = frmRegister.query('#txtRegPassword')[0].getValue();
         var confirmPassword = frmRegister.query('#txtRegConfirmPassword')[0].getValue();
         var fullName = frmRegister.query('#txtRegFullname')[0].getValue();
         var email = frmRegister.query('#txtRegEmail')[0].getValue();
         var address = frmRegister.query('#txtRegAddress')[0].getValue();
         var contactNumber = frmRegister.query('#txtRegContactNumber')[0].getValue();
         var userRole = 'Customer';
-        var userStore = Ext.getStore('userStore');
-
-
-        Ext.Ajax.Request({
-
-            url: '/user/register',
-            method: POST,
-
-            params: {
-                userName: userName,
-                userPassword: userPassword,
-                fullName: fullName,
-                email: email,
-                deliveryAddress: address,
-                mobileNumber: contactNumber,
-                userRole: userRole
-        },
-            scope: this,
-            success: function(response){
-                var responseText = JSON.parse(response.responseText);
-                alert(responseText.data);
-        //         responseText.u
-            }
-        });
-
-
-
-
+        //var userStore = Ext.getStore('userStore');
 
         if(frmRegister.isValid()){
-                    if(password == confirmPassword){
-                        if(this.checkIfUserExist(userName, userStore)){
-                            return;
-                        }else{
-                            var user = {
-                                //    userId: this.userIdSequence+=1,
+                    if(userPassword === confirmPassword){
+
+                            Ext.Ajax.request({
+
+                                 url: window.location.pathname +'user/register',
+                                 method: 'POST',
+
+                                 params: {
                                     userName: userName,
-                                    userPassword: password,
-                                    userFullName: fullName,
-                                    userEmail: email,
-                                    userAddress: address,
-                                    userMobileNumber: mobileNumber
-                                // userRole
-                                // userAddress
-                            };
-                            userStore.add(user);
-                            Ext.MessageBox.alert('Registation','Account Created, You are now registered!');
-                            this.resetRegistrationFields();
-                            frmRegister.hide();
-                        }
+                                    userPassword: userPassword,
+                                    fullName: fullName,
+                                    email: email,
+                                    deliveryAddress: address,
+                                    mobileNumber: contactNumber,
+                                    userRole: userRole
+                             },
+                                 scope: this,
+                                 success: function(response){
+                                             var responseText = Ext.decode(response.responseText);
+                                     if(responseText.data.errormsg.indexOf('none') >-1){
+                                         Ext.MessageBox.alert('Registation','Account Created, You are now registered!');
+                                          this.resetRegistrationFields();
+                                          this.registerWindow.hide();
+                                     }
+
+                                     if (responseText.data.errormsg.indexOf('usernametaken') >-1){
+                                         Ext.MessageBox.alert('Registation Failed','Username is already taken!');
+                                     }
+
+                                     if (responseText.data.errormsg.indexOf('emailtaken') >-1){
+                                         Ext.MessageBox.alert('Registation Failed','Email is already taken!');
+                                     }
+
+                                 }
+                                 });
+
+
+
+
                     }else{
                         Ext.MessageBox.alert('Invalid confirmPassword','Passowrd does not match');
                     }
                 }else{
-                    Ext.MessageBox.alert('','Invalid!');
+                    Ext.MessageBox.alert('Missing fields','Please fill-up all the fields!');
                 }
-
     },
 
     onBtnRegResetClick: function(button, e, eOpts) {
@@ -305,10 +314,12 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     onBtnRegCancelClick: function(button, e, eOpts) {
         // var registerWindow = Ext.getCmp('registerWindow');
+        this.resetRegistrationFields();
         this.registerWindow.hide();
     },
 
     onBtnLoginCancelClick: function(button, e, eOpts) {
+        this.resetLoginFields();
         this.loginWindow.hide();
 
     },
@@ -547,6 +558,13 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     loginAccount: function() {
 
+    },
+
+    resetLoginFields: function() {
+        var frmLogin = Ext.getCmp('frmLogin');
+
+        frmLogin.query('#txtLoginUsername')[0].setValue('');
+        frmLogin.query('#txtLoginPassword')[0].setValue('');
     },
 
     resetRegistrationFields: function() {

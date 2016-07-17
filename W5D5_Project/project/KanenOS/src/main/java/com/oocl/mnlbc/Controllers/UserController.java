@@ -43,7 +43,7 @@ public class UserController {
 
 		UserBean user = new UserBean(0, userName, userPassword, fullName, email, deliveryAddress, mobileNumber,
 				userRole);
-    System.out.println(user.getFullName());
+		System.out.println(user.getFullName());
 		if (userService.userExists(userName)) {
 			errorMsg += "usernametaken";
 			System.out.println(errorMsg);
@@ -61,12 +61,11 @@ public class UserController {
 				errorMsg += "failed";
 			}
 		}
-	builder.append(errorMsg);
+		builder.append(errorMsg);
 
 		builder.append("\"}}");
 		System.out.println(builder.toString());
 		return builder.toString();
-	
 
 	}
 
@@ -75,26 +74,24 @@ public class UserController {
 	public String loginUser(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword) throws Exception {
 
-	
-		
 		UserBean user = userService.validateAccount(userName, userPassword);
 		String returnJson = "";
 		StringBuilder builder = new StringBuilder();
-		if (user!=null) {
+		if (user != null) {
 			returnJson = "{\"success\":true,\"data\":{\"user\":[";
 			builder.append(returnJson);
 
 			Gson gson = new Gson();
-				builder.append( gson.toJson(user));
+			builder.append(gson.toJson(user));
 
 		} else {
-			
+
 			returnJson = "{\"success\":true,\"data\":{\"user\":[";
 			builder.append(returnJson);
 			Gson gson = new Gson();
-			builder.append( gson.toJson(user));
+			builder.append(gson.toJson(user));
 		}
-	
+
 		builder.append("]}}");
 
 		return builder.toString();
