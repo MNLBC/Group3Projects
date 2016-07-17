@@ -24,14 +24,15 @@ import com.oocl.mnlbc.service.OrderService;
 public class OrderController {
 	@Autowired
 	private OrderService orderDAO;
- private static final Logger logger = Logger.getLogger(OrderController.class);
+	private static final Logger logger = Logger.getLogger(OrderController.class);
+
 	@RequestMapping(value = "/userOrder", method = { RequestMethod.POST })
 	@ResponseBody
 	public String getOrderList(@RequestParam(value = "userId", required = true) String userId) throws Exception {
 		String returnJson = "{\"success\":true,\"data\":{\"orders\":[";
 		logger.info("Retrieving orders for user " + userId + "..");
 		List<OrderBean> order = orderDAO.getTransactions(Long.parseLong(userId));
-
+		System.out.println(order);
 		long orderId = 0;
 
 		Gson gson = new Gson();
@@ -42,17 +43,16 @@ public class OrderController {
 		returnJson = returnJson.substring(0, returnJson.length() - 1);
 		returnJson += "],";
 
-		
 		returnJson += "\"items\":[";
 		for (OrderBean ord : order) {
-			
+
 			orderId = ord.getOrderId();
-		List<CartItemBean> itemList = orderDAO.getItems(orderId);
-		for (CartItemBean item : itemList) {
-			returnJson += gson.toJson(item) + ",";
-			
-		}
-		
+			List<CartItemBean> itemList = orderDAO.getItems(orderId);
+			for (CartItemBean item : itemList) {
+				returnJson += gson.toJson(item) + ",";
+
+			}
+
 		}
 		returnJson = returnJson.substring(0, returnJson.length() - 1);
 		returnJson += "]}}";
@@ -85,16 +85,9 @@ public class OrderController {
 		builder.append(errorMsg);
 
 		builder.append("\"}}");
-		System.out.println(builder.toString());
-
-		System.out.println(order.getUserId());
-		System.out.println(order.getTotalCost());
-
-		System.out.println(order.getItems().get(0).getProductName());
-
+		
 		return builder.toString();
 
 	}
 
 }
-

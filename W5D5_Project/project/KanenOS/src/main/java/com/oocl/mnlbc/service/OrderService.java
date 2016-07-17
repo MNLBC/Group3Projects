@@ -83,7 +83,6 @@ public class OrderService implements OrderDAO {
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
 		return result;
 	}
 

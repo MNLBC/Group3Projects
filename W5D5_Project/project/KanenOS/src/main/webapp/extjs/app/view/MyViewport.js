@@ -81,7 +81,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             id: 'cartGrid',
                                             itemId: 'cartGrid',
                                             bodyBorder: true,
-                                            title: 'My Grid Panel',
+                                            title: 'My Cart',
                                             store: 'cartStore',
                                             viewConfig: {
                                                 border: 30
