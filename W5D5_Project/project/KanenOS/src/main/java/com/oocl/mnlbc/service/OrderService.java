@@ -42,10 +42,49 @@ public class OrderService implements OrderDAO {
 		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
 	}
 
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean createOrder(OrderBean cart) {
-		return false;
+		TransactionTemplate tt = new TransactionTemplate(getTransactionManager());
+		cUserId = Long.toString(cart.getUserId());
+
+		cTotalCost = Double.toString(cart.getTotalCost());
+
+		cItems = cart.getItems();
+		boolean result = false;
+		try {
+			result = tt.execute(new TransactionCallback() {
+
+				public Object doInTransaction(TransactionStatus status) {
+
+					JdbcTemplate jt = new JdbcTemplate(dataSource);
+					int i = 0;
+					String sql = "Insert into ORDERS(" + "USER_ID," + "ORDER_DATE," + "TOTAL_COST," + "ORDER_STATUS) "
+							+ "values(?,SYSDATE,?,?)";
+					i = jt.update(sql, cUserId, cTotalCost, "On-Delivery");
+
+					if (!(i == 0)) {
+						long orderId = getOrderId();
+
+						for (CartItemBean item : cItems) {
+							if (saveCart(item, orderId)) {
+							} else {
+								return false;
+							}
+						}
+
+						return true;
+					}
+					return false;
+				}
+
+			});
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		System.out.println(result);
+		return result;
 	}
 
 	@Override
