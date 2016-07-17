@@ -67,5 +67,6 @@
 
 	<resources location="extjs/resource/**" mapping="resource/*.jpg" />
 	<resources location="extjs/resource/**" mapping="resource/*.png" />
+	
 
 </beans:beans>

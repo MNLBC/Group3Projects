@@ -115,7 +115,16 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>        
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>
+				com.springsource.org.codehaus.jackson.mapper
+			</artifactId>
+			<version>1.0.0</version>
+			<type>jar.lastUpdated</type>
+		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>

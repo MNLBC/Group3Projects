@@ -1,7 +1,6 @@
 package com.oocl.mnlbc.Controllers;
 
-import java.util.List;
-
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.oocl.mnlbc.model.ProductBean;
+import com.oocl.mnlbc.HomeController;
 import com.oocl.mnlbc.model.UserBean;
 import com.oocl.mnlbc.service.UserService;
 
@@ -20,11 +19,10 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
-	 
-	
 
-	@RequestMapping(value = "/register", method = { RequestMethod.GET })
+	private static final Logger logger = Logger.getLogger(UserController.class);
+
+	@RequestMapping(value = "/register", method = { RequestMethod.POST })
 	@ResponseBody
 	public String createUser(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword,
@@ -33,6 +31,8 @@ public class UserController {
 			@RequestParam(value = "deliveryAddress", required = true) String deliveryAddress,
 			@RequestParam(value = "mobileNumber", required = true) String mobileNumber,
 			@RequestParam(value = "userRole", required = true) String userRole) throws Exception {
+
+		logger.info(userName + " is trying to register");
 
 		StringBuilder builder = new StringBuilder();
 		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
@@ -53,18 +53,22 @@ public class UserController {
 		if (userService.userExists(userName)) {
 			errorMsg += "usernametaken";
 			System.out.println(errorMsg);
+			logger.info("Registration Failed, " + userName + " is already taken");
 		}
 		System.out.println(email);
 		if (userService.emailExists(email)) {
 			errorMsg += "emailtaken";
 			System.out.println(errorMsg);
+			logger.info("Registration Failed, " + email + " is already taken");
 		}
 
 		if (errorMsg.equals("")) {
 			if (userService.registerUser(user)) {
 				errorMsg += "none";
+				logger.info("User successfully registered");
 			} else {
 				errorMsg += "failed";
+				logger.info("Registration failed");
 			}
 		}
 		builder.append(errorMsg);
@@ -75,10 +79,11 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/login", method = { RequestMethod.GET })
+	@RequestMapping(value = "/login", method = { RequestMethod.POST })
 	@ResponseBody
 	public String loginUser(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword) throws Exception {
+		logger.info(userName + " is logging in..");
 
 		UserBean user = userService.validateAccount(userName, userPassword);
 		String returnJson = "";
@@ -89,6 +94,7 @@ public class UserController {
 
 			Gson gson = new Gson();
 			builder.append(gson.toJson(user));
+			logger.info(userName + " has successfully logged in.");
 
 		} else {
 
@@ -96,6 +102,7 @@ public class UserController {
 			builder.append(returnJson);
 			Gson gson = new Gson();
 			builder.append(gson.toJson(user));
+			logger.info(userName + " has failed to log in.");
 		}
 
 		builder.append("]}}");
@@ -103,7 +110,6 @@ public class UserController {
 		return builder.toString();
 
 	}
-
 
 	@RequestMapping(value = "/session", method = { RequestMethod.POST })
 	@ResponseBody
@@ -120,6 +126,7 @@ public class UserController {
 		StringBuilder builder = new StringBuilder();
 		String returnJson = "{\"success\":true}";
 		builder.append(returnJson);
+		logger.info("User has successfully logged out.");
 		return returnJson;
 	}
 }
