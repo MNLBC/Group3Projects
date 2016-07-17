@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -21,8 +20,6 @@ public class OrderService implements OrderDAO {
 
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplateObject;
-	@Autowired
-	private final static OrderService orderDAO = null;
 
 	private PlatformTransactionManager transactionManager;
 
@@ -32,10 +29,6 @@ public class OrderService implements OrderDAO {
 
 	public void setTransactionManager(PlatformTransactionManager transactionManager) {
 		this.transactionManager = transactionManager;
-	}
-
-	public static OrderService getInstance() {
-		return orderDAO;
 	}
 
 	@Override
@@ -52,46 +45,7 @@ public class OrderService implements OrderDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean createOrder(OrderBean cart) {
-		TransactionTemplate tt = new TransactionTemplate(getTransactionManager());
-		cUserId = Long.toString(cart.getUserId());
-
-		cTotalCost = Double.toString(cart.getTotalCost());
-
-		cOrderStatus = cart.getOrderStatus();
-		cItems = cart.getItems();
-		boolean result;
-		try {
-			 result = tt.execute(new TransactionCallback() {
-
-				public Object doInTransaction(TransactionStatus status) {
-
-					JdbcTemplate jt = new JdbcTemplate(dataSource);
-					int i = 0;
-					String sql = "Insert into ORDERS(" + "USER_ID," + "ORDER_DATE," + "TOTAL_COST," + "ORDER_STATUS) "
-							+ "values(?,SYSDATE,?,?)";
-					i = jt.update(sql, cUserId, cTotalCost, cOrderStatus);
-
-					if (!(i == 0)) {
-						long orderId = getOrderId();
-
-						for (CartItemBean item : cItems) {
-							if (saveCart(item, orderId)) {
-							} else {
-								return false;
-							}
-						}
-
-						return true;
-					}
-					return false;
-				}
-
-			});
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-			result = false;
-		}
-		return result;
+		return false;
 	}
 
 	@Override
@@ -135,7 +89,7 @@ public class OrderService implements OrderDAO {
 	@Override
 	public long getOrderId() {
 		String sql = "SELECT MAX(ORDER_ID) AS ORDER_ID FROM ORDERS";
-		OrderBean orderId = jdbcTemplateObject.queryForObject(sql, new OrderMapper());
+		OrderBean orderId = jdbcTemplateObject.queryForObject(sql, new OrderIdMapper());
 
 		return orderId.getOrderId();
 
