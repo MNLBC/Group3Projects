@@ -24,10 +24,8 @@ import com.oocl.mnlbc.service.OrderService;
 public class OrderController {
 	@Autowired
 	private OrderService orderDAO;
-
-	private static final Logger logger = Logger.getLogger(OrderController.class);
-
-	@RequestMapping(value = "/userOrder", method = { RequestMethod.GET })
+ private static final Logger logger = Logger.getLogger(OrderController.class);
+	@RequestMapping(value = "/userOrder", method = { RequestMethod.POST })
 	@ResponseBody
 	public String getOrderList(@RequestParam(value = "userId", required = true) String userId) throws Exception {
 		String returnJson = "{\"success\":true,\"data\":{\"orders\":[";
@@ -39,16 +37,22 @@ public class OrderController {
 		Gson gson = new Gson();
 		for (OrderBean ord : order) {
 			returnJson += gson.toJson(ord) + ",";
-			orderId = ord.getOrderId();
 		}
 
 		returnJson = returnJson.substring(0, returnJson.length() - 1);
 		returnJson += "],";
 
-		List<ItemsBean> itemList = orderDAO.getItems(orderId);
+		
 		returnJson += "\"items\":[";
-		for (ItemsBean item : itemList) {
+		for (OrderBean ord : order) {
+			
+			orderId = ord.getOrderId();
+		List<CartItemBean> itemList = orderDAO.getItems(orderId);
+		for (CartItemBean item : itemList) {
 			returnJson += gson.toJson(item) + ",";
+			
+		}
+		
 		}
 		returnJson = returnJson.substring(0, returnJson.length() - 1);
 		returnJson += "]}}";
@@ -93,3 +97,4 @@ public class OrderController {
 	}
 
 }
+
