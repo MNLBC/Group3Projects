@@ -271,15 +271,12 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                     itemId: 'orderHistoryContainer',
                     style: 'background-color:#292c2f',
                     width: 1138,
-                    layout: {
-                        type: 'hbox',
-                        align: 'stretch'
-                    },
+                    layout: 'border',
                     items: [
                         {
                             xtype: 'container',
-                            flex: 1,
-                            height: 50,
+                            flex: 10,
+                            region: 'center',
                             id: 'orderBodyContainer',
                             layout: {
                                 type: 'vbox',
@@ -322,6 +319,20 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             flex: 1
                                         }
                                     ]
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'toolbar',
+                            flex: 1,
+                            region: 'south',
+                            height: 150,
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    id: 'btnBack',
+                                    itemId: 'btnBack',
+                                    text: 'Back to Main'
                                 }
                             ]
                         }

@@ -49,8 +49,9 @@ public class BannedUsersFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		bannedUserList = new ArrayList<String>();
-		bannedUserList.add("Scott");
-		bannedUserList.add("Johns");
+		bannedUserList.add("jscott");
+		bannedUserList.add("randy");
+		bannedUserList.add("yume");
 		//bannedUserList.add("brionse");
 		//System.out.println("AAAAAAA");
 		String returnJson = "";

@@ -509,6 +509,12 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     },
 
+    onBtnBackClick: function(button, e, eOpts) {
+        Ext.getStore('orderStore').removeAll();
+        Ext.getCmp('orderHistoryContainer').hide();
+        this.getMainContainer().show();
+    },
+
     onLaunch: function() {
 
         this.bodyContainer = this.getBodyContainer();
@@ -779,6 +785,9 @@ Ext.define('KanenOnlineShopping.controller.productController', {
             },
             "#btnHistory": {
                 click: this.onBtnHistoryClick
+            },
+            "#btnBack": {
+                click: this.onBtnBackClick
             }
         });
     }
