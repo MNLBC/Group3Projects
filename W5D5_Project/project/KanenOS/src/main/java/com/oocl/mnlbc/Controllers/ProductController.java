@@ -15,6 +15,11 @@ import com.oocl.mnlbc.HomeController;
 import com.oocl.mnlbc.model.ProductBean;
 import com.oocl.mnlbc.service.ProductService;
 
+/**
+ * 
+ * @author ITAGroup3
+ *
+ */
 @Controller
 @RequestMapping("/product")
 public class ProductController {
@@ -23,7 +28,11 @@ public class ProductController {
 	private ProductService productService;
 
 	private static final Logger logger = Logger.getLogger(ProductController.class);
-
+/**
+ * getting all the products
+ * @return String
+ * @throws IOException
+ */
 	@RequestMapping(value = "/productList", method = { RequestMethod.POST })
 	@ResponseBody
 	public String getProductList() throws IOException {

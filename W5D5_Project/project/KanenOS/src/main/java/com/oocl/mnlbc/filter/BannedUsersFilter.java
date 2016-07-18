@@ -27,7 +27,7 @@ import com.oocl.mnlbc.model.UserBean;
 import com.oocl.mnlbc.service.UserService;
 
 /**
- * @author VERGAJO
+ * @author ITAGroup3
  *
  */
 
@@ -44,7 +44,10 @@ public class BannedUsersFilter implements Filter {
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
-
+	
+	/**
+	 * Filters all banned user
+	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;

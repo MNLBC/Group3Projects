@@ -116,7 +116,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                     items: [
                                                         {
                                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                alert('Ready to delete hehe');
+                                                                Ext.Msg.alert('Status', 'Item removed from cart.');
                                                                 var cartGrid = Ext.getCmp('cartGrid');
                                                                 var orderStore = cartGrid.getStore();
                                                                 //                         var orderHistoryGrid= this.getCartGrid();
@@ -228,7 +228,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             height: 33,
                                             id: 'btnHistory',
                                             width: 96,
-                                            text: 'Order HIstory'
+                                            text: 'Order History'
                                         },
                                         {
                                             xtype: 'tbspacer',
@@ -275,7 +275,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                     items: [
                         {
                             xtype: 'container',
-                            flex: 10,
+                            flex: 13,
                             region: 'center',
                             id: 'orderBodyContainer',
                             layout: {

@@ -7,9 +7,15 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.oocl.mnlbc.model.ItemsBean;
 import com.oocl.mnlbc.model.UserBean;
-
+/**
+ * 
+ * @author ITAGroup3
+ *
+ */
 public class ItemsMapper implements RowMapper<ItemsBean> {
-
+/**
+ * IemsBean Mapper for Service
+ */
 	@Override
 	public ItemsBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ItemsBean item = new ItemsBean();

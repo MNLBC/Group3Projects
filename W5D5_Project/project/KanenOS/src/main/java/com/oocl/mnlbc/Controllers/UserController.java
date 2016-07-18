@@ -13,6 +13,11 @@ import com.oocl.mnlbc.HomeController;
 import com.oocl.mnlbc.model.UserBean;
 import com.oocl.mnlbc.service.UserService;
 
+/**
+ * 
+ * @author ITAGroup3
+ *
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -22,6 +27,19 @@ public class UserController {
 
 	private static final Logger logger = Logger.getLogger(UserController.class);
 
+	/**
+	 * This handles the registration in the UI
+	 * 
+	 * @param userName
+	 * @param userPassword
+	 * @param fullName
+	 * @param email
+	 * @param deliveryAddress
+	 * @param mobileNumber
+	 * @param userRole
+	 * @return String
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/register", method = { RequestMethod.POST })
 	@ResponseBody
 	public String createUser(@RequestParam(value = "userName", required = true) String userName,
@@ -79,6 +97,15 @@ public class UserController {
 
 	}
 
+	/**
+	 * This handles the login in the UI
+	 * 
+	 * @param userName
+	 * @param userPassword
+	 * @return String
+	 * @throws Exception
+	 */
+
 	@RequestMapping(value = "/login", method = { RequestMethod.POST })
 	@ResponseBody
 	public String loginUser(@RequestParam(value = "userName", required = true) String userName,
@@ -111,6 +138,11 @@ public class UserController {
 
 	}
 
+	/**
+	 * Session of the user
+	 * @return String
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/session", method = { RequestMethod.POST })
 	@ResponseBody
 	public String checkIfHasSession() throws Exception {
@@ -119,6 +151,12 @@ public class UserController {
 		builder.append(returnJson);
 		return returnJson;
 	}
+	
+	/**
+	 * This handles the Logout
+	 * @return
+	 * @throws Exception
+	 */
 
 	@RequestMapping(value = "/logout", method = { RequestMethod.POST })
 	@ResponseBody

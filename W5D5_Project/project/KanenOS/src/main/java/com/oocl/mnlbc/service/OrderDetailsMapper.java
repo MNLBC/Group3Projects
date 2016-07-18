@@ -6,9 +6,16 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.oocl.mnlbc.model.CartItemBean;
-
+/**
+ * 
+ * @author ITAGroup3
+ *
+ */
 public class OrderDetailsMapper implements RowMapper<CartItemBean> {
 
+	/**
+	 * OrderDetailsMapper for the Order Service
+	 */
 	@Override
 	public CartItemBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 		CartItemBean item = new CartItemBean();

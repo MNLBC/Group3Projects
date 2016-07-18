@@ -50,44 +50,57 @@ Ext.define('KanenOnlineShopping.controller.productController', {
     ],
 
     onBtnBuyClicked: function(button, e, eOpts) {
-        var userStore =Ext.getStore('userStore');
-        var isUserLoggedIn = ( userStore.count() > 0);
+    	 var userStore =Ext.getStore('userStore');
+         var isUserLoggedIn = ( userStore.count() > 0);
 
-        if(isUserLoggedIn){
-           Ext.Msg.confirm('Place Order', 'Order these items?', function(btn)
-           {
-              if(btn=='yes'){
-                  Ext.MessageBox.alert('','Order successfully created. Please wait for confirmation.');
+         if(isUserLoggedIn){
+            Ext.Msg.confirm('Place Order', 'Order these items?', function(btn)
+            {
+               if(btn=='yes'){
+                   Ext.MessageBox.alert('','Order successfully created. Please wait for confirmation.');
 
 
-                  var cartStore = Ext.getStore('cartStore');
+                   var cartStore = Ext.getStore('cartStore');
 
-                  var jsonData = '{ "userId": ' + userStore.getAt(0).data.userId;
+                   var jsonData = '{ "userId": ' + userStore.getAt(0).data.userId;
 
-                  jsonData += ',"product": ';
-                  jsonData += Ext.encode(Ext.pluck(cartStore.data.items, 'data'));
-                 // debugger;
-                  var totalCost = Ext.getCmp('lblCheckoutTotalCost').text.substr(1,Ext.getCmp('lblCheckoutTotalCost').text.length);
-                  jsonData += ',"totalCost": ' + totalCost;
-                  jsonData += '}';
+                   jsonData += ',"items": ';
+                   jsonData += Ext.encode(Ext.pluck(cartStore.data.items, 'data'));
+                 
+                   var totalCost = Ext.getCmp('lblCheckoutTotalCost').text.substr(1,Ext.getCmp('lblCheckoutTotalCost').text.length);
+                   jsonData += ',"totalCost": ' + totalCost;
+                   jsonData += '}';
 
-                  /*
-                  Ext.Ajax.request({
-                     url : 'order/checkout',
-                     method: 'POST',
-                     headers: { 'Content-Type': 'application/json' },
-                     jsonData: jsonData,
-                     success: function (response) {
-                         var jsonResp = Ext.util.JSON.decode(response.responseText);
 
-                     },
+                   Ext.Ajax.request({
+                      url : 'order/saveOrder',
+                      method: 'POST',
+                      params: {
+                          jsonData: jsonData
+                          
+                      },
+                    
+                      success: function (response) {
+                      var responseText = Ext.decode(response.responseText);
+                          var responseeErrormsg = responseText.data.errormsg;
+                          if(responseeErrormsg == 'none'){
+                          Ext.Msg.alert("Success",'Your order has been placed.');
+                          Ext.getStore('cartStore').removeAll();
+                          }
+                          if(responseeErrormsg == 'failed'){
+                          Ext.Msg.alert("Failed",'Unable to place your order.');
+                          }
+                      
+                      
+                      },
+
                   failure: function (response) {
 
                      Ext.Msg.alert("Error",'Unable to checkout cart.');
                   }
                   });
 
-                  */
+                  
               }
 
            }, this, true);
@@ -276,7 +289,15 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
                  var responseText = Ext.decode(response.responseText);
                  var responseData = responseText.data;
-                 var user = responseData.user[0];
+
+                 if(responseData.banned == true){
+                     Ext.MessageBox.alert('Login failed', 'Your account is blocked.');
+                 }else if(!responseData.user[0]){
+                     Ext.MessageBox.alert('Login failed', 'Invalid credentials.');
+                 }else{
+
+
+                     var user = responseData.user[0];
 
                  var loggedInUser = {
                      userId: user.userId,
@@ -299,6 +320,8 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                  Ext.getCmp('loginToolbar').doLayout();
                  Ext.getCmp('btnHistory').show();
                  Ext.Msg.alert('Status', 'Logged in successfully');
+                 }
+
 
 
              },
@@ -394,7 +417,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         this.loginWindow.hide();
         this.registerWindow.show();
-
+        
 
     },
 
@@ -407,7 +430,8 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         Ext.getCmp('loginToolbar').doLayout();
         var userStore  = Ext.getStore('userStore');
         userStore.removeAll();
-
+        var cartStore = Ext.getStore('cartStore');
+        cartStore.removeAll();
         Ext.Msg.alert('Status', 'Signing out.');
 
     },
@@ -495,10 +519,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                        };
                 orderItemStore.add(items);
                  }
-        debugger;
-
-
-
 
 
              },

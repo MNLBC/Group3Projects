@@ -7,7 +7,11 @@ import javax.sql.DataSource;
 import com.oocl.mnlbc.model.CartItemBean;
 import com.oocl.mnlbc.model.ItemsBean;
 import com.oocl.mnlbc.model.OrderBean;
-
+/**
+ * 
+ * @author ITAGroup3
+ *
+ */
 public interface OrderDAO {
 	 /** 
 	    * This is the method to be used to initialize
