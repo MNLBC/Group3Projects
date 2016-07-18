@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 import com.oocl.mnlbc.Controllers.UserController;
 
 /**
- * @author VERGAJO
+ * @author ITAGroup3
  *
  */
 //@WebListener
@@ -24,7 +24,9 @@ public class OnlineCounterListener implements HttpSessionListener {
 	public static List<String> onlineUsers = new ArrayList<String>();
 	public static String session_cnt = "session-counter";
 	private static final Logger logger = Logger.getLogger(UserController.class);
-
+/**
+ * When the user opens the page the session start
+ */
 	@Override
 	public void sessionCreated(HttpSessionEvent event) {
 		System.out.println("Session Created");
@@ -32,9 +34,12 @@ public class OnlineCounterListener implements HttpSessionListener {
 		onlineUsers.add(session.getId());
 		session.setAttribute(OnlineCounterListener.session_cnt, this);
 	//	logger.info("Session Created for " + event.getSession());
-		logger.info("Number of Online Users: " + onlineUsers.size());
+		logger.info("Number of Page Viewers: " + onlineUsers.size());
 	}
 
+	/**
+	 * when the user session ends
+	 */
 	@Override
 	public void sessionDestroyed(HttpSessionEvent event) {
 		System.out.println("Session Destroyed");

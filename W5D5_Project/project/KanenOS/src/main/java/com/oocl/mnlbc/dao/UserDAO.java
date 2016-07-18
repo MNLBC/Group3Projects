@@ -4,7 +4,11 @@ import java.util.List;
 import javax.sql.DataSource;
 import com.oocl.mnlbc.model.UserBean;
 
-
+/**
+ * 
+ * @author ITAGroup3
+ *
+ */
 public interface UserDAO {
 	
 	public void setDataSource(DataSource ds);

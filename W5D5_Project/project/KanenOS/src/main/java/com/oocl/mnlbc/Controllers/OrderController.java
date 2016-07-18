@@ -18,7 +18,11 @@ import com.oocl.mnlbc.model.CartItemBean;
 import com.oocl.mnlbc.model.ItemsBean;
 import com.oocl.mnlbc.model.OrderBean;
 import com.oocl.mnlbc.service.OrderService;
-
+/**
+ * 
+ * @author ITAGroup3
+ * This is the Order Controller where the request from the UI side
+ */
 @Controller
 @RequestMapping("/order")
 public class OrderController {
@@ -26,6 +30,12 @@ public class OrderController {
 	private OrderService orderDAO;
 	private static final Logger logger = Logger.getLogger(OrderController.class);
 
+	/**
+	 * getting the List of order of a certain user.
+	 * @param userId
+	 * @return String
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/userOrder", method = { RequestMethod.POST })
 	@ResponseBody
 	public String getOrderList(@RequestParam(value = "userId", required = true) String userId) throws Exception {
@@ -64,6 +74,12 @@ public class OrderController {
 
 	}
 
+	/**
+	 * Saving the order of a user
+	 * @param jsonData
+	 * @return String
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST)
 	@ResponseBody
 	public String saveOrder(@RequestParam(value = "jsonData", required = true) String jsonData) throws IOException {
