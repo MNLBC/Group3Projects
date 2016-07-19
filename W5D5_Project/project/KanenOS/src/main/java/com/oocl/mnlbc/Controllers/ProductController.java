@@ -33,7 +33,7 @@ public class ProductController {
  * @return String
  * @throws IOException
  */
-	@RequestMapping(value = "/productList", method = { RequestMethod.POST })
+	@RequestMapping(value = "/productList", method = { RequestMethod.GET })
 	@ResponseBody
 	public String getProductList() throws IOException {
 		logger.info("Retrieving products from the database..");
