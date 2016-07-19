@@ -1,23 +1,20 @@
 package com.oocl.mnlbc.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-@Entity(name = "order_item")
-@Table(name = "order_items")
+@Entity(name = "book")
+@Table(name = "books")
 public class Book implements Serializable {
 
     /**
@@ -32,11 +29,9 @@ public class Book implements Serializable {
     private String bookName;
     @Column(name = "book_details")
     private String bookDetails;
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Product product;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId", fetch = FetchType.EAGER)
-    private List<Product> productList;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "products", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private List<Product> product = new ArrayList<Product>();
     
     public Book() {
 		// TODO Auto-generated constructor stub
@@ -80,26 +75,14 @@ public class Book implements Serializable {
 
 
 
-	public Product getProduct() {
+	public List<Product> getProduct() {
 		return product;
 	}
 
 
 
-	public void setProduct(Product product) {
+	public void setProduct(List<Product> product) {
 		this.product = product;
-	}
-
-
-
-	public List<Product> getProductList() {
-		return productList;
-	}
-
-
-
-	public void setProductList(List<Product> productList) {
-		this.productList = productList;
 	}
 
 

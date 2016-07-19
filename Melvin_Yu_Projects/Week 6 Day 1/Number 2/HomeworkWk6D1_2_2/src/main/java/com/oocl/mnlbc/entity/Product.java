@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity(name = "order")
-@Table(name = "orders")
+@Entity(name = "product")
+@Table(name = "products")
 public class Product implements Serializable {
 
     /**
@@ -32,11 +32,7 @@ public class Product implements Serializable {
     private String productName;
     @Column(name = "product_details")
     private String productDetails;
-    @JoinColumn(name = "book_id", referencedColumnName = "book_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Book book;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookId", fetch = FetchType.EAGER)
-    private List<Book> bookList;
+
     
     public Product() {
 		// TODO Auto-generated constructor stub
@@ -79,28 +75,6 @@ public class Product implements Serializable {
 	}
 
 
-
-	public Book getBook() {
-		return book;
-	}
-
-
-
-	public void setBook(Book book) {
-		this.book = book;
-	}
-
-
-
-	public List<Book> getBookList() {
-		return bookList;
-	}
-
-
-
-	public void setBookList(List<Book> bookList) {
-		this.bookList = bookList;
-	}
 
 
 
