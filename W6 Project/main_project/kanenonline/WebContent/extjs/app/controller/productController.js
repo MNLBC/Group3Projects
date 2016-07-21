@@ -567,7 +567,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
             },
             success: function(response){
 
-                var responseData = Ext.decode(response.responseText).data;
+                var responseData = Ext.decode(response.responseText);
 
                 for(var i=0; i < responseData.products.length; i++){
                     var product = {

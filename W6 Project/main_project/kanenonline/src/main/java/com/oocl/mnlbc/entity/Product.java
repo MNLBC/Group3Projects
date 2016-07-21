@@ -5,24 +5,32 @@ package com.oocl.mnlbc.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  * @author VERGAJO
  *
  */
-@Entity
-@NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
-public class Products implements Serializable {
+@Entity(name="product")
+@Table(name="PRODUCT")
+//@NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
+public class Product implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "PRODUCT_ID")
+	@GeneratedValue(generator = "PRODUCT_ID_SEQ")
+	@SequenceGenerator(name = "PRODUCT_ID_SEQ", sequenceName = "PRODUCT_ID_SEQ", allocationSize = 111)
 	private long productId;
 
 	@Column(name = "PRODUCT_NAME")
@@ -38,24 +46,24 @@ public class Products implements Serializable {
 	private BigDecimal productStockQuantity;
 
 	@Column(name = "PRODUCT_IMAGE_PATH")
-	private String productImagePath;
+	private String imagePath;
 
-	@OneToMany(mappedBy = "productId")
-	private OrderItem orderItem;
+	/*@OneToMany(mappedBy = "productId")
+	private OrderItem orderItem;*/
 
-	public Products() {
+	public Product() {
 	}
 
-	public Products(long productId, String productName, String productDescription, BigDecimal productPrice,
-			BigDecimal productStockQuantity, String productImagePath, OrderItem orderItem) {
+	public Product(long productId, String productName, String productDescription, BigDecimal productPrice,
+			BigDecimal productStockQuantity, String imagePath, OrderItem orderItem) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
 		this.productDescription = productDescription;
 		this.productPrice = productPrice;
 		this.productStockQuantity = productStockQuantity;
-		this.productImagePath = productImagePath;
-		this.orderItem = orderItem;
+		this.imagePath = imagePath;
+		//this.orderItem = orderItem;
 	}
 
 	public long getProductId() {
@@ -99,21 +107,21 @@ public class Products implements Serializable {
 	}
 
 	public String getProductImagePath() {
-		return productImagePath;
+		return imagePath;
 	}
 
 	public void setProductImagePath(String productImagePath) {
-		this.productImagePath = productImagePath;
+		this.imagePath = productImagePath;
 	}
 
-	public OrderItem getOrderItem() {
+	/*public OrderItem getOrderItem() {
 		return orderItem;
 	}
 
 	public void setOrderItem(OrderItem orderItem) {
 		this.orderItem = orderItem;
 	}
-
+*/
 
 
 }

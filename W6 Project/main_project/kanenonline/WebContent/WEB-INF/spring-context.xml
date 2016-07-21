@@ -14,7 +14,7 @@
 
 	<bean id="productService" class="com.oocl.mnlbc.service.ProductService"
 		scope="singleton">
-		<property name="dataSource" ref="dataSource" />
+		<!-- <property name="dataSource" ref="dataSource" /> -->
 	</bean>
 
 

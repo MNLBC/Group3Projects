@@ -6,8 +6,8 @@
 	<persistence-unit name="unitEclipseLink"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<!-- <class>com.oocl.mnlbc.entity.User</class> <class>com.oocl.mnlbc.entity.Order</class> 
-			<class>com.oocl.mnlbc.entity.Product</class> -->
+		<!-- <class>com.oocl.mnlbc.entity.User</class> <class>com.oocl.mnlbc.entity.Order</class> -->
+			<class>com.oocl.mnlbc.entity.Product</class> 
 
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@zha-ita122-w7:1521:XE" />
