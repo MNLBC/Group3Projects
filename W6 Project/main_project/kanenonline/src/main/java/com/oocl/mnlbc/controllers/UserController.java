@@ -1,4 +1,4 @@
-package com.oocl.mnlbc.Controllers;
+package com.oocl.mnlbc.controllers;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
