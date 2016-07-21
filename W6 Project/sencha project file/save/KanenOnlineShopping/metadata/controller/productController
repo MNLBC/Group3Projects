@@ -1,0 +1,1183 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "productController",
+        "id": "productController"
+    },
+    "designerId": "fc44f6a2-5bc4-4c83-839d-b9216bf6eeff",
+    "cn": [
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnBuy",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnBuyClicked",
+                "implHandler": [
+                    " var userStore =Ext.getStore('userStore');\r",
+                    "         var isUserLoggedIn = ( userStore.count() > 0);\r",
+                    "\r",
+                    "         if(isUserLoggedIn){\r",
+                    "            Ext.Msg.confirm('Place Order', 'Order these items?', function(btn)\r",
+                    "            {\r",
+                    "               if(btn=='yes'){\r",
+                    "                   Ext.MessageBox.alert('','Order successfully created. Please wait for confirmation.');\r",
+                    "\r",
+                    "\r",
+                    "                   var cartStore = Ext.getStore('cartStore');\r",
+                    "\r",
+                    "                   var jsonData = '{ \"userId\": ' + userStore.getAt(0).data.userId;\r",
+                    "\r",
+                    "                   jsonData += ',\"items\": ';\r",
+                    "                   jsonData += Ext.encode(Ext.pluck(cartStore.data.items, 'data'));\r",
+                    "                 \r",
+                    "                   var totalCost = Ext.getCmp('lblCheckoutTotalCost').text.substr(1,Ext.getCmp('lblCheckoutTotalCost').text.length);\r",
+                    "                   jsonData += ',\"totalCost\": ' + totalCost;\r",
+                    "                   jsonData += '}';\r",
+                    "\r",
+                    "\r",
+                    "                   Ext.Ajax.request({\r",
+                    "                      url : 'order/saveOrder',\r",
+                    "                      method: 'POST',\r",
+                    "                      params: {\r",
+                    "                          jsonData: jsonData\r",
+                    "                          \r",
+                    "                      },\r",
+                    "                    \r",
+                    "                      success: function (response) {\r",
+                    "                      var responseText = Ext.decode(response.responseText);\r",
+                    "                          var responseeErrormsg = responseText.data.errormsg;\r",
+                    "                          if(responseeErrormsg == 'none'){\r",
+                    "                          Ext.Msg.alert(\"Success\",'Your order has been placed.');\r",
+                    "                          Ext.getStore('cartStore').removeAll();\r",
+                    "                          }\r",
+                    "                          if(responseeErrormsg == 'failed'){\r",
+                    "                          Ext.Msg.alert(\"Failed\",'Unable to place your order.');\r",
+                    "                          }\r",
+                    "                      \r",
+                    "                      \r",
+                    "                      },\r",
+                    "\r",
+                    "                  failure: function (response) {\r",
+                    "\r",
+                    "                     Ext.Msg.alert(\"Error\",'Unable to checkout cart.');\r",
+                    "                  }\r",
+                    "                  });\r",
+                    "\r",
+                    "                  \r",
+                    "              }\r",
+                    "\r",
+                    "           }, this, true);\r",
+                    "\r",
+                    "        }else{\r",
+                    "           Ext.MessageBox.alert('','You must be logged on to order.');\r",
+                    "        }\r",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "3b9fdb42-3b26-4501-bf0c-e495715fb035"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnClearCart",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "clearCart",
+                "implHandler": [
+                    "var cartStore = Ext.getStore('cartStore');\r",
+                    "\r",
+                    "if(cartStore.count() > 0){\r",
+                    "\r",
+                    "    Ext.Msg.confirm('Clear Cart', 'Remove all items from your cart?', function(btn)\r",
+                    "\t{\r",
+                    "\tif(btn=='yes'){\r",
+                    "\t\tExt.getStore('cartStore').removeAll();\r",
+                    "\t\tExt.MessageBox.alert('','Cart cleared!');\r",
+                    "\t}\r",
+                    "\r",
+                    "\t}, this, true);\r",
+                    "\r",
+                    "}else{\r",
+                    "    Ext.MessageBox.alert('','Your cart is empty!');\r",
+                    "}\r",
+                    "\r",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "c91bcc48-5a4d-406b-800c-d69174ecfa5f"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onLaunch",
+                "implHandler": [
+                    "\r",
+                    "this.bodyContainer = this.getBodyContainer();\r",
+                    "this.productContainer = Ext.getCmp('productContainer');\r",
+                    "\r",
+                    "this.productStore = Ext.getStore('productsStore');\r",
+                    "this.loadProducts(this.productStore);\r",
+                    "this.registerWindow = Ext.create('KanenOnlineShopping.view.RegisterWindow', {});\r",
+                    "this.registerWindow.hide();\r",
+                    "\r",
+                    "this.loginWindow = Ext.create('KanenOnlineShopping.view.LoginWindow',{});\r",
+                    "this.loginWindow.hide();\r",
+                    "\r",
+                    "this.cartWindow = Ext.create('KanenOnlineShopping.view.CartWindow',{});\r",
+                    "this.cartWindow.hide();\r",
+                    "\r",
+                    "this.orderHistoryContainer = Ext.getCmp('orderHistoryContainer');\r",
+                    "this.mainContainer = Ext.getCmp('mainContainer');\r",
+                    "\r",
+                    "Ext.getCmp('btnMainLogout').hide();\r",
+                    "Ext.getCmp('btnHistory').hide();"
+                ]
+            },
+            "designerId": "fffd4f05-2967-4996-a569-5c4ed4298d6b"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "bodyContainer",
+                "selector": "#bodyContainer"
+            },
+            "designerId": "3aef20a4-5d0c-4143-98be-618a439ee5b6"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "productStore"
+                ],
+                "fn": "loadProducts",
+                "implHandler": [
+                    "Ext.Ajax.request({\r",
+                    "    url: 'product/productList',\r",
+                    "    method: 'POST',\r",
+                    "    params: {\r",
+                    "\r",
+                    "    },\r",
+                    "    success: function(response){\r",
+                    "\r",
+                    "        var responseData = Ext.decode(response.responseText).data;\r",
+                    "\r",
+                    "        for(var i=0; i < responseData.products.length; i++){\r",
+                    "            var product = {\r",
+                    "               productId: responseData.products[i].productId,\r",
+                    "               productName: responseData.products[i].productName,\r",
+                    "               productDescription: responseData.products[i].productDescription,\r",
+                    "               productPrice: responseData.products[i].productPrice,\r",
+                    "               productStockQuantity: responseData.products[i].productStockQuantity,\r",
+                    "               productImagePath: responseData.products[i].imagePath\r",
+                    "\r",
+                    "         };\r",
+                    "            productStore.add(product);\r",
+                    "        }\r",
+                    "        var productPanel = Ext.getCmp('productPanel');\r",
+                    "    productStore.each(function(record){\r",
+                    "    var mystr ='';\r",
+                    "\r",
+                    "\r",
+                    "  var itemContainer = Ext.create('KanenOnlineShopping.view.itemContainer', {\r",
+                    "\r",
+                    "  });\r",
+                    "\r",
+                    "  itemContainer.productId = record.data.productId;\r",
+                    "  itemContainer.productName = record.data.productName;\r",
+                    "  itemContainer.productDescription = record.data.productDescription;\r",
+                    "  itemContainer.productPrice = record.data.productPrice;\r",
+                    "  itemContainer.productStockQuantity = record.data.productStockQuantity;\r",
+                    "  itemContainer.productImagePath = record.data.productImagePath;\r",
+                    "\r",
+                    "  var itemImage = itemContainer.items.items[0];\r",
+                    "  itemImage.src = record.data.productImagePath;\r",
+                    "\r",
+                    "  var itemNameLabel = itemContainer.items.items[1];\r",
+                    "  itemNameLabel.text = record.data.productName + record.data.productDescription;\r",
+                    "\r",
+                    "  //var itemDescriptionLabel = itemContainer.items.items[2];\r",
+                    "  //itemDescriptionLabel.text = record.data.productDescription;\r",
+                    "  var itemBtn = itemContainer.items.items[2];\r",
+                    "\r",
+                    "\r",
+                    "   // debugger;\r",
+                    "  itemBtn.tooltip=record.data.productDescription;\r",
+                    "\r",
+                    "  productPanel.add(itemContainer);\r",
+                    "  productPanel.doLayout();\r",
+                    "\r",
+                    "\r",
+                    "});\r",
+                    "\r",
+                    "    }\r",
+                    "});\r",
+                    "\r",
+                    "\r",
+                    "Ext.MessageBox.alert('Async','Not waiting for response!');\r",
+                    "\r",
+                    "/*\r",
+                    "var productPanel = Ext.getCmp('productPanel');\r",
+                    "productStore.each(function(record){\r",
+                    "    var mystr ='';\r",
+                    "\r",
+                    "   // debugger;\r",
+                    "\r",
+                    "  var itemContainer = Ext.create('KanenOnlineShopping.view.itemContainer', {\r",
+                    "\r",
+                    "  });\r",
+                    "\r",
+                    "  itemContainer.productId = record.data.productId;\r",
+                    "  itemContainer.productName = record.data.productName;\r",
+                    "  itemContainer.productDescription = record.data.productDescription;\r",
+                    "  itemContainer.productPrice = record.data.productPrice;\r",
+                    "  itemContainer.productStockQuantity = record.data.productStockQuantity;\r",
+                    "  itemContainer.productImagePath = record.data.productImagePath;\r",
+                    "\r",
+                    "  var itemImage = itemContainer.items.items[0];\r",
+                    "  itemImage.src = record.data.productImagePath;\r",
+                    "\r",
+                    "  var itemNameLabel = itemContainer.items.items[1];\r",
+                    "  itemNameLabel.text = record.data.productName + record.data.productDescription;\r",
+                    "\r",
+                    "  //var itemDescriptionLabel = itemContainer.items.items[2];\r",
+                    "  //itemDescriptionLabel.text = record.data.productDescription;\r",
+                    "  var itemBtn = itemContainer.items.items[2];\r",
+                    "\r",
+                    "\r",
+                    "   // debugger;\r",
+                    "  itemBtn.tooltip=record.data.productDescription;\r",
+                    "\r",
+                    "  productPanel.add(itemContainer);\r",
+                    "  productPanel.doLayout();\r",
+                    "\r",
+                    "\r",
+                    "});\r",
+                    "*/\r",
+                    ""
+                ]
+            },
+            "designerId": "5e4be867-7471-42c9-9d16-d4578c7e582a"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "productId",
+                    "productName",
+                    "productDescription",
+                    "productPrice",
+                    "productStockQuantity",
+                    "productImagePath"
+                ],
+                "fn": "addItemToCart",
+                "implHandler": [
+                    "//alert(productName);\r",
+                    "\r",
+                    "var cartStore = Ext.getStore('cartStore');\r",
+                    "var itemAlreadyInCart = false;\r",
+                    "var recordInCart;\r",
+                    "cartStore.each(function(record){\r",
+                    "    if(record.data.productId == productId){\r",
+                    "\r",
+                    "\r",
+                    "       record.data.quantity = record.data.quantity + 1;\r",
+                    "       itemAlreadyInCart = true;\r",
+                    "    }\r",
+                    "});\r",
+                    "\r",
+                    "if(itemAlreadyInCart){\r",
+                    "   Ext.getCmp('cartGrid').getView().refresh();\r",
+                    "   Ext.Msg.alert('Status', 'Item quantity increased.');\r",
+                    "\r",
+                    "}else{\r",
+                    "\r",
+                    "   var item = {\r",
+                    "   productId: productId,\r",
+                    "   productName:productName,\r",
+                    "   productDescription: productDescription,\r",
+                    "   productPrice:productPrice,\r",
+                    "   quantity:1,\r",
+                    "   productImagePath:productImagePath\r",
+                    "\r",
+                    "   };\r",
+                    "      cartStore.add(item);\r",
+                    "      Ext.Msg.alert('Status', 'Item added to cart.');\r",
+                    "\r",
+                    "}"
+                ]
+            },
+            "designerId": "f4a89443-f000-402c-bd26-8f4c7e69cbb9"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "mainContainer",
+                "selector": "#mainContainer"
+            },
+            "designerId": "0de94a95-fe97-4168-b350-45a680ab64e8"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "orderHistoryContainer",
+                "selector": "#orderHistoryContainer"
+            },
+            "designerId": "4c76d075-9397-4ee8-a08e-9315154b1892"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#orderItemsGridPanel",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onOrderItemsGridPanelItemDblClick",
+                "implHandler": [
+                    "\r",
+                    "// debugger;\r",
+                    "var orderItemsGridPanel = Ext.getCmp('orderItemsGridPanel');\r",
+                    "var  orderItemStore = Ext.getStore('orderItemStore');\r",
+                    "var selModel = orderItemsGridPanel.getSelectionModel();\r",
+                    "var selectedRecords = selModel.getSelection();\r",
+                    "var selectionCount = selModel.getCount();\r",
+                    "var orderId = selectedRecords[0].data.orderId;\r",
+                    "\r",
+                    "// for(var i =0;i<selectionCount;i++) {\r",
+                    "// alert(selectedRecords[i]);\r",
+                    "// }\r",
+                    "orderItemStore.clearFilter(true);\r",
+                    "orderItemStore.filter('orderId', orderId);\r",
+                    "// debugger;\r",
+                    "Ext.create('Ext.window.Window',{\r",
+                    "\r",
+                    "               rendetTo: Ext.getBody(),\r",
+                    "               bodyPadding: 10,\r",
+                    "               title: 'Order Summary',\r",
+                    "               closable: true,\r",
+                    "               autoShow: true,\r",
+                    "               resizable: false,\r",
+                    "               modal: true,\r",
+                    "               draggable: false,\r",
+                    "               width:1054,\r",
+                    "               height:600,\r",
+                    "               items:[ {\r",
+                    "\r",
+                    "                                    xtype: 'gridpanel',\r",
+                    "                                    id: 'orderSummaryGridPanel',\r",
+                    "                                    itemId: 'orderSummaryGridPanel',\r",
+                    "                                    title: 'Transactions',\r",
+                    "                                    store: 'orderItemStore',\r",
+                    "                                    columns: [\r",
+                    "                                        {\r",
+                    "                                            xtype: 'gridcolumn',\r",
+                    "                                            width: 500,\r",
+                    "                                            flex:1,\r",
+                    "                                            dataIndex: 'productId',\r",
+                    "                                            text: 'Product Id'\r",
+                    "                                        },\r",
+                    "                                         {\r",
+                    "                                            xtype: 'gridcolumn',\r",
+                    "                                            width: 200,\r",
+                    "                                              flex:1,\r",
+                    "                                            dataIndex: 'productName',\r",
+                    "                                            text: 'Product Name'\r",
+                    "                                        },\r",
+                    "\r",
+                    "                                        {\r",
+                    "                                            xtype: 'gridcolumn',\r",
+                    "                                            width: 310,\r",
+                    "                                             flex:1,\r",
+                    "                                            dataIndex: 'productDescription',\r",
+                    "                                            text: 'Product Description'\r",
+                    "                                        },\r",
+                    "                                       {\r",
+                    "                                            xtype: 'numbercolumn',\r",
+                    "                                            width: 272,\r",
+                    "                                            flex:1,\r",
+                    "                                            dataIndex: 'quantity',\r",
+                    "                                            text: 'Quantity'\r",
+                    "                                        },\r",
+                    "                                       {\r",
+                    "                                            xtype: 'numbercolumn',\r",
+                    "                                            width: 272,\r",
+                    "                                            flex:1,\r",
+                    "                                            dataIndex: 'productPrice',\r",
+                    "                                            text: 'Price'\r",
+                    "                                        }\r",
+                    "                                    ]\r",
+                    "                        }\r",
+                    "                      ]\r",
+                    "});\r",
+                    "\r",
+                    "\r",
+                    "\r",
+                    "var  userStore = Ext.getStore('userStore');\r",
+                    "\r",
+                    "var  orderStore = Ext.getStore('orderStore');\r",
+                    "\r",
+                    "var orderId = orderStore.data.items[0].data.orderId;\r",
+                    "\r",
+                    "\r",
+                    "// Ext.Ajax.request({\r",
+                    "\r",
+                    "//      url: window.location.pathname +'order/userOrderDetails',\r",
+                    "//      method: 'POST',\r",
+                    "\r",
+                    "//      params: {\r",
+                    "//      orderId: orderId\r",
+                    "\r",
+                    "//  },\r",
+                    "//      scope: this,\r",
+                    "//      success: function(response){\r",
+                    "\r",
+                    "\r",
+                    "//          var responseText = Ext.decode(response.responseText);\r",
+                    "//          var responseData = responseText.data;\r",
+                    "//          debugger;\r",
+                    "\r",
+                    "\r",
+                    "//          for(var i=0; i < responseData.items.length; i++){\r",
+                    "//          var items = {\r",
+                    "//               productId: responseData.items[i].productId,\r",
+                    "//               productName: responseData.items[i].productName,\r",
+                    "//               productDescription: responseData.items[i].productDescription,\r",
+                    "//               quantity: responseData.items[i].quantity,\r",
+                    "//               productPrice: responseData.items[i].productPrice\r",
+                    "//         };\r",
+                    "//         orderItemStore.add(items);\r",
+                    "\r",
+                    "// }\r",
+                    "\r",
+                    "\r",
+                    "\r",
+                    "//      },\r",
+                    "//      failure: function(){\r",
+                    "//          Ext.MessageBox.alert('Login failed', 'Unable to connect to server, please try again.');\r",
+                    "//      }\r",
+                    "//  });\r",
+                    ""
+                ],
+                "name": "itemdblclick",
+                "scope": "me"
+            },
+            "designerId": "aaa03005-6f31-44ab-bf3d-615268af2dc1"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnMainLogin",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "btnMainLoginClicked",
+                "implHandler": [
+                    "this.loginWindow.show();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "a665d4b4-7eca-4bff-8ef2-cfed931adb52"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnLogin",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "btnLoginClicked",
+                "implHandler": [
+                    "\r",
+                    "// debugger;\r",
+                    "// this.loginWindow = Ext.getCmp('LogiNwindow');\r",
+                    "//this.frmLogin = this.getFrmLogin();\r",
+                    "\r",
+                    "var frmLogin = Ext.getCmp('frmLogin');\r",
+                    "var userName = frmLogin.query('#txtLoginUsername')[0].getValue();\r",
+                    "var userPassword = frmLogin.query('#txtLoginPassword')[0].getValue();\r",
+                    "var userStore  = Ext.getStore('userStore');\r",
+                    "userStore.removeAll();\r",
+                    "\r",
+                    "Ext.Ajax.request({\r",
+                    "\r",
+                    "     url: window.location.pathname +'user/login',\r",
+                    "     method: 'POST',\r",
+                    "\r",
+                    "     params: {\r",
+                    "     userName: userName,\r",
+                    "     userPassword: userPassword\r",
+                    " },\r",
+                    "     scope: this,\r",
+                    "     success: function(response){\r",
+                    "\r",
+                    "\r",
+                    "         var responseText = Ext.decode(response.responseText);\r",
+                    "         var responseData = responseText.data;\r",
+                    "         \r",
+                    "         if(responseData.banned == true){\r",
+                    "             Ext.MessageBox.alert('Login failed', 'Your account is blocked.');\r",
+                    "         }else if(!responseData.user[0]){\r",
+                    "             Ext.MessageBox.alert('Login failed', 'Invalid credentials.');\r",
+                    "         }else{\r",
+                    "         \r",
+                    "         \r",
+                    "             var user = responseData.user[0];\r",
+                    "\r",
+                    "         var loggedInUser = {\r",
+                    "             userId: user.userId,\r",
+                    "             userName: user.userName,\r",
+                    "             userFullName: user.fullName,\r",
+                    "             userEmail: user.email,\r",
+                    "             userAddress: user.address,\r",
+                    "             userMobileNumber : user.mobileNumber,\r",
+                    "             userRole: user.userRole,\r",
+                    "             userPassword: ''\r",
+                    "         };\r",
+                    "\r",
+                    "         userStore.add(loggedInUser);\r",
+                    "\r",
+                    "         Ext.getCmp('btnMainLogin').hide();\r",
+                    "         Ext.getCmp('btnMainRegister').hide();\r",
+                    "         Ext.getCmp('btnMainLogout').show();\r",
+                    "         this.resetLoginFields();\r",
+                    "         Ext.getCmp('loginWindow').hide();\r",
+                    "         Ext.getCmp('loginToolbar').doLayout();\r",
+                    "         Ext.getCmp('btnHistory').show();\r",
+                    "         Ext.Msg.alert('Status', 'Logged in successfully');\r",
+                    "         }\r",
+                    "         \r",
+                    "\r",
+                    "\r",
+                    "     },\r",
+                    "     failure: function(){\r",
+                    "         Ext.MessageBox.alert('Login failed', 'Unable to connect to server, please try again.');\r",
+                    "     }\r",
+                    " });\r",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "9a6e8117-da31-450e-97ee-e21a708091b9"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "frmLogin",
+                "selector": "#frmLogin"
+            },
+            "designerId": "89c99f17-d5e2-4fbd-97ba-b229c6b779cf"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "username, password, userStore"
+                ],
+                "fn": "validateAccount",
+                "implHandler": [
+                    " var userArray = userStore.queryBy(function(record){\r",
+                    "\r",
+                    "                if(record.data.userName == username){\r",
+                    "\r",
+                    "                }\r",
+                    "                return record.data.userName == username;\r",
+                    "             });\r",
+                    "\r",
+                    "            if(userArray.length === 0 ){\r",
+                    "                return false;\r",
+                    "            }else if(userArray.length > 0){\r",
+                    "                if(userArray.items[0].data.userPassword == password){\r",
+                    "                    return true;\r",
+                    "                }else{\r",
+                    "                    return false;\r",
+                    "                }\r",
+                    "            }\r",
+                    ""
+                ]
+            },
+            "designerId": "e57909fb-2445-4772-9834-561fcc741235"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "loginAccount",
+                "implHandler": [
+                    ""
+                ]
+            },
+            "designerId": "c7f7f5d8-8a6e-45fe-98dc-aeebaef8a3ce"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "frmRegister",
+                "selector": "#frmRegister"
+            },
+            "designerId": "a11e90d3-2a77-4b71-8501-9efdcf5d53ac"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "resetLoginFields",
+                "implHandler": [
+                    "var frmLogin = Ext.getCmp('frmLogin');\r",
+                    "\r",
+                    "frmLogin.query('#txtLoginUsername')[0].setValue('');\r",
+                    "frmLogin.query('#txtLoginPassword')[0].setValue('');"
+                ]
+            },
+            "designerId": "c7fb4a18-4a56-4243-9ad4-a71b9fd52a94"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnMainRegister",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnMainRegisterClick",
+                "implHandler": [
+                    "// var windowReg = Ext.create('KanenOnlineShopping.view.RegisterWindow', {});\r",
+                    "this.registerWindow.show();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "143968b5-3ad0-4656-883f-deb15ddb0ad5"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnRegRegister",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnRegRegisterClick",
+                "implHandler": [
+                    "var frmRegister = Ext.getCmp('frmRegister');\r",
+                    "var userName = frmRegister.query('#txtRegUsername')[0].getValue();\r",
+                    "var userPassword = frmRegister.query('#txtRegPassword')[0].getValue();\r",
+                    "var confirmPassword = frmRegister.query('#txtRegConfirmPassword')[0].getValue();\r",
+                    "var fullName = frmRegister.query('#txtRegFullname')[0].getValue();\r",
+                    "var email = frmRegister.query('#txtRegEmail')[0].getValue();\r",
+                    "var address = frmRegister.query('#txtRegAddress')[0].getValue();\r",
+                    "var contactNumber = frmRegister.query('#txtRegContactNumber')[0].getValue();\r",
+                    "var userRole = 'Customer';\r",
+                    "//var userStore = Ext.getStore('userStore');\r",
+                    "\r",
+                    "if(frmRegister.isValid()){\r",
+                    "            if(userPassword === confirmPassword){\r",
+                    "        \r",
+                    "                    Ext.Ajax.request({\r",
+                    "                    \r",
+                    "                         url: window.location.pathname +'user/register',\r",
+                    "                         method: 'POST',\r",
+                    "                    \r",
+                    "                         params: {\r",
+                    "                            userName: userName,\r",
+                    "                            userPassword: userPassword,\r",
+                    "                            fullName: fullName,\r",
+                    "                            email: email,\r",
+                    "                            deliveryAddress: address,\r",
+                    "                            mobileNumber: contactNumber,\r",
+                    "                            userRole: userRole\r",
+                    "                     },\r",
+                    "                         scope: this,\r",
+                    "                         success: function(response){\r",
+                    "                                     var responseText = Ext.decode(response.responseText);\r",
+                    "                             if(responseText.data.errormsg.indexOf('none') >-1){\r",
+                    "                                 Ext.MessageBox.alert('Registation','Account Created, You are now registered!');\r",
+                    "                                  this.resetRegistrationFields();\r",
+                    "                                  this.registerWindow.hide();\r",
+                    "                             }\r",
+                    "                             \r",
+                    "                             if (responseText.data.errormsg.indexOf('usernametaken') >-1){\r",
+                    "                                 Ext.MessageBox.alert('Registation Failed','Username is already taken!');\r",
+                    "                             }\r",
+                    "                             \r",
+                    "                             if (responseText.data.errormsg.indexOf('emailtaken') >-1){\r",
+                    "                                 Ext.MessageBox.alert('Registation Failed','Email is already taken!');\r",
+                    "                             }\r",
+                    "                             \r",
+                    "                         }\r",
+                    "                         });\r",
+                    "\r",
+                    "                   \r",
+                    "   \r",
+                    "                \r",
+                    "            }else{\r",
+                    "                Ext.MessageBox.alert('Invalid confirmPassword','Passowrd does not match');\r",
+                    "            }\r",
+                    "        }else{\r",
+                    "            Ext.MessageBox.alert('Missing fields','Please fill-up all the fields!');\r",
+                    "        }"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "db2fe4f2-315c-4cab-8a80-d9e501e674de"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "resetRegistrationFields",
+                "implHandler": [
+                    "\r",
+                    "        var frmRegister = Ext.getCmp('frmRegister');\r",
+                    "\r",
+                    "        frmRegister.query('#txtRegUsername')[0].setValue('');\r",
+                    "        frmRegister.query('#txtRegPassword')[0].setValue('');\r",
+                    "        frmRegister.query('#txtRegConfirmPassword')[0].setValue('');\r",
+                    "        frmRegister.query('#txtRegFullname')[0].setValue('');\r",
+                    "        frmRegister.query('#txtRegEmail')[0].setValue('');\r",
+                    "        frmRegister.query('#txtRegAddress')[0].setValue('');\r",
+                    "        frmRegister.query('#txtRegContactNumber')[0].setValue('');\r",
+                    "//frmRegister.invalidate();"
+                ]
+            },
+            "designerId": "c2bb07e9-e7a2-4b51-bdea-95dd7a3639a6"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnRegReset",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnRegResetClick",
+                "implHandler": [
+                    "this.resetRegistrationFields();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "d0a92073-7197-4a96-ab2b-8bb8e19efc17"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "userName, userStore"
+                ],
+                "fn": "checkIfUserExist",
+                "implHandler": [
+                    "                var userNameArray = userStore.queryBy(function(record){\r",
+                    "                    return record.data.userName == userName;\r",
+                    "                });\r",
+                    "                if(userNameArray.length > 0){\r",
+                    "                    Ext.MessageBox.alert('User exist', 'Username already exist.');\r",
+                    "                    return true;\r",
+                    "                }else{\r",
+                    "                    return false;\r",
+                    "                }"
+                ]
+            },
+            "designerId": "00d6cee9-b6bb-4cdf-a5d5-897c92370631"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnRegCancel",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnRegCancelClick",
+                "implHandler": [
+                    "// var registerWindow = Ext.getCmp('registerWindow');\r",
+                    "this.resetRegistrationFields();\r",
+                    "this.registerWindow.hide();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "ab5a59df-58a9-4794-83cf-258dbade7b52"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnLoginCancel",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnLoginCancelClick",
+                "implHandler": [
+                    "this.resetLoginFields();\r",
+                    "this.loginWindow.hide();\r",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "be0beae5-df56-45ec-aec8-afee670f2704"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnLoginRegister",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnLoginRegisterClick",
+                "implHandler": [
+                    "\r",
+                    "this.loginWindow.hide();\r",
+                    "this.registerWindow.show();\r",
+                    "\r",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "7d94c835-775d-400f-a02c-d098a958362c"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "registerWindow",
+                "selector": "#registerWindow"
+            },
+            "designerId": "6f051e14-370c-4883-baa0-c44b8396f460"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "loginWindow",
+                "selector": "#loginWindow"
+            },
+            "designerId": "2a4f7dfc-0900-42eb-a33a-85a964e20a64"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnMainLogout",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnMainLogoutClicked",
+                "implHandler": [
+                    "Ext.getCmp('btnMainLogin').show();\r",
+                    "Ext.getCmp('btnMainRegister').show();\r",
+                    "Ext.getCmp('btnMainLogout').hide();\r",
+                    "\r",
+                    "\r",
+                    "Ext.getCmp('loginToolbar').doLayout();\r",
+                    "var userStore  = Ext.getStore('userStore');\r",
+                    "userStore.removeAll();\r",
+                    " var cartStore = Ext.getStore('cartStore');\r",
+                    "        cartStore.removeAll();\r",
+                    "\r",
+                    "Ext.getCmp('btnHistory').hide();\r",
+                    "Ext.Msg.alert('Status', 'Signing out.');\r",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "abadbbdd-db81-4bb7-b04e-deb46b714f08"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#lblViewOrderHistory",
+                "designer|params": [
+                    "label"
+                ],
+                "designer|targetType": "Ext.form.Label",
+                "fn": "onViewOrderHistoryClicked",
+                "implHandler": [
+                    "this.getMainContainer().hide();\r",
+                    "\r",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "a59d567a-7361-4a16-b418-35ed3b6b18b9"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnMainCheckout",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnMainCheckoutClicked",
+                "implHandler": [
+                    "var cartStore = Ext.getStore('cartStore');\r",
+                    "\r",
+                    "if(cartStore.count() > 0){\r",
+                    "\r",
+                    "    var totalCost = 0.00;\r",
+                    "    cartStore.each(function(record){\r",
+                    "        totalCost = totalCost + (record.data.productPrice * record.data.quantity);\r",
+                    "    });\r",
+                    "\r",
+                    "\r",
+                    "    Ext.getCmp('lblCheckoutTotalCost').text = '$' + totalCost;\r",
+                    "    this.cartWindow.show();\r",
+                    "}else{\r",
+                    "    Ext.MessageBox.alert('','Your cart is empty!');\r",
+                    "}\r",
+                    "\r",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "d75ba114-664e-4b2b-b7ea-3fa21d1fd9e1"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnCartWindowCancel",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onCartWindowCancelClicked",
+                "implHandler": [
+                    "this.cartWindow.hide();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "82d7ec8f-2287-4195-8c0e-6ae00c1a2843"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnHistory",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnHistoryClick",
+                "implHandler": [
+                    "this.orderHistoryContainer.show();\r",
+                    "this.mainContainer.hide();\r",
+                    "\r",
+                    "\r",
+                    "var  userStore = Ext.getStore('userStore');\r",
+                    "var  orderStore = Ext.getStore('orderStore');\r",
+                    "var  orderItemStore = Ext.getStore('orderItemStore');\r",
+                    "\r",
+                    "var userId = userStore.data.items[0].data.userId;\r",
+                    "\r",
+                    "Ext.Ajax.request({\r",
+                    "\r",
+                    "     url: window.location.pathname +'order/userOrder',\r",
+                    "     method: 'POST',\r",
+                    "\r",
+                    "     params: {\r",
+                    "     userId: userId\r",
+                    "\r",
+                    " },\r",
+                    "     scope: this,\r",
+                    "     success: function(response){\r",
+                    "\r",
+                    "\r",
+                    "         var responseText = Ext.decode(response.responseText);\r",
+                    "         var responseData = responseText.data;\r",
+                    "\r",
+                    "         for(var i=0; i < responseData.orders.length; i++){\r",
+                    "           var order = {\r",
+                    "              orderId: responseData.orders[i].orderId,\r",
+                    "              userId: responseData.orders[i].userId,\r",
+                    "              orderDate: responseData.orders[i].orderDate,\r",
+                    "              totalCost: responseData.orders[i].totalCost,\r",
+                    "              orderStatus: responseData.orders[i].orderStatus,\r",
+                    "              items: responseData.orders[i].items\r",
+                    "\r",
+                    "\r",
+                    "        };\r",
+                    "              orderStore.add(order);\r",
+                    "         }\r",
+                    "\r",
+                    "\r",
+                    "         for(var i=0; i < responseData.items.length; i++){\r",
+                    "         var items = {\r",
+                    "             orderId: responseData.items[i].orderId,\r",
+                    "              productId: responseData.items[i].productId,\r",
+                    "              productName: responseData.items[i].productName,\r",
+                    "              productDescription: responseData.items[i].productDescription,\r",
+                    "              quantity: responseData.items[i].quantity,\r",
+                    "              productPrice: responseData.items[i].productPrice\r",
+                    "               };\r",
+                    "        orderItemStore.add(items);\r",
+                    "         }\r",
+                    "\r",
+                    "\r",
+                    "\r",
+                    "\r",
+                    "\r",
+                    "     },\r",
+                    "     failure: function(){\r",
+                    "         Ext.MessageBox.alert('Login failed', 'Unable to connect to server, please try again.');\r",
+                    "     }\r",
+                    " });\r",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "150647c6-8411-4652-bb38-58e9143c58cb"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnBack",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnBackClick",
+                "implHandler": [
+                    "Ext.getStore('orderStore').removeAll();\r",
+                    "Ext.getCmp('orderHistoryContainer').hide();\r",
+                    "this.getMainContainer().show();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "ab2249a0-3c44-49c1-a316-a0243048daa6"
+        }
+    ]
+}

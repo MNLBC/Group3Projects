@@ -1,0 +1,102 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "border": "2 px solid black",
+        "container|align": "center",
+        "container|defaultMargins": [
+            "{\"top\":0,\"right\":0,\"bottom\":0,\"left\":0}"
+        ],
+        "container|padding": 10,
+        "designer|userClassName": "itemContainer",
+        "height": 322,
+        "layout": "vbox",
+        "margin": "",
+        "width": 267
+    },
+    "designerId": "68c4d75c-3848-49f6-a6fe-8383be834f8d",
+    "cn": [
+        {
+            "type": "Ext.Img",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 224,
+                "layout|flex": null,
+                "src": "resource/laptop.png",
+                "width": 233
+            },
+            "designerId": "c8c58d49-7404-4b00-91aa-f0cccc4d274f"
+        },
+        {
+            "type": "Ext.form.Label",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 19,
+                "layout|flex": null,
+                "layout|margins": "4",
+                "text": "My Label",
+                "width": 180
+            },
+            "designerId": "b7e1e3ce-2040-4bef-94a4-1a2aa38d828f"
+        },
+        {
+            "type": "Ext.toolbar.Spacer",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 21,
+                "layout|flex": 1,
+                "width": 105
+            },
+            "designerId": "5077df71-6a00-4300-9a55-99e80c56f2a1"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": 1,
+                "text": "Add to Cart",
+                "width": 134
+            },
+            "designerId": "41630b74-9a8f-4f4b-bac1-653888549b3a",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onButtonClick",
+                        "implHandler": [
+                            "KanenOnlineShopping.app.getController('productController').addItemToCart(this.productId,this.productName,this.productDescription,this.productPrice,this.productStockQuantity,this.productImagePath);"
+                        ],
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "designerId": "0afd53c2-fa5c-435d-9622-e5d3e9667e4d"
+                }
+            ]
+        }
+    ]
+}

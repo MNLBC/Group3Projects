@@ -1,0 +1,666 @@
+{
+    "type": "Ext.container.Viewport",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|initialView": true,
+        "designer|userClassName": "MyViewport",
+        "id": "myViewport",
+        "layout": "fit"
+    },
+    "designerId": "fb612000-c78f-4297-8b6d-928b7604ba48",
+    "cn": [
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "mainContainer",
+                "layout": "border",
+                "width": 150
+            },
+            "designerId": "9bef00fb-2f6e-46eb-9c33-e821b7fdd058",
+            "cn": [
+                {
+                    "type": "Ext.container.Container",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "bodyContainer",
+                        "id": "bodyContainer",
+                        "itemId": "bodyContainer",
+                        "layout": "border",
+                        "layout|flex": 0,
+                        "layout|region": "center"
+                    },
+                    "designerId": "c16a5cb7-c00d-4d1e-aac1-6c768c59a8f7",
+                    "cn": [
+                        {
+                            "type": "Ext.container.Container",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "productContainer",
+                                "id": "productContainer",
+                                "itemId": "productContainer",
+                                "layout": "fit",
+                                "layout|flex": 14,
+                                "layout|region": "center"
+                            },
+                            "designerId": "72a6c69b-4b91-4f4b-94b8-d6f51d9ee83a",
+                            "cn": [
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "autoScroll": true,
+                                        "designer|displayName": "productPanel",
+                                        "id": "productPanel",
+                                        "itemId": "productPanel",
+                                        "layout": "column",
+                                        "title": "Products"
+                                    },
+                                    "designerId": "e312fb97-883e-44ca-a730-d49179fd2ff8"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.container.Container",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "cartContainer",
+                                "layout": "border",
+                                "layout|flex": 8,
+                                "layout|region": "east",
+                                "width": 150
+                            },
+                            "designerId": "edcfbf1c-3a2c-4a24-bc6d-2acd35fcecdb",
+                            "cn": [
+                                {
+                                    "type": "Ext.grid.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "bodyBorder": true,
+                                        "id": "cartGrid",
+                                        "itemId": "cartGrid",
+                                        "layout|flex": 15,
+                                        "layout|region": "center",
+                                        "store": "cartStore",
+                                        "title": "My Cart"
+                                    },
+                                    "designerId": "c28396ae-7db0-46e0-9d0e-2fb0eb57cb89",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.grid.View",
+                                            "reference": {
+                                                "name": "viewConfig",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "border": 30
+                                            },
+                                            "designerId": "95390ec7-2e34-4476-9853-f062ca7b3513"
+                                        },
+                                        {
+                                            "type": "Ext.grid.column.Column",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "dataIndex": "productName",
+                                                "text": "Product Name",
+                                                "width": 160
+                                            },
+                                            "designerId": "1941af14-e74c-4511-b223-9d72ec47b526"
+                                        },
+                                        {
+                                            "type": "Ext.grid.column.Column",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "dataIndex": "productDescription",
+                                                "text": "Product Description",
+                                                "width": 264
+                                            },
+                                            "designerId": "7653491f-061c-4ae1-a6a4-8cdebe0d7927"
+                                        },
+                                        {
+                                            "type": "Ext.grid.column.Number",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "dataIndex": "productPrice",
+                                                "text": "Price",
+                                                "width": 99
+                                            },
+                                            "designerId": "e9d913ae-7a20-44f8-881b-1ed5c01dd873"
+                                        },
+                                        {
+                                            "type": "Ext.grid.column.Number",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "dataIndex": "quantity",
+                                                "format": "0,000",
+                                                "text": "Quantity"
+                                            },
+                                            "designerId": "4b213733-a281-49aa-8e99-3b70fef50c94"
+                                        },
+                                        {
+                                            "type": "Ext.grid.column.Action",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "designerId": "7dba63d0-d43d-44d0-8fa9-5cba3a2140ef",
+                                            "cn": [
+                                                {
+                                                    "type": "actioncolumnitem",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "icon": "resource/trash.png"
+                                                    },
+                                                    "designerId": "e3bcfdb2-8bb7-4222-844f-5bc4ca65ba77",
+                                                    "cn": [
+                                                        {
+                                                            "type": "fixedfunction",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|params": [
+                                                                    "view",
+                                                                    "rowIndex",
+                                                                    "colIndex",
+                                                                    "item",
+                                                                    "e",
+                                                                    "record",
+                                                                    "row"
+                                                                ],
+                                                                "fn": "handler",
+                                                                "implHandler": [
+                                                                    "  Ext.Msg.alert('Status', 'Item removed from cart.');\r",
+                                                                    "                        var cartGrid = Ext.getCmp('cartGrid');\r",
+                                                                    "                        var orderStore = cartGrid.getStore();\r",
+                                                                    "//                         var orderHistoryGrid= this.getCartGrid();\r",
+                                                                    "//                         var cartStore = cartGrid.getStore();\r",
+                                                                    "\r",
+                                                                    "                        //delete selected rows if selModel is checkboxmodel\r",
+                                                                    "                        var selectedRows = orderStore.getAt(rowIndex);\r",
+                                                                    "\r",
+                                                                    "\r",
+                                                                    "                            orderStore.remove(selectedRows);\r",
+                                                                    "\r",
+                                                                    "\r",
+                                                                    "//                         else\r",
+                                                                    "//                             Ext.Msg.alert('Status', 'Please select at least one record to delete!');"
+                                                                ]
+                                                            },
+                                                            "designerId": "b164736f-e271-4b3e-9a72-00fa4825728a"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.container.Container",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "container|align": "stretch",
+                                        "container|pack": "center",
+                                        "height": 150,
+                                        "layout": "vbox",
+                                        "layout|flex": 4,
+                                        "layout|region": "south"
+                                    },
+                                    "designerId": "1873276e-6338-4cf7-a74d-539e614307d6",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.toolbar.Spacer",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "height": 10,
+                                                "layout|flex": 1
+                                            },
+                                            "designerId": "f179561c-e962-4f8d-a177-d68471138678"
+                                        },
+                                        {
+                                            "type": "Ext.button.Button",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "height": 46,
+                                                "id": "btnClearCart",
+                                                "text": "Clear Cart",
+                                                "width": 414
+                                            },
+                                            "designerId": "3f71bad3-5722-4c5f-a440-f68ca7efe1c7"
+                                        },
+                                        {
+                                            "type": "Ext.toolbar.Spacer",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "height": 3,
+                                                "layout|flex": 1
+                                            },
+                                            "designerId": "cd53635a-dc18-4f2b-a7cb-237f9e601ef6"
+                                        },
+                                        {
+                                            "type": "Ext.button.Button",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "height": 52,
+                                                "id": "btnMainCheckout",
+                                                "itemId": "btnMainCheckout",
+                                                "text": "Checkout Items",
+                                                "width": 162
+                                            },
+                                            "designerId": "ed505954-bbce-455f-b399-fa85292b0a4a"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.container.Container",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "designer|displayName": "",
+                        "height": 110,
+                        "layout": "hbox",
+                        "layout|region": "north",
+                        "style": [
+                            "background-color:#292c2f"
+                        ]
+                    },
+                    "designerId": "0ed00e46-fc2e-4300-b176-4f26657b2b45",
+                    "cn": [
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": 0,
+                                "width": 540
+                            },
+                            "designerId": "b8db25d0-b293-4d80-9004-6889d10a9af3"
+                        },
+                        {
+                            "type": "Ext.Img",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 201,
+                                "src": "resource/logo1.png",
+                                "width": 737
+                            },
+                            "designerId": "14974f35-5254-4d18-9750-e53d8f492f80"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.container.Container",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 45,
+                        "id": "topContainer",
+                        "itemId": "topContainer",
+                        "layout": "border",
+                        "layout|flex": 0,
+                        "layout|region": "north",
+                        "style": [
+                            "background-color:#292c2f"
+                        ]
+                    },
+                    "designerId": "37e45eee-b630-42be-a7c4-d65d656faf1c",
+                    "cn": [
+                        {
+                            "type": "Ext.toolbar.Toolbar",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "container|pack": "end",
+                                "id": "loginToolbar",
+                                "layout|region": "center",
+                                "style": [
+                                    "background: -webkit-linear-gradient(60deg, rgba(88, 88, 96, 0.99) 0%, rgba(92, 126, 146, 0.1) 50%, rgba(95, 164, 195, 0.99) 100%);\r",
+                                    "background: -o-linear-gradient(60deg, rgba(88, 88, 96, 0.99) 0%, rgba(92, 126, 146, 0.1) 50%, rgba(95, 164, 195, 0.99) 100%);\r",
+                                    "background: -ms-linear-gradient(60deg, rgba(88, 88, 96, 0.99) 0%, rgba(92, 126, 146, 0.1) 50%, rgba(95, 164, 195, 0.99) 100%);\r",
+                                    "background: -moz-linear-gradient(60deg, rgba(88, 88, 96, 0.99) 0%, rgba(92, 126, 146, 0.1) 50%, rgba(95, 164, 195, 0.99) 100%);\r",
+                                    "background: linear-gradient(30deg, rgba(88, 88, 96, 0.99) 0%, rgba(92, 126, 146, 0.1) 50%, rgba(95, 164, 195, 0.99) 100%);\r",
+                                    ""
+                                ]
+                            },
+                            "designerId": "df211d73-8ca0-4e7b-ad3b-2e13645059af",
+                            "cn": [
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "Order History",
+                                        "height": 33,
+                                        "id": "btnHistory",
+                                        "layout|flex": null,
+                                        "text": "Order History",
+                                        "width": 96
+                                    },
+                                    "designerId": "e2b9d844-c129-427d-8d73-19e18b264edb"
+                                },
+                                {
+                                    "type": "Ext.toolbar.Spacer",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "layout|flex": null,
+                                        "width": 1500
+                                    },
+                                    "designerId": "a0502917-ce50-4a28-b75a-e88ff40df7f3"
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "height": 30,
+                                        "id": "btnMainLogin",
+                                        "itemId": "btnMainLogin",
+                                        "layout|flex": null,
+                                        "text": "Login",
+                                        "width": 87
+                                    },
+                                    "designerId": "a0fbd1f6-dce0-4039-81cf-da3284c0cbc4"
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "height": 30,
+                                        "id": "btnMainRegister",
+                                        "itemId": "btnMainRegister",
+                                        "layout|flex": null,
+                                        "text": "Register",
+                                        "width": 86
+                                    },
+                                    "designerId": "19f7bdfc-13a1-4caa-894e-7a46ef63daf0"
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "height": 30,
+                                        "id": "btnMainLogout",
+                                        "itemId": "btnMainLogout",
+                                        "layout|flex": null,
+                                        "text": "Logout",
+                                        "width": 85
+                                    },
+                                    "designerId": "24e5e78e-005b-4df1-aa82-eefffa4afddd"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 590,
+                "id": "orderHistoryContainer",
+                "itemId": "orderHistoryContainer",
+                "layout": "border",
+                "style": [
+                    "background-color:#292c2f"
+                ],
+                "width": 1138
+            },
+            "designerId": "fdabf9f3-5f43-47be-b547-e4eeea26e853",
+            "cn": [
+                {
+                    "type": "Ext.container.Container",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "id": "orderBodyContainer",
+                        "layout": "vbox",
+                        "layout|flex": 13,
+                        "layout|region": "center"
+                    },
+                    "designerId": "500aea97-c24d-4831-939d-073ad08cd335",
+                    "cn": [
+                        {
+                            "type": "Ext.grid.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": null,
+                                "id": "orderItemsGridPanel",
+                                "itemId": "orderItemsGridPanel",
+                                "store": "orderStore",
+                                "title": "Transactions"
+                            },
+                            "designerId": "cdc744e2-2101-4854-b43c-45552908fc7c",
+                            "cn": [
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "orderId",
+                                        "flex": 1,
+                                        "text": "Order Id",
+                                        "width": 500
+                                    },
+                                    "designerId": "4fde4a5c-ea3b-4275-9764-65046438401f"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "orderDate",
+                                        "flex": 1,
+                                        "text": "Order Date",
+                                        "width": 500
+                                    },
+                                    "designerId": "32d4ed4a-b11e-49fd-90a4-12ef19f9f4b6"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "orderStatus",
+                                        "flex": 1,
+                                        "text": "Order Status",
+                                        "width": 500
+                                    },
+                                    "designerId": "8924bf26-4036-4349-9df7-08478ad1488c"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "totalCost",
+                                        "flex": 1,
+                                        "text": "Total Cost:",
+                                        "width": 500
+                                    },
+                                    "designerId": "6ca26fd1-8783-4445-82e2-e5022a6686a4"
+                                },
+                                {
+                                    "type": "Ext.grid.View",
+                                    "reference": {
+                                        "name": "viewConfig",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "designerId": "dc51e1a9-a6e6-4c66-9599-053681af82a0"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 150,
+                        "layout|flex": 1,
+                        "layout|region": "south"
+                    },
+                    "designerId": "5f05fe89-0ebc-4ea9-992f-bd6bc01212a5",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "btnBack",
+                                "id": "btnBack",
+                                "itemId": "btnBack",
+                                "layout|flex": null,
+                                "text": "Back to Main"
+                            },
+                            "designerId": "e40a9d50-e632-4d0b-8fbf-f18338369913"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

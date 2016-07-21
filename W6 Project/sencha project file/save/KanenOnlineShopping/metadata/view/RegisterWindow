@@ -1,0 +1,266 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "closable": false,
+        "designer|userAlias": "",
+        "designer|userClassName": "RegisterWindow",
+        "draggable": false,
+        "height": 474,
+        "id": "registerWindow",
+        "itemId": "registerWindow",
+        "layout": "fit",
+        "resizable": [
+            "false\r",
+            ""
+        ],
+        "title": "Registration",
+        "width": 626
+    },
+    "designerId": "c3b14227-293d-4e69-b288-137e557c9913",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "dock": null,
+                "height": 329,
+                "id": "frmRegister",
+                "itemId": "frmRegister",
+                "padding": 10,
+                "title": null
+            },
+            "designerId": "5754c484-e1ba-49c2-a9c4-6b8f8bd07802",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "allowOnlyWhitespace": false,
+                        "fieldLabel": "Username",
+                        "height": 30,
+                        "id": "txtRegUsername",
+                        "itemId": "txtRegUsername",
+                        "labelWidth": 150,
+                        "layout|anchor": "100%",
+                        "padding": 5
+                    },
+                    "designerId": "0ceb422f-cee6-4fb2-a27d-cfbc24e1e47b"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "allowOnlyWhitespace": false,
+                        "fieldLabel": "Password",
+                        "height": 33,
+                        "id": "txtRegPassword",
+                        "inputType": "password",
+                        "itemId": "txtRegPassword",
+                        "labelWidth": 150,
+                        "layout|anchor": "100%",
+                        "padding": 5
+                    },
+                    "designerId": "8567a215-df84-41ee-a9dd-a19839e548f6"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "allowOnlyWhitespace": false,
+                        "fieldLabel": "Confirm Password",
+                        "height": 33,
+                        "id": "txtRegConfirmPassword",
+                        "inputType": "password",
+                        "itemId": "txtRegConfirmPassword",
+                        "labelWidth": 150,
+                        "layout|anchor": "100%",
+                        "padding": 5
+                    },
+                    "designerId": "28047010-a7d6-4002-94eb-7ad08e85c3f8"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "allowOnlyWhitespace": false,
+                        "fieldLabel": "Full Name",
+                        "height": 33,
+                        "id": "txtRegFullname",
+                        "itemId": "txtRegFullname",
+                        "labelWidth": 150,
+                        "layout|anchor": "100%",
+                        "padding": 5
+                    },
+                    "designerId": "c69e21ca-b183-4e10-a9ca-dbbe21813b59"
+                },
+                {
+                    "type": "Ext.form.field.TextArea",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Address",
+                        "id": "txtRegAddress",
+                        "itemId": "txtRegAddress",
+                        "labelWidth": 150,
+                        "layout|anchor": "100%",
+                        "padding": 5
+                    },
+                    "designerId": "fec22064-b317-4bbf-ad61-71defc85cd72"
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "bottom"
+                    },
+                    "designerId": "8d690ff6-33b4-4a8f-b2b2-cf96ea45444b",
+                    "cn": [
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "width": 150
+                            },
+                            "designerId": "2d87c82e-8851-4ce3-8ed6-92c7f7510c9f"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 33,
+                                "id": "btnRegReset",
+                                "itemId": "btnRegReset",
+                                "layout|flex": null,
+                                "text": "Reset",
+                                "width": 130
+                            },
+                            "designerId": "70931a1f-221f-4f0e-ab89-0711ba6a404c"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 33,
+                                "id": "btnRegRegister",
+                                "itemId": "btnRegRegister",
+                                "layout|flex": null,
+                                "text": "Register",
+                                "width": 130
+                            },
+                            "designerId": "50fe9879-ff11-4e81-a81e-1fdda2d74a65"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 33,
+                                "id": "btnRegCancel",
+                                "itemId": "btnRegCancel",
+                                "layout|flex": null,
+                                "text": "Cancel",
+                                "width": 130
+                            },
+                            "designerId": "0dc8172a-5f90-4066-8bcc-078a5d3180a9"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "allowOnlyWhitespace": false,
+                        "fieldLabel": "E-mail Address",
+                        "height": 33,
+                        "id": "txtRegEmail",
+                        "inputType": "email",
+                        "itemId": "txtRegEmail",
+                        "labelWidth": 150,
+                        "layout|anchor": "100%",
+                        "padding": 5
+                    },
+                    "designerId": "95a613ce-450d-4837-8cb1-885d64b2536b"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "allowOnlyWhitespace": false,
+                        "fieldLabel": "Contact Number",
+                        "height": 33,
+                        "id": "txtRegContactNumber",
+                        "inputType": "tel",
+                        "itemId": "txtRegContactNumber",
+                        "labelWidth": 150,
+                        "layout|anchor": "100%",
+                        "padding": 5
+                    },
+                    "designerId": "930fe4c8-f8e1-4a13-8a0d-4edad46fc931"
+                }
+            ]
+        }
+    ]
+}
