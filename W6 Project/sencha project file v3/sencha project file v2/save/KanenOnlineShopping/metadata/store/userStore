@@ -1,0 +1,29 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[",
+            "    {",
+            "        \"userId\": \"sit\",",
+            "        \"userName\": \"corrupti\",",
+            "        \"userFullName\": \"Alma Reed\",",
+            "        \"userEmail\": \"ssnyder@voolia.edu\",",
+            "        \"userAddress\": \"997 Green Court\",",
+            "        \"userMobileNumber\": \"et\",",
+            "        \"userRole\": \"sunt\",",
+            "        \"userPassword\": \"Px3GXYoUwJ\",",
+            "        \"userMemberType\": \"vero\"",
+            "    }",
+            "]"
+        ],
+        "designer|userClassName": "userStore",
+        "model": "User",
+        "storeId": "userStore"
+    },
+    "designerId": "0a2c04d3-db7e-441f-b076-482143f06670"
+}
