@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.oocl.mnlbc.model.UserBean;
-import com.oocl.mnlbc.service.UserService;
+import com.oocl.mnlbc.dao.UserDAO;
+import com.oocl.mnlbc.entity.User;
+import com.oocl.mnlbc.model.ModelWrapper;
+import com.oocl.mnlbc.model.Response;
 
 /**
- * 
- * @author ITAGroup3
+ * User Controller
+ * @author John Benedict Vergara
  *
  */
 @Controller
@@ -22,7 +23,7 @@ import com.oocl.mnlbc.service.UserService;
 public class UserController {
 
 	@Autowired
-	private UserService userService;
+	private UserDAO userService;
 
 	private static final Logger logger = Logger.getLogger(UserController.class);
 
@@ -56,26 +57,15 @@ public class UserController {
 		String errorMsg = "";
 		builder.append(returnJson);
 
-		System.out.println(userName);
-		System.out.println(userPassword);
-		System.out.println(email);
-		System.out.println(fullName);
-		System.out.println(deliveryAddress);
-		System.out.println(mobileNumber);
-		System.out.println(userRole);
-
-		UserBean user = new UserBean(0, userName, userPassword, fullName, email, deliveryAddress, mobileNumber,
-				userRole);
+		User user = new User(0, userName, userPassword, fullName, email, deliveryAddress, mobileNumber, userRole);
 		System.out.println(user.getFullName());
 		if (userService.userExists(userName)) {
 			errorMsg += "usernametaken";
-			System.out.println(errorMsg);
 			logger.info("Registration Failed, " + userName + " is already taken");
 		}
 		System.out.println(email);
 		if (userService.emailExists(email)) {
 			errorMsg += "emailtaken";
-			System.out.println(errorMsg);
 			logger.info("Registration Failed, " + email + " is already taken");
 		}
 
@@ -91,7 +81,6 @@ public class UserController {
 		builder.append(errorMsg);
 
 		builder.append("\"}}");
-		System.out.println(builder.toString());
 		return builder.toString();
 
 	}
@@ -104,59 +93,32 @@ public class UserController {
 	 * @return String
 	 * @throws Exception
 	 */
-
 	@RequestMapping(value = "/login", method = { RequestMethod.POST })
 	@ResponseBody
-	public String loginUser(@RequestParam(value = "userName", required = true) String userName,
+	public Response<ModelWrapper<User>> loginUser(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword) throws Exception {
 		logger.info(userName + " is logging in..");
 
-		UserBean user = userService.validateAccount(userName, userPassword);
-		String returnJson = "";
-		StringBuilder builder = new StringBuilder();
+		ModelWrapper<User> items = new ModelWrapper<User>();
+		User user = userService.validateAccount(userName, userPassword);
+		items.getItems().add(user);
+
+		Response<ModelWrapper<User>> response = new Response<ModelWrapper<User>>();
+		response.setData(items);
+
 		if (user != null) {
-			returnJson = "{\"success\":true,\"data\":{\"user\":[";
-			builder.append(returnJson);
-
-			Gson gson = new Gson();
-			builder.append(gson.toJson(user));
-			logger.info(userName + " has successfully logged in.");
-
-		} else {
-
-			returnJson = "{\"success\":true,\"data\":{\"user\":[";
-			builder.append(returnJson);
-			Gson gson = new Gson();
-			builder.append(gson.toJson(user));
-			logger.info(userName + " has failed to log in.");
+			response.setSuccess(true);
 		}
-
-		builder.append("]}}");
-
-		return builder.toString();
+		return response;
 
 	}
 
-	/**
-	 * Session of the user
-	 * @return String
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/session", method = { RequestMethod.POST })
-	@ResponseBody
-	public String checkIfHasSession() throws Exception {
-		StringBuilder builder = new StringBuilder();
-		String returnJson = "{\"userid\":";
-		builder.append(returnJson);
-		return returnJson;
-	}
-	
 	/**
 	 * This handles the Logout
+	 * 
 	 * @return
 	 * @throws Exception
 	 */
-
 	@RequestMapping(value = "/logout", method = { RequestMethod.POST })
 	@ResponseBody
 	public String logoutUser() throws Exception {

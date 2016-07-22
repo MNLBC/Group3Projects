@@ -266,7 +266,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         // debugger;
         // this.loginWindow = Ext.getCmp('LogiNwindow');
-        //this.frmLogin = this.getFrmLogin();
+        // this.frmLogin = this.getFrmLogin();
 
         var frmLogin = Ext.getCmp('frmLogin');
         var userName = frmLogin.query('#txtLoginUsername')[0].getValue();
@@ -292,12 +292,12 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
                  if(responseData.banned == true){
                      Ext.MessageBox.alert('Login failed', 'Your account is blocked.');
-                 }else if(!responseData.user[0]){
+                 }else if(!responseData.items[0]){
                      Ext.MessageBox.alert('Login failed', 'Invalid credentials.');
                  }else{
 
 
-                     var user = responseData.user[0];
+                     var user = responseData.items[0];
 
                  var loggedInUser = {
                      userId: user.userId,
@@ -374,9 +374,10 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                                           this.resetRegistrationFields();
                                           this.registerWindow.hide();
                                      }
-
+                                     
                                      if (responseText.data.errormsg.indexOf('usernametaken') >-1){
                                          Ext.MessageBox.alert('Registation Failed','Username is already taken!');
+                                         return;
                                      }
 
                                      if (responseText.data.errormsg.indexOf('emailtaken') >-1){
@@ -390,7 +391,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
 
                     }else{
-                        Ext.MessageBox.alert('Invalid confirmPassword','Passowrd does not match');
+                        Ext.MessageBox.alert('Invalid confirmPassword','Passwords do not match.');
                     }
                 }else{
                     Ext.MessageBox.alert('Missing fields','Please fill-up all the fields!');

@@ -40,7 +40,7 @@ public class Orders implements Serializable {
 
 	@JoinColumn(name = "USERS_ID", referencedColumnName = "USERS_ID")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private Users usersId;
+	private User usersId;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId", fetch = FetchType.LAZY)
 	private List<OrderItem> orderItemsList;
@@ -48,7 +48,7 @@ public class Orders implements Serializable {
 	public Orders() {
 	}
 
-	public Orders(long orderId, String orderDate, BigDecimal totalCost, String orderStatus, Users usersId,
+	public Orders(long orderId, String orderDate, BigDecimal totalCost, String orderStatus, User usersId,
 			List<OrderItem> orderItemsList) {
 		super();
 		this.orderId = orderId;
@@ -91,11 +91,11 @@ public class Orders implements Serializable {
 		this.orderStatus = orderStatus;
 	}
 
-	public Users getUsersId() {
+	public User getUsersId() {
 		return usersId;
 	}
 
-	public void setUsersId(Users usersId) {
+	public void setUsersId(User usersId) {
 		this.usersId = usersId;
 	}
 

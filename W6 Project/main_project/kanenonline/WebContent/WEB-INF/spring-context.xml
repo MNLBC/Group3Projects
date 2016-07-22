@@ -14,13 +14,11 @@
 
 	<bean id="productService" class="com.oocl.mnlbc.service.ProductService"
 		scope="singleton">
-		<!-- <property name="dataSource" ref="dataSource" /> -->
 	</bean>
 
 
 	<bean id="userService" class="com.oocl.mnlbc.service.UserService"
 		scope="singleton">
-		<property name="dataSource" ref="dataSource" />
 	</bean>
 
 	<bean id="orderService" class="com.oocl.mnlbc.service.OrderService"

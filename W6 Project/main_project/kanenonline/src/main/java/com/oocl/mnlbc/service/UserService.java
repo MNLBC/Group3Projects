@@ -2,66 +2,73 @@ package com.oocl.mnlbc.service;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import com.oocl.mnlbc.dao.UserDAO;
-import com.oocl.mnlbc.model.UserBean;
+import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.security.PasswordEncrypter;
 import com.oocl.mnlbc.security.PasswordEncrypter.CannotPerformOperationException;
 import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
 
+/**
+ * User Service Class
+ * 
+ * @author John Benedict Vergara
+ *
+ */
 public class UserService implements UserDAO {
-	private DataSource dataSource;
-	private JdbcTemplate jdbcTemplateObject;
 
-	@Override
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
-		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
+	@PersistenceContext
+	private EntityManagerFactory entityManagerFactory;
+	private EntityManager entityManager;
+
+	public UserService() {
+		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink");
+		entityManager = entityManagerFactory.createEntityManager();
 	}
 
-	@Override
+	/**
+	 * Checks if a username is already in use.
+	 */
 	public boolean userExists(String username) {
-		String sql = "SELECT 1 AS USER_COUNT FROM USERS WHERE " + "USERNAME ='" + username + "'";
-		try {
-			Integer userCount = jdbcTemplateObject.queryForObject(sql, new UserCheckerMapper());
+		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.username= :username");
+		query.setParameter("username", username);
+		List<User> user = query.getResultList();
 
-			if (userCount.intValue() > 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (Exception e) {
-			return false;
-		}
-
+		return (!user.isEmpty());
+		
 	}
 
-	@Override
+	/**
+	 * Checks if the email address is already in use.
+	 */
 	public boolean emailExists(String email) {
-		String sql = "SELECT 1 AS USER_COUNT FROM USERS WHERE " + "EMAIL ='" + email + "'";
-		try {
-			Integer userCount = jdbcTemplateObject.queryForObject(sql, new UserCheckerMapper());
+		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.email= :email");
+		query.setParameter("email", email);
+		List<User> user = query.getResultList();
 
-			if (userCount.intValue() > 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (Exception e) {
-			return false;
-		}
+		return (!user.isEmpty());
 
 	}
 
-	@Override
-	public UserBean validateAccount(String username, String password) {
-		String sql = "SELECT * FROM USERS WHERE " + "USERNAME ='" + username + "'";
-		// + "AND USER_PASSWORD ='" + password + "'";
-		UserBean user = jdbcTemplateObject.queryForObject(sql, new UserMapper());
+	/**
+	 * Validates  a user's login credentials
+	 */
+	public User validateAccount(String username, String password) {
+		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.username= :username");
+		query.setParameter("username", username);
+		User user = null;
+		try {
+			user = (User) query.getSingleResult();
+		} catch (NoResultException e) {
+			user = null;
+		}
+
 		if (user != null) {
 
 			String passwordHash = user.getUserPassword();
@@ -75,27 +82,18 @@ public class UserService implements UserDAO {
 			} catch (InvalidHashException e) {
 				e.printStackTrace();
 			}
-
 			return null;
 		}
 		return null;
+
 	}
 
+	/**
+	 * Registers/creates a new user account.
+	 */
 	@Override
-	public boolean registerUser(UserBean user) {
-
-		String username = user.getUserName();
+	public boolean registerUser(User user) {
 		String userPassword = user.getUserPassword();
-		String fullName = user.getFullName();
-		String email = user.getEmail();
-		String deliveryAddress = user.getAddress();
-		String mobileNumber = user.getMobileNumber();
-		String userRole = user.getUserRole();
-
-		int i = 0;
-
-		String sql = "INSERT INTO USERS" + "(USERNAME," + "USER_PASSWORD," + "FULL_NAME," + "EMAIL," + "ADDRESS,"
-				+ "MOBILE_NUMBER," + "USER_ROLE)" + "VALUES(?,?,?,?,?,?,?)";
 
 		String enryptedPassword = "";
 		try {
@@ -104,27 +102,25 @@ public class UserService implements UserDAO {
 			e1.printStackTrace();
 		}
 		try {
-			i = jdbcTemplateObject.update(sql, username, enryptedPassword, fullName, email, deliveryAddress,
-					mobileNumber, userRole);
-
-		} catch (DataAccessException e) {
-			e.printStackTrace();
+			user.setUserPassword(enryptedPassword);
+			entityManager.getTransaction().begin();
+			entityManager.persist(user);
+			entityManager.getTransaction().commit();
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		if (!(i == 0)) {
-			return true;
-		}
 		return false;
+
 	}
 
 	@Override
-	public List<UserBean> getBannedUsers() {
-		String sql = "SELECT USER_ID, USERNAME, USER_PASSWORD, FULL_NAME, EMAIL,ADDRESS, MOBILE_NUMBER, USER_ROLE FROM USERS WHERE IS_BLACKLISTED='YES'";
-		List<UserBean> users = jdbcTemplateObject.query(sql, new UserMapper());
+	public List<User> getBannedUsers() {
 
-		return users;
+		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.isBlacklisted='YES'");
+		List<User> user = query.getResultList();
+		return user;
 	}
 
 }

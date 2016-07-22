@@ -1,20 +1,13 @@
-/**
- * 
- */
 package com.oocl.mnlbc.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.criteria.Order;
 
 /**
  * @author VERGAJO User JPA MOdel
@@ -22,10 +15,17 @@ import javax.persistence.criteria.Order;
 
 @Entity(name = "User")
 @Table(name = "USERS")
-public class Users implements Serializable {
+public class User implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "USER_ID")
+	@GeneratedValue(generator = "USER_ID_SEQ")
+	@SequenceGenerator(name = "USER_ID_SEQ", sequenceName = "USER_ID_SEQ", allocationSize = 111)
 	private long userId;
 
 	@Column(name = "USERNAME")
@@ -52,19 +52,22 @@ public class Users implements Serializable {
 	@Column(name = "IS_BLACKLISTED")
 	private String isBlacklisted;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.LAZY)
-	private List<Order> orderList;
+	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch =
+	// FetchType.LAZY)
+	// private List<Orders> orderList;
 
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.LAZY)
-//	private List<CartItem> cartItems;
-//
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.LAZY)
-//	private List<UserMembershipAssn> userMembershipAssns;
+	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch =
+	// FetchType.LAZY)
+	// private List<CartItem> cartItems;
+	//
+	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch =
+	// FetchType.LAZY)
+	// private List<UserMembershipAssn> userMembershipAssns;
 
-	public Users() {
+	public User() {
 	}
 
-	public Users(long userId, String username, String userPassword, String fullName, String email, String address,
+	public User(long userId, String username, String userPassword, String fullName, String email, String address,
 			String mobileNumber, String userRole) {
 		super();
 		this.userId = userId;
@@ -75,10 +78,9 @@ public class Users implements Serializable {
 		this.address = address;
 		this.mobileNumber = mobileNumber;
 		this.userRole = userRole;
-		this.isBlacklisted = isBlacklisted;
-		//this.orderList = orderList;
-		//this.cartItems = cartItems;
-		//this.userMembershipAssns = userMembershipAssns;
+		// this.orderList = orderList;
+		// this.cartItems = cartItems;
+		// this.userMembershipAssns = userMembershipAssns;
 	}
 
 	public long getUserId() {
@@ -153,12 +155,34 @@ public class Users implements Serializable {
 		this.username = username;
 	}
 
-	public List<Order> getOrders() {
-		return this.orderList;
+	// public List<Orders> getOrders() {
+	// return this.orderList;
+	// }
+	//
+	// public void setOrders(List<Orders> orderList) {
+	// this.orderList = orderList;
+	// }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (userId ^ (userId >>> 32));
+		return result;
 	}
 
-	public void setOrders(List<Order> orderList) {
-		this.orderList = orderList;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (userId != other.userId)
+			return false;
+		return true;
 	}
 
 }

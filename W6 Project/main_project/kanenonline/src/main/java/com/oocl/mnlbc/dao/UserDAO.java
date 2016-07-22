@@ -1,25 +1,22 @@
 package com.oocl.mnlbc.dao;
 
 import java.util.List;
-import javax.sql.DataSource;
-import com.oocl.mnlbc.model.UserBean;
+import com.oocl.mnlbc.entity.User;
 
 /**
  * 
- * @author ITAGroup3
+ * @author John Benedict Vergara
  *
  */
 public interface UserDAO {
-	
-	public void setDataSource(DataSource ds);
 
 	public boolean userExists(String username);
 
-	public UserBean validateAccount(String username, String password);
-	
-	public boolean registerUser(UserBean user);
-	
-	public List<UserBean> getBannedUsers();
+	public User validateAccount(String username, String password);
+
+	public boolean registerUser(User user);
+
+	public List<User> getBannedUsers();
 
 	boolean emailExists(String email);
 

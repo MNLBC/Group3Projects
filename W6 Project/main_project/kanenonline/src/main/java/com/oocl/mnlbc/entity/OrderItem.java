@@ -10,13 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-
-
-/**
- * 
- */
-
 /**
  * @author VERGAJO
  *
@@ -42,12 +35,12 @@ public class OrderItem implements Serializable {
 
 	@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
 	@ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
-	private Products product;
+	private Product product;
 
 	public OrderItem() {
 	}
 
-	public OrderItem(Integer orderItemId, Double quantity, Double orderedPrice, Orders orderId, Products product) {
+	public OrderItem(Integer orderItemId, Double quantity, Double orderedPrice, Orders orderId, Product product) {
 		super();
 		this.orderItemId = orderItemId;
 		this.quantity = quantity;
@@ -88,11 +81,11 @@ public class OrderItem implements Serializable {
 		this.orderId = orderId;
 	}
 
-	public Products getProduct() {
+	public Product getProduct() {
 		return product;
 	}
 
-	public void setProduct(Products product) {
+	public void setProduct(Product product) {
 		this.product = product;
 	}
 
