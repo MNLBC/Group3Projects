@@ -1,5 +1,10 @@
 package com.oocl.mnlbc.model;
-
+/**
+ * 
+ * @author Alexis Cuntapay
+ *
+ * @param <T>
+ */
 public class Response<T> {
 	
 	private boolean success;    
