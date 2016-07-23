@@ -23,7 +23,7 @@ import com.oocl.mnlbc.model.Response;
 public class UserController {
 
 	@Autowired
-	private UserDAO userService;
+	private UserDAO userDAO;
 
 	private static final Logger logger = Logger.getLogger(UserController.class);
 
@@ -59,18 +59,18 @@ public class UserController {
 
 		User user = new User(0, userName, userPassword, fullName, email, deliveryAddress, mobileNumber, userRole);
 		System.out.println(user.getFullName());
-		if (userService.userExists(userName)) {
+		if (userDAO.userExists(userName)) {
 			errorMsg += "usernametaken";
 			logger.info("Registration Failed, " + userName + " is already taken");
 		}
 		System.out.println(email);
-		if (userService.emailExists(email)) {
+		if (userDAO.emailExists(email)) {
 			errorMsg += "emailtaken";
 			logger.info("Registration Failed, " + email + " is already taken");
 		}
 
 		if (errorMsg.equals("")) {
-			if (userService.registerUser(user)) {
+			if (userDAO.registerUser(user)) {
 				errorMsg += "none";
 				logger.info("User successfully registered");
 			} else {
@@ -100,7 +100,7 @@ public class UserController {
 		logger.info(userName + " is logging in..");
 
 		ModelWrapper<User> items = new ModelWrapper<User>();
-		User user = userService.validateAccount(userName, userPassword);
+		User user = userDAO.validateAccount(userName, userPassword);
 		items.getItems().add(user);
 
 		Response<ModelWrapper<User>> response = new Response<ModelWrapper<User>>();

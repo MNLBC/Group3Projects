@@ -12,12 +12,12 @@
 		<property name="password" value="cjkanen" />
 	</bean>
 
-	<bean id="productService" class="com.oocl.mnlbc.service.ProductService"
+	<bean id="productDAO" class="com.oocl.mnlbc.service.ProductService"
 		scope="singleton">
 	</bean>
 
 
-	<bean id="userService" class="com.oocl.mnlbc.service.UserService"
+	<bean id="userDAO" class="com.oocl.mnlbc.service.UserDAOImpl"
 		scope="singleton">
 	</bean>
 

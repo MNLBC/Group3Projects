@@ -21,13 +21,13 @@ import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
  * @author John Benedict Vergara
  *
  */
-public class UserService implements UserDAO {
+public class UserDAOImpl implements UserDAO {
 
 	@PersistenceContext
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
 
-	public UserService() {
+	public UserDAOImpl() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink");
 		entityManager = entityManagerFactory.createEntityManager();
 	}
