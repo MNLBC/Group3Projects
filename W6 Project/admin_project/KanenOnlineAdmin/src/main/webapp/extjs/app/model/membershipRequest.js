@@ -22,7 +22,10 @@ Ext.define('MyApp.model.membershipRequest', {
 
     fields: [
         {
-            name: 'userName'
+            name: 'userId'
+        },
+        {
+            name: 'fullName'
         },
         {
             name: 'currentMembershipLevel'

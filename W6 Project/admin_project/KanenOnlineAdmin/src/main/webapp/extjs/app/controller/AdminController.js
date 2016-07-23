@@ -55,6 +55,33 @@ Ext.define('MyApp.controller.AdminController', {
         this.getCustomerConfirmPanel().show();
         this.getOrderRequestsPanel().hide();
         this.getViewAllOrderPanel().hide();
+
+        var customerRequestGrid = Ext.getCmp('membershipRequestGrid');
+        var customerRequestStore = customerRequestGrid.getStore();
+        Ext.Ajax.request({
+            url: window.location.pathname +'admin/userRequest',
+            method: 'POST',
+            scope: this,
+            success: function(response){
+            	debugger;
+                var responseText = Ext.decode(response.responseText);
+                for (var ctr = 0; ctr < responseText.userRequest.length; ctr++){
+                    var userRequest = {
+                        userId:responseText.userRequest[ctr].userId,
+                        fullName: responseText.userRequest[ctr].fullname,
+                        currentMembershipLevel: responseText.userRequest[ctr].currentType,
+                        requestedMembershipLevel: responseText.userRequest[ctr].requestType,
+                        isForApproval: responseText.userRequest[ctr].forApproval,
+                        isRequestApproved: responseText.userRequest[ctr].isApproved
+                    };
+                    customerRequestStore.add(userRequest);
+               }
+          },
+            failure: function(){
+                Ext.MessageBox.alert('Loading Failed','Unable to connect to server');
+            }
+
+        });
     },
 
     onConfirmOrderBtnClick: function() {
@@ -143,11 +170,10 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onViewAllOrderGridItemDblClick: function() {
-        var orderSummaryGrid = Ext.getCmp('orderSummaryGridPanel');
-        var orderItems = Ext.getStore('orderItems');
-        var selectedRecords = selModel.getSelection();
-        var selectionCount = selModel.getCount();
-        var orderId = selectedRecords[0].data.orderId;
+        // var orderItems = Ext.getStore('orderItems');
+        // var selectedRecords = selModel.getSelection();
+        // var selectionCount = selModel.getCount();
+        // var orderId = selectedRecords[0].data.orderId;
         Ext.create('Ext.window.Window',{
 
                                rendetTo: Ext.getBody(),
@@ -208,13 +234,8 @@ Ext.define('MyApp.controller.AdminController', {
                                         }
                                       ]
                 });
-
-
-
                 var orderStore = Ext.getStore('orderStore');
                 var orderId = orderStore.data.items[0].data.orderId;
-
-
     },
 
     onViewAllOrderBtnClick: function() {

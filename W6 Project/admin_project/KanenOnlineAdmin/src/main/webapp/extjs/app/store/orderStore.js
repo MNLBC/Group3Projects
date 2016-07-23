@@ -28,48 +28,6 @@ Ext.define('MyApp.store.orderStore', {
         me.callParent([Ext.apply({
             model: 'MyApp.model.orderModel',
             storeId: 'orderStore',
-            data: [
-                {
-                    orderId: 479,
-                    userId: 90,
-                    orderDate: 2005,
-                    totalCost: 962.51,
-                    orderStatus: 'On Delivery',
-                    items: 'consequatur'
-                },
-                {
-                    orderId: 780,
-                    userId: 450,
-                    orderDate: 1994,
-                    totalCost: 477.84,
-                    orderStatus: 'On Delivery',
-                    items: 'enim'
-                },
-                {
-                    orderId: 935,
-                    userId: 708,
-                    orderDate: 2000,
-                    totalCost: 881.02,
-                    orderStatus: 'minus',
-                    items: 'On Delivery'
-                },
-                {
-                    orderId: 780,
-                    userId: 450,
-                    orderDate: 1994,
-                    totalCost: 477.84,
-                    orderStatus: 'Order Approved',
-                    items: 'enim'
-                },
-                {
-                    orderId: 935,
-                    userId: 708,
-                    orderDate: 2000,
-                    totalCost: 881.02,
-                    orderStatus: 'Order Approved',
-                    items: 'voluptatem'
-                }
-            ],
             proxy: {
                 type: 'ajax',
                 reader: {

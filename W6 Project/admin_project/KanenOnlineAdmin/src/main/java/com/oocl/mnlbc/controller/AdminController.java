@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oocl.mnlbc.entity.UserMembershipAsn;
@@ -24,7 +25,7 @@ import com.oocl.mnlbc.services.UserMembershipAsnService;
 @RequestMapping("/admin")
 public class AdminController {
 
-	@RequestMapping(value = "/userRequest")
+	@RequestMapping(value = "/userRequest", method = RequestMethod.POST)
 	@ResponseBody
 	public UserRequestList getAllUserRequest() {
 
