@@ -15,7 +15,6 @@ import com.oocl.mnlbc.model.Response;
 
 /**
  * User Controller
- * 
  * @author John Benedict Vergara
  *
  */
@@ -59,10 +58,12 @@ public class UserController {
 		builder.append(returnJson);
 
 		User user = new User(0, userName, userPassword, fullName, email, deliveryAddress, mobileNumber, userRole);
+		System.out.println(user.getFullName());
 		if (userService.userExists(userName)) {
 			errorMsg += "usernametaken";
 			logger.info("Registration Failed, " + userName + " is already taken");
 		}
+		System.out.println(email);
 		if (userService.emailExists(email)) {
 			errorMsg += "emailtaken";
 			logger.info("Registration Failed, " + email + " is already taken");

@@ -11,7 +11,6 @@ import javax.persistence.Query;
 
 import com.oocl.mnlbc.dao.UserDAO;
 import com.oocl.mnlbc.entity.User;
-import com.oocl.mnlbc.entity.UserMembershipAsn;
 import com.oocl.mnlbc.security.PasswordEncrypter;
 import com.oocl.mnlbc.security.PasswordEncrypter.CannotPerformOperationException;
 import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
@@ -36,20 +35,18 @@ public class UserService implements UserDAO {
 	/**
 	 * Checks if a username is already in use.
 	 */
-	@SuppressWarnings("unchecked")
 	public boolean userExists(String username) {
 		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.username= :username");
 		query.setParameter("username", username);
 		List<User> user = query.getResultList();
 
 		return (!user.isEmpty());
-
+		
 	}
 
 	/**
 	 * Checks if the email address is already in use.
 	 */
-	@SuppressWarnings("unchecked")
 	public boolean emailExists(String email) {
 		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.email= :email");
 		query.setParameter("email", email);
@@ -60,7 +57,7 @@ public class UserService implements UserDAO {
 	}
 
 	/**
-	 * Validates a user's login credentials
+	 * Validates  a user's login credentials
 	 */
 	public User validateAccount(String username, String password) {
 		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.username= :username");
@@ -109,22 +106,6 @@ public class UserService implements UserDAO {
 			entityManager.getTransaction().begin();
 			entityManager.persist(user);
 			entityManager.getTransaction().commit();
-			
-			entityManager.getTransaction().begin();
-			User newlyCreatedUser = this.findUserByUsername(user.getUsername());
-			
-			
-			UserMembershipAsn userMembershipAsn = new UserMembershipAsn();
-			userMembershipAsn.setUserId(newlyCreatedUser);
-
-			// set the default membership type to member
-			userMembershipAsn.setMembershipTypeId(5000000001L);
-			
-			entityManager.persist(userMembershipAsn);
-			entityManager.getTransaction().commit();
-			
-			
-
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,25 +115,11 @@ public class UserService implements UserDAO {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getBannedUsers() {
 
 		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.isBlacklisted='YES'");
 		List<User> user = query.getResultList();
-		return user;
-	}
-
-	public User findUserByUsername(String username) {
-		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.username= :username");
-		query.setParameter("username", username);
-		User user = null;
-		try {
-			user = (User) query.getSingleResult();
-		} catch (NoResultException e) {
-			user = null;
-		}
-
 		return user;
 	}
 

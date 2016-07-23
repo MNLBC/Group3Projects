@@ -16,6 +16,7 @@
 		scope="singleton">
 	</bean>
 
+
 	<bean id="userService" class="com.oocl.mnlbc.service.UserService"
 		scope="singleton">
 	</bean>
