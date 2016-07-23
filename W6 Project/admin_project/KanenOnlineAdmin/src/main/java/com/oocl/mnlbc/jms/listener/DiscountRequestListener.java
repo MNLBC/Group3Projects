@@ -35,7 +35,6 @@ public class DiscountRequestListener implements MessageListener {
 		UserMembershipAsnService userMemberAsnService = new UserMembershipAsnService();
 		userMemberAsnService.init();
 		System.out.println("aaaa");
-
 		try {
 			if (message != null && message instanceof TextMessage) {
 				TextMessage msg = (TextMessage) message;
