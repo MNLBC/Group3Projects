@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oocl.mnlbc.dao.UserDAO;
 import com.oocl.mnlbc.entity.User;
+import com.oocl.mnlbc.model.ChangePasswordResult;
 import com.oocl.mnlbc.model.ModelWrapper;
 import com.oocl.mnlbc.model.Response;
 
@@ -127,5 +128,42 @@ public class UserController {
 		builder.append(returnJson);
 		logger.info("User has successfully logged out.");
 		return returnJson;
+	}
+	
+	/**
+	 * This handles changing of user password
+	 * 
+	 * @param userId
+	 * @param oldPassword
+	 * @Param newPassword
+	 * @return String
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/changePassword", method = { RequestMethod.GET })
+	@ResponseBody
+	public Response<ChangePasswordResult> changePassword(@RequestParam(value = "userId", required = true) long userId,
+			@RequestParam(value = "userName", required = true) String userName,
+			@RequestParam(value = "oldPassword", required = true) String oldPassword,
+			@RequestParam(value = "newPassword", required = true) String newPassword) throws Exception {
+
+		User user = userDAO.validateAccount(userName, oldPassword);
+		
+		ChangePasswordResult chgPassResult = new ChangePasswordResult();
+		
+		if(user == null){
+			chgPassResult.setResult("Incorrect old password.");
+		}else{
+			if(userDAO.changePassword(user,newPassword)){
+				chgPassResult.setResult("Password successfully changed.");
+			}
+		}
+		Response<ChangePasswordResult> response = new Response<ChangePasswordResult>();
+		response.setData(chgPassResult);
+
+		if (user != null) {
+			response.setSuccess(true);
+		}
+		return response;
+
 	}
 }

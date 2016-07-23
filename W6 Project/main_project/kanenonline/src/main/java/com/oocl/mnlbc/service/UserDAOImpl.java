@@ -69,7 +69,6 @@ public class UserDAOImpl implements UserDAO {
 		} catch (NoResultException e) {
 			user = null;
 		}
-
 		if (user != null) {
 
 			String passwordHash = user.getUserPassword();
@@ -109,17 +108,16 @@ public class UserDAOImpl implements UserDAO {
 			entityManager.getTransaction().commit();
 			entityManager.getTransaction().begin();
 			User newlyCreatedUser = this.findUserByUsername(user.getUsername());
-			
-			
+
 			UserMembershipAsn userMembershipAsn = new UserMembershipAsn();
 			userMembershipAsn.setUserId(newlyCreatedUser);
 
 			// set the default membership type to member
 			userMembershipAsn.setMembershipTypeId(5000000001L);
-			
+
 			entityManager.persist(userMembershipAsn);
 			entityManager.getTransaction().commit();
-			
+
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -148,6 +146,29 @@ public class UserDAOImpl implements UserDAO {
 		}
 
 		return user;
+	}
+
+	public boolean changePassword(User user, String newPassword) {
+
+		String enryptedPassword = "";
+		try {
+			enryptedPassword = PasswordEncrypter.createHash(newPassword);
+		} catch (CannotPerformOperationException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			user.setUserPassword(enryptedPassword);
+			entityManager.getTransaction().begin();
+			entityManager.persist(user);
+			entityManager.getTransaction().commit();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+
 	}
 
 }
