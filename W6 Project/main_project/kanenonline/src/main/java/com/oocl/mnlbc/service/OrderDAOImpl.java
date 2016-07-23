@@ -12,7 +12,6 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.sql.DataSource;
 
-import com.oocl.mnlbc.constants.KanenOnlineConstants;
 import com.oocl.mnlbc.dao.OrderDAO;
 import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.OrderItem;
@@ -43,13 +42,21 @@ public class OrderDAOImpl implements OrderDAO {
 	 * @return boolean
 	 */
 	@Override
-	public boolean createOrder(Order order) {
+	public boolean createOrder(Order order, List<OrderItem> orderItems) {
 		try {
 
 			entityManager.getTransaction().begin();
 
 			entityManager.persist(order);
 
+			entityManager.getTransaction().commit();
+
+			entityManager.getTransaction().begin();
+			for (OrderItem item : orderItems) {
+				item.setOrderId(order);
+				entityManager.persist(item);
+
+			}
 			entityManager.getTransaction().commit();
 
 			return true;
@@ -64,8 +71,7 @@ public class OrderDAOImpl implements OrderDAO {
 	 * 
 	 * @return boolean
 	 */
-	@Override
-	public boolean saveCart(CartItemBean items, long orderId) {
+	public boolean saveCart(OrderItem items, long orderId) {
 		// Query query = entityManager.createNativeQuery(
 		// "INSERT INTO ORDER_ITEM(ORDER_ID, PRODUCT_ID, QUANTITY,
 		// ORDERED_PRICE) VALUES(?,?,?,?)");
@@ -85,7 +91,7 @@ public class OrderDAOImpl implements OrderDAO {
 		orderItem.setOrderId(entityOrderId);
 		orderItem.setProductId(productId);
 		orderItem.setQuantity(quantity);
-		orderItem.setOrderedPrice(orderedPrice);
+		orderItem.setProductPrice(orderedPrice);
 
 		try {
 
@@ -173,4 +179,5 @@ public class OrderDAOImpl implements OrderDAO {
 		// TODO Auto-generated method stub
 
 	}
+
 }

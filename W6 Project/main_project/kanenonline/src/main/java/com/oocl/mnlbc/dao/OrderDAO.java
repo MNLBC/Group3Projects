@@ -21,9 +21,9 @@ public interface OrderDAO {
 	 */
 	public void setDataSource(DataSource ds);
 
-	public boolean createOrder(Order cart);
+	public boolean createOrder(Order cart, List<OrderItem> orderItems);
 
-	public boolean saveCart(CartItemBean items, long orderId);
+	public boolean saveCart(OrderItem items, long orderId);
 
 	public List<Order> getTransactions(long userId);
 

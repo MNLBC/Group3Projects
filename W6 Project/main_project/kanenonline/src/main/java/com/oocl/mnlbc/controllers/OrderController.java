@@ -106,7 +106,9 @@ public class OrderController {
 		String errorMsg = "";
 		
 		builder.append("{\"success\":true,\"data\":{\"errormsg\":\"");
-		if (orderDAO.createOrder(order)) {
+		if (orderDAO.createOrder(order, orderItems)) {
+			
+			
 			System.out.println("order success");
 			errorMsg += "none";
 		} else {
