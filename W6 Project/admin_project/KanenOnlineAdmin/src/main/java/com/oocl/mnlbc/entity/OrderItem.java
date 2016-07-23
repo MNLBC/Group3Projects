@@ -2,142 +2,142 @@ package com.oocl.mnlbc.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
- * 
- * @author Melvin Yu
+ * @author VERGAJO
  *
  */
-@Entity(name = "order_item")
-@Table(name = "order_items")
+@Entity(name = "OrderItem")
+@Table(name = "ORDER_ITEM")
 public class OrderItem implements Serializable {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	@Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "item_id")
-    private Integer itemId;
-	@Column(name = "ITEM_NAME")
-    private String itemName;
-    @Column(name = "ITEM_DETAILS")
-    private String itemDetails;
-    @Column(name = "ITEM_CATEGORY")
-    private String itemCategory;
-    @Column(name = "ITEM_STOCK")
-    private Integer itemStock;
-    @Column(name = "ITEM_PRICE")
-    private Integer itemPrice;
-    @JsonIgnore
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Order orderId;
-    
-    public OrderItem() {
-		// TODO Auto-generated constructor stub
+	@Column(name = "ORDER_ITEM_ID")
+	private long orderItemId;
+
+	@Column(name = "QUANTITY")
+	private Double quantity;
+
+	@Column(name = "ORDERED_PRICE")
+	private Double productPrice;
+
+	@Column(name = "PRODUCT_ID")
+	private long productId;
+
+	@JsonIgnore
+	@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	private Order orderId;
+
+	/*
+	 * @JsonIgnore
+	 * 
+	 * @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
+	 * //@ManyToOne(cascade = CascadeType.ALL, optional = false, fetch =
+	 * FetchType.LAZY)
+	 * 
+	 * @ManyToOne(optional = false, fetch = FetchType.LAZY) private Product
+	 * productId;
+	 */
+
+	public OrderItem() {
+
 	}
-    
-    public OrderItem(Integer itemId, String itemName, String itemDetails, Order orderId) {
+
+	public OrderItem(long orderItemId, Double quantity, Double productPrice, long productId, Order orderId) {
 		super();
-		this.itemId = itemId;
-		this.itemName = itemName;
-		this.itemDetails = itemDetails;
+		this.orderItemId = orderItemId;
+		this.quantity = quantity;
+		this.productPrice = productPrice;
+		this.productId = productId;
 		this.orderId = orderId;
 	}
 
-	public Integer getItemId() {
-		return itemId;
+	public long getProductId() {
+		return productId;
 	}
 
-	public void setItemId(Integer itemId) {
-		this.itemId = itemId;
+	public void setProductId(long productId) {
+		this.productId = productId;
 	}
 
-	public String getItemName() {
-		return itemName;
+	public long getOrderItemId() {
+		return orderItemId;
 	}
 
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
+	public void setOrderItemId(Integer orderItemId) {
+		this.orderItemId = orderItemId;
 	}
 
-	public String getItemDetails() {
-		return itemDetails;
+	public Double getQuantity() {
+		return quantity;
 	}
 
-	public void setItemDetails(String itemDetails) {
-		this.itemDetails = itemDetails;
+	public void setQuantity(Double quantity) {
+		this.quantity = quantity;
+	}
+
+	public Double getProductPrice() {
+		return productPrice;
+	}
+
+	public void setProductPrice(Double productPrice) {
+		this.productPrice = productPrice;
 	}
 
 	public Order getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(Order orderId) {
-		this.orderId = orderId;
-	}
-	
-	public String getItemCategory() {
-		return itemCategory;
+	public void setOrderId(Order orderId2) {
+		this.orderId = orderId2;
 	}
 
-	public void setItemCategory(String itemCategory) {
-		this.itemCategory = itemCategory;
-	}
-
-	public Integer getItemStock() {
-		return itemStock;
-	}
-
-	public void setItemStock(Integer itemStock) {
-		this.itemStock = itemStock;
-	}
-
-	public Integer getItemPrice() {
-		return itemPrice;
-	}
-
-	public void setItemPrice(Integer itemPrice) {
-		this.itemPrice = itemPrice;
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (itemId != null ? itemId.hashCode() : 0);
-        return hash;
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((orderId == null) ? 0 : orderId.hashCode());
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OrderItem)) {
-            return false;
-        }
-        OrderItem other = (OrderItem) object;
-        if ((this.itemId == null && other.itemId != null) || (this.itemId != null && !this.itemId.equals(other.itemId))) {
-            return false;
-        }
-        return true;
-    }
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
-	public String toString() {
-		return "OrderItem [itemId=" + itemId + ", itemName=" + itemName + ", itemDetails=" + itemDetails
-				+ ", itemCategory=" + itemCategory + ", itemStock=" + itemStock + ", itemPrice=" + itemPrice
-				+ ", orderId=" + orderId + "]";
-	}    
-    
-    
-    
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrderItem other = (OrderItem) obj;
+		if (orderId == null) {
+			if (other.orderId != null)
+				return false;
+		} else if (!orderId.equals(other.orderId))
+			return false;
+		return true;
+	}
+
 }

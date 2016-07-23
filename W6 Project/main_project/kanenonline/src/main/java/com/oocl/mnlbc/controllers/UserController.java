@@ -27,6 +27,7 @@ public class UserController {
 	@Autowired
 	private UserDAO userDAO;
 
+	@Autowired 
 	private static final Logger logger = Logger.getLogger(UserController.class);
 
 	/**
