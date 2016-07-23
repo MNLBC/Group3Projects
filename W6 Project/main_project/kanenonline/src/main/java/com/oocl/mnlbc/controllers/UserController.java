@@ -16,6 +16,7 @@ import com.oocl.mnlbc.model.Response;
 
 /**
  * User Controller
+ * 
  * @author John Benedict Vergara
  *
  */
@@ -129,14 +130,14 @@ public class UserController {
 		logger.info("User has successfully logged out.");
 		return returnJson;
 	}
-	
+
 	/**
 	 * This handles changing of user password
 	 * 
 	 * @param userId
 	 * @param oldPassword
 	 * @Param newPassword
-	 * @return String
+	 * @return Response<ChangePasswordResult>
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/changePassword", method = { RequestMethod.GET })
@@ -147,13 +148,13 @@ public class UserController {
 			@RequestParam(value = "newPassword", required = true) String newPassword) throws Exception {
 
 		User user = userDAO.validateAccount(userName, oldPassword);
-		
+
 		ChangePasswordResult chgPassResult = new ChangePasswordResult();
-		
-		if(user == null){
+
+		if (user == null) {
 			chgPassResult.setResult("Incorrect old password.");
-		}else{
-			if(userDAO.changePassword(user,newPassword)){
+		} else {
+			if (userDAO.changePassword(user, newPassword)) {
 				chgPassResult.setResult("Password successfully changed.");
 			}
 		}
@@ -166,4 +167,41 @@ public class UserController {
 		return response;
 
 	}
+
+	/**
+	 * This handles updating of user profile.
+	 * 
+	 * @param userId
+	 * @return String
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/updateProfile", method = { RequestMethod.GET })
+	@ResponseBody
+	public Response<User> updateProfile(@RequestParam(value = "userId", required = true) String userId,
+			@RequestParam(value = "userName", required = true) String userName,
+			@RequestParam(value = "fullName", required = true) String fullName,
+			@RequestParam(value = "email", required = true) String email,
+			@RequestParam(value = "address", required = true) String address,
+			@RequestParam(value = "mobileNumber", required = true) String mobileNumber) throws Exception {
+
+		User user = userDAO.findById(Long.valueOf(userId));
+		Response<User> response = new Response<User>();
+		if (user != null) {
+
+			user.setFullName(fullName);
+			user.setEmail(email);
+			user.setMobileNumber(mobileNumber);
+			user.setAddress(address);
+			user = userDAO.update(user);
+
+			if (user != null) {
+				response.setSuccess(true);
+				response.setData(user);
+			}
+
+		}
+		return response;
+
+	}
+
 }

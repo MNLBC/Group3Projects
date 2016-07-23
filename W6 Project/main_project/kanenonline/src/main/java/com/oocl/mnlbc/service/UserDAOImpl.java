@@ -2,16 +2,14 @@ package com.oocl.mnlbc.service;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
+
 import javax.persistence.Query;
 
 import com.oocl.mnlbc.dao.UserDAO;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
+import com.oocl.mnlbc.security.AbstractJPAGenericDAO;
 import com.oocl.mnlbc.security.PasswordEncrypter;
 import com.oocl.mnlbc.security.PasswordEncrypter.CannotPerformOperationException;
 import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
@@ -22,15 +20,19 @@ import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
  * @author John Benedict Vergara
  *
  */
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO {
 
-	@PersistenceContext
-	private EntityManagerFactory entityManagerFactory;
-	private EntityManager entityManager;
+	/*
+	 * @PersistenceContext private EntityManagerFactory entityManagerFactory;
+	 * private EntityManager entityManager;
+	 */
 
 	public UserDAOImpl() {
-		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink");
-		entityManager = entityManagerFactory.createEntityManager();
+		/*
+		 * entityManagerFactory =
+		 * Persistence.createEntityManagerFactory("unitEclipseLink");
+		 * entityManager = entityManagerFactory.createEntityManager();
+		 */
 	}
 
 	/**
@@ -127,6 +129,9 @@ public class UserDAOImpl implements UserDAO {
 
 	}
 
+	/**
+	 * Returns the list of banned users
+	 */
 	@Override
 	public List<User> getBannedUsers() {
 
@@ -135,6 +140,11 @@ public class UserDAOImpl implements UserDAO {
 		return user;
 	}
 
+	/**
+	 * Finds a user by username
+	 * @param username
+	 * @return User
+	 */
 	public User findUserByUsername(String username) {
 		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.username= :username");
 		query.setParameter("username", username);
@@ -147,7 +157,10 @@ public class UserDAOImpl implements UserDAO {
 
 		return user;
 	}
-
+	
+	/**
+	 * Updates the users encrypted password
+	 */
 	public boolean changePassword(User user, String newPassword) {
 
 		String enryptedPassword = "";

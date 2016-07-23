@@ -8,7 +8,7 @@ import com.oocl.mnlbc.entity.User;
  * @author John Benedict Vergara
  *
  */
-public interface UserDAO {
+public interface UserDAO extends GenericDAO<User> {
 
 	boolean userExists(String username);
 
