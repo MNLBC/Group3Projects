@@ -508,15 +508,15 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                       orderStore.add(order);
                  }
 
-
+                 
                  for(var i=0; i < responseData.items.length; i++){
                  var items = {
-                     orderId: responseData.items[i].orderId,
-                      productId: responseData.items[i].productId,
-                      productName: responseData.items[i].productName,
-                      productDescription: responseData.items[i].productDescription,
-                      quantity: responseData.items[i].quantity,
-                      productPrice: responseData.items[i].productPrice
+                      orderId: responseData.items[i][0],
+                      productId: responseData.items[i][1],
+                      productName: responseData.items[i][2],
+                      productDescription: responseData.items[i][4],
+                      quantity: responseData.items[i][3],
+                      productPrice: responseData.items[i][5]
                        };
                 orderItemStore.add(items);
                  }
