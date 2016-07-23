@@ -1,11 +1,14 @@
 package com.oocl.mnlbc.service;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import com.oocl.mnlbc.dao.MembershipTypeDAO;
+import com.oocl.mnlbc.entity.MembershipType;
 
 /**
  * 
@@ -48,5 +51,14 @@ public class MembershipTypeDAOImpl implements MembershipTypeDAO {
 		return membershipTypeName;
 
 	}
+	
+	public List<MembershipType> getMembershipTypes() {
+		Query query = entityManager.createNativeQuery(
+				"SELECT MEMBERSHIP_TYPE_ID, MEMBERSHIP_TYPE_NAME, DISCOUNT_RATE FROM MEMBERSHIP_TYPE",
+				MembershipType.class);
+		return query.getResultList();
+
+	}
+
 
 }

@@ -2,15 +2,14 @@ package com.oocl.mnlbc.service;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
+
 import javax.persistence.Query;
 
 import com.oocl.mnlbc.dao.UserDAO;
 import com.oocl.mnlbc.entity.User;
+import com.oocl.mnlbc.entity.UserMembershipAsn;
+import com.oocl.mnlbc.security.AbstractJPAGenericDAO;
 import com.oocl.mnlbc.security.PasswordEncrypter;
 import com.oocl.mnlbc.security.PasswordEncrypter.CannotPerformOperationException;
 import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
@@ -21,15 +20,19 @@ import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
  * @author John Benedict Vergara
  *
  */
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO {
 
-	@PersistenceContext
-	private EntityManagerFactory entityManagerFactory;
-	private EntityManager entityManager;
+	/*
+	 * @PersistenceContext private EntityManagerFactory entityManagerFactory;
+	 * private EntityManager entityManager;
+	 */
 
 	public UserDAOImpl() {
-		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink");
-		entityManager = entityManagerFactory.createEntityManager();
+		/*
+		 * entityManagerFactory =
+		 * Persistence.createEntityManagerFactory("unitEclipseLink");
+		 * entityManager = entityManagerFactory.createEntityManager();
+		 */
 	}
 
 	/**
@@ -41,7 +44,7 @@ public class UserDAOImpl implements UserDAO {
 		List<User> user = query.getResultList();
 
 		return (!user.isEmpty());
-		
+
 	}
 
 	/**
@@ -57,7 +60,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	/**
-	 * Validates  a user's login credentials
+	 * Validates a user's login credentials
 	 */
 	public User validateAccount(String username, String password) {
 		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.username= :username");
@@ -68,7 +71,6 @@ public class UserDAOImpl implements UserDAO {
 		} catch (NoResultException e) {
 			user = null;
 		}
-
 		if (user != null) {
 
 			String passwordHash = user.getUserPassword();
@@ -106,6 +108,18 @@ public class UserDAOImpl implements UserDAO {
 			entityManager.getTransaction().begin();
 			entityManager.persist(user);
 			entityManager.getTransaction().commit();
+			entityManager.getTransaction().begin();
+			User newlyCreatedUser = this.findUserByUsername(user.getUsername());
+
+			UserMembershipAsn userMembershipAsn = new UserMembershipAsn();
+			userMembershipAsn.setUserId(newlyCreatedUser);
+
+			// set the default membership type to member
+			userMembershipAsn.setMembershipTypeId(5000000001L);
+
+			entityManager.persist(userMembershipAsn);
+			entityManager.getTransaction().commit();
+
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -115,12 +129,59 @@ public class UserDAOImpl implements UserDAO {
 
 	}
 
+	/**
+	 * Returns the list of banned users
+	 */
 	@Override
 	public List<User> getBannedUsers() {
 
 		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.isBlacklisted='YES'");
 		List<User> user = query.getResultList();
 		return user;
+	}
+
+	/**
+	 * Finds a user by username
+	 * @param username
+	 * @return User
+	 */
+	public User findUserByUsername(String username) {
+		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.username= :username");
+		query.setParameter("username", username);
+		User user = null;
+		try {
+			user = (User) query.getSingleResult();
+		} catch (NoResultException e) {
+			user = null;
+		}
+
+		return user;
+	}
+	
+	/**
+	 * Updates the users encrypted password
+	 */
+	public boolean changePassword(User user, String newPassword) {
+
+		String enryptedPassword = "";
+		try {
+			enryptedPassword = PasswordEncrypter.createHash(newPassword);
+		} catch (CannotPerformOperationException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			user.setUserPassword(enryptedPassword);
+			entityManager.getTransaction().begin();
+			entityManager.persist(user);
+			entityManager.getTransaction().commit();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+
 	}
 
 }
