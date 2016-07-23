@@ -43,7 +43,7 @@ public class Order implements Serializable {
 	/**
 	 * 
 	 */
-	private  Order() {
+	public  Order() {
 		// TODO Auto-generated method stub
 
 	}
