@@ -3,16 +3,11 @@
  */
 package com.oocl.mnlbc.model;
 
-import java.io.Serializable;
-
 /**
- * @author GROUP3
- * Model Class of an item in the shopping cart
+ * @author GROUP3 Model Class of an item in the shopping cart
  */
-public class CartItemBean implements Serializable {
+public class CartItemBean {
 
-	
-	private static final long serialVersionUID = 1L;
 	private int productId;
 	private String productName;
 	private String productDescription;
@@ -53,7 +48,8 @@ public class CartItemBean implements Serializable {
 		this.productPrice = productPrice;
 	}
 
-	public CartItemBean(int productId, String productName, String productDescription, int quantity, double productPrice, String imagePath) {
+	public CartItemBean(int productId, String productName, String productDescription, int quantity, double productPrice,
+			String imagePath) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -62,8 +58,6 @@ public class CartItemBean implements Serializable {
 		this.productPrice = productPrice;
 		this.imagePath = imagePath;
 	}
-
-
 
 	public CartItemBean() {
 		// TODO Auto-generated constructor stub
@@ -93,16 +87,8 @@ public class CartItemBean implements Serializable {
 		this.quantity = quantity;
 	}
 
-	
-
 	public void setproductPrice(double productPrice) {
 		this.productPrice = productPrice;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	
 
 }
