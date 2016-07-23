@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 import com.oocl.mnlbc.dao.UserDAO;
 import com.oocl.mnlbc.entity.User;
+import com.oocl.mnlbc.entity.UserMembershipAsn;
 import com.oocl.mnlbc.security.PasswordEncrypter;
 import com.oocl.mnlbc.security.PasswordEncrypter.CannotPerformOperationException;
 import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
@@ -41,7 +42,7 @@ public class UserDAOImpl implements UserDAO {
 		List<User> user = query.getResultList();
 
 		return (!user.isEmpty());
-		
+
 	}
 
 	/**
@@ -57,7 +58,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	/**
-	 * Validates  a user's login credentials
+	 * Validates a user's login credentials
 	 */
 	public User validateAccount(String username, String password) {
 		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.username= :username");
@@ -106,6 +107,19 @@ public class UserDAOImpl implements UserDAO {
 			entityManager.getTransaction().begin();
 			entityManager.persist(user);
 			entityManager.getTransaction().commit();
+			entityManager.getTransaction().begin();
+			User newlyCreatedUser = this.findUserByUsername(user.getUsername());
+			
+			
+			UserMembershipAsn userMembershipAsn = new UserMembershipAsn();
+			userMembershipAsn.setUserId(newlyCreatedUser);
+
+			// set the default membership type to member
+			userMembershipAsn.setMembershipTypeId(5000000001L);
+			
+			entityManager.persist(userMembershipAsn);
+			entityManager.getTransaction().commit();
+			
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,6 +134,19 @@ public class UserDAOImpl implements UserDAO {
 
 		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.isBlacklisted='YES'");
 		List<User> user = query.getResultList();
+		return user;
+	}
+
+	public User findUserByUsername(String username) {
+		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.username= :username");
+		query.setParameter("username", username);
+		User user = null;
+		try {
+			user = (User) query.getSingleResult();
+		} catch (NoResultException e) {
+			user = null;
+		}
+
 		return user;
 	}
 

@@ -67,7 +67,7 @@ public class User implements Serializable {
 	// FetchType.LAZY)
 	// private List<UserMembershipAssn> userMembershipAssns;
 
-	@OneToOne(cascade = CascadeType.REMOVE, mappedBy = "userId", fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.REMOVE, mappedBy = "userId", fetch = FetchType.EAGER)
 	private UserMembershipAsn userMembershipId;
 
 	public User() {

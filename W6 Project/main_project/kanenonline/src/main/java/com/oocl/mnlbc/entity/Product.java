@@ -106,11 +106,11 @@ public class Product implements Serializable {
 		this.productStockQuantity = productStockQuantity;
 	}
 
-	public String getProductImagePath() {
+	public String getImagePath() {
 		return imagePath;
 	}
 
-	public void setProductImagePath(String productImagePath) {
+	public void setImagePath(String productImagePath) {
 		this.imagePath = productImagePath;
 	}
 
