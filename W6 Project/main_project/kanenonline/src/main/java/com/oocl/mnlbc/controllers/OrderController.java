@@ -1,11 +1,13 @@
 package com.oocl.mnlbc.controllers;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.oocl.mnlbc.constants.KanenOnlineConstants;
 import com.oocl.mnlbc.dao.OrderDAO;
 import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.OrderItem;
 import com.oocl.mnlbc.model.CartItemBean;
-import com.oocl.mnlbc.model.OrderBean;
 import com.oocl.mnlbc.model.OrdersAndItems;
 import com.oocl.mnlbc.model.Response;
 import com.oocl.mnlbc.utils.CollectionUtils;
@@ -88,17 +90,25 @@ public class OrderController {
 	@ResponseBody
 	public String saveOrder(@RequestParam(value = "jsonData", required = true) String jsonData) throws IOException {
 
+		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
+		Date date = new Date();
 		Gson gson = new Gson();
-		OrderBean order = gson.fromJson(jsonData, OrderBean.class);
+		Order order = gson.fromJson(jsonData, Order.class);
+		order.setOrderDate(dateFormat.format(date));
+		order.setOrderStatus(KanenOnlineConstants.DELIVERY_STATUS);
 		order.setOrderId(0);
-
+		
+		order.setItems(null);
+		List<OrderItem> orderItems = order.getItems();
 		StringBuilder builder = new StringBuilder();
 		String errorMsg = "";
-
+		
 		builder.append("{\"success\":true,\"data\":{\"errormsg\":\"");
 		if (orderDAO.createOrder(order)) {
+			System.out.println("order success");
 			errorMsg += "none";
 		} else {
+			System.out.println("order failed");
 			errorMsg += "failed";
 		}
 

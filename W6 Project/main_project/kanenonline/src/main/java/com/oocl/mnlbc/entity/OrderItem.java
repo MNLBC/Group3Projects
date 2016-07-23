@@ -24,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class OrderItem implements Serializable {
 
 	@Id
-	@GeneratedValue(generator = "ORDER_ITEM_ID_SEQ")
-	@SequenceGenerator(name = "ORDER_ITEM_ID_SEQ", sequenceName = "ORDER_ITEM_ID_SEQ", allocationSize = 111)
+//	@GeneratedValue(generator = "ORDER_ITEM_ID_SEQ")
+//	@SequenceGenerator(name = "ORDER_ITEM_ID_SEQ", sequenceName = "ORDER_ITEM_ID_SEQ", allocationSize = 111)
 	@Column(name = "ORDER_ITEM_ID")
 	private long orderItemId;
 
@@ -34,6 +34,10 @@ public class OrderItem implements Serializable {
 
 	@Column(name = "ORDERED_PRICE")
 	private Double orderedPrice;
+
+	@Column(name = "PRODUCT_ID")
+	private long productId;
+
 	@JsonIgnore
 	@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -60,6 +64,14 @@ public class OrderItem implements Serializable {
 		this.quantity = quantity;
 		this.orderedPrice = orderedPrice;
 
+	}
+
+	public long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(long productId) {
+		this.productId = productId;
 	}
 
 	public long getOrderItemId() {

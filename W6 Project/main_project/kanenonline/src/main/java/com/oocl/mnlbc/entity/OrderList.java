@@ -3,13 +3,13 @@ package com.oocl.mnlbc.entity;
 import java.util.List;
 
 public class OrderList {
-	private List<Orders> orders;
+	private List<Order> orders;
 
-	public List<Orders> getOrders() {
+	public List<Order> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(List<Orders> orders) {
+	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
 

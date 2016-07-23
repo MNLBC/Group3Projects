@@ -4,6 +4,7 @@
 package com.oocl.mnlbc.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,8 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author VERGAJO
@@ -48,7 +47,7 @@ public class Order implements Serializable {
 	// @ManyToOne(optional = false, fetch = FetchType.LAZY)
 	// private long userId;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId", fetch = FetchType.LAZY)
-	private List<OrderItem> items;
+	private List<OrderItem> items = new ArrayList<OrderItem>();
 
 	public Order() {
 	}
@@ -108,6 +107,7 @@ public class Order implements Serializable {
 	}
 
 	public void setItems(List<OrderItem> items) {
+		
 		this.items = items;
 	}
 
