@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oocl.mnlbc.dao.UserDAO;
 import com.oocl.mnlbc.entity.User;
+import com.oocl.mnlbc.model.ChangePasswordResult;
 import com.oocl.mnlbc.model.ModelWrapper;
 import com.oocl.mnlbc.model.Response;
 
 /**
  * User Controller
+ * 
  * @author John Benedict Vergara
  *
  */
@@ -23,7 +25,7 @@ import com.oocl.mnlbc.model.Response;
 public class UserController {
 
 	@Autowired
-	private UserDAO userService;
+	private UserDAO userDAO;
 
 	private static final Logger logger = Logger.getLogger(UserController.class);
 
@@ -59,18 +61,18 @@ public class UserController {
 
 		User user = new User(0, userName, userPassword, fullName, email, deliveryAddress, mobileNumber, userRole);
 		System.out.println(user.getFullName());
-		if (userService.userExists(userName)) {
+		if (userDAO.userExists(userName)) {
 			errorMsg += "usernametaken";
 			logger.info("Registration Failed, " + userName + " is already taken");
 		}
 		System.out.println(email);
-		if (userService.emailExists(email)) {
+		if (userDAO.emailExists(email)) {
 			errorMsg += "emailtaken";
 			logger.info("Registration Failed, " + email + " is already taken");
 		}
 
 		if (errorMsg.equals("")) {
-			if (userService.registerUser(user)) {
+			if (userDAO.registerUser(user)) {
 				errorMsg += "none";
 				logger.info("User successfully registered");
 			} else {
@@ -100,7 +102,7 @@ public class UserController {
 		logger.info(userName + " is logging in..");
 
 		ModelWrapper<User> items = new ModelWrapper<User>();
-		User user = userService.validateAccount(userName, userPassword);
+		User user = userDAO.validateAccount(userName, userPassword);
 		items.getItems().add(user);
 
 		Response<ModelWrapper<User>> response = new Response<ModelWrapper<User>>();
@@ -128,4 +130,78 @@ public class UserController {
 		logger.info("User has successfully logged out.");
 		return returnJson;
 	}
+
+	/**
+	 * This handles changing of user password
+	 * 
+	 * @param userId
+	 * @param oldPassword
+	 * @Param newPassword
+	 * @return Response<ChangePasswordResult>
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/changePassword", method = { RequestMethod.GET })
+	@ResponseBody
+	public Response<ChangePasswordResult> changePassword(@RequestParam(value = "userId", required = true) long userId,
+			@RequestParam(value = "userName", required = true) String userName,
+			@RequestParam(value = "oldPassword", required = true) String oldPassword,
+			@RequestParam(value = "newPassword", required = true) String newPassword) throws Exception {
+
+		User user = userDAO.validateAccount(userName, oldPassword);
+
+		ChangePasswordResult chgPassResult = new ChangePasswordResult();
+
+		if (user == null) {
+			chgPassResult.setResult("Incorrect old password.");
+		} else {
+			if (userDAO.changePassword(user, newPassword)) {
+				chgPassResult.setResult("Password successfully changed.");
+			}
+		}
+		Response<ChangePasswordResult> response = new Response<ChangePasswordResult>();
+		response.setData(chgPassResult);
+
+		if (user != null) {
+			response.setSuccess(true);
+		}
+		return response;
+
+	}
+
+	/**
+	 * This handles updating of user profile.
+	 * 
+	 * @param userId
+	 * @return String
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/updateProfile", method = { RequestMethod.GET })
+	@ResponseBody
+	public Response<User> updateProfile(@RequestParam(value = "userId", required = true) String userId,
+			@RequestParam(value = "userName", required = true) String userName,
+			@RequestParam(value = "fullName", required = true) String fullName,
+			@RequestParam(value = "email", required = true) String email,
+			@RequestParam(value = "address", required = true) String address,
+			@RequestParam(value = "mobileNumber", required = true) String mobileNumber) throws Exception {
+
+		User user = userDAO.findById(Long.valueOf(userId));
+		Response<User> response = new Response<User>();
+		if (user != null) {
+
+			user.setFullName(fullName);
+			user.setEmail(email);
+			user.setMobileNumber(mobileNumber);
+			user.setAddress(address);
+			user = userDAO.update(user);
+
+			if (user != null) {
+				response.setSuccess(true);
+				response.setData(user);
+			}
+
+		}
+		return response;
+
+	}
+
 }

@@ -11,7 +11,8 @@
 		<class>com.oocl.mnlbc.entity.Order</class> 
 		<class>com.oocl.mnlbc.entity.OrderItem</class> 
 		<class>com.oocl.mnlbc.entity.User</class>
-		
+		<class>com.oocl.mnlbc.entity.MembershipType</class>
+		<class>com.oocl.mnlbc.entity.UserMembershipAsn</class>
 		
 		
 		<properties>
