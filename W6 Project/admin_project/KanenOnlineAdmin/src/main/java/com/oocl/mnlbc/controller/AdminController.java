@@ -60,7 +60,7 @@ public class AdminController {
 		return response;
 	}
 
-	@RequestMapping(value = "/login")
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	@ResponseBody
 	public User loginAdmin(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword){

@@ -36,6 +36,7 @@ public class Order implements Serializable {
 	private double totalCost;
 	@Column(name = "ORDER_STATUS")
 	private String orderStatus;	
+	@JsonIgnore
 	@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private User userId;
