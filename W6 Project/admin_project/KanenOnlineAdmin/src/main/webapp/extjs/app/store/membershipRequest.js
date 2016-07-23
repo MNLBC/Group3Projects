@@ -28,33 +28,6 @@ Ext.define('MyApp.store.membershipRequest', {
         me.callParent([Ext.apply({
             model: 'MyApp.model.membershipRequest',
             storeId: 'membershipRequest',
-            data: [
-                {
-                    userName: 'excepturi',
-                    currentMembershipLevel: 'ipsum',
-                    requestedMembershipLevel: 'unde'
-                },
-                {
-                    userName: 'et',
-                    currentMembershipLevel: 'aut',
-                    requestedMembershipLevel: 'accusamus'
-                },
-                {
-                    userName: 'quas',
-                    currentMembershipLevel: 'dolorem',
-                    requestedMembershipLevel: 'dicta'
-                },
-                {
-                    userName: 'asperiores',
-                    currentMembershipLevel: 'voluptatem',
-                    requestedMembershipLevel: 'quas'
-                },
-                {
-                    userName: 'voluptatem',
-                    currentMembershipLevel: 'maiores',
-                    requestedMembershipLevel: 'molestiae'
-                }
-            ],
             proxy: {
                 type: 'ajax',
                 reader: {

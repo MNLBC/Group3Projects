@@ -48,7 +48,21 @@ Ext.define('MyApp.view.MyViewport', {
                             region: 'north',
                             height: 94,
                             itemId: 'TopContainer',
-                            style: 'background-color:#201303'
+                            style: 'background-color:#201303',
+                            layout: {
+                                type: 'hbox',
+                                align: 'bottom',
+                                pack: 'end'
+                            },
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    height: 39,
+                                    width: 94,
+                                    glyph: '',
+                                    text: ''
+                                }
+                            ]
                         },
                         {
                             xtype: 'container',
@@ -262,13 +276,13 @@ Ext.define('MyApp.view.MyViewport', {
                                     items: [
                                         {
                                             xtype: 'gridpanel',
-                                            id: 'userRequestGrid',
-                                            itemId: 'userRequestGrid',
+                                            id: 'membershipRequestGrid',
+                                            itemId: 'membershipRequestGrid',
                                             store: 'membershipRequest',
                                             columns: [
                                                 {
                                                     xtype: 'gridcolumn',
-                                                    dataIndex: 'userName',
+                                                    dataIndex: 'fullName',
                                                     text: 'Username',
                                                     flex: 1
                                                 },
@@ -329,8 +343,8 @@ Ext.define('MyApp.view.MyViewport', {
                     items: [
                         {
                             xtype: 'form',
-                            height: 203,
-                            width: 451,
+                            height: 172,
+                            width: 418,
                             bodyPadding: 10,
                             title: 'Login',
                             items: [
@@ -339,7 +353,8 @@ Ext.define('MyApp.view.MyViewport', {
                                     anchor: '100%',
                                     id: 'txtUsername',
                                     itemId: 'txtUsername',
-                                    fieldLabel: 'Username'
+                                    fieldLabel: 'Username',
+                                    emptyText: 'Username'
                                 },
                                 {
                                     xtype: 'textfield',
@@ -347,7 +362,8 @@ Ext.define('MyApp.view.MyViewport', {
                                     id: 'txtPassword',
                                     itemId: 'txtPassword',
                                     fieldLabel: 'Password',
-                                    inputType: 'password'
+                                    inputType: 'password',
+                                    emptyText: 'Password'
                                 },
                                 {
                                     xtype: 'container',
@@ -367,17 +383,6 @@ Ext.define('MyApp.view.MyViewport', {
                                             margin: 10,
                                             width: 150,
                                             text: 'Login'
-                                        },
-                                        {
-                                            xtype: 'button',
-                                            flex: 1,
-                                            height: 22,
-                                            id: 'btnRegister',
-                                            itemId: 'btnRegister',
-                                            margin: 10,
-                                            padding: '',
-                                            width: 198,
-                                            text: 'Register'
                                         }
                                     ]
                                 }

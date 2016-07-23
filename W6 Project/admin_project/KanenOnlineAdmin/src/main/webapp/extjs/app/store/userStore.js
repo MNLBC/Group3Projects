@@ -28,12 +28,6 @@ Ext.define('MyApp.store.userStore', {
         me.callParent([Ext.apply({
             model: 'MyApp.model.userModel',
             storeId: 'userStore',
-            data: [
-                {
-                    userName: 'admin',
-                    password: 'admin123'
-                }
-            ],
             proxy: {
                 type: 'ajax',
                 reader: {
