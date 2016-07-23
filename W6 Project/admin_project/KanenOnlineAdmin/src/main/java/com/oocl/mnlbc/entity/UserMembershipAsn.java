@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Melvin Yu
  *
@@ -39,6 +41,7 @@ public class UserMembershipAsn implements Serializable {
 	private Integer forApproval;
 	@Column(name="IS_REQUEST_APPROVED")
 	private Integer requestApproved;
+	@JsonIgnore
 	@OneToOne(optional=false)
     @JoinColumn(name = "USER_ID", insertable=false, updatable=false) 
     private User userId;

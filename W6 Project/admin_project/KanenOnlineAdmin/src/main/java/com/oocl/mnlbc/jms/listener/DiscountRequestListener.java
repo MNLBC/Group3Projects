@@ -34,22 +34,22 @@ public class DiscountRequestListener implements MessageListener {
 		memberService.init();
 		UserMembershipAsnService userMemberAsnService = new UserMembershipAsnService();
 		userMemberAsnService.init();
-		
-		
+		System.out.println("aaaa");
+
 		try {
-			if (message != null 
-					&& message instanceof TextMessage) {
+			if (message != null && message instanceof TextMessage) {
 				TextMessage msg = (TextMessage) message;
-				msg.getText();
-				System.out.println("MEMBER ID: "+memberService.getIdByTypeName("STUDENT"));
-				
-//				User user = userService.validateUser("brionse", "redhat");
-				User user = userService.findById(1000000128);
+
+				String request = msg.getText();
+				String[] splittedStr = request.split(",");
+				System.out.println(request + "    " + splittedStr[0]);
+
+				User user = userService.findById(Long.parseLong(splittedStr[0]));
 				System.out.println(user);
-				
+
 				UserMembershipAsn memAsn = userMemberAsnService.findMembership(user);
 				memAsn.setForApproval(1);
-				memAsn.setRequestMembershipTypeId(memberService.getIdByTypeName("STUDENT"));
+				memAsn.setRequestMembershipTypeId(memberService.getIdByTypeName(splittedStr[1]));
 				memAsn = userMemberAsnService.updateMembership(memAsn);
 
 			}
