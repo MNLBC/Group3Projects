@@ -71,7 +71,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                    jsonData += ',"totalCost": ' + totalCost;
                    jsonData += '}';
 
-
                    Ext.Ajax.request({
                       url : 'order/saveOrder',
                       method: 'POST',

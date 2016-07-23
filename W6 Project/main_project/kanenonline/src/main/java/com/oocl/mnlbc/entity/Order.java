@@ -47,7 +47,7 @@ public class Order implements Serializable {
 	// @ManyToOne(optional = false, fetch = FetchType.LAZY)
 	// private long userId;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId", fetch = FetchType.LAZY)
-	private List<OrderItem> items = new ArrayList<OrderItem>();
+	private List<OrderItem> items;
 
 	public Order() {
 	}
@@ -59,7 +59,6 @@ public class Order implements Serializable {
 		this.totalCost = totalCost;
 		this.orderStatus = orderStatus;
 		this.userId = userId;
-		this.items = items;
 	}
 
 	public long getOrderId() {
