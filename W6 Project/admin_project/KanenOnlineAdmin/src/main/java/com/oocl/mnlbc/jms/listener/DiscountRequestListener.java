@@ -35,34 +35,23 @@ public class DiscountRequestListener implements MessageListener {
 		UserMembershipAsnService userMemberAsnService = new UserMembershipAsnService();
 		userMemberAsnService.init();
 		
-		System.out.println("MEMBER ID: "+memberService.getIdByTypeName("STUDENT"));
-		
-//		User user = userService.validateUser("brionse", "redhat");
-		User user = userService.findById(1000000128);
-		System.out.println(user);
-		
-		UserMembershipAsn memAsn = userMemberAsnService.findMembership(user);
-		memAsn.setForApproval(1);
-		memAsn.setRequestMembershipTypeId(memberService.getIdByTypeName("STUDENT"));
-		memAsn = userMemberAsnService.updateMembership(memAsn);
-		
-		
-//		for(User user : rs.getList()){
-//			System.out.println(user);
-//		}
-//		
-		List<UserMembershipAsn> listMembership = userMemberAsnService.allMembershipRequest();
-		
-		for(UserMembershipAsn mem: listMembership){
-			System.out.println(mem);
-		}
 		
 		try {
 			if (message != null 
 					&& message instanceof TextMessage) {
 				TextMessage msg = (TextMessage) message;
-				System.out.println("Test");
-				System.out.println(msg.getText());
+				msg.getText();
+				System.out.println("MEMBER ID: "+memberService.getIdByTypeName("STUDENT"));
+				
+//				User user = userService.validateUser("brionse", "redhat");
+				User user = userService.findById(1000000128);
+				System.out.println(user);
+				
+				UserMembershipAsn memAsn = userMemberAsnService.findMembership(user);
+				memAsn.setForApproval(1);
+				memAsn.setRequestMembershipTypeId(memberService.getIdByTypeName("STUDENT"));
+				memAsn = userMemberAsnService.updateMembership(memAsn);
+
 			}
 		} catch (JMSException e) {
 			System.out.println("JMXException: " + e);
