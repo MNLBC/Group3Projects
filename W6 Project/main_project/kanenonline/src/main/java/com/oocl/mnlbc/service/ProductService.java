@@ -1,47 +1,33 @@
 package com.oocl.mnlbc.service;
 
 import java.util.List;
-import javax.sql.DataSource;
-import org.springframework.jdbc.core.JdbcTemplate;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import com.oocl.mnlbc.dao.ProductDAO;
-import com.oocl.mnlbc.model.ProductBean;
+import com.oocl.mnlbc.entity.Product;
 
 public class ProductService implements ProductDAO {
-	private DataSource dataSource;
-	private JdbcTemplate jdbcTemplateObject;
+	@PersistenceContext
+	private EntityManagerFactory entityManagerFactory;
+	private EntityManager em;
 
-	@Override
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
-		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
+	public ProductService() {
+		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink");
+		em = entityManagerFactory.createEntityManager();
 	}
 
 	@Override
-	public List<ProductBean> getProductList() {
-		String sql = "SELECT PRODUCT_ID, PRODUCT_NAME, PRODUCT_DESCRIPTION, PRODUCT_PRICE, PRODUCT_STOCK_QUANTITY, PRODUCT_IMAGE_PATH  FROM PRODUCT";
-		List<ProductBean> products = jdbcTemplateObject.query(sql, new ProductMapper());
-		if (products.isEmpty()) {
-			return null;
-		} else {
+	public List<Product> getProductList() {
+		Query query = em.createNativeQuery(
+				"SELECT PRODUCT_ID, PRODUCT_NAME, PRODUCT_DESCRIPTION, PRODUCT_PRICE, PRODUCT_STOCK_QUANTITY, PRODUCT_IMAGE_PATH  FROM PRODUCT",
+				Product.class);
+		return query.getResultList();
 
-			return products;
-		}
 	}
 
-	@Override
-	public boolean updateProductList(ProductBean prod) {
-		String id = Integer.toString(prod.getProductId());
-		String quantity = Integer.toString(prod.getProductStockQuantity());
-
-		String sql = "UPDATE product SET PRODUCT_STOCK_QUANTITY= ?" + "WHERE PRODUCT_ID=? ";
-
-		try {
-			jdbcTemplateObject.update(sql, quantity, id);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
+	//sysout
 }

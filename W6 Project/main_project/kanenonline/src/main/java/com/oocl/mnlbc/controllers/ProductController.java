@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.oocl.mnlbc.model.ProductBean;
-import com.oocl.mnlbc.service.ProductService;
+import com.oocl.mnlbc.dao.ProductDAO;
+import com.oocl.mnlbc.entity.Product;
+import com.oocl.mnlbc.model.ProductList;
+import com.oocl.mnlbc.model.Response;
+import com.oocl.mnlbc.utils.CollectionUtils;
 
 /**
  * 
@@ -24,41 +26,36 @@ import com.oocl.mnlbc.service.ProductService;
 public class ProductController {
 
 	@Autowired
-	private ProductService productService;
+	private ProductDAO productService;
 
 	private static final Logger logger = Logger.getLogger(ProductController.class);
-/**
- * getting all the products
- * @return String
- * @throws IOException
- */
+
+	/**
+	 * getting all the products
+	 * 
+	 * @return String
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/productList", method = { RequestMethod.POST })
 	@ResponseBody
-	public String getProductList() throws IOException {
+	public Response<ProductList> getProductList() throws IOException {
 		logger.info("Retrieving products from the database..");
 
-		List<ProductBean> products = productService.getProductList();
-		String returnJson = "";
-		StringBuilder builder = new StringBuilder();
-		if (products.isEmpty()) {
+		ProductList products = new ProductList();
+		List<Product> productsList = productService.getProductList();
 
+		products.setProducts(productsList);
+         Response<ProductList> response= new Response<ProductList>();
+         response.setData(products);
+		if (CollectionUtils.isNotEmptyList(productsList)) {
+			response.setSuccess(true);
+			logger.info("Products successfully retrieved.");
 		} else {
-
-			returnJson = "{\"success\":true,\"data\":{\"products\":[";
-			builder.append(returnJson);
-
-			Gson gson = new Gson();
-			for (ProductBean product : products) {
-				builder.append(gson.toJson(product) + ",");
-
-			}
-
+			
+			logger.info("Retrieval of products failed.");
 		}
-		builder = new StringBuilder(builder.substring(0, builder.length() - 1));
 
-		builder.append("]}}");
-		logger.info("Products successfully retrieved");
-		return builder.toString();
+		return response;
 	}
 
 }

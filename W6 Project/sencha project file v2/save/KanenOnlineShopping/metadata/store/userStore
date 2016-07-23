@@ -1,0 +1,28 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[",
+            "    {",
+            "        \"userId\": \"voluptate\",",
+            "        \"userName\": \"itaque\",",
+            "        \"userFullName\": \"Leslie Cox\",",
+            "        \"userEmail\": \"ewatkins@dazzlesphere.biz\",",
+            "        \"userAddress\": \"15 Charing Cross Street\",",
+            "        \"userMobileNumber\": \"quaerat\",",
+            "        \"userRole\": \"doloremque\",",
+            "        \"userPassword\": \"tCIrVgVtj\"",
+            "    }",
+            "]"
+        ],
+        "designer|userClassName": "userStore",
+        "model": "User",
+        "storeId": "userStore"
+    },
+    "designerId": "0a2c04d3-db7e-441f-b076-482143f06670"
+}

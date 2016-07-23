@@ -1,0 +1,41 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "controllers": [
+            "productController",
+            "MyController"
+        ],
+        "models": [
+            "User",
+            "Product",
+            "CartItem",
+            "Order",
+            "OrderItem"
+        ],
+        "name": "KanenOnlineShopping",
+        "stores": [
+            "productsStore",
+            "orderStore",
+            "cartStore",
+            "orderItemStore",
+            "userStore"
+        ],
+        "views": [
+            "MyViewport",
+            "itemContainer",
+            "MyViewport1",
+            "LoginWindow",
+            "RegistrationWindow",
+            "RegisterWindow",
+            "CartWindow",
+            "UserWindow"
+        ]
+    },
+    "name": "Application",
+    "designerId": "application"
+}

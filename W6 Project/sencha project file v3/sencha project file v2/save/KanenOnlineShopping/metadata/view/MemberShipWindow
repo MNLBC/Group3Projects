@@ -1,0 +1,75 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "MemberShipWindow",
+        "height": 340,
+        "hidden": false,
+        "html": [
+            "<html>",
+            "<head>",
+            "",
+            "</head>",
+            "<body>",
+            "</br>",
+            "Types of Membership:</br>",
+            "VIP can avail 30% discount</br>",
+            "Student/Senior  can avail 20% discount</br>",
+            "Member can avail 5% discount</br>",
+            "</body>",
+            "</html>"
+        ],
+        "id": "memberShipWindow",
+        "itemId": "MemberShipWindow",
+        "modal": true,
+        "title": "My Window",
+        "width": 499
+    },
+    "name": "MyWindow",
+    "designerId": "d23be0c8-2e3c-43d1-864b-6cecab391fd1",
+    "cn": [
+        {
+            "type": "Ext.form.field.ComboBox",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "Label",
+                "id": "memberShipField",
+                "itemId": "memberShipField",
+                "store": [
+                    "[\"Member\",\"VIP\",\"Student\",\"Senior\"]"
+                ],
+                "width": 340
+            },
+            "name": "MyComboBox",
+            "configAlternates": {
+                "store": "array"
+            },
+            "designerId": "e91e3995-c177-4c9a-9c6f-d7c6ef42b8d7"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 35,
+                "id": "btnSendRequest",
+                "itemId": "btnSendRequest",
+                "text": "Send",
+                "width": 93
+            },
+            "name": "MyButton24",
+            "designerId": "736272f2-93f2-4bd0-987b-35ae0e34814e"
+        }
+    ]
+}
