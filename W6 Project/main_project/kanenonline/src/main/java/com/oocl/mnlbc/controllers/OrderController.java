@@ -98,8 +98,10 @@ public class OrderController {
 		order.setOrderStatus(KanenOnlineConstants.DELIVERY_STATUS);
 		order.setOrderId(0);
 		
-		order.setItems(null);
 		List<OrderItem> orderItems = order.getItems();
+		
+		order.setItems(null);
+		
 		StringBuilder builder = new StringBuilder();
 		String errorMsg = "";
 		
