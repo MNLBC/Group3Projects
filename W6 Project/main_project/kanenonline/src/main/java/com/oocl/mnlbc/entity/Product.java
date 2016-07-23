@@ -17,9 +17,9 @@ import javax.persistence.Table;
  * @author VERGAJO
  *
  */
-@Entity(name="product")
-@Table(name="PRODUCT")
-//@NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
+@Entity(name = "product")
+@Table(name = "PRODUCT")
+// @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
 public class Product implements Serializable {
 
 	/**
@@ -40,7 +40,7 @@ public class Product implements Serializable {
 	private String productDescription;
 
 	@Column(name = "PRODUCT_PRICE")
-	private BigDecimal productPrice;	
+	private BigDecimal productPrice;
 
 	@Column(name = "PRODUCT_STOCK_QUANTITY")
 	private BigDecimal productStockQuantity;
@@ -48,8 +48,9 @@ public class Product implements Serializable {
 	@Column(name = "PRODUCT_IMAGE_PATH")
 	private String imagePath;
 
-	/*@OneToMany(mappedBy = "productId")
-	private OrderItem orderItem;*/
+	/*
+	 * @OneToMany(mappedBy = "productId") private OrderItem orderItem;
+	 */
 
 	public Product() {
 	}
@@ -63,7 +64,6 @@ public class Product implements Serializable {
 		this.productPrice = productPrice;
 		this.productStockQuantity = productStockQuantity;
 		this.imagePath = imagePath;
-		//this.orderItem = orderItem;
 	}
 
 	public long getProductId() {
@@ -106,22 +106,19 @@ public class Product implements Serializable {
 		this.productStockQuantity = productStockQuantity;
 	}
 
-	public String getProductImagePath() {
+	/**
+	 * @return the imagePath
+	 */
+	public String getImagePath() {
 		return imagePath;
 	}
 
-	public void setProductImagePath(String productImagePath) {
-		this.imagePath = productImagePath;
+	/**
+	 * @param imagePath
+	 *            the imagePath to set
+	 */
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
-
-	/*public OrderItem getOrderItem() {
-		return orderItem;
-	}
-
-	public void setOrderItem(OrderItem orderItem) {
-		this.orderItem = orderItem;
-	}
-*/
-
 
 }

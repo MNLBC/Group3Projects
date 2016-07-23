@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.oocl.mnlbc.entity.OrderItem;
+import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.model.CartItemBean;
 import com.oocl.mnlbc.model.OrderBean;
 
@@ -23,7 +25,7 @@ public interface OrderDAO {
 
 	public boolean saveCart(CartItemBean items, long orderId);
 
-	public List<OrderBean> getTransactions(long userId);
+	public List<Order> getTransactions(long userId);
 
 	public List<CartItemBean> getItems(long orderId);
 
