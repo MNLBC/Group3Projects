@@ -24,8 +24,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class OrderItem implements Serializable {
 
 	@Id
-//	@GeneratedValue(generator = "ORDER_ITEM_ID_SEQ")
-//	@SequenceGenerator(name = "ORDER_ITEM_ID_SEQ", sequenceName = "ORDER_ITEM_ID_SEQ", allocationSize = 111)
+	@GeneratedValue(generator = "ORDER_ITEM_ID_SEQ")
+	@SequenceGenerator(name = "ORDER_ITEM_ID_SEQ", sequenceName =
+	"ORDER_ITEM_ID_SEQ", allocationSize = 111)
 	@Column(name = "ORDER_ITEM_ID")
 	private long orderItemId;
 
@@ -33,7 +34,7 @@ public class OrderItem implements Serializable {
 	private Double quantity;
 
 	@Column(name = "ORDERED_PRICE")
-	private Double orderedPrice;
+	private Double productPrice;
 
 	@Column(name = "PRODUCT_ID")
 	private long productId;
@@ -58,12 +59,13 @@ public class OrderItem implements Serializable {
 
 	}
 
-	public OrderItem(Integer orderItemId, Double quantity, Double orderedPrice) {
+	public OrderItem(long orderItemId, Double quantity, Double productPrice, long productId, Order orderId) {
 		super();
 		this.orderItemId = orderItemId;
 		this.quantity = quantity;
-		this.orderedPrice = orderedPrice;
-
+		this.productPrice = productPrice;
+		this.productId = productId;
+		this.orderId = orderId;
 	}
 
 	public long getProductId() {
@@ -90,12 +92,12 @@ public class OrderItem implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public Double getOrderedPrice() {
-		return orderedPrice;
+	public Double getProductPrice() {
+		return productPrice;
 	}
 
-	public void setOrderedPrice(Double orderedPrice) {
-		this.orderedPrice = orderedPrice;
+	public void setProductPrice(Double productPrice) {
+		this.productPrice = productPrice;
 	}
 
 	public Order getOrderId() {

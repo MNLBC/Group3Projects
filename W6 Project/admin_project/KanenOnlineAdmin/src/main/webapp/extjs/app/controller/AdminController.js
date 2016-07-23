@@ -58,12 +58,16 @@ Ext.define('MyApp.controller.AdminController', {
 
         var customerRequestGrid = Ext.getCmp('membershipRequestGrid');
         var customerRequestStore = customerRequestGrid.getStore();
+
+        customerRequestStore.clearData();
+        customerRequestGrid.getView().refresh();
+
         Ext.Ajax.request({
             url: window.location.pathname +'admin/userRequest',
             method: 'POST',
+
             scope: this,
             success: function(response){
-            	debugger;
                 var responseText = Ext.decode(response.responseText);
                 for (var ctr = 0; ctr < responseText.userRequest.length; ctr++){
                     var userRequest = {
@@ -125,14 +129,14 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onBtnLoginClick: function() {
-        var userName = this.getTxtUsername().getValue();
-        var userPassword = this.getTxtPassword().getValue();
+        var userName = Ext.getCmp('txtUsername').getValue();
+        var userPassword = Ext.getCmp('txtPassword').getValue();
         var userStore = Ext.getStore('userStore');
         userStore.removeAll();
 
         Ext.Ajax.request({
 
-            url: window.location.pathname +'user/login',
+            url: window.location.pathname +'admin/login',
             method: 'POST',
 
             params: {
@@ -142,17 +146,18 @@ Ext.define('MyApp.controller.AdminController', {
             scope:this,
             success:function(response){
                 var responseText = Ext.decode(response.responseText);
-                var responseData = responseText.data;
-                var user = responseData.user[0];
+                if (responseText.userRole != 'Admin'){
+                    Ext.MessageBox.alert('Status', 'Unauthorized User');
+                    Ext.getCmp('txtUsername').setValue();
+                    Ext.getCmp('txtPassword').setValue();
+                }
+                else{
 
                 var loggedInUser = {
-                    userId: user.userId,
-                    userName: user.userName,
-                    userFullName: user.fullName,
-                    userEmail: user.email,
-                    useAddress: user.Address,
-                    userMobileNumber: user.mobileNumber,
-                    userRole: user.userRole,
+                    userId: responseText.userId,
+                    userName: responseText.username,
+                    userFullName: responseText.fullName,
+                    userRole: responseText.userRole,
                     userPassword: ''
                 };
 
@@ -160,6 +165,8 @@ Ext.define('MyApp.controller.AdminController', {
                 this.getLoginContainer().hide();
                 this.getAdminContainer().show();
                 Ext.MessageBox.alert('Status', 'Logged in successfully');
+                }
+
 
             },
             failure:function(){
@@ -294,7 +301,7 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onBtnApproveRequestClick: function() {
-        var userRequestGrid = Ext.getCmp('userRequestGrid');
+        var userRequestGrid = Ext.getCmp('membershipRequestGrid');
         var userGridStore = userRequestGrid.getStore();
         var selectedRows = userRequestGrid.getSelectionModel().getSelection()[0];
         var rowIndex = userGridStore.indexOf(selectedRows);
@@ -310,7 +317,7 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onBtnRejectRequestClick: function() {
-        var userRequestGrid = Ext.getCmp('userRequestGrid');
+        var userRequestGrid = Ext.getCmp('membershipRequestGrid');
         var userGridStore = userRequestGrid.getStore();
         var selectedRows = userRequestGrid.getSelectionModel().getSelection()[0];
         var rowIndex = userGridStore.indexOf(selectedRows);

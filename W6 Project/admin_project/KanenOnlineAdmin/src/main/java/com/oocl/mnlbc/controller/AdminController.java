@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
+import com.oocl.mnlbc.model.OrderAndItemList;
 import com.oocl.mnlbc.model.UserRequest;
 import com.oocl.mnlbc.model.UserRequestList;
 import com.oocl.mnlbc.services.MembershipTypeService;
+import com.oocl.mnlbc.services.OrderDAOImpl;
 import com.oocl.mnlbc.services.UserMembershipAsnService;
 import com.oocl.mnlbc.services.UserService;
 
@@ -60,7 +62,7 @@ public class AdminController {
 		return response;
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public User loginAdmin(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword){
@@ -72,6 +74,23 @@ public class AdminController {
 			return user;
 		}
 		return null;
+	}
+	
+	@RequestMapping(value = "/getOrders", method = RequestMethod.GET)
+	@ResponseBody
+	public OrderAndItemList getAllOrders(){
+		
+		OrderDAOImpl orderImpl = new OrderDAOImpl();
+		orderImpl.init();
+		
+
+		OrderAndItemList orderList = new OrderAndItemList();
+		orderList.setOrderList( orderImpl.getAllTransactions());
+		orderList.setItemList(orderImpl.getAllItems());
+
+		
+		return orderList;
+		
 	}
 
 }
