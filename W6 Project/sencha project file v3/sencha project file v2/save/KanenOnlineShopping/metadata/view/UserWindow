@@ -1,0 +1,133 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "UserWindow",
+        "height": 340,
+        "hidden": false,
+        "id": "UserWindow",
+        "itemId": "UserWindow",
+        "modal": true,
+        "title": "My Window",
+        "width": 530
+    },
+    "name": "MyWindow",
+    "designerId": "efcd53a1-ae1e-420a-b4a5-7b76eb2909a9",
+    "cn": [
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "Full Name",
+                "id": "fullNameField",
+                "itemId": "fullNameField",
+                "width": 316
+            },
+            "name": "MyTextField8",
+            "designerId": "cb932880-acf2-466e-ae29-9b42cbd1d923"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "Email",
+                "id": "emailField",
+                "width": 316
+            },
+            "name": "MyTextField9",
+            "designerId": "80a9b9db-4a57-4fb5-a0f5-99446dcf38aa"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "Address",
+                "id": "addressField",
+                "width": 316
+            },
+            "name": "MyTextField14",
+            "designerId": "56787f2e-6148-41b9-b11d-efd583141d31"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "Mobile Number",
+                "id": "mobileNumberField",
+                "itemId": "mobileNumberField",
+                "width": 316
+            },
+            "name": "MyTextField15",
+            "designerId": "35dd72a8-e04f-444a-8eb6-fac9934bc34b"
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|pack": "center",
+                "dock": null,
+                "height": 46
+            },
+            "name": "MyToolbar4",
+            "designerId": "6e8d6e3e-bcb2-4fa9-9601-315b89206b7b",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "btnResetProfile",
+                        "itemId": "btnResetProfile",
+                        "layout|flex": null,
+                        "text": "Reset"
+                    },
+                    "name": "MyButton18",
+                    "designerId": "d61031bf-5a72-4bf8-9f11-892932e91776"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "btnUpdateFields",
+                        "itemId": "btnUpdateFields",
+                        "layout|flex": null,
+                        "text": "Update"
+                    },
+                    "name": "MyButton19",
+                    "designerId": "a4de727d-85b5-47b7-9d50-bb6a6b1a6b81"
+                }
+            ]
+        }
+    ]
+}
