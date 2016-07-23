@@ -2,12 +2,18 @@ package com.oocl.mnlbc.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 
 /**
  * @author VERGAJO User JPA MOdel
@@ -63,7 +69,10 @@ public class User implements Serializable {
 	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch =
 	// FetchType.LAZY)
 	// private List<UserMembershipAssn> userMembershipAssns;
-
+	
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.REMOVE, mappedBy = "userId", fetch = FetchType.LAZY)
+	private UserMembershipAsn userMembershipId;
 	public User() {
 	}
 
@@ -81,6 +90,20 @@ public class User implements Serializable {
 		// this.orderList = orderList;
 		// this.cartItems = cartItems;
 		// this.userMembershipAssns = userMembershipAssns;
+	}
+
+	/**
+	 * @return the userMembershipId
+	 */
+	public UserMembershipAsn getUserMembershipId() {
+		return userMembershipId;
+	}
+
+	/**
+	 * @param userMembershipId the userMembershipId to set
+	 */
+	public void setUserMembershipId(UserMembershipAsn userMembershipId) {
+		this.userMembershipId = userMembershipId;
 	}
 
 	public long getUserId() {
