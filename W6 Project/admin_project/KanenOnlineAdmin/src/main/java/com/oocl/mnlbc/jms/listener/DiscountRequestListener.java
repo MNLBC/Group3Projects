@@ -48,6 +48,7 @@ public class DiscountRequestListener implements MessageListener {
 
 				UserMembershipAsn memAsn = userMemberAsnService.findMembership(user);
 				memAsn.setForApproval(1);
+				memAsn.setRequestApproved(0);
 				memAsn.setRequestMembershipTypeId(memberService.getIdByTypeName(splittedStr[1]));
 				memAsn = userMemberAsnService.updateMembership(memAsn);
 

@@ -12,9 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.oocl.mnlbc.entity.Order;
+import com.oocl.mnlbc.entity.OrderItem;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
+import com.oocl.mnlbc.model.ItemOrder;
+import com.oocl.mnlbc.model.Login;
 import com.oocl.mnlbc.model.OrderAndItemList;
+import com.oocl.mnlbc.model.OrderUser;
 import com.oocl.mnlbc.model.UserRequest;
 import com.oocl.mnlbc.model.UserRequestList;
 import com.oocl.mnlbc.services.MembershipTypeService;
@@ -30,7 +35,7 @@ import com.oocl.mnlbc.services.UserService;
 @RequestMapping("/admin")
 public class AdminController {
 
-	@RequestMapping(value = "/userRequest", method = RequestMethod.POST)
+	@RequestMapping(value = "/userRequest", method = RequestMethod.GET)
 	@ResponseBody
 	public UserRequestList getAllUserRequest() {
 
@@ -64,33 +69,51 @@ public class AdminController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public User loginAdmin(@RequestParam(value = "userName", required = true) String userName,
-			@RequestParam(value = "userPassword", required = true) String userPassword){
-		UserService userService =  new UserService();
+	public Login loginAdmin(@RequestParam(value = "userName", required = true) String userName,
+			@RequestParam(value = "userPassword", required = true) String userPassword) {
+		UserService userService = new UserService();
 		userService.init();
-		User user=userService.validateUser(userName, userPassword);
-		
-		if(user!=null){
-			return user;
+		User user = userService.validateUser(userName, userPassword);
+		Login response = new Login();
+
+		if (user != null) {
+			response.setUser(user);
+			response.setSuccess(true);
+			return response;
 		}
-		return null;
+		return response;
 	}
-	
+
 	@RequestMapping(value = "/getOrders", method = RequestMethod.POST)
 	@ResponseBody
-	public OrderAndItemList getAllOrders(){
-		
+	public OrderAndItemList getAllOrders() {
+
 		OrderDAOImpl orderImpl = new OrderDAOImpl();
 		orderImpl.init();
-		
+
+		OrderUser orderUser = new OrderUser();
+		ItemOrder itemOrder = new ItemOrder();
+		List<OrderUser> ordUserList = new ArrayList<OrderUser>();
+		List<ItemOrder> itemOrderList = new ArrayList<ItemOrder>();
+		for (Order order : orderImpl.getAllTransactions()) {
+			orderUser.setOrder(order);
+			orderUser.setFullName(order.getUserId().getFullName());
+			orderUser.setUserID(order.getUserId().getUserId());
+			ordUserList.add(orderUser);
+		}
+		for (OrderItem item : orderImpl.getAllItems()) {
+			itemOrder.setItem(item);
+			itemOrder.setOrderId(item.getOrderId().getOrderId());
+			itemOrderList.add(itemOrder);
+		}
 
 		OrderAndItemList orderList = new OrderAndItemList();
-		orderList.setOrderList( orderImpl.getAllTransactions());
-		orderList.setItemList(orderImpl.getAllItems());
+		orderList.setOrderList(ordUserList);
+		orderList.setItemList(itemOrderList);
+		orderList.setSuccess(true);
 
-		
 		return orderList;
-		
+
 	}
 
 }
