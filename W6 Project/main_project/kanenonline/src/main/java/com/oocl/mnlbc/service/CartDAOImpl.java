@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.oocl.mnlbc.dao.CartDAO;
 import com.oocl.mnlbc.entity.CartItem;
 import com.oocl.mnlbc.model.CartItemList;
@@ -20,6 +22,7 @@ import com.oocl.mnlbc.security.AbstractJPAGenericDAO;
 public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements CartDAO {
 
 	@Override
+	@Transactional
 	public boolean saveCart(CartItemList cartItemList) {
 		long userId = cartItemList.getUserId();
 

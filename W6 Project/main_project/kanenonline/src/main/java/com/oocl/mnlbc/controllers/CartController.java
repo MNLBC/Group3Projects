@@ -36,6 +36,7 @@ public class CartController {
 	private CartDAO cartDAO;
 	private static final Logger logger = Logger.getLogger(OrderController.class);
 
+	//Saves the current cart of the user to the database.
 	@RequestMapping(value = "/saveCart", method = RequestMethod.POST)
 	@ResponseBody
 	public String saveCart(@RequestParam(value = "jsonData", required = true) String jsonData) throws IOException {
@@ -63,6 +64,8 @@ public class CartController {
 
 	}
 
+	//Loads the previous cart transaction of the user.
+	//
 	@RequestMapping(value = "/loadCart", method = RequestMethod.POST)
 	@ResponseBody
 	public Response<ModelWrapper<CartItem>> loadCart(@RequestParam(value = "userId", required = true) long userId)

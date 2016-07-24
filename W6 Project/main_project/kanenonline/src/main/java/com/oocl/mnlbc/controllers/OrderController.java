@@ -103,7 +103,7 @@ public class OrderController {
 		Gson gson = new Gson();
 		Order order = gson.fromJson(jsonData, Order.class);
 		order.setOrderDate(dateFormat.format(date));
-		order.setOrderStatus(KanenOnlineConstants.DELIVERY_STATUS);
+		order.setOrderStatus(KanenOnlineConstants.DEFAULT_DELIVERY_STATUS);
 		order.setOrderId(0);
 
 		List<OrderItem> orderItems = order.getItems();
