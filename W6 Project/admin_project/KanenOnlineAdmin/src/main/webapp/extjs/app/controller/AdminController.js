@@ -96,7 +96,8 @@ Ext.define('MyApp.controller.AdminController', {
         var orderGrid = Ext.getCmp('orderRequestsGrid');
         var orderGridStore = orderGrid.getStore();
 
-        orderGridStore.clearFilter(true);
+        orderGridStore.remoteFilter = false;
+        orderGridStore.clearFilter();
         orderGridStore.filter('orderStatus','Pending Order');
 
         orderGridStore.clearData();
@@ -113,12 +114,12 @@ Ext.define('MyApp.controller.AdminController', {
                for (var ctr = 0; ctr < responseText.orderList.length; ctr++){
                     var order = {
                         orderId: responseText.orderList[ctr].order.orderId,
-                        userId: responseText.orderList[ctr].userId,
-                        userFullName: responseText.orderList[ctr].userFullName,
+                        userId: responseText.orderList[ctr].userID,
+                        userFullName: responseText.orderList[ctr].fullName,
                         orderDate: responseText.orderList[ctr].order.orderDate,
                         totalCost: responseText.orderList[ctr].order.totalCost,
                         orderStatus: responseText.orderList[ctr].order.orderStatus
-                     //   items: responseText.orderList[ctr].items
+
                     };
 
                     orderGridStore.add(order);
@@ -191,75 +192,69 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onViewAllOrderGridItemDblClick: function() {
+        var viewAllOrderGrid = Ext.getCmp('viewAllOrderGrid');
+                 var orderItems = Ext.getStore('orderItems');
+                 var selModel = viewAllOrderGrid.getSelectionModel();
+                 var selectedRecords = selModel.getSelection();
+                 var selectionCount = selModel.getCount();
+                 var orderId = selectedRecords[0].data.orderId;
 
-         var viewAllOrderGrid = Ext.getCmp('viewAllOrderGrid');
-         var orderItems = Ext.getStore('orderItems');
-         var selModel = viewAllOrderGrid.getSelectionModel();
-         var selectedRecords = selModel.getSelection();
-         var selectionCount = selModel.getCount();
-         var orderId = selectedRecords[0].data.orderId;
-        Ext.create('Ext.window.Window',{
+                 orderItems.clearFilter(true);
+                 orderItems.filter('orderId', orderId);
+                Ext.create('Ext.window.Window',{
 
-                               rendetTo: Ext.getBody(),
-                               bodyPadding: 10,
-                               title: 'Order Summary',
-                               closable: true,
-                               autoShow: true,
-                               resizable: false,
-                               modal: true,
-                               draggable: false,
-                               width:1054,
-                               height:600,
-                               items:[ {
+                                       rendetTo: Ext.getBody(),
+                                       bodyPadding: 10,
+                                       title: 'Order Summary',
+                                       closable: true,
+                                       autoShow: true,
+                                       resizable: false,
+                                       modal: true,
+                                       draggable: false,
+                                       width:1054,
+                                       height:600,
+                                       items:[ {
 
-                                           xtype: 'gridpanel',
-                                           id: 'orderSummaryGridPanel',
-                                           itemId: 'orderSummaryGridPanel',
-                                           title: 'List of Transactions',
-                                           store: 'orderItems',
-                                                    columns: [
-                                                        {
-                                                            xtype: 'gridcolumn',
-                                                            width: 500,
-                                                            flex:1,
-                                                            dataIndex: 'productId',
-                                                            text: 'Product Id'
-                                                        },
-                                                         {
-                                                            xtype: 'gridcolumn',
-                                                            width: 200,
-                                                              flex:1,
-                                                            dataIndex: 'productName',
-                                                            text: 'Product Name'
-                                                        },
-
-                                                        {
-                                                            xtype: 'gridcolumn',
-                                                            width: 310,
-                                                             flex:1,
-                                                            dataIndex: 'productDescription',
-                                                            text: 'Product Description'
-                                                        },
-                                                       {
-                                                            xtype: 'numbercolumn',
-                                                            width: 272,
-                                                            flex:1,
-                                                            dataIndex: 'quantity',
-                                                            text: 'Quantity'
-                                                        },
-                                                       {
-                                                            xtype: 'numbercolumn',
-                                                            width: 272,
-                                                            flex:1,
-                                                            dataIndex: 'productPrice',
-                                                            text: 'Price'
-                                                        }
-                                                    ]
-                                        }
-                                      ]
-                });
-                var orderStore = Ext.getStore('orderStore');
-                var orderId = orderStore.data.items[0].data.orderId;
+                                                   xtype: 'gridpanel',
+                                                   id: 'orderSummaryGridPanel',
+                                                   itemId: 'orderSummaryGridPanel',
+                                                   title: 'List of Transactions',
+                                                   store: 'orderItems',
+                                                            columns: [
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    width: 500,
+                                                                    flex:1,
+                                                                    dataIndex: 'productId',
+                                                                    text: 'Product Id'
+                                                                },
+                                                                 {
+                                                                    xtype: 'gridcolumn',
+                                                                    width: 200,
+                                                                      flex:1,
+                                                                    dataIndex: 'productName',
+                                                                    text: 'Product Name'
+                                                                },
+                                                               {
+                                                                    xtype: 'numbercolumn',
+                                                                    width: 272,
+                                                                    flex:1,
+                                                                    dataIndex: 'quantity',
+                                                                    text: 'Quantity'
+                                                                },
+                                                               {
+                                                                    xtype: 'numbercolumn',
+                                                                    width: 272,
+                                                                    flex:1,
+                                                                    dataIndex: 'productPrice',
+                                                                    text: 'Price'
+                                                                }
+                                                            ]
+                                                }
+                                              ]
+                        });
+                        var orderStore = Ext.getStore('orderItems');
+                        var orderId = orderStore.data.items[0].data.orderId;
     },
 
     onViewAllOrderBtnClick: function() {
@@ -271,11 +266,10 @@ Ext.define('MyApp.controller.AdminController', {
         var viewAllGridStore = viewAllGrid.getStore();
         var orderItemsStore = Ext.getStore('orderItems');
 
-        viewAllGridStore.remoteFilter = false;
-        viewAllGridStore.clearFilter();
-
+        orderItemsStore.removeAll();
         viewAllGridStore.clearData();
         viewAllGrid.getView().refresh();
+
 
         Ext.Ajax.request({
              url: window.location.pathname +'admin/getOrders',
@@ -288,23 +282,24 @@ Ext.define('MyApp.controller.AdminController', {
                 for (var ctr = 0; ctr < responseText.orderList.length; ctr++){
                     var order = {
                         orderId: responseText.orderList[ctr].order.orderId,
-                        userId: responseText.orderList[ctr].userId,
-                        userFullName: responseText.orderList[ctr].userFullName,
+                        userId: responseText.orderList[ctr].userID,
+                        userFullName: responseText.orderList[ctr].fullName,
                         orderDate: responseText.orderList[ctr].order.orderDate,
                         totalCost: responseText.orderList[ctr].order.totalCost,
                         orderStatus: responseText.orderList[ctr].order.orderStatus
-                     //   items: responseText.orderList[ctr].items
+
                     };
 
                     viewAllGridStore.add(order);
                 }
+
 
                 for (var i = 0; i < responseText.itemList.length; i++){
                     var items = {
                         orderId: responseText.itemList[i].orderId,
                         orderItemId: responseText.itemList[i].item.orderItemId,
                         productId: responseText.itemList[i].item.productId,
-                    //    productName: responseText.itemList[i].item.productName,
+                        productName: responseText.itemList[i].productname,
                         quantity: responseText.itemList[i].item.quantity,
                         productPrice: responseText.itemList[i].item.productPrice
 
@@ -326,11 +321,31 @@ Ext.define('MyApp.controller.AdminController', {
         var userGridStore = userRequestGrid.getStore();
         var selectedRows = userRequestGrid.getSelectionModel().getSelection()[0];
         var rowIndex = userGridStore.indexOf(selectedRows);
-        if (rowIndex >0 ){
+        if (rowIndex >-1 ){
+            var userId = selectedRows.data.userId;
+            var requestedMembershipLevel = selectedRows.data.requestedMembershipLevel;
             Ext.Msg.confirm('Approve Request', 'Do you want to Approve this request?',function(btn){
                 if (btn==='yes'){
-                       userGridStore.data.items[rowIndex].data.currentMembershipLevel =  userGridStore.data.items[rowIndex].data.requestedMembershipLevel;
-                       userRequestGrid.getView().refresh();
+        //                userGridStore.data.items[rowIndex].data.currentMembershipLevel =  userGridStore.data.items[rowIndex].data.requestedMembershipLevel;
+        //                userRequestGrid.getView().refresh();
+                        Ext.Ajax.request({
+                            url: window.location.pathname +'update/membershipApproval',
+                            method: 'POST',
+                                params:{
+                                userId: userId,
+                                approvedType:requestedMembershipLevel,
+                                isApproved:1
+
+                                },
+
+                        scope:this,
+                        success: function(response){
+                            var responseText = Ext.decode(response.responseText);
+
+                        }
+
+                    });
+
                 }
             });} else {
                Ext.MessageBox.alert('Status','Please select a request to approve');
@@ -342,10 +357,29 @@ Ext.define('MyApp.controller.AdminController', {
         var userGridStore = userRequestGrid.getStore();
         var selectedRows = userRequestGrid.getSelectionModel().getSelection()[0];
         var rowIndex = userGridStore.indexOf(selectedRows);
-        if (rowIndex >0 ){
+        if (rowIndex >-1 ){
+            var userId = selectedRows.data.userId;
+            var requestedMembershipLevel = selectedRows.data.requestedMembershipLevel;
             Ext.Msg.confirm('Approve Request', 'Do you want to Reject this request?',function(btn){
                 if (btn==='yes'){
-                      userGridStore.remove(selectedRows);
+                      Ext.Ajax.request({
+                            url: window.location.pathname +'update/membershipApproval',
+                            method: 'POST',
+                                params:{
+                                userId: userId,
+                                approvedType:requestedMembershipLevel,
+                                isApproved:0
+
+                                },
+
+                        scope:this,
+                        success: function(response){
+                            var responseText = Ext.decode(response.responseText);
+
+                        }
+
+                    });
+                    userGridStore.remove(selectedRows);
                 }
             });} else {
                Ext.MessageBox.alert('Status','Please select a request ');
@@ -358,6 +392,41 @@ Ext.define('MyApp.controller.AdminController', {
                 Ext.Msg.alert('Status', 'Signing out.');
                 this.getAdminPageContainer().hide();
                 this.getLoginContainer().show();
+    },
+
+    onBtnSaveUpdatesClick: function() {
+
+
+        var orderRequestsGrid = Ext.getCmp('orderRequestsGrid');
+        var orderRequestsStore = orderRequestsGrid.getStore();
+        var selectedRows = orderRequestsGrid.getSelectionModel().getSelection()[0];
+        var rowIndex = orderRequestsStore.indexOf(selectedRows);
+        if (rowIndex >-1 ){
+            var userId = selectedRows.data.userId;
+            var orderStatus = selectedRows.data.orderStatus;
+            Ext.Msg.confirm('Approve Request', 'Do you want to Approve this request?',function(btn){
+                if (btn==='yes'){
+                        Ext.Ajax.request({
+                            url: window.location.pathname +'update/updateOrderStatus',
+                            method: 'POST',
+                                params:{
+                                    userId: userId,
+                                    orderStatus: orderStatus
+                                },
+
+                        scope:this,
+                        success: function(response){
+                            var responseText = Ext.decode(response.responseText);
+                             Ext.MessageBox.alert('Status','Order Updated');
+
+                        }
+
+                    });
+
+                }
+            });} else {
+               Ext.MessageBox.alert('Status','Please select a request to approve');
+        }
     },
 
     init: function(application) {
@@ -385,6 +454,9 @@ Ext.define('MyApp.controller.AdminController', {
             },
             "#btnLogout": {
                 click: this.onBtnLogoutClick
+            },
+            "#btnSaveUpdates": {
+                click: this.onBtnSaveUpdatesClick
             }
         });
     }

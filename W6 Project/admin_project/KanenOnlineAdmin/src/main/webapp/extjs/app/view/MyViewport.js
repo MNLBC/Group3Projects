@@ -140,7 +140,7 @@ Ext.define('MyApp.view.MyViewport', {
                                             xtype: 'label',
                                             id: 'lblName',
                                             itemId: 'lblName',
-                                            text: 'My Label'
+                                            text: 'Admin'
                                         },
                                         {
                                             xtype: 'image',
@@ -247,11 +247,10 @@ Ext.define('MyApp.view.MyViewport', {
                                                     format: '00000'
                                                 },
                                                 {
-                                                    xtype: 'numbercolumn',
-                                                    dataIndex: 'userId',
-                                                    text: 'User Id',
-                                                    flex: 1,
-                                                    format: '0000'
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'userFullName',
+                                                    text: 'Name',
+                                                    flex: 1
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
@@ -306,8 +305,8 @@ Ext.define('MyApp.view.MyViewport', {
                                                     id: 'userId',
                                                     itemId: 'userId',
                                                     width: 141,
-                                                    dataIndex: 'userId',
-                                                    text: 'User Id',
+                                                    dataIndex: 'userFullName',
+                                                    text: 'Name',
                                                     flex: 1
                                                 },
                                                 {
@@ -341,9 +340,7 @@ Ext.define('MyApp.view.MyViewport', {
                                                         editable: false,
                                                         queryMode: 'local',
                                                         store: [
-                                                            'On Delivery',
-                                                            'Order Approved',
-                                                            'Order Received'
+                                                            'Order Delivered'
                                                         ],
                                                         typeAhead: true
                                                     }
@@ -357,6 +354,21 @@ Ext.define('MyApp.view.MyViewport', {
                                             selModel: Ext.create('Ext.selection.RowModel', {
 
                                             })
+                                        }
+                                    ],
+                                    dockedItems: [
+                                        {
+                                            xtype: 'toolbar',
+                                            dock: 'bottom',
+                                            items: [
+                                                {
+                                                    xtype: 'button',
+                                                    id: 'btnSaveUpdates',
+                                                    itemId: 'btnSaveUpdates',
+                                                    width: 100,
+                                                    text: 'Save Updates'
+                                                }
+                                            ]
                                         }
                                     ]
                                 },
