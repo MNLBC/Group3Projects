@@ -176,7 +176,7 @@ public class UserController {
 	 * @return String
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/updateProfile", method = { RequestMethod.GET })
+	@RequestMapping(value = "/updateProfile", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<User> updateProfile(@RequestParam(value = "userId", required = true) String userId,
 			@RequestParam(value = "userName", required = true) String userName,
@@ -193,11 +193,13 @@ public class UserController {
 			user.setEmail(email);
 			user.setMobileNumber(mobileNumber);
 			user.setAddress(address);
-			user = userDAO.update(user);
-
-			if (user != null) {
+		
+			if (userDAO.updateUser(user)) {
+				user.setUserPassword("");
 				response.setSuccess(true);
 				response.setData(user);
+				
+				System.out.println("success");
 			}
 
 		}
