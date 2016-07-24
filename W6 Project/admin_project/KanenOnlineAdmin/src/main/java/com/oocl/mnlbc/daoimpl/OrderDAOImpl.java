@@ -69,6 +69,15 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		
 	}
+
+	/* (non-Javadoc)
+	 * @see com.oocl.mnlbc.dao.OrderDAO#getOrderById(long)
+	 */
+	@Override
+	public Order getOrderById(long orderId) {
+		Order order =entityManager.find(Order.class, orderId);
+		return order;
+	}
 	
 	
 

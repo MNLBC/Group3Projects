@@ -19,5 +19,6 @@ public interface OrderDAO {
 	public List<OrderItem> getAllItems();
 	
 	public Order updateOrderStatus(Order order);
+	public Order getOrderById(long orderId);
 
 }

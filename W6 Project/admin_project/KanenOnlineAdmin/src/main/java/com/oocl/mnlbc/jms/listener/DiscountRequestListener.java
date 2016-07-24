@@ -3,16 +3,16 @@
  */
 package com.oocl.mnlbc.jms.listener;
 
-import java.util.List;
-
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
 import com.oocl.mnlbc.daoimpl.MembershipTypeDAOImpl;
-import com.oocl.mnlbc.daoimpl.UserMembershipAsnDAOImpl;
+import com.oocl.mnlbc.daoimpl.OrderDAOImpl;
 import com.oocl.mnlbc.daoimpl.UserDAOImpl;
+import com.oocl.mnlbc.daoimpl.UserMembershipAsnDAOImpl;
+import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
 
@@ -34,7 +34,6 @@ public class DiscountRequestListener implements MessageListener {
 		memberDAO.init();
 		UserMembershipAsnDAOImpl userMemberAsnDAO = new UserMembershipAsnDAOImpl();
 		userMemberAsnDAO.init();
-		System.out.println("aaaa");
 		try {
 			if (message != null && message instanceof TextMessage) {
 				TextMessage msg = (TextMessage) message;
