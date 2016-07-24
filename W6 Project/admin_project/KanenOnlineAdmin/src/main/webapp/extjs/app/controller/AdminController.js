@@ -96,11 +96,11 @@ Ext.define('MyApp.controller.AdminController', {
         var orderGrid = Ext.getCmp('orderRequestsGrid');
         var orderGridStore = orderGrid.getStore();
 
-        orderGridStore.clearData();
-        orderGrid.getView().refresh();
-
         orderGridStore.clearFilter(true);
         orderGridStore.filter('orderStatus','Pending Order');
+
+        orderGridStore.clearData();
+        orderGrid.getView().refresh();
 
         Ext.Ajax.request({
              url: window.location.pathname +'admin/getOrders',
@@ -149,27 +149,33 @@ Ext.define('MyApp.controller.AdminController', {
             scope:this,
             success:function(response){
                 var responseText = Ext.decode(response.responseText);
-                if (responseText.userRole != 'Admin'){
-                    Ext.MessageBox.alert('Status', 'Unauthorized User');
-                    Ext.getCmp('txtUsername').setValue();
-                    Ext.getCmp('txtPassword').setValue();
+
+                if (responseText.success == true){
+                       if (responseText.userRole != 'Admin'){
+                    	   Ext.MessageBox.alert('Status', 'Unauthorized User');
+                    	   Ext.getCmp('txtUsername').setValue();
+                    	   Ext.getCmp('txtPassword').setValue();
+                       }else{
+
+	                    var loggedInUser = {
+	                        userId: responseText.userId,
+	                        userName: responseText.username,
+	                        userFullName: responseText.fullName,
+	                        userRole: responseText.userRole,
+	                        userPassword: ''
+	                    };
+
+	                    userStore.add(loggedInUser);
+	                    Ext.MessageBox.alert('Status', 'Logged in successfully');
+	                    var lblName = Ext.getCmp('lblName').text;
+	                    lblName = Ext.getStore('userStore').data.items[0].data.userFullName;
+	                    this.getLoginContainer().hide();
+	                    this.getAdminPageContainer().show();
+	
+	                }
+                } else {
+                    Ext.MessageBox.alert('Login Failed', 'Invalid Credentials');
                 }
-                else{
-
-                var loggedInUser = {
-                    userId: responseText.userId,
-                    userName: responseText.username,
-                    userFullName: responseText.fullName,
-                    userRole: responseText.userRole,
-                    userPassword: ''
-                };
-
-                userStore.add(loggedInUser);
-                this.getLoginContainer().hide();
-                this.getAdminContainer().show();
-                Ext.MessageBox.alert('Status', 'Logged in successfully');
-                }
-
 
             },
             failure:function(){
@@ -337,6 +343,14 @@ Ext.define('MyApp.controller.AdminController', {
         }
     },
 
+    onBtnLogoutClick: function() {
+                var userStore  = Ext.getStore('userStore');
+                userStore.removeAll();
+                Ext.Msg.alert('Status', 'Signing out.');
+                this.getAdminPageContainer().hide();
+                this.getLoginContainer().show();
+    },
+
     init: function(application) {
         this.control({
             "#btnCustomerRequest": {
@@ -359,6 +373,9 @@ Ext.define('MyApp.controller.AdminController', {
             },
             "#btnRejectRequest": {
                 click: this.onBtnRejectRequestClick
+            },
+            "#btnLogout": {
+                click: this.onBtnLogoutClick
             }
         });
     }
