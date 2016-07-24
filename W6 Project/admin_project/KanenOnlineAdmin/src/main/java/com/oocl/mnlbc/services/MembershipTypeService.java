@@ -34,14 +34,24 @@ public class MembershipTypeService implements MembershipTypeDAO {
 	public long getIdByTypeName(String typeName) {
 		Query query = entityManager.createQuery("select r.membershipTypeId from memberType r where r.membershipTypeName = :typename");
 		query.setParameter("typename", typeName);
+		try{
 		long result = (Long) query.getSingleResult();
 		return result;
+		}catch(Exception e){
+			return 0;
+		}
+		
 	}
 	
 	public String getNameById(long typeId) {
 		Query query = entityManager.createQuery("select r.membershipTypeName from memberType r where r.membershipTypeId = :id");
 		query.setParameter("id", typeId);
+		try{
 		String result = (String) query.getSingleResult();
 		return result;
+		}
+		catch(Exception e){
+			return null;
+		}
 	}
 }

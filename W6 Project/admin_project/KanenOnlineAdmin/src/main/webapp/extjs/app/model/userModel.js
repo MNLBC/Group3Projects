@@ -31,15 +31,6 @@ Ext.define('MyApp.model.userModel', {
             name: 'userFullName'
         },
         {
-            name: 'userEmail'
-        },
-        {
-            name: 'userAddress'
-        },
-        {
-            name: 'userMobileNumber'
-        },
-        {
             name: 'userRole'
         },
         {

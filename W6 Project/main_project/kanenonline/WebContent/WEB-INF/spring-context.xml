@@ -12,7 +12,7 @@
 		<property name="password" value="cjkanen" />
 	</bean>
 
-	<bean id="productDAO" class="com.oocl.mnlbc.service.ProductService"
+	<bean id="productDAO" class="com.oocl.mnlbc.service.ProductDAOImpl"
 		scope="singleton">
 	</bean>
 
@@ -28,7 +28,7 @@
 		scope="singleton">
 	</bean>
 
-	<bean id="orderService" class="com.oocl.mnlbc.service.OrderDAOImpl"
+	<bean id="orderDAO" class="com.oocl.mnlbc.service.OrderDAOImpl"
 		scope="singleton">
 	</bean>
 

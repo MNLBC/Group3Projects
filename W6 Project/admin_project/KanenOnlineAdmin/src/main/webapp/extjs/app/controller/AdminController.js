@@ -58,12 +58,16 @@ Ext.define('MyApp.controller.AdminController', {
 
         var customerRequestGrid = Ext.getCmp('membershipRequestGrid');
         var customerRequestStore = customerRequestGrid.getStore();
+
+        customerRequestStore.clearData();
+        customerRequestGrid.getView().refresh();
+
         Ext.Ajax.request({
             url: window.location.pathname +'admin/userRequest',
             method: 'POST',
+
             scope: this,
             success: function(response){
-            	debugger;
                 var responseText = Ext.decode(response.responseText);
                 for (var ctr = 0; ctr < responseText.userRequest.length; ctr++){
                     var userRequest = {
@@ -93,25 +97,28 @@ Ext.define('MyApp.controller.AdminController', {
         var orderGridStore = orderGrid.getStore();
 
         orderGridStore.clearFilter(true);
-        orderGridStore.filter('orderStatus','On Delivery');
+        orderGridStore.filter('orderStatus','Pending Order');
+
+        orderGridStore.clearData();
+        orderGrid.getView().refresh();
 
         Ext.Ajax.request({
-             url: window.location.pathname +'order/PendingOrders',
+             url: window.location.pathname +'admin/getOrders',
              method: 'POST',
 
             scope: this,
             success: function(response){
                   var responseText = Ext.decode(response.responseText);
-                  var responseData = responseText.data;
 
-                for (var ctr = 0; ctr < responseData.orders.length; ctr++){
+               for (var ctr = 0; ctr < responseText.orderList.length; ctr++){
                     var order = {
-                        orderId: responseData.orders[ctr].orderId,
-                        userId: responseData.orders[ctr].userId,
-                        userFullName: responseData.orders[ctr].userFullName,
-                        orderDate: responseData.orders[ctr].orderDate,
-                        totalCost: responseData.orders[ctr].totalCost,
-                        items: responseData.orders[ctr].items
+                        orderId: responseText.orderList[ctr].order.orderId,
+                        userId: responseText.orderList[ctr].userId,
+                        userFullName: responseText.orderList[ctr].userFullName,
+                        orderDate: responseText.orderList[ctr].order.orderDate,
+                        totalCost: responseText.orderList[ctr].order.totalCost,
+                        orderStatus: responseText.orderList[ctr].order.orderStatus
+                     //   items: responseText.orderList[ctr].items
                     };
 
                     orderGridStore.add(order);
@@ -125,14 +132,14 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onBtnLoginClick: function() {
-        var userName = this.getTxtUsername().getValue();
-        var userPassword = this.getTxtPassword().getValue();
+        var userName = Ext.getCmp('txtUsername').getValue();
+        var userPassword = Ext.getCmp('txtPassword').getValue();
         var userStore = Ext.getStore('userStore');
         userStore.removeAll();
 
         Ext.Ajax.request({
 
-            url: window.location.pathname +'user/login',
+            url: window.location.pathname +'admin/login',
             method: 'POST',
 
             params: {
@@ -142,24 +149,38 @@ Ext.define('MyApp.controller.AdminController', {
             scope:this,
             success:function(response){
                 var responseText = Ext.decode(response.responseText);
-                var responseData = responseText.data;
-                var user = responseData.user[0];
 
-                var loggedInUser = {
-                    userId: user.userId,
-                    userName: user.userName,
-                    userFullName: user.fullName,
-                    userEmail: user.email,
-                    useAddress: user.Address,
-                    userMobileNumber: user.mobileNumber,
-                    userRole: user.userRole,
-                    userPassword: ''
-                };
+                if (responseText.success == true){
+                       if (responseText.user.userRole != 'Admin'){
+                            Ext.MessageBox.alert('Status', 'Unauthorized User');
+                            Ext.getCmp('txtUsername').setValue();
+                            Ext.getCmp('txtPassword').setValue();
+                        }
+                        else{
 
-                userStore.add(loggedInUser);
-                this.getLoginContainer().hide();
-                this.getAdminContainer().show();
-                Ext.MessageBox.alert('Status', 'Logged in successfully');
+                            var loggedInUser = {
+                                userId: responseText.user.userId,
+                                userName: responseText.user.username,
+                                userFullName: responseText.user.fullName,
+                                userRole: responseText.user.userRole,
+                                userPassword: ''
+                            };
+
+                            userStore.add(loggedInUser);
+                            Ext.MessageBox.alert('Status', 'Logged in successfully');
+                            var lblName = Ext.getCmp('lblName').text;
+                            lblName = Ext.getStore('userStore').data.items[0].data.userFullName;
+                            Ext.getCmp('txtUsername').setValue();
+                            Ext.getCmp('txtPassword').setValue();
+                            this.getLoginContainer().hide();
+                            this.getAdminPageContainer().show();
+
+                        }
+                } else {
+                    Ext.MessageBox.alert('Login Failed', 'Invalid Credentials');
+                    Ext.getCmp('txtUsername').setValue();
+                    Ext.getCmp('txtPassword').setValue();
+                }
 
             },
             failure:function(){
@@ -170,10 +191,13 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onViewAllOrderGridItemDblClick: function() {
-        // var orderItems = Ext.getStore('orderItems');
-        // var selectedRecords = selModel.getSelection();
-        // var selectionCount = selModel.getCount();
-        // var orderId = selectedRecords[0].data.orderId;
+
+         var viewAllOrderGrid = Ext.getCmp('viewAllOrderGrid');
+         var orderItems = Ext.getStore('orderItems');
+         var selModel = viewAllOrderGrid.getSelectionModel();
+         var selectedRecords = selModel.getSelection();
+         var selectionCount = selModel.getCount();
+         var orderId = selectedRecords[0].data.orderId;
         Ext.create('Ext.window.Window',{
 
                                rendetTo: Ext.getBody(),
@@ -243,46 +267,50 @@ Ext.define('MyApp.controller.AdminController', {
         this.getCustomerConfirmPanel().hide();
         this.getViewAllOrderPanel().show();
 
-        var orderStore = Ext.getStore('orderStore');
-        var orderItemStore = Ext.getStore('orderItems');
         var viewAllGrid = Ext.getCmp('viewAllOrderGrid');
         var viewAllGridStore = viewAllGrid.getStore();
+        var orderItemsStore = Ext.getStore('orderItems');
+
         viewAllGridStore.remoteFilter = false;
         viewAllGridStore.clearFilter();
 
+        viewAllGridStore.clearData();
+        viewAllGrid.getView().refresh();
+
         Ext.Ajax.request({
-             url: window.location.pathname +'order/getAllOrders',
+             url: window.location.pathname +'admin/getOrders',
              method: 'POST',
 
             scope: this,
             success: function(response){
                 var responseText = Ext.decode(response.responseText);
-                var responseData = responseText.data;
 
-                for (var ctr = 0; ctr < responseData.orders.length; ctr++){
+                for (var ctr = 0; ctr < responseText.orderList.length; ctr++){
                     var order = {
-                        orderId: responseData.orders[ctr].orderId,
-                        userId: responseData.orders[ctr].userId,
-                        userFullName: responseData.orders[ctr].userFullName,
-                        orderDate: responseData.orders[ctr].orderDate,
-                        totalCost: responseData.orders[ctr].totalCost,
-                        items: responseData.orders[ctr].items
+                        orderId: responseText.orderList[ctr].order.orderId,
+                        userId: responseText.orderList[ctr].userId,
+                        userFullName: responseText.orderList[ctr].userFullName,
+                        orderDate: responseText.orderList[ctr].order.orderDate,
+                        totalCost: responseText.orderList[ctr].order.totalCost,
+                        orderStatus: responseText.orderList[ctr].order.orderStatus
+                     //   items: responseText.orderList[ctr].items
                     };
 
-                    orderStore.add(order);
+                    viewAllGridStore.add(order);
                 }
 
-                for (var i = 0; i < responseData.items.length; i++){
+                for (var i = 0; i < responseText.itemList.length; i++){
                     var items = {
-                        productId: responseData.items[i].productId,
-                        productName: responseData.items[i].productName,
-                        productDescription: responseData.items[i].productDescription,
-                        quantity: responseData.items[i].quantity,
-                        productPrice: responseData.items[i].productPrice
+                        orderId: responseText.itemList[i].orderId,
+                        orderItemId: responseText.itemList[i].item.orderItemId,
+                        productId: responseText.itemList[i].item.productId,
+                    //    productName: responseText.itemList[i].item.productName,
+                        quantity: responseText.itemList[i].item.quantity,
+                        productPrice: responseText.itemList[i].item.productPrice
 
                     };
 
-                    orderItemStore.add(items);
+                    orderItemsStore.add(items);
                 }
             },
 
@@ -294,7 +322,7 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onBtnApproveRequestClick: function() {
-        var userRequestGrid = Ext.getCmp('userRequestGrid');
+        var userRequestGrid = Ext.getCmp('membershipRequestGrid');
         var userGridStore = userRequestGrid.getStore();
         var selectedRows = userRequestGrid.getSelectionModel().getSelection()[0];
         var rowIndex = userGridStore.indexOf(selectedRows);
@@ -310,7 +338,7 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onBtnRejectRequestClick: function() {
-        var userRequestGrid = Ext.getCmp('userRequestGrid');
+        var userRequestGrid = Ext.getCmp('membershipRequestGrid');
         var userGridStore = userRequestGrid.getStore();
         var selectedRows = userRequestGrid.getSelectionModel().getSelection()[0];
         var rowIndex = userGridStore.indexOf(selectedRows);
@@ -322,6 +350,14 @@ Ext.define('MyApp.controller.AdminController', {
             });} else {
                Ext.MessageBox.alert('Status','Please select a request ');
         }
+    },
+
+    onBtnLogoutClick: function() {
+                var userStore  = Ext.getStore('userStore');
+                userStore.removeAll();
+                Ext.Msg.alert('Status', 'Signing out.');
+                this.getAdminPageContainer().hide();
+                this.getLoginContainer().show();
     },
 
     init: function(application) {
@@ -346,6 +382,9 @@ Ext.define('MyApp.controller.AdminController', {
             },
             "#btnRejectRequest": {
                 click: this.onBtnRejectRequestClick
+            },
+            "#btnLogout": {
+                click: this.onBtnLogoutClick
             }
         });
     }

@@ -8,7 +8,7 @@ import java.security.spec.InvalidKeySpecException;
 import javax.xml.bind.DatatypeConverter;
 /**
  * 
- * @author ITAGroup3
+ * @author Brionse
  * Hashing of password
  */
 public class PasswordEncrypter {

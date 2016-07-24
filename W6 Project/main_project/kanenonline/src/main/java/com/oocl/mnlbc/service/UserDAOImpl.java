@@ -22,17 +22,8 @@ import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
  */
 public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO {
 
-	/*
-	 * @PersistenceContext private EntityManagerFactory entityManagerFactory;
-	 * private EntityManager entityManager;
-	 */
-
 	public UserDAOImpl() {
-		/*
-		 * entityManagerFactory =
-		 * Persistence.createEntityManagerFactory("unitEclipseLink");
-		 * entityManager = entityManagerFactory.createEntityManager();
-		 */
+
 	}
 
 	/**
@@ -142,6 +133,7 @@ public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO 
 
 	/**
 	 * Finds a user by username
+	 * 
 	 * @param username
 	 * @return User
 	 */
@@ -157,7 +149,7 @@ public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO 
 
 		return user;
 	}
-	
+
 	/**
 	 * Updates the users encrypted password
 	 */

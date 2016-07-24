@@ -42,7 +42,7 @@ public class User implements Serializable {
 	@OneToOne(cascade = CascadeType.REMOVE, mappedBy = "userId", fetch = FetchType.LAZY)
 	private UserMembershipAsn userMembershipId;
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "userId", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "userId", fetch = FetchType.LAZY)
 	private List<Order> orderId;
 
 	public User() {
