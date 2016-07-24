@@ -2,7 +2,6 @@ package com.oocl.mnlbc.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,21 +23,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "ORDER_ITEM")
 public class OrderItem implements Serializable {
 
-	// @Id
-	// @GeneratedValue(generator = "ORDER_ITEM_ID_SEQ")
-	// @SequenceGenerator(name = "ORDER_ITEM_ID_SEQ", sequenceName =
-	// "ORDER_ITEM_ID_SEQ", allocationSize = 111)
-	// @Column(name = "ORDER_ITEM_ID")
-	// private long orderItemId;
-
-	@SequenceGenerator(name = "ORDER_ITEM_ID_SEQUENCE_GENERATOR", sequenceName = "KANENOS.ORDER_ITEM_ID_SEQ")
 	@Id
-	@GeneratedValue( generator = "ORDER_ITEM_ID_SEQUENCE_GENERATOR",strategy=GenerationType.SEQUENCE)
 	@Column(name = "ORDER_ITEM_ID")
+	@SequenceGenerator(name = "ORDER_ITEM_ID_SEQ", sequenceName = "ORDER_ITEM_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(generator = "ORDER_ITEM_ID_SEQ", strategy = GenerationType.SEQUENCE)
 	private long orderItemId;
 
 	@Column(name = "QUANTITY")
-	private Double quantity;
+	private int quantity;
 
 	@Column(name = "ORDERED_PRICE")
 	private Double productPrice;
@@ -51,22 +43,20 @@ public class OrderItem implements Serializable {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Order orderId;
 
-	/*
-	 * @JsonIgnore
-	 * 
-	 * @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
-	 * //@ManyToOne(cascade = CascadeType.ALL, optional = false, fetch =
-	 * FetchType.LAZY)
-	 * 
-	 * @ManyToOne(optional = false, fetch = FetchType.LAZY) private Product
-	 * productId;
-	 */
-
 	public OrderItem() {
 
 	}
+	
+	
 
-	public OrderItem(long orderItemId, Double quantity, Double productPrice, long productId, Order orderId) {
+	/**
+	 * @param orderItemId
+	 * @param quantity
+	 * @param productPrice
+	 * @param productId
+	 * @param orderId
+	 */
+	public OrderItem(long orderItemId, int quantity, Double productPrice, long productId, Order orderId) {
 		super();
 		this.orderItemId = orderItemId;
 		this.quantity = quantity;
@@ -75,49 +65,9 @@ public class OrderItem implements Serializable {
 		this.orderId = orderId;
 	}
 
-	public long getProductId() {
-		return productId;
-	}
 
-	public void setProductId(long productId) {
-		this.productId = productId;
-	}
 
-	public long getOrderItemId() {
-		return orderItemId;
-	}
-
-	public void setOrderItemId(Integer orderItemId) {
-		this.orderItemId = orderItemId;
-	}
-
-	public Double getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Double quantity) {
-		this.quantity = quantity;
-	}
-
-	public Double getProductPrice() {
-		return productPrice;
-	}
-
-	public void setProductPrice(Double productPrice) {
-		this.productPrice = productPrice;
-	}
-
-	public Order getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(Order orderId2) {
-		this.orderId = orderId2;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -128,9 +78,9 @@ public class OrderItem implements Serializable {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -149,5 +99,79 @@ public class OrderItem implements Serializable {
 			return false;
 		return true;
 	}
+
+
+
+	/**
+	 * @return the orderItemId
+	 */
+	public long getOrderItemId() {
+		return orderItemId;
+	}
+
+	/**
+	 * @param orderItemId the orderItemId to set
+	 */
+	public void setOrderItemId(long orderItemId) {
+		this.orderItemId = orderItemId;
+	}
+
+	/**
+	 * @return the quantity
+	 */
+	public int getQuantity() {
+		return quantity;
+	}
+
+	/**
+	 * @param quantity the quantity to set
+	 */
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	/**
+	 * @return the productPrice
+	 */
+	public Double getProductPrice() {
+		return productPrice;
+	}
+
+	/**
+	 * @param productPrice the productPrice to set
+	 */
+	public void setProductPrice(Double productPrice) {
+		this.productPrice = productPrice;
+	}
+
+	/**
+	 * @return the productId
+	 */
+	public long getProductId() {
+		return productId;
+	}
+
+	/**
+	 * @param productId the productId to set
+	 */
+	public void setProductId(long productId) {
+		this.productId = productId;
+	}
+
+	/**
+	 * @return the orderId
+	 */
+	public Order getOrderId() {
+		return orderId;
+	}
+
+	/**
+	 * @param orderId the orderId to set
+	 */
+	public void setOrderId(Order orderId) {
+		this.orderId = orderId;
+	}
+
+	
 
 }

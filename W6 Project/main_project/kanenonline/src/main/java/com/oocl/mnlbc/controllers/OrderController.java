@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.oocl.mnlbc.constants.KanenOnlineConstants;
+import com.oocl.mnlbc.dao.CartDAO;
 import com.oocl.mnlbc.dao.OrderDAO;
 import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.OrderItem;
@@ -27,14 +28,18 @@ import com.oocl.mnlbc.utils.CollectionUtils;
 
 /**
  * 
- * @author ITAGroup3 This is the Order Controller where the request from the UI
- *         side
+ * @author VERGAJO
+ * 
  */
 @Controller
 @RequestMapping("/order")
 public class OrderController {
 	@Autowired
 	private OrderDAO orderDAO;
+
+	@Autowired
+	private CartDAO cartDAO;
+
 	private static final Logger logger = Logger.getLogger(OrderController.class);
 
 	/**
@@ -44,6 +49,8 @@ public class OrderController {
 	 * @return String
 	 * @throws Exception
 	 */
+	
+	//Retrieves the order of the currently logged in user.
 	@RequestMapping(value = "/userOrder", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<OrdersAndItems> getOrderList(@RequestParam(value = "userId", required = true) String userId)
@@ -89,6 +96,7 @@ public class OrderController {
 	 * @return String
 	 * @throws IOException
 	 */
+	//Save the order of the user to the database.
 	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST)
 	@ResponseBody
 	public String saveOrder(@RequestParam(value = "jsonData", required = true) String jsonData) throws IOException {
@@ -98,22 +106,24 @@ public class OrderController {
 		Gson gson = new Gson();
 		Order order = gson.fromJson(jsonData, Order.class);
 		order.setOrderDate(dateFormat.format(date));
-		order.setOrderStatus(KanenOnlineConstants.DELIVERY_STATUS);
+		order.setOrderStatus(KanenOnlineConstants.DEFAULT_DELIVERY_STATUS);
 		order.setOrderId(0);
 
 		List<OrderItem> orderItems = order.getItems();
 
 		order.setItems(null);
 
+		long userId = order.getUserId();
+
 		StringBuilder builder = new StringBuilder();
 		String errorMsg = "";
 
 		builder.append("{\"success\":true,\"data\":{\"errormsg\":\"");
 		if (orderDAO.createOrder(order, orderItems)) {
-			System.out.println("order success");
+			cartDAO.removeUserCart(userId);
 			errorMsg += "none";
 		} else {
-			System.out.println("order failed");
+
 			errorMsg += "failed";
 		}
 

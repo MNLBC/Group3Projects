@@ -3,7 +3,6 @@ package com.oocl.mnlbc.service;
 import java.util.List;
 
 import javax.persistence.NoResultException;
-
 import javax.persistence.Query;
 
 import com.oocl.mnlbc.dao.UserDAO;
@@ -15,15 +14,13 @@ import com.oocl.mnlbc.security.PasswordEncrypter.CannotPerformOperationException
 import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
 
 /**
- * User Service Class
  * 
- * @author John Benedict Vergara
+ * @author VERGAJO
  *
  */
 public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO {
 
 	public UserDAOImpl() {
-
 	}
 
 	/**
@@ -172,6 +169,20 @@ public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO 
 			e.printStackTrace();
 		}
 
+		return false;
+
+	}
+
+	public boolean updateUser(User user) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(user);
+			entityManager.getTransaction().commit();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 
 	}

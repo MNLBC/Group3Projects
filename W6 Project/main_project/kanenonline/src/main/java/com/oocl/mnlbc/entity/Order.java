@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -26,9 +27,9 @@ import javax.persistence.Table;
 public class Order implements Serializable {
 
 	@Id
-	@GeneratedValue(generator = "ORDER_ID_SEQ")
-	@SequenceGenerator(name = "ORDER_ID_SEQ", sequenceName = "ORDER_ID_SEQ", allocationSize = 111)
 	@Column(name = "ORDER_ID")
+	@SequenceGenerator(name = "ORDER_ID_SEQ", sequenceName = "ORDER_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(generator = "ORDER_ID_SEQ", strategy = GenerationType.SEQUENCE)
 	private long orderId;
 
 	@Column(name = "ORDER_DATE")
@@ -43,9 +44,6 @@ public class Order implements Serializable {
 	@Column(name = "USER_ID")
 	private long userId;
 
-	// @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-	// @ManyToOne(optional = false, fetch = FetchType.LAZY)
-	// private long userId;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId", fetch = FetchType.LAZY)
 	private List<OrderItem> items;
 
@@ -106,7 +104,7 @@ public class Order implements Serializable {
 	}
 
 	public void setItems(List<OrderItem> items) {
-		
+
 		this.items = items;
 	}
 

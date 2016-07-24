@@ -3,18 +3,18 @@
  */
 package com.oocl.mnlbc.jms.listener;
 
-import java.util.List;
-
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
+import com.oocl.mnlbc.daoimpl.MembershipTypeDAOImpl;
+import com.oocl.mnlbc.daoimpl.OrderDAOImpl;
+import com.oocl.mnlbc.daoimpl.UserDAOImpl;
+import com.oocl.mnlbc.daoimpl.UserMembershipAsnDAOImpl;
+import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
-import com.oocl.mnlbc.services.MembershipTypeService;
-import com.oocl.mnlbc.services.UserMembershipAsnService;
-import com.oocl.mnlbc.services.UserService;
 
 /**
  * @author Melvin Yu
@@ -28,13 +28,12 @@ public class DiscountRequestListener implements MessageListener {
 	 * @see javax.jms.MessageListener#onMessage(javax.jms.Message)
 	 */
 	public void onMessage(Message message) {
-		UserService userService = new UserService();
-		userService.init();
-		MembershipTypeService memberService = new MembershipTypeService();
-		memberService.init();
-		UserMembershipAsnService userMemberAsnService = new UserMembershipAsnService();
-		userMemberAsnService.init();
-		System.out.println("aaaa");
+		UserDAOImpl userDAO = new UserDAOImpl();
+		userDAO.init();
+		MembershipTypeDAOImpl memberDAO = new MembershipTypeDAOImpl();
+		memberDAO.init();
+		UserMembershipAsnDAOImpl userMemberAsnDAO = new UserMembershipAsnDAOImpl();
+		userMemberAsnDAO.init();
 		try {
 			if (message != null && message instanceof TextMessage) {
 				TextMessage msg = (TextMessage) message;
@@ -43,14 +42,15 @@ public class DiscountRequestListener implements MessageListener {
 				String[] splittedStr = request.split(",");
 				System.out.println(request + "    " + splittedStr[0]);
 
-				User user = userService.findById(Long.parseLong(splittedStr[0]));
+				User user = userDAO.findById(Long.parseLong(splittedStr[0]));
 				System.out.println(user);
 
-				UserMembershipAsn memAsn = userMemberAsnService.findMembership(user);
+				UserMembershipAsn memAsn = userMemberAsnDAO.findMembership(user);
 				memAsn.setForApproval(1);
 				memAsn.setRequestApproved(0);
-				memAsn.setRequestMembershipTypeId(memberService.getIdByTypeName(splittedStr[1]));
-				memAsn = userMemberAsnService.updateMembership(memAsn);
+				memAsn.setRequestMembershipTypeId(memberDAO.getIdByTypeName(splittedStr[1]));
+				memAsn = userMemberAsnDAO.updateMembership(memAsn);
+				System.out.println(memAsn);
 
 			}
 		} catch (JMSException e) {

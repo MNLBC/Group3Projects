@@ -20,7 +20,7 @@ import com.oocl.mnlbc.security.AbstractJPAGenericDAO;
 
 /**
  * 
- * @author ITAGroup3
+ * @author VERGAJO
  *
  */
 public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderDAO {
@@ -72,7 +72,7 @@ public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderD
 	 */
 	public boolean saveCart(OrderItem items, long orderId) {
 		long productId = items.getProductId();
-		double quantity = items.getQuantity();
+		int quantity = items.getQuantity();
 		double orderedPrice = items.getProductPrice();
 
 		Order entityOrderId = entityManager.find(Order.class, orderId);
@@ -148,29 +148,7 @@ public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderD
 		return orderItems;
 	}
 
-	/**
-	 * getting the Created OrderId so we can use it to persist the items using
-	 * the Id
-	 * 
-	 * @return Long
-	 */
-	@Override
-	public long getOrderId() {
-		/*
-		 * String sql = "SELECT MAX(ORDER_ID) AS ORDER_ID FROM ORDERS";
-		 * OrderBean orderId = jdbcTemplateObject.queryForObject(sql, new
-		 * OrderIdMapper());
-		 * 
-		 * return orderId.getOrderId();
-		 */
-		return 1;
+	
 
-	}
-
-	@Override
-	public void setDataSource(DataSource ds) {
-		// TODO Auto-generated method stub
-
-	}
 
 }

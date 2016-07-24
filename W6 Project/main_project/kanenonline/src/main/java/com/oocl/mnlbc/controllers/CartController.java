@@ -36,6 +36,7 @@ public class CartController {
 	private CartDAO cartDAO;
 	private static final Logger logger = Logger.getLogger(OrderController.class);
 
+	//Saves the current cart of the user to the database.
 	@RequestMapping(value = "/saveCart", method = RequestMethod.POST)
 	@ResponseBody
 	public String saveCart(@RequestParam(value = "jsonData", required = true) String jsonData) throws IOException {
@@ -63,11 +64,13 @@ public class CartController {
 
 	}
 
+	//Loads the previous cart transaction of the user.
+	//
 	@RequestMapping(value = "/loadCart", method = RequestMethod.POST)
 	@ResponseBody
-	public Response<ModelWrapper<CartItem>> loadCart(@RequestParam(value = "userId", required = true) Long userId)
+	public Response<ModelWrapper<CartItem>> loadCart(@RequestParam(value = "userId", required = true) long userId)
 			throws IOException {
-		// Response<ModelWrapper<CartItem>>
+
 		List<CartItem> result = cartDAO.loadCart(userId);
 
 		ModelWrapper<CartItem> cartItemWrapper = new ModelWrapper<CartItem>();
@@ -80,21 +83,21 @@ public class CartController {
 			response.setData(cartItemWrapper);
 			logger.info("Cart items of user " + userId + "is successfully retrieved.");
 		} else {
-			response.setSuccess(false);
+			response.setSuccess(true);
 			response.setData(cartItemWrapper);
-			logger.info("Failed to retrieved previous cart for user " + userId);
+			logger.info("No previous cart for user " + userId);
 		}
 
 		return response;
 
 	}
 
+	//Removes the existing cart of the user from the database
 	@RequestMapping(value = "/removeUserCart", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean removeUserCart(@RequestParam(value = "userId", required = true) Long userId) throws IOException {
-		// Response<ModelWrapper<CartItem>>
 		boolean result = false;
-		if(userId != null){
+		if (userId != null) {
 			result = cartDAO.removeUserCart(userId);
 		}
 		return result;
