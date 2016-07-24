@@ -50,33 +50,36 @@ public class OrderController {
 			throws Exception {
 		logger.info("Retrieving orders for user " + userId + "..");
 		List<Order> orders = orderDAO.getTransactions(Long.parseLong(userId));
-		System.out.println("order 1 cost" + orders.get(0).getTotalCost());
-
-		OrdersAndItems ordersAndItems = new OrdersAndItems();
-		ordersAndItems.setOrders(orders);
-		List<CartItemBean> allOrderItems = new ArrayList<CartItemBean>();
-
-		long orderId = 0;
-		for (Order order : orders) {
-			orderId = order.getOrderId();
-			List<CartItemBean> itemList = orderDAO.getItems(orderId);
-
-			allOrderItems.addAll(orderDAO.getItems(orderId));
-
-		}
 		Response<OrdersAndItems> response = new Response<OrdersAndItems>();
 
-		ordersAndItems.setItems(allOrderItems);
-		if (CollectionUtils.isNotEmptyList(orders)) {
-			response.setSuccess(true);
-			response.setData(ordersAndItems);
-			logger.info("Orders of user " + userId + "is successfully retrieved.");
-		} else {
+		if (orders != null) {
 
-			logger.info("Retrieval of user " + userId + " orders failed.");
+			OrdersAndItems ordersAndItems = new OrdersAndItems();
+			ordersAndItems.setOrders(orders);
+			List<CartItemBean> allOrderItems = new ArrayList<CartItemBean>();
+
+			long orderId = 0;
+			for (Order order : orders) {
+				orderId = order.getOrderId();
+				List<CartItemBean> itemList = orderDAO.getItems(orderId);
+
+				allOrderItems.addAll(orderDAO.getItems(orderId));
+
+			}
+
+			ordersAndItems.setItems(allOrderItems);
+			if (CollectionUtils.isNotEmptyList(orders)) {
+				response.setSuccess(true);
+				response.setData(ordersAndItems);
+				logger.info("Orders of user " + userId + "is successfully retrieved.");
+			} else {
+				response.setSuccess(false);
+				response.setData(null);
+				logger.info("Retrieval of user " + userId + " orders failed.");
+			}
 		}
-
 		return response;
+
 	}
 
 	/**
@@ -97,18 +100,16 @@ public class OrderController {
 		order.setOrderDate(dateFormat.format(date));
 		order.setOrderStatus(KanenOnlineConstants.DELIVERY_STATUS);
 		order.setOrderId(0);
-		
+
 		List<OrderItem> orderItems = order.getItems();
-		
+
 		order.setItems(null);
-		
+
 		StringBuilder builder = new StringBuilder();
 		String errorMsg = "";
-		
+
 		builder.append("{\"success\":true,\"data\":{\"errormsg\":\"");
 		if (orderDAO.createOrder(order, orderItems)) {
-			
-			
 			System.out.println("order success");
 			errorMsg += "none";
 		} else {
