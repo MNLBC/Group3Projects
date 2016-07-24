@@ -13,38 +13,54 @@ import com.oocl.mnlbc.entity.OrderItem;
  *
  */
 public class OrderAndItemList {
-	
-	private List<Order> orderList;
-	private List<OrderItem> itemList;
+
+	private boolean success;
+	private List<OrderUser> orderList;
+	private List<ItemOrder> itemList;
+
+	/**
+	 * @return the success
+	 */
+	public boolean isSuccess() {
+		return success;
+	}
+
+	/**
+	 * @param success
+	 *            the success to set
+	 */
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
 
 	/**
 	 * @return the orderList
 	 */
-	public List<Order> getOrderList() {
+	public List<OrderUser> getOrderList() {
 		return orderList;
 	}
 
 	/**
-	 * @param orderList the orderList to set
+	 * @param orderList
+	 *            the orderList to set
 	 */
-	public void setOrderList(List<Order> orderList) {
+	public void setOrderList(List<OrderUser> orderList) {
 		this.orderList = orderList;
 	}
 
 	/**
 	 * @return the itemList
 	 */
-	public List<OrderItem> getItemList() {
+	public List<ItemOrder> getItemList() {
 		return itemList;
 	}
 
 	/**
-	 * @param itemList the itemList to set
+	 * @param itemList
+	 *            the itemList to set
 	 */
-	public void setItemList(List<OrderItem> itemList) {
+	public void setItemList(List<ItemOrder> itemList) {
 		this.itemList = itemList;
 	}
-	
-	
 
 }
