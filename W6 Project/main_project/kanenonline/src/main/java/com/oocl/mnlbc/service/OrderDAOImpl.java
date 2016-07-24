@@ -1,8 +1,5 @@
 package com.oocl.mnlbc.service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,7 +7,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-import javax.sql.DataSource;
 
 import com.oocl.mnlbc.dao.OrderDAO;
 import com.oocl.mnlbc.entity.Order;
@@ -52,9 +48,7 @@ public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderD
 			for (OrderItem item : orderItems) {
 				item.setOrderId(order);
 				entityManager.persist(item);
-				System.out.println(item.getOrderItemId());
-				System.out.println(item.getOrderItemId());
-				
+
 			}
 			entityManager.getTransaction().commit();
 
@@ -66,7 +60,7 @@ public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderD
 	}
 
 	/**
-	 * this is the saving of items of a order to the database
+	 * This saves the items of an order to the database
 	 * 
 	 * @return boolean
 	 */
@@ -88,8 +82,6 @@ public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderD
 			entityManager.getTransaction().begin();
 			entityManager.persist(orderItem);
 			entityManager.getTransaction().commit();
-
-			// query.executeUpdate();
 
 			return true;
 		} catch (PersistenceException e) {
@@ -122,33 +114,19 @@ public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderD
 	}
 
 	/**
-	 * this gets all the items of a order
+	 * This gets all the items of a order
 	 * 
 	 * @return List<CartItemBean>
 	 */
 	@Override
 	public List<CartItemBean> getItems(long orderId) {
-		/*
-		 * String sql =
-		 * "SELECT OI.ORDER_ID, P.PRODUCT_ID, P.PRODUCT_NAME, OI.QUANTITY, P.PRODUCT_DESCRIPTION, P.PRODUCT_PRICE FROM ORDER_ITEM OI INNER JOIN PRODUCT P ON P.PRODUCT_ID = OI.PRODUCT_ID WHERE OI.ORDER_ID =?"
-		 * ; List<CartItemBean> itemList = jdbcTemplateObject.query(sql, new
-		 * Object[] { orderId }, new OrderDetailsMapper());
-		 * 
-		 * return itemList;
-		 */
-		// Query query = entityManager.createQuery("SELECT O FROM OrderItem O
-		// WHERE O.orderId = :orderId");
+
 		Query query = entityManager.createNativeQuery(
 				"SELECT OI.ORDER_ID, P.PRODUCT_ID, P.PRODUCT_NAME, OI.QUANTITY, P.PRODUCT_DESCRIPTION, P.PRODUCT_PRICE, P.PRODUCT_IMAGE_PATH FROM ORDER_ITEM OI INNER JOIN PRODUCT P ON P.PRODUCT_ID = OI.PRODUCT_ID WHERE OI.ORDER_ID =?");
 		query.setParameter(1, orderId);
-		// query.setParameter("orderId", order);
-		System.out.println(query.getResultList());
 		List<CartItemBean> orderItems = query.getResultList();
 
 		return orderItems;
 	}
-
-	
-
 
 }

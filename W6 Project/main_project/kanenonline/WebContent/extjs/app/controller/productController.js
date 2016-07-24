@@ -153,11 +153,11 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         																			'data'));
 
         													var totalCost = Ext
-        															.getCmp('lblCheckoutTotalCost').text
+        															.getCmp('lblDiscountedCost').text
         															.substr(
-        																	1,
+        																	19,
         																	Ext
-        																			.getCmp('lblCheckoutTotalCost').text.length);
+        																			.getCmp('lblDiscountedCost').text.length);
         													jsonData += ',"totalCost": '+ totalCost;
         													jsonData += '}';
 
@@ -177,6 +177,10 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         																			.decode(response.responseText);
         																	var responseeErrormsg = responseText.data.errormsg;
         																	if (responseeErrormsg == 'none') {
+                                                                                Ext.getCmp('lblCheckoutTotalCost').setText('');
+                                                                                Ext.getCmp('lblDiscountRate').setText('');
+                                                                                Ext.getCmp('lblDiscountedCost').setText('');
+
         																		Ext.Msg
         																				.alert(
         																						"Success",
@@ -265,7 +269,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     onOrderItemsGridPanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
 
-        // debugger;
         var orderItemsGridPanel = Ext.getCmp('orderItemsGridPanel');
         var  orderItemStore = Ext.getStore('orderItemStore');
         var selModel = orderItemsGridPanel.getSelectionModel();
@@ -273,12 +276,9 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         var selectionCount = selModel.getCount();
         var orderId = selectedRecords[0].data.orderId;
 
-        // for(var i =0;i<selectionCount;i++) {
-        // alert(selectedRecords[i]);
-        // }
+        
         orderItemStore.clearFilter(true);
         orderItemStore.filter('orderId', orderId);
-        // debugger;
         Ext.create('Ext.window.Window',{
 
                        rendetTo: Ext.getBody(),
@@ -465,7 +465,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         											};
 
-                                                    debugger;
+
         											userStore.add(loggedInUser);
 
         											Ext.getCmp('btnMainLogin').hide();
@@ -862,6 +862,14 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         							Ext.getCmp('lblCheckoutTotalCost').setText(
         									'$' + totalCost);
+
+                                    var discountRate = Ext.getStore('userStore').data.items[0].data.userDiscountRate;
+                                    Ext.getCmp('lblDiscountRate').setText('Discount rate: '+discountRate+'%');
+
+                                    var totalCost = parseInt(Ext.getCmp('lblCheckoutTotalCost').text.substr(1,Ext.getCmp('lblCheckoutTotalCost').text.length));
+                                    var discountedCost = totalCost * ((100-discountRate)/100);
+                                    Ext.getCmp('lblDiscountedCost').setText('Discounted price: $'+ discountedCost);
+
         							this.cartWindow.doLayout();
         							this.cartWindow.show();
         						} else {
@@ -883,7 +891,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         var  userStore = Ext.getStore('userStore');
         var  orderStore = Ext.getStore('orderStore');
         var  orderItemStore = Ext.getStore('orderItemStore');
-
+        
         var userId = userStore.data.items[0].data.userId;
 
         Ext.Ajax.request({
@@ -901,7 +909,8 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
                  var responseText = Ext.decode(response.responseText);
                  var responseData = responseText.data;
-
+                 orderStore.removeAll();
+                 orderItemStore.removeAll();
                  for(var i=0; i < responseData.orders.length; i++){
                    var order = {
                       orderId: responseData.orders[i].orderId,
@@ -919,12 +928,12 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
                  for(var i=0; i < responseData.items.length; i++){
                  var items = {
-                     orderId: responseData.items[i].orderId,
-                      productId: responseData.items[i].productId,
-                      productName: responseData.items[i].productName,
-                      productDescription: responseData.items[i].productDescription,
-                      quantity: responseData.items[i].quantity,
-                      productPrice: responseData.items[i].productPrice
+                    orderId: responseData.items[i][0],
+                    productId: responseData.items[i][1],
+                    productName: responseData.items[i][2],
+                    productDescription: responseData.items[i][4],
+                    quantity: responseData.items[i][3],
+                    productPrice: responseData.items[i][5]
                        };
                 orderItemStore.add(items);
                  }
@@ -1244,7 +1253,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
           var itemBtn = itemContainer.items.items[2];
 
 
-           // debugger;
+        
           itemBtn.tooltip=record.data.productDescription;
 
           productPanel.add(itemContainer);
@@ -1257,8 +1266,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         });
 
 
-        //Ext.MessageBox.alert('Async','Not waiting for response!');
-
+       
         /*
         var productPanel = Ext.getCmp('productPanel');
         productStore.each(function(record){

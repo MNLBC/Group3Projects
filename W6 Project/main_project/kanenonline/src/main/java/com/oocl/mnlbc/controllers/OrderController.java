@@ -43,14 +43,14 @@ public class OrderController {
 	private static final Logger logger = Logger.getLogger(OrderController.class);
 
 	/**
-	 * getting the List of order of a certain user.
+	 * Getting the List of orders of a certain user.
 	 * 
 	 * @param userId
 	 * @return String
 	 * @throws Exception
 	 */
-	
-	//Retrieves the order of the currently logged in user.
+
+	// Retrieves the order of the currently logged in user.
 	@RequestMapping(value = "/userOrder", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<OrdersAndItems> getOrderList(@RequestParam(value = "userId", required = true) String userId)
@@ -68,7 +68,6 @@ public class OrderController {
 			long orderId = 0;
 			for (Order order : orders) {
 				orderId = order.getOrderId();
-				List<CartItemBean> itemList = orderDAO.getItems(orderId);
 
 				allOrderItems.addAll(orderDAO.getItems(orderId));
 
@@ -96,7 +95,7 @@ public class OrderController {
 	 * @return String
 	 * @throws IOException
 	 */
-	//Save the order of the user to the database.
+	// Save the order of the user to the database.
 	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST)
 	@ResponseBody
 	public String saveOrder(@RequestParam(value = "jsonData", required = true) String jsonData) throws IOException {

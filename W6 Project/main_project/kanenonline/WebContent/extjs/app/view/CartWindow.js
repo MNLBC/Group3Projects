@@ -91,30 +91,45 @@ Ext.define('KanenOnlineShopping.view.CartWindow', {
                     items: [
                         {
                             xtype: 'container',
-                            flex: 4,
+                            flex: 5,
                             region: 'west',
                             width: 150,
                             layout: {
-                                type: 'vbox',
+                                type: 'hbox',
+                                align: 'stretch',
                                 pack: 'center',
                                 padding: 8
                             },
                             items: [
                                 {
                                     xtype: 'label',
-                                    flex: 3,
+                                    flex: 1,
                                     height: 70,
                                     id: 'lblCheckoutTotalCost',
                                     itemId: 'lblCheckoutTotalCost',
                                     padding: 11,
-                                    width: 131,
+                                    width: 224,
+                                    text: 'My Label'
+                                },
+                                {
+                                    xtype: 'label',
+                                    flex: 2,
+                                    id: 'lblDiscountRate',
+                                    padding: 11,
+                                    text: 'My Label'
+                                },
+                                {
+                                    xtype: 'label',
+                                    flex: 1,
+                                    id: 'lblDiscountedCost',
+                                    padding: 11,
                                     text: 'My Label'
                                 }
                             ]
                         },
                         {
                             xtype: 'container',
-                            flex: 7,
+                            flex: 8,
                             region: 'center',
                             padding: 10,
                             layout: {

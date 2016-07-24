@@ -1,6 +1,6 @@
 package com.oocl.mnlbc.model;
 /**
- * 
+ * Generic Response class
  * @author Alexis Cuntapay
  *
  * @param <T>

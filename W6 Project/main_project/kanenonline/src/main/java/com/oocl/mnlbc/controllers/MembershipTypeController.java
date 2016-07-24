@@ -33,6 +33,12 @@ public class MembershipTypeController {
 	@Autowired
 	private MembershipRequestJMSProducer membershipRequestProducer;
 
+	/**
+	 * Retrieves the user membership types
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/getMembershipTypes", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<ModelWrapper<MembershipType>> getMembershipTypes() throws IOException {
@@ -50,6 +56,15 @@ public class MembershipTypeController {
 
 	};
 
+	/**
+	 * Receives a new membership type request and sends a message of the request
+	 * to the admin server for approval.
+	 * 
+	 * @param userId
+	 * @param requestedMembershipTypeName
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/newMembershipTypeRequest", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<String> newMembershipTypRequest(@RequestParam(value = "userId", required = true) String userId,
@@ -62,7 +77,7 @@ public class MembershipTypeController {
 			membershipRequestProducer.sendMessage(userId + "," + requestedMembershipTypeName);
 			response.setSuccess(true);
 		}
-		
+
 		response.setData("Request sent!");
 
 		return response;

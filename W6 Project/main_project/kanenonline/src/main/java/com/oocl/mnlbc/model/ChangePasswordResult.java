@@ -1,5 +1,9 @@
 package com.oocl.mnlbc.model;
-
+/**
+ * Wrapper class for change password
+ * @author BRIONSE
+ *
+ */
 public class ChangePasswordResult {
 
 	private String result;

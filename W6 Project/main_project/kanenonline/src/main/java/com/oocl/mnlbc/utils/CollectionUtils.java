@@ -1,7 +1,11 @@
 package com.oocl.mnlbc.utils;
 
 import java.util.Collection;
-
+/**
+ * 
+ * @author BRIONSE
+ *
+ */
 public class CollectionUtils {
 
 	public static <E> boolean isEmptyList(Collection<E> list) {

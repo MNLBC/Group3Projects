@@ -1,0 +1,9 @@
+1 register user
+2 login
+3 cart
+4 submit membership request
+5 admin approves request
+6 logout
+7 login reload cart
+8 order
+9 view order history
