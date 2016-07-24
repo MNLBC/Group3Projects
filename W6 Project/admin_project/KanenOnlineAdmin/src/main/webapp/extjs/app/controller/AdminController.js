@@ -96,26 +96,29 @@ Ext.define('MyApp.controller.AdminController', {
         var orderGrid = Ext.getCmp('orderRequestsGrid');
         var orderGridStore = orderGrid.getStore();
 
+        orderGridStore.clearData();
+        orderGrid.getView().refresh();
+
         orderGridStore.clearFilter(true);
-        orderGridStore.filter('orderStatus','On Delivery');
+        orderGridStore.filter('orderStatus','Pending Order');
 
         Ext.Ajax.request({
-             url: window.location.pathname +'order/PendingOrders',
+             url: window.location.pathname +'admin/getOrders',
              method: 'POST',
 
             scope: this,
             success: function(response){
                   var responseText = Ext.decode(response.responseText);
-                  var responseData = responseText.data;
 
-                for (var ctr = 0; ctr < responseData.orders.length; ctr++){
+                for (var ctr = 0; ctr < responseText.orderList.length; ctr++){
                     var order = {
-                        orderId: responseData.orders[ctr].orderId,
-                        userId: responseData.orders[ctr].userId,
-                        userFullName: responseData.orders[ctr].userFullName,
-                        orderDate: responseData.orders[ctr].orderDate,
-                        totalCost: responseData.orders[ctr].totalCost,
-                        items: responseData.orders[ctr].items
+                        orderId: responseText.orderList[ctr].orderId,
+                      //  userId: responseText.orderList[ctr].userId,
+                      //  userFullName: responseText.orderList[ctr].userFullName,
+                        orderDate: responseText.orderList[ctr].orderDate,
+                        totalCost: responseText.orderList[ctr].totalCost,
+                        orderStatus: responseText.orderList[ctr].orderStatus
+                      //  items: responseText.orderList[ctr].items
                     };
 
                     orderGridStore.add(order);
@@ -250,42 +253,45 @@ Ext.define('MyApp.controller.AdminController', {
         this.getCustomerConfirmPanel().hide();
         this.getViewAllOrderPanel().show();
 
-        var orderStore = Ext.getStore('orderStore');
-        var orderItemStore = Ext.getStore('orderItems');
         var viewAllGrid = Ext.getCmp('viewAllOrderGrid');
         var viewAllGridStore = viewAllGrid.getStore();
+
         viewAllGridStore.remoteFilter = false;
         viewAllGridStore.clearFilter();
 
+        viewAllGridStore.clearData();
+        viewAllGrid.getView().refresh();
+
         Ext.Ajax.request({
-             url: window.location.pathname +'order/getAllOrders',
+             url: window.location.pathname +'admin/getOrders',
              method: 'POST',
 
             scope: this,
             success: function(response){
                 var responseText = Ext.decode(response.responseText);
-                var responseData = responseText.data;
 
-                for (var ctr = 0; ctr < responseData.orders.length; ctr++){
+                for (var ctr = 0; ctr < responseText.orderList.length; ctr++){
                     var order = {
-                        orderId: responseData.orders[ctr].orderId,
-                        userId: responseData.orders[ctr].userId,
-                        userFullName: responseData.orders[ctr].userFullName,
-                        orderDate: responseData.orders[ctr].orderDate,
-                        totalCost: responseData.orders[ctr].totalCost,
-                        items: responseData.orders[ctr].items
+                        orderId: responseText.orderList[ctr].orderId,
+                     //   userId: responseText.orderList[ctr].userId,
+                     //   userFullName: responseText.orderList[ctr].userFullName,
+                        orderDate: responseText.orderList[ctr].orderDate,
+                        totalCost: responseText.orderList[ctr].totalCost,
+                        orderStatus: responseText.orderList[ctr].orderStatus
+                     //   items: responseText.orderList[ctr].items
                     };
 
-                    orderStore.add(order);
+                    viewAllGridStore.add(order);
                 }
 
-                for (var i = 0; i < responseData.items.length; i++){
+                for (var i = 0; i < responseText.itemList.length; i++){
                     var items = {
-                        productId: responseData.items[i].productId,
-                        productName: responseData.items[i].productName,
-                        productDescription: responseData.items[i].productDescription,
-                        quantity: responseData.items[i].quantity,
-                        productPrice: responseData.items[i].productPrice
+                        orderItemId: responseText.itemList[i].orderItemId,
+                        productId: responseText.itemList[i].productId,
+                        productName: responseText.itemList[i].productName,
+                        productDescription: responseText.itemList[i].productDescription,
+                        quantity: responseText.itemList[i].quantity,
+                        productPrice: responseText.itemList[i].productPrice
 
                     };
 
