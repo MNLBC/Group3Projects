@@ -1,4 +1,4 @@
-package com.oocl.mnlbc.services;
+package com.oocl.mnlbc.daoimpl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,7 +12,7 @@ import com.oocl.mnlbc.dao.MembershipTypeDAO;
  * @author Melvin Yu
  *
  */
-public class MembershipTypeService implements MembershipTypeDAO {
+public class MembershipTypeDAOImpl implements MembershipTypeDAO {
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
 

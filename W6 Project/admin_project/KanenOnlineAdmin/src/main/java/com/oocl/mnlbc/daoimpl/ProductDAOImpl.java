@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.oocl.mnlbc.services;
+package com.oocl.mnlbc.daoimpl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.oocl.mnlbc.services;
+package com.oocl.mnlbc.daoimpl;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import com.oocl.mnlbc.dao.OrderDAO;
 import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.OrderItem;
+import com.oocl.mnlbc.entity.UserMembershipAsn;
 
 /**
  * @author Melvin Yu
@@ -49,5 +50,26 @@ public class OrderDAOImpl implements OrderDAO {
 			List<OrderItem> result =  query.getResultList();
 			return result;
 	}
+
+	/* (non-Javadoc)
+	 * @see com.oocl.mnlbc.dao.OrderDAO#updateOrderStatus()
+	 */
+	@Override
+	public Order updateOrderStatus(Order order) {
+		
+		try{
+		
+		entityManager.getTransaction().begin();
+		Order newOrder = entityManager.merge(order);
+		entityManager.getTransaction().commit();
+		return newOrder;
+		}catch(Exception e){
+			return null;
+		}
+		
+		
+	}
+	
+	
 
 }

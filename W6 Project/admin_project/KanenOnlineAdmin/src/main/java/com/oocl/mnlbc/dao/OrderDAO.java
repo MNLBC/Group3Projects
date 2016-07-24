@@ -17,5 +17,7 @@ public interface OrderDAO {
 	public List<Order> getAllTransactions();
 
 	public List<OrderItem> getAllItems();
+	
+	public Order updateOrderStatus(Order order);
 
 }

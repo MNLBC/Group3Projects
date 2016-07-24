@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.oocl.mnlbc.daoimpl.MembershipTypeDAOImpl;
+import com.oocl.mnlbc.daoimpl.OrderDAOImpl;
+import com.oocl.mnlbc.daoimpl.UserMembershipAsnDAOImpl;
+import com.oocl.mnlbc.daoimpl.UserDAOImpl;
+import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
-import com.oocl.mnlbc.services.MembershipTypeService;
-import com.oocl.mnlbc.services.UserMembershipAsnService;
-import com.oocl.mnlbc.services.UserService;
 
 /**
  * @author Melvin Yu
@@ -29,14 +32,14 @@ public class UpdateController {
 			@RequestParam(value = "approvedType", required = true) String approvedType,
 			@RequestParam(value = "isApproved", required = true) String isApproved) {
 
-		UserService userService = new UserService();
-		userService.init();
-		MembershipTypeService memberService = new MembershipTypeService();
+		UserDAOImpl userDAO = new UserDAOImpl();
+		userDAO.init();
+		MembershipTypeDAOImpl memberService = new MembershipTypeDAOImpl();
 		memberService.init();
-		UserMembershipAsnService userMemberAsnService = new UserMembershipAsnService();
+		UserMembershipAsnDAOImpl userMemberAsnService = new UserMembershipAsnDAOImpl();
 		userMemberAsnService.init();
 
-		User user = userService.findById(Long.parseLong(userId));
+		User user = userDAO.findById(Long.parseLong(userId));
 		System.out.println(user);
 		UserMembershipAsn memAsn = userMemberAsnService.findMembership(user);
 
@@ -54,6 +57,37 @@ public class UpdateController {
 		}
 		return null;
 
+	}
+
+	@RequestMapping(value = "/updateOrderStatus", method = RequestMethod.GET)
+	@ResponseBody
+	public String updateOrderStatus(@RequestParam(value = "jsonData", required = true) String jsonData) {
+		OrderDAOImpl orderDAO = new OrderDAOImpl();
+		orderDAO.init();
+
+		Gson gson = new Gson();
+		User user = gson.fromJson(jsonData, User.class);
+
+		StringBuilder builder = new StringBuilder();
+		String errorMsg = "";
+
+		builder.append("{\"success\":true,\"data\":{\"errormsg\":\"");
+		if (user != null) {
+			if (user.getOrderList() != null) {
+				for (Order order : user.getOrderList()) {
+					orderDAO.updateOrderStatus(order);
+				}
+				errorMsg += "none";
+			}
+		} else {
+			errorMsg += "failed";
+		}
+
+		builder.append(errorMsg);
+
+		builder.append("\"}}");
+
+		return builder.toString();
 	}
 
 }

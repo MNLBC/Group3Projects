@@ -1,4 +1,4 @@
-package com.oocl.mnlbc.services;
+package com.oocl.mnlbc.daoimpl;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
  * @author Melvin Yu
  *
  */
-public class UserService implements UserDAO {
+public class UserDAOImpl implements UserDAO {
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
 

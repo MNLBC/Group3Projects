@@ -1,4 +1,4 @@
-package com.oocl.mnlbc.services;
+package com.oocl.mnlbc.daoimpl;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import com.oocl.mnlbc.entity.UserMembershipAsn;
  * @author Melvin Yu
  *
  */
-public class UserMembershipAsnService implements UserMembershipAsnDAO {
+public class UserMembershipAsnDAOImpl implements UserMembershipAsnDAO {
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
 

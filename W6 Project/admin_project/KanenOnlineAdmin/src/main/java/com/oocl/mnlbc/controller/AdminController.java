@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.oocl.mnlbc.daoimpl.MembershipTypeDAOImpl;
+import com.oocl.mnlbc.daoimpl.OrderDAOImpl;
+import com.oocl.mnlbc.daoimpl.ProductDAOImpl;
+import com.oocl.mnlbc.daoimpl.UserMembershipAsnDAOImpl;
+import com.oocl.mnlbc.daoimpl.UserDAOImpl;
 import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.OrderItem;
 import com.oocl.mnlbc.entity.Product;
@@ -23,11 +28,6 @@ import com.oocl.mnlbc.model.OrderAndItemList;
 import com.oocl.mnlbc.model.OrderUser;
 import com.oocl.mnlbc.model.UserRequest;
 import com.oocl.mnlbc.model.UserRequestList;
-import com.oocl.mnlbc.services.MembershipTypeService;
-import com.oocl.mnlbc.services.OrderDAOImpl;
-import com.oocl.mnlbc.services.ProductDAOImpl;
-import com.oocl.mnlbc.services.UserMembershipAsnService;
-import com.oocl.mnlbc.services.UserService;
 
 /**
  * @author Melvin Yu
@@ -37,15 +37,15 @@ import com.oocl.mnlbc.services.UserService;
 @RequestMapping("/admin")
 public class AdminController {
 
-	@RequestMapping(value = "/userRequest", method = RequestMethod.POST)
+	@RequestMapping(value = "/userRequest", method = RequestMethod.GET)
 	@ResponseBody
 	public UserRequestList getAllUserRequest() {
 
-		UserMembershipAsnService memberService = new UserMembershipAsnService();
-		memberService.init();
-		MembershipTypeService typeService = new MembershipTypeService();
-		typeService.init();
-		List<UserMembershipAsn> asnList = memberService.allMembershipRequest();
+		UserMembershipAsnDAOImpl memberDAO = new UserMembershipAsnDAOImpl();
+		memberDAO.init();
+		MembershipTypeDAOImpl typeDAO = new MembershipTypeDAOImpl();
+		typeDAO.init();
+		List<UserMembershipAsn> asnList = memberDAO.allMembershipRequest();
 		List<UserRequest> requestList = new ArrayList<UserRequest>();
 
 		UserRequestList response = new UserRequestList();
@@ -60,8 +60,8 @@ public class AdminController {
 			}
 
 			UserRequest request = new UserRequest(asn.getUserId().getFullName(), asn.getUserId().getUserId(),
-					typeService.getNameById(asn.getMembershipTypeId()),
-					typeService.getNameById(asn.getRequestMembershipTypeId()), approval, approved);
+					typeDAO.getNameById(asn.getMembershipTypeId()),
+					typeDAO.getNameById(asn.getRequestMembershipTypeId()), approval, approved);
 			requestList.add(request);
 		}
 		response.setUserRequest(requestList);
@@ -69,13 +69,13 @@ public class AdminController {
 		return response;
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	@ResponseBody
 	public Login loginAdmin(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword) {
-		UserService userService = new UserService();
-		userService.init();
-		User user = userService.validateUser(userName, userPassword);
+		UserDAOImpl userDAO = new UserDAOImpl();
+		userDAO.init();
+		User user = userDAO.validateUser(userName, userPassword);
 		Login response = new Login();
 
 		if (user != null) {
