@@ -5,17 +5,13 @@ package com.oocl.mnlbc.service;
 
 import java.util.List;
 
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import com.oocl.mnlbc.dao.CartDAO;
 import com.oocl.mnlbc.entity.CartItem;
 import com.oocl.mnlbc.model.CartItemList;
-import com.oocl.mnlbc.model.OrdersAndItems;
-import com.oocl.mnlbc.model.Response;
 import com.oocl.mnlbc.security.AbstractJPAGenericDAO;
-import com.oocl.mnlbc.utils.CollectionUtils;
 
 /**
  * @author VERGAJO
@@ -26,15 +22,19 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 	@Override
 	public boolean saveCart(CartItemList cartItemList) {
 		long userId = cartItemList.getUserId();
-
-
+		
 		try {
-			entityManager.getTransaction().begin();
+				if(!entityManager.getTransaction().isActive()){
+					entityManager.getTransaction().begin();
+				}
+				
+			
 			for (CartItem item : cartItemList.getItems()) {
 				item.setUserId(userId);
-				entityManager.persist(item);	
+				entityManager.persist(item);
 			}
 			entityManager.getTransaction().commit();
+		
 			return true;
 		} catch (PersistenceException e) {
 			return false;
@@ -85,6 +85,18 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 	public CartItem update(CartItem t) {
 
 		return null;
+	}
+
+	@Override
+	public boolean findCartByUser(long userId) {
+		Query query = entityManager.createQuery("SELECT CI FROM CartItem CI WHERE CI.userId = :userId");
+		query.setParameter("userId", userId);
+		try {
+			List<CartItem> cartItemList = query.getResultList();
+			return cartItemList.size() > 0;
+		} catch (PersistenceException e) {
+			return false;
+		}
 	}
 
 }

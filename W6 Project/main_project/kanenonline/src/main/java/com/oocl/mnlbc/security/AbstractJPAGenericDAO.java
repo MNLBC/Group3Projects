@@ -12,6 +12,7 @@ import com.oocl.mnlbc.dao.GenericDAO;
 
 /**
  * Abstract DAO base class
+ * 
  * @author BRIONSE
  *
  */
@@ -29,12 +30,8 @@ public abstract class AbstractJPAGenericDAO<T> implements GenericDAO<T> {
 		entityManager = entityManagerFactory.createEntityManager();
 
 		Type t = getClass().getGenericSuperclass();
-		System.out.println(t.toString());
 		ParameterizedType pt = (ParameterizedType) t;
-		System.out.println(pt.getTypeName());
 		type = (Class) pt.getActualTypeArguments()[0];
-		
-		System.out.println(type.getName());
 
 	}
 

@@ -2,7 +2,6 @@ package com.oocl.mnlbc.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,17 +23,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "ORDER_ITEM")
 public class OrderItem implements Serializable {
 
-	// @Id
-	// @GeneratedValue(generator = "ORDER_ITEM_ID_SEQ")
-	// @SequenceGenerator(name = "ORDER_ITEM_ID_SEQ", sequenceName =
-	// "ORDER_ITEM_ID_SEQ", allocationSize = 111)
-	// @Column(name = "ORDER_ITEM_ID")
-	// private long orderItemId;
-
-	@SequenceGenerator(name = "ORDER_ITEM_ID_SEQUENCE_GENERATOR", sequenceName = "KANENOS.ORDER_ITEM_ID_SEQ")
 	@Id
-	@GeneratedValue( generator = "ORDER_ITEM_ID_SEQUENCE_GENERATOR",strategy=GenerationType.SEQUENCE)
 	@Column(name = "ORDER_ITEM_ID")
+	@SequenceGenerator(name = "ORDER_ITEM_ID_SEQ", sequenceName = "ORDER_ITEM_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(generator = "ORDER_ITEM_ID_SEQ", strategy = GenerationType.SEQUENCE)
 	private long orderItemId;
 
 	@Column(name = "QUANTITY")
@@ -50,17 +42,6 @@ public class OrderItem implements Serializable {
 	@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Order orderId;
-
-	/*
-	 * @JsonIgnore
-	 * 
-	 * @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
-	 * //@ManyToOne(cascade = CascadeType.ALL, optional = false, fetch =
-	 * FetchType.LAZY)
-	 * 
-	 * @ManyToOne(optional = false, fetch = FetchType.LAZY) private Product
-	 * productId;
-	 */
 
 	public OrderItem() {
 

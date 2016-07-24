@@ -150,8 +150,9 @@ Ext
 											if (buttonValue === "yes") {
 												var loginWindow = Ext
 														.getCmp('loginWindow');
-												var cartWindow = Ext.getCmp('cartWindow');
-												
+												var cartWindow = Ext
+														.getCmp('cartWindow');
+
 												loginWindow.show();
 												cartWindow.hide();
 											}
@@ -351,7 +352,7 @@ Ext
 										} else {
 
 											var user = responseData.items[0];
-
+											var userHasCart = responseData.userHasCart;
 											var loggedInUser = {
 												userId : user.userId,
 												userName : user.userName,
@@ -375,6 +376,9 @@ Ext
 													.doLayout();
 											Ext.getCmp('btnHistory').show();
 
+											var cartStore = Ext
+													.getStore('cartStore');
+
 											Ext.Msg
 													.show({
 														title : '',
@@ -391,133 +395,123 @@ Ext
 																inputText,
 																showConfig) {
 															if (buttonValue === "yes") {
-															
-																Ext.Msg
-																		.confirm(
-																				'Reload Cart',
-																				'Do you want to continue your saved cart?',
-																				function(
-																						btn) {
-																					if (btn == 'yes') {
-//																						Ext.MessageBox
-//																								.alert(
-//																										'',
-//																										'Reloading cart...');
-																						var userStore = Ext
-																								.getStore('userStore');
-																						var cartStore = Ext
-																								.getStore('cartStore');
 
-																						var userId = userStore.data.items[0].data.userId;
+																if (userHasCart) {
+																	Ext.Msg
+																			.confirm(
+																					'Reload Cart',
+																					'Do you want to continue your saved cart?',
+																					function(
+																							btn) {
+																						if (btn == 'yes') {
+																							// Ext.MessageBox
+																							// .alert(
+																							// '',
+																							// 'Reloading
+																							// cart...');
+																							var userStore = Ext
+																									.getStore('userStore');
 
-																						userStore
-																								.clearFilter(true);
-																						userStore
-																								.filter(
-																										'userId',
-																										userId);
+																							var userId = userStore.data.items[0].data.userId;
 
-																						Ext.Ajax
-																								.request({
+																							userStore
+																									.clearFilter(true);
+																							userStore
+																									.filter(
+																											'userId',
+																											userId);
+																							Ext.Ajax
+																									.request({
 
-																									url : window.location.pathname
-																											+ 'cart/loadCart',
-																									method : 'POST',
+																										url : window.location.pathname
+																												+ 'cart/loadCart',
+																										method : 'POST',
 
-																									params : {
-																										userId : userId
+																										params : {
+																											userId : userId
 
-																									},
-																									scope : this,
-																									success : function(
-																											response) {
+																										},
 
-																										var responseText = Ext
-																												.decode(response.responseText);
-																										var responseData = responseText.data;
-																										for (var i = 0; i < responseData.items.length; i++) {
-																											var items = {
-																												orderId : responseData.items[i].orderId,
-																												productId : responseData.items[i].productId,
-																												productName : responseData.items[i].productName,
-																												productDescription : responseData.items[i].productDescription,
-																												quantity : responseData.items[i].quantity,
-																												productPrice : responseData.items[i].productPrice
-																											};
-																											cartStore
-																													.add(items);
+																										scope : this,
+																										success : function(
+																												response) {
+																											var responseText = Ext
+																													.decode(response.responseText);
+																											var responseData = responseText.data;
+																											for (var i = 0; i < responseData.items.length; i++) {
+																												var items = {
+																													orderId : responseData.items[i].orderId,
+																													productId : responseData.items[i].productId,
+																													productName : responseData.items[i].productName,
+																													productDescription : responseData.items[i].productDescription,
+																													quantity : responseData.items[i].quantity,
+																													productPrice : responseData.items[i].productPrice
+																												};
+
+																												Ext
+																														.getStore(
+																																'cartStore')
+																														.add(
+																																items);
+																											}
+																										},
+																										failure : function() {
+
+																											Ext.MessageBox
+																													.alert(
+																															'Fail',
+																															'Unable to load cart');
 																										}
-																									},
-																									failure : function() {
+																									});
+																						} else {
 
-																										Ext.MessageBox
-																												.alert(
-																														'Fail',
-																														'Unable to load cart');
-																									}
-																								});
-																					}else{
-																						
-																										var userStore = Ext
-																												.getStore('userStore');
-																										var cartStore = Ext
-																												.getStore('cartStore');
+																							var userStore = Ext
+																									.getStore('userStore');
+																							var cartStore = Ext
+																									.getStore('cartStore');
 
-																										var userId = userStore.data.items[0].data.userId;
+																							var userId = userStore.data.items[0].data.userId;
 
-																										userStore
-																												.clearFilter(true);
-																										userStore
-																												.filter(
-																														'userId',
-																														userId);
+																							userStore
+																									.clearFilter(true);
+																							userStore
+																									.filter(
+																											'userId',
+																											userId);
 
-																										Ext.Ajax
-																												.request({
+																							Ext.Ajax
+																									.request({
 
-																													url : window.location.pathname
-																															+ 'cart/removeUserCart',
-																													method : 'POST',
+																										url : window.location.pathname
+																												+ 'cart/removeUserCart',
+																										method : 'POST',
 
-																													params : {
-																														userId : userId
+																										params : {
+																											userId : userId
 
-																													},
-																													scope : this,
-																													success : function(
-																															response) {
-																														cartStore.removeAll();
-																														alert('Cart Removed from db!');
-//																														var responseText = Ext
-//																																.decode(response.responseText);
-//																														var responseData = responseText.data;
-//																														for (var i = 0; i < responseData.items.length; i++) {
-//																															var items = {
-//																																orderId : responseData.items[i].orderId,
-//																																productId : responseData.items[i].productId,
-//																																productName : responseData.items[i].productName,
-//																																productDescription : responseData.items[i].productDescription,
-//																																quantity : responseData.items[i].quantity,
-//																																productPrice : responseData.items[i].productPrice
-//																															};
-//																															cartStore
-//																																	.add(items);
-//																													}
-																														
-																														
-																													},
-																													failure : function() {
+																										},
+																										scope : this,
+																										success : function(
+																												response) {
+																											cartStore
+																													.removeAll();
+																											alert('Cart Removed from db!');
 
-																														Ext.MessageBox
-																																.alert(
-																																		'Fail',
-																																		'Unable to delete cart');
-																													}
-																												});
-																					}
-																			
+																										},
+																										failure : function() {
+																											Ext.MessageBox
+																													.alert(
+																															'Fail',
+																															'Unable to delete cart');
+																										}
+																									});
+																						}
 
-																				});
+																					});
+
+																}
+
+																aweawe
 															}
 														},
 														icon : Ext.Msg.INFORMATION
@@ -650,6 +644,7 @@ Ext
 					onBtnMainLogoutClicked : function(button, e, eOpts) {
 						var cartStore = Ext.getStore('cartStore');
 						var userStore = Ext.getStore('userStore');
+						var userId = userStore.data.items[0].data.userId;
 						if (cartStore.getCount() > 0) {
 							Ext.Msg
 									.confirm(
@@ -658,8 +653,6 @@ Ext
 											function(btn) {
 
 												if (btn == 'yes') {
-													// Ext.MessageBox.alert('','Your
-													// cart is now saved.');
 
 													var jsonData = '{ "userId": '
 															+ userStore
@@ -676,39 +669,69 @@ Ext
 
 													cartStore.removeAll();
 
-													Ext.Ajax.request({
-														url : 'cart/saveCart',
-														method : 'POST',
-														params : {
-															jsonData : jsonData
+													Ext.Ajax
+															.request({
 
-														},
+																url : window.location.pathname
+																		+ 'cart/removeUserCart',
+																method : 'POST',
 
-														success : function(
-																response) {
-															 var responseText
-															 = Ext
-															 .decode(response.responseText);
-															 var
-															 responseErrormsg = responseText.data.errormsg;
-															 if(responseErrormsg == 'none') {
-															 Ext.Msg.alert("Success", 'Your cart has been saved.');
-															 Ext.getStore('cartStore').removeAll();
-															 }
-															 if(responseErrormsg == 'failed') {
-															 Ext.Msg.alert("Failed",'Unable to save your cart.');
-															 }
+																params : {
+																	userId : userId
 
-														},
+																},
+																scope : this,
+																success : function(
+																		response) {
+																	cartStore
+																			.removeAll();
 
-													// failure: function
-													// (response) {
+																},
+																failure : function() {
+																}
+															});
 
-													// Ext.Msg.alert("Error",'Unable
-													// to checkout
-													// cart.');
-													// }
-													});
+													Ext.Ajax
+															.request({
+																url : 'cart/saveCart',
+																method : 'POST',
+																params : {
+																	jsonData : jsonData
+
+																},
+
+																success : function(
+																		response) {
+																	var responseText = Ext
+																			.decode(response.responseText);
+																	var responseErrormsg = responseText.data.errormsg;
+																	if (responseErrormsg == 'none') {
+																		Ext.Msg
+																				.alert(
+																						"Success",
+																						'Your cart has been saved.');
+																		Ext
+																				.getStore(
+																						'cartStore')
+																				.removeAll();
+																	}
+																	if (responseErrormsg == 'failed') {
+																		Ext.Msg
+																				.alert(
+																						"Failed",
+																						'Unable to save your cart.');
+																	}
+
+																},
+
+															// failure: function
+															// (response) {
+
+															// Ext.Msg.alert("Error",'Unable
+															// to checkout
+															// cart.');
+															// }
+															});
 
 												} else {
 
@@ -783,7 +806,7 @@ Ext
 						var orderItemStore = Ext.getStore('orderItemStore');
 
 						var userId = userStore.data.items[0].data.userId;
-
+						
 						Ext.Ajax
 								.request({
 

@@ -67,10 +67,7 @@ public class CartController {
 	@ResponseBody
 	public Response<ModelWrapper<CartItem>> loadCart(@RequestParam(value = "userId", required = true) long userId)
 			throws IOException {
-		// Response<ModelWrapper<CartItem>>
-		
-		
-		String test = "";
+
 		List<CartItem> result = cartDAO.loadCart(userId);
 
 		ModelWrapper<CartItem> cartItemWrapper = new ModelWrapper<CartItem>();
@@ -95,9 +92,8 @@ public class CartController {
 	@RequestMapping(value = "/removeUserCart", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean removeUserCart(@RequestParam(value = "userId", required = true) Long userId) throws IOException {
-		// Response<ModelWrapper<CartItem>>
 		boolean result = false;
-		if(userId != null){
+		if (userId != null) {
 			result = cartDAO.removeUserCart(userId);
 		}
 		return result;

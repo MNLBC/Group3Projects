@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.oocl.mnlbc.dao.CartDAO;
 import com.oocl.mnlbc.dao.UserDAO;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.model.ChangePasswordResult;
 import com.oocl.mnlbc.model.ModelWrapper;
 import com.oocl.mnlbc.model.Response;
+import com.oocl.mnlbc.model.UserWrapper;
 
 /**
  * User Controller
@@ -27,7 +29,10 @@ public class UserController {
 	@Autowired
 	private UserDAO userDAO;
 
-	@Autowired 
+	@Autowired
+	private CartDAO cartDAO;
+
+	@Autowired
 	private static final Logger logger = Logger.getLogger(UserController.class);
 
 	/**
@@ -98,20 +103,22 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/login", method = { RequestMethod.POST })
 	@ResponseBody
-	public Response<ModelWrapper<User>> loginUser(@RequestParam(value = "userName", required = true) String userName,
+	public Response<UserWrapper<User>> loginUser(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword) throws Exception {
 		logger.info(userName + " is logging in..");
 
-		ModelWrapper<User> items = new ModelWrapper<User>();
+		UserWrapper<User> items = new UserWrapper<User>();
 		User user = userDAO.validateAccount(userName, userPassword);
 		items.getItems().add(user);
 
-		Response<ModelWrapper<User>> response = new Response<ModelWrapper<User>>();
-		response.setData(items);
+		Response<UserWrapper<User>> response = new Response<UserWrapper<User>>();
 
 		if (user != null) {
+			boolean userHasCart = cartDAO.findCartByUser(user.getUserId());
+			items.setUserHasCart(userHasCart);
 			response.setSuccess(true);
 		}
+		response.setData(items);
 		return response;
 
 	}
@@ -193,12 +200,12 @@ public class UserController {
 			user.setEmail(email);
 			user.setMobileNumber(mobileNumber);
 			user.setAddress(address);
-		
+
 			if (userDAO.updateUser(user)) {
 				user.setUserPassword("");
 				response.setSuccess(true);
 				response.setData(user);
-				
+
 				System.out.println("success");
 			}
 

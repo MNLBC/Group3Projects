@@ -26,12 +26,6 @@ import javax.persistence.Table;
 @Table(name = "ORDERS")
 public class Order implements Serializable {
 
-//	@Id
-//	@GeneratedValue(generator = "ORDER_ID_SEQ")
-//	@SequenceGenerator(name = "ORDER_ID_SEQ", sequenceName = "ORDER_ID_SEQ", allocationSize = 111)
-//	@Column(name = "ORDER_ID")
-//	private long orderId;
-//	
 	@Id
 	@Column(name = "ORDER_ID")
 	@SequenceGenerator(name = "ORDER_ID_SEQ", sequenceName = "ORDER_ID_SEQ", allocationSize = 1)
@@ -50,9 +44,6 @@ public class Order implements Serializable {
 	@Column(name = "USER_ID")
 	private long userId;
 
-	// @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-	// @ManyToOne(optional = false, fetch = FetchType.LAZY)
-	// private long userId;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId", fetch = FetchType.LAZY)
 	private List<OrderItem> items;
 
@@ -113,7 +104,7 @@ public class Order implements Serializable {
 	}
 
 	public void setItems(List<OrderItem> items) {
-		
+
 		this.items = items;
 	}
 

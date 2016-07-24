@@ -20,12 +20,6 @@ import javax.persistence.Table;
 @Table(name = "CART_ITEM")
 public class CartItem {
 
-//	@Id
-//	@GeneratedValue(generator = "CART_ITEM_ID_SEQ")
-//	@SequenceGenerator(name = "CART_ITEM_ID_SEQ", sequenceName = "CART_ITEM_ID_SEQ", allocationSize = 111)
-//	@Column(name = "CART_ITEM_ID")
-//	private long cartItemId;
-	
 	@Id
 	@Column(name = "CART_ITEM_ID")
 	@SequenceGenerator(name = "CART_ITEM_ID_SEQ", sequenceName = "CART_ITEM_ID_SEQ", allocationSize = 1)

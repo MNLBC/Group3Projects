@@ -19,5 +19,7 @@ public interface CartDAO extends GenericDAO<CartItem> {
 	List<CartItem> loadCart(long userId);
 
 	boolean removeUserCart(long userId);
+	
+	boolean findCartByUser(long userId);
 
 }
