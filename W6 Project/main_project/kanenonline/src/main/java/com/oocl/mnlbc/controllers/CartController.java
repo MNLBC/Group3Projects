@@ -92,6 +92,7 @@ public class CartController {
 
 	}
 
+	//Removes the existing cart of the user from the database
 	@RequestMapping(value = "/removeUserCart", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean removeUserCart(@RequestParam(value = "userId", required = true) Long userId) throws IOException {

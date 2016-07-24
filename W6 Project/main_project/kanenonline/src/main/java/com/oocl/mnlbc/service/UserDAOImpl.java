@@ -14,15 +14,13 @@ import com.oocl.mnlbc.security.PasswordEncrypter.CannotPerformOperationException
 import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
 
 /**
- * User Service Class
  * 
- * @author John Benedict Vergara
+ * @author VERGAJO
  *
  */
 public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO {
 
 	public UserDAOImpl() {
-
 	}
 
 	/**

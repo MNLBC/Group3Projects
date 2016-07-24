@@ -20,7 +20,7 @@ import com.oocl.mnlbc.security.AbstractJPAGenericDAO;
 
 /**
  * 
- * @author ITAGroup3
+ * @author VERGAJO
  *
  */
 public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderDAO {
@@ -72,7 +72,7 @@ public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderD
 	 */
 	public boolean saveCart(OrderItem items, long orderId) {
 		long productId = items.getProductId();
-		double quantity = items.getQuantity();
+		int quantity = items.getQuantity();
 		double orderedPrice = items.getProductPrice();
 
 		Order entityOrderId = entityManager.find(Order.class, orderId);

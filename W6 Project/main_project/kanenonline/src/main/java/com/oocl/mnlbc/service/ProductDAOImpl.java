@@ -7,9 +7,16 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 import com.oocl.mnlbc.dao.ProductDAO;
 import com.oocl.mnlbc.entity.Product;
 
+
+/**
+ * 
+ * @author BRIONSE
+ *
+ */
 public class ProductDAOImpl implements ProductDAO {
 	@PersistenceContext
 	private EntityManagerFactory entityManagerFactory;
@@ -29,5 +36,5 @@ public class ProductDAOImpl implements ProductDAO {
 
 	}
 
-	//sysout
+	// sysout
 }

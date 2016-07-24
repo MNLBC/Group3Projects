@@ -396,7 +396,7 @@ Ext
 																inputText,
 																showConfig) {
 															if (buttonValue === "yes") {
-																debugger;
+																
 																if (userHasCart  && cartStore.data.items.length == 0) {
 //																	 && cartStore.data.items.length == 0
 																	Ext.Msg
@@ -1020,8 +1020,7 @@ Ext
 						cartStore
 								.each(function(record) {
 									if (record.data.productId == productId) {
-
-										record.data.quantity = record.data.quantity + 1;
+										record.data.quantity = parseInt(record.data.quantity) + 1;
 										itemAlreadyInCart = true;
 									}
 								});

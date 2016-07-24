@@ -8,10 +8,10 @@ import com.oocl.mnlbc.model.CartItemBean;
 
 /**
  * 
- * @author ITAGroup3
+ * @author VERGAJO
  *
  */
-public interface OrderDAO {
+public interface OrderDAO{
 
 	public boolean createOrder(Order cart, List<OrderItem> orderItems);
 

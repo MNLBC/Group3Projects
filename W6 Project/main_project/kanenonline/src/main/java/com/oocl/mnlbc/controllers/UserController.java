@@ -19,7 +19,7 @@ import com.oocl.mnlbc.model.UserWrapper;
 /**
  * User Controller
  * 
- * @author John Benedict Vergara
+ * @author VERGAJO
  *
  */
 @Controller
@@ -66,12 +66,11 @@ public class UserController {
 		builder.append(returnJson);
 
 		User user = new User(0, userName, userPassword, fullName, email, deliveryAddress, mobileNumber, userRole);
-		System.out.println(user.getFullName());
 		if (userDAO.userExists(userName)) {
 			errorMsg += "usernametaken";
 			logger.info("Registration Failed, " + userName + " is already taken");
 		}
-		System.out.println(email);
+
 		if (userDAO.emailExists(email)) {
 			errorMsg += "emailtaken";
 			logger.info("Registration Failed, " + email + " is already taken");
@@ -148,7 +147,7 @@ public class UserController {
 	 * @return Response<ChangePasswordResult>
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/changePassword", method = { RequestMethod.GET })
+	@RequestMapping(value = "/changePassword", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<ChangePasswordResult> changePassword(@RequestParam(value = "userId", required = true) long userId,
 			@RequestParam(value = "userName", required = true) String userName,
@@ -205,8 +204,6 @@ public class UserController {
 				user.setUserPassword("");
 				response.setSuccess(true);
 				response.setData(user);
-
-				System.out.println("success");
 			}
 
 		}

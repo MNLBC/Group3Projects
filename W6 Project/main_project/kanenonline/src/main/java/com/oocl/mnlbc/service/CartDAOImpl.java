@@ -27,9 +27,7 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 		long userId = cartItemList.getUserId();
 
 		try {
-			// if (!entityManager.getTransaction().isActive()) {
 			entityManager.getTransaction().begin();
-			// }
 
 			for (CartItem item : cartItemList.getItems()) {
 				item.setUserId(userId);
@@ -40,6 +38,8 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 
 			return true;
 		} catch (PersistenceException e) {
+			return false;
+		} catch (Exception e){
 			return false;
 		}
 

@@ -33,7 +33,7 @@ public class MembershipTypeController {
 	@Autowired
 	private MembershipRequestJMSProducer membershipRequestProducer;
 
-	@RequestMapping(value = "/getMembershipTypes", method = { RequestMethod.GET })
+	@RequestMapping(value = "/getMembershipTypes", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<ModelWrapper<MembershipType>> getMembershipTypes() throws IOException {
 		Response<ModelWrapper<MembershipType>> response = new Response<ModelWrapper<MembershipType>>();
@@ -50,7 +50,7 @@ public class MembershipTypeController {
 
 	};
 
-	@RequestMapping(value = "/newMembershipTypeRequest", method = { RequestMethod.GET })
+	@RequestMapping(value = "/newMembershipTypeRequest", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<String> newMembershipTypRequest(@RequestParam(value = "userId", required = true) String userId,
 			@RequestParam(value = "requestedMembershipTypeName", required = true) String requestedMembershipTypeName)

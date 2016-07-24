@@ -28,8 +28,8 @@ import com.oocl.mnlbc.utils.CollectionUtils;
 
 /**
  * 
- * @author ITAGroup3 This is the Order Controller where the request from the UI
- *         side
+ * @author VERGAJO
+ * 
  */
 @Controller
 @RequestMapping("/order")
@@ -49,6 +49,8 @@ public class OrderController {
 	 * @return String
 	 * @throws Exception
 	 */
+	
+	//Retrieves the order of the currently logged in user.
 	@RequestMapping(value = "/userOrder", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<OrdersAndItems> getOrderList(@RequestParam(value = "userId", required = true) String userId)
@@ -94,6 +96,7 @@ public class OrderController {
 	 * @return String
 	 * @throws IOException
 	 */
+	//Save the order of the user to the database.
 	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST)
 	@ResponseBody
 	public String saveOrder(@RequestParam(value = "jsonData", required = true) String jsonData) throws IOException {
