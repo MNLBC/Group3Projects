@@ -37,7 +37,7 @@ import com.oocl.mnlbc.model.UserRequestList;
 @RequestMapping("/admin")
 public class AdminController {
 
-	@RequestMapping(value = "/userRequest", method = RequestMethod.GET)
+	@RequestMapping(value = "/userRequest", method = RequestMethod.POST)
 	@ResponseBody
 	public UserRequestList getAllUserRequest() {
 
@@ -69,7 +69,7 @@ public class AdminController {
 		return response;
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public Login loginAdmin(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword) {

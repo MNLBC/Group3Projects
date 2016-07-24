@@ -59,7 +59,7 @@ public class UpdateController {
 
 	}
 
-	@RequestMapping(value = "/updateOrderStatus", method = RequestMethod.GET)
+	@RequestMapping(value = "/updateOrderStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateOrderStatus(@RequestParam(value = "orderId", required = true) String orderId,
 			@RequestParam(value = "status", required = true) String status) {
