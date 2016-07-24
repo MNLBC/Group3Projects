@@ -22,19 +22,19 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 	@Override
 	public boolean saveCart(CartItemList cartItemList) {
 		long userId = cartItemList.getUserId();
-		
+
 		try {
-				if(!entityManager.getTransaction().isActive()){
-					entityManager.getTransaction().begin();
-				}
-				
-			
+			// if (!entityManager.getTransaction().isActive()) {
+			entityManager.getTransaction().begin();
+			// }
+
 			for (CartItem item : cartItemList.getItems()) {
 				item.setUserId(userId);
 				entityManager.persist(item);
+
 			}
 			entityManager.getTransaction().commit();
-		
+
 			return true;
 		} catch (PersistenceException e) {
 			return false;

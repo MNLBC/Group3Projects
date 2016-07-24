@@ -83,6 +83,7 @@ Ext
 															+ totalCost;
 													jsonData += '}';
 
+													
 													Ext.Ajax
 															.request({
 																url : 'order/saveOrder',
@@ -395,8 +396,9 @@ Ext
 																inputText,
 																showConfig) {
 															if (buttonValue === "yes") {
-
-																if (userHasCart) {
+																debugger;
+																if (userHasCart  && cartStore.data.items.length == 0) {
+//																	 && cartStore.data.items.length == 0
 																	Ext.Msg
 																			.confirm(
 																					'Reload Cart',
@@ -511,7 +513,6 @@ Ext
 
 																}
 
-																aweawe
 															}
 														},
 														icon : Ext.Msg.INFORMATION

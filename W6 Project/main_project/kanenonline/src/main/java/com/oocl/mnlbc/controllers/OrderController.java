@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.oocl.mnlbc.constants.KanenOnlineConstants;
+import com.oocl.mnlbc.dao.CartDAO;
 import com.oocl.mnlbc.dao.OrderDAO;
 import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.OrderItem;
@@ -35,6 +36,10 @@ import com.oocl.mnlbc.utils.CollectionUtils;
 public class OrderController {
 	@Autowired
 	private OrderDAO orderDAO;
+
+	@Autowired
+	private CartDAO cartDAO;
+
 	private static final Logger logger = Logger.getLogger(OrderController.class);
 
 	/**
@@ -105,15 +110,17 @@ public class OrderController {
 
 		order.setItems(null);
 
+		long userId = order.getUserId();
+
 		StringBuilder builder = new StringBuilder();
 		String errorMsg = "";
 
 		builder.append("{\"success\":true,\"data\":{\"errormsg\":\"");
 		if (orderDAO.createOrder(order, orderItems)) {
-			System.out.println("order success");
+			cartDAO.removeUserCart(userId);
 			errorMsg += "none";
 		} else {
-			System.out.println("order failed");
+
 			errorMsg += "failed";
 		}
 
