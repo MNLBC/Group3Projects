@@ -49,12 +49,15 @@ public class CartController {
 		logger.info("Saving cart to database");
 
 		Gson gson = new Gson();
+		//accepts the jsonData from the request and uses GSON to convert JSON to Object
+		//uses CartItemList to map the jsonData to java object
 		CartItemList cartItemList = gson.fromJson(jsonData, CartItemList.class);
 
 		StringBuilder builder = new StringBuilder();
 		String errorMsg = "";
 
 		builder.append("{\"success\":true,\"data\":{\"errormsg\":\"");
+		//cartDAO.savecart accepts the parameter cartItemList to save to the Database
 		if (cartDAO.saveCart(cartItemList)) {
 			logger.info("Cart successfully saved to the database.");
 			errorMsg += "none";
@@ -81,16 +84,21 @@ public class CartController {
 	@ResponseBody
 	public Response<ModelWrapper<CartItem>> loadCart(@RequestParam(value = "userId", required = true) long userId)
 			throws IOException {
-
+		//Accepts the userId from the ajax request and use it to load the cart of the user
 		List<CartItem> result = cartDAO.loadCart(userId);
 
+		
 		ModelWrapper<CartItem> cartItemWrapper = new ModelWrapper<CartItem>();
+		//uses the "items" of ModelWrapper to containt the List of CartItems
 		cartItemWrapper.setItems(result);
 
+		//uses response wrapper so that the response json would contain "success" and "data"
 		Response<ModelWrapper<CartItem>> response = new Response<ModelWrapper<CartItem>>();
 
 		if (CollectionUtils.isNotEmptyList(result)) {
+			//set the success value of the response Jsondata to true
 			response.setSuccess(true);
+			//set the data value of the response jsondata to the cartItemWrapper which containes the list of CartItems
 			response.setData(cartItemWrapper);
 			logger.info("Cart items of user " + userId + "is successfully retrieved.");
 		} else {
@@ -115,6 +123,7 @@ public class CartController {
 	public boolean removeUserCart(@RequestParam(value = "userId", required = true) Long userId) throws IOException {
 		boolean result = false;
 		if (userId != null) {
+			//removeUserCart accepts the parameter userId from the request to remove the cart
 			result = cartDAO.removeUserCart(userId);
 		}
 		return result;

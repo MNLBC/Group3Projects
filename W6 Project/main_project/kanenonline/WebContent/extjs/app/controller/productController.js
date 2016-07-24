@@ -564,10 +564,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         																										},
         																										failure : function() {
 
-        																											Ext.MessageBox
-        																													.alert(
-        																															'Fail',
-        																															'Unable to load cart');
+        																											
         																										}
         																									});
         																						} else {
@@ -606,10 +603,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         																										},
         																										failure : function() {
-        																											Ext.MessageBox
-        																													.alert(
-        																															'Fail',
-        																															'Unable to delete cart');
+        																											
         																										}
         																									});
         																						}
@@ -806,13 +800,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         																},
 
-        															// failure: function
-        															// (response) {
-
-        															// Ext.Msg.alert("Error",'Unable
-        															// to checkout
-        															// cart.');
-        															// }
+        														
         															});
 
         												} else {

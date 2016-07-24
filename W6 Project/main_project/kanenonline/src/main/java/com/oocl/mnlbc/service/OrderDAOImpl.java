@@ -36,7 +36,7 @@ public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderD
 	@Override
 	public boolean createOrder(Order order, List<OrderItem> orderItems) {
 		try {
-
+			
 			entityManager.getTransaction().begin();
 
 			entityManager.persist(order);
@@ -64,6 +64,8 @@ public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderD
 	 * @return boolean
 	 */
 	public boolean saveCart(OrderItem items, long orderId) {
+		
+		//save the orderItem to the database
 		long productId = items.getProductId();
 		int quantity = items.getQuantity();
 		double orderedPrice = items.getProductPrice();
@@ -96,7 +98,7 @@ public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderD
 	 */
 	@Override
 	public List<Order> getTransactions(long userId) {
-
+		//gets the Order of the certain user using the userId
 		if (userId > 0) {
 			Query query = entityManager.createQuery("SELECT O FROM Order O WHERE O.userId = :userId");
 			query.setParameter("userId", userId);
@@ -119,7 +121,7 @@ public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderD
 	 */
 	@Override
 	public List<CartItemBean> getItems(long orderId) {
-
+		//retrieves the data from database joining the product and order table on the productId field
 		Query query = entityManager.createNativeQuery(
 				"SELECT OI.ORDER_ID, P.PRODUCT_ID, P.PRODUCT_NAME, OI.QUANTITY, P.PRODUCT_DESCRIPTION, P.PRODUCT_PRICE, P.PRODUCT_IMAGE_PATH FROM ORDER_ITEM OI INNER JOIN PRODUCT P ON P.PRODUCT_ID = OI.PRODUCT_ID WHERE OI.ORDER_ID =?");
 		query.setParameter(1, orderId);
