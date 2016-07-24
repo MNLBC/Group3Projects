@@ -23,7 +23,7 @@ import com.oocl.mnlbc.services.UserService;
 @RequestMapping("/update")
 public class UpdateController {
 
-	@RequestMapping(value = "/membershipApproval", method = RequestMethod.GET)
+	@RequestMapping(value = "/membershipApproval", method = RequestMethod.POST)
 	@ResponseBody
 	public UserMembershipAsn setApproval(@RequestParam(value = "userId", required = true) String userId,
 			@RequestParam(value = "approvedType", required = true) String approvedType,

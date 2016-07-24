@@ -86,7 +86,7 @@ public class AdminController {
 		return response;
 	}
 
-	@RequestMapping(value = "/getOrders", method = RequestMethod.GET)
+	@RequestMapping(value = "/getOrders", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderAndItemList getAllOrders() {
 
@@ -105,6 +105,7 @@ public class AdminController {
 			orderUser.setFullName(order.getUserId().getFullName());
 			orderUser.setUserID(order.getUserId().getUserId());
 			ordUserList.add(orderUser);
+			System.out.println(orderUser);
 		}
 		for (OrderItem item : orderImpl.getAllItems()) {
 			
