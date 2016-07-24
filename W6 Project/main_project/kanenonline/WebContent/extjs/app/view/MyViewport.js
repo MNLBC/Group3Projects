@@ -94,24 +94,28 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                     xtype: 'gridcolumn',
                                                     width: 160,
                                                     dataIndex: 'productName',
-                                                    text: 'Product Name'
+                                                    text: 'Product Name',
+                                                    flex: 1
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
                                                     width: 264,
                                                     dataIndex: 'productDescription',
-                                                    text: 'Product Description'
+                                                    text: 'Product Description',
+                                                    flex: 1
                                                 },
                                                 {
                                                     xtype: 'numbercolumn',
                                                     width: 99,
                                                     dataIndex: 'productPrice',
-                                                    text: 'Price'
+                                                    text: 'Price',
+                                                    flex: 1
                                                 },
                                                 {
                                                     xtype: 'numbercolumn',
                                                     dataIndex: 'quantity',
                                                     text: 'Quantity',
+                                                    flex: 1,
                                                     format: '0,000',
                                                     editor: {
                                                         xtype: 'textfield',
@@ -122,6 +126,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                 },
                                                 {
                                                     xtype: 'actioncolumn',
+                                                    flex: 1,
                                                     items: [
                                                         {
                                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
@@ -266,19 +271,19 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                         },
                                         {
                                             xtype: 'button',
-                                            height: 30,
-                                            id: 'btnMainLogout',
-                                            itemId: 'btnMainLogout',
-                                            width: 85,
-                                            text: 'Logout'
-                                        },
-                                        {
-                                            xtype: 'button',
                                             height: 29,
                                             id: 'btnUserProfile',
                                             itemId: 'btnUserProfile',
                                             width: 84,
                                             text: 'User Profile'
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            height: 30,
+                                            id: 'btnMainLogout',
+                                            itemId: 'btnMainLogout',
+                                            width: 85,
+                                            text: 'Logout'
                                         }
                                     ]
                                 }
@@ -289,10 +294,8 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                 {
                     xtype: 'container',
                     height: 590,
-                    hidden: true,
                     id: 'orderHistoryContainer',
                     itemId: 'orderHistoryContainer',
-                    style: 'background-color:#292c2f',
                     width: 1138,
                     layout: 'border',
                     items: [
@@ -365,11 +368,11 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                     xtype: 'container',
                     id: 'userProfileContainer',
                     itemId: 'userProfileContainer',
+                    style: 'style="background-color: #A6CBED;"',
                     items: [
                         {
                             xtype: 'container',
-                            height: 900,
-                            html: '<!DOCTYPE html>\n<html>\n<head>\n\n</head>\n<body>\n\n<center>\n<img src="resource/bgbox.jpg"  width="1200" height="1000">\n</center>\n\n</body>\n</html>',
+                            height: 1000,
                             layout: {
                                 type: 'vbox',
                                 align: 'center'
@@ -377,20 +380,40 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                             items: [
                                 {
                                     xtype: 'container',
-                                    flex: 1,
-                                    height: 167,
-                                    width: 794,
-                                    layout: 'fit'
+                                    flex: 0,
+                                    height: 212,
+                                    width: 1270,
+                                    layout: {
+                                        type: 'vbox',
+                                        align: 'center',
+                                        pack: 'center'
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'image',
+                                            flex: 0,
+                                            height: 200,
+                                            width: 200,
+                                            src: 'resource/profile.png'
+                                        }
+                                    ]
                                 },
                                 {
                                     xtype: 'container',
-                                    height: 218,
+                                    height: 300,
+                                    html: '<html>\n<head>\n<style>\n\n</style>\n</head>\n<body>\n\n<center>\n<img src="resource/user.png"  width="400" height="400">\n</center>\n\n</body>\n</html>',
                                     width: 1200,
                                     layout: {
                                         type: 'vbox',
                                         align: 'center'
                                     },
                                     items: [
+                                        {
+                                            xtype: 'tbspacer',
+                                            flex: 1,
+                                            height: 148,
+                                            width: 10
+                                        },
                                         {
                                             xtype: 'displayfield',
                                             flex: 1,
@@ -443,48 +466,65 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             fieldLabel: 'Membership type',
                                             labelAlign: 'top',
                                             value: ''
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'tbspacer',
-                                    flex: 1
-                                },
-                                {
-                                    xtype: 'container',
-                                    flex: 1,
-                                    layout: {
-                                        type: 'hbox',
-                                        align: 'stretch',
-                                        pack: 'center'
-                                    },
-                                    items: [
-                                        {
-                                            xtype: 'button',
-                                            flex: 1,
-                                            id: 'btnRequestMember',
-                                            itemId: 'btnRequestMember',
-                                            width: 113,
-                                            icon: '',
-                                            text: 'Request'
                                         },
                                         {
-                                            xtype: 'button',
+                                            xtype: 'tbspacer',
                                             flex: 1,
-                                            height: 25,
-                                            id: 'btnUpdateProfile',
-                                            itemId: 'btnUpdateProfile',
-                                            width: 106,
-                                            text: 'Update Info'
+                                            height: 100
                                         },
                                         {
-                                            xtype: 'button',
+                                            xtype: 'container',
                                             flex: 1,
-                                            height: 160,
-                                            id: 'btnChangePass',
-                                            itemId: 'btnChangePass',
-                                            width: 138,
-                                            text: 'Change Password'
+                                            layout: {
+                                                type: 'hbox',
+                                                align: 'stretch',
+                                                pack: 'center'
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'button',
+                                                    flex: 1,
+                                                    id: 'btnRequestMember',
+                                                    itemId: 'btnRequestMember',
+                                                    width: 113,
+                                                    icon: '',
+                                                    text: 'Request'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    flex: 1,
+                                                    height: 25,
+                                                    id: 'btnUpdateProfile',
+                                                    itemId: 'btnUpdateProfile',
+                                                    width: 106,
+                                                    text: 'Update Info'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    flex: 1,
+                                                    height: 160,
+                                                    id: 'btnChangePass',
+                                                    itemId: 'btnChangePass',
+                                                    width: 138,
+                                                    text: 'Change Password'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    flex: 1,
+                                                    id: 'btnBackMainPage',
+                                                    itemId: 'btnBackMainPage',
+                                                    text: 'Shop Again'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    flex: 1,
+                                                    height: 30,
+                                                    id: 'btnViewTransaction',
+                                                    itemId: 'btnViewTransaction',
+                                                    width: 125,
+                                                    text: 'View Transaction'
+                                                }
+                                            ]
                                         }
                                     ]
                                 }

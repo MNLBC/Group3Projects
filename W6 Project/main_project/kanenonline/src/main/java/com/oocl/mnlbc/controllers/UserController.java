@@ -8,16 +8,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.oocl.mnlbc.dao.CartDAO;
 import com.oocl.mnlbc.dao.UserDAO;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.model.ChangePasswordResult;
 import com.oocl.mnlbc.model.ModelWrapper;
 import com.oocl.mnlbc.model.Response;
+import com.oocl.mnlbc.model.UserWrapper;
 
 /**
  * User Controller
  * 
- * @author John Benedict Vergara
+ * @author VERGAJO
  *
  */
 @Controller
@@ -27,7 +29,10 @@ public class UserController {
 	@Autowired
 	private UserDAO userDAO;
 
-	@Autowired 
+	@Autowired
+	private CartDAO cartDAO;
+
+	@Autowired
 	private static final Logger logger = Logger.getLogger(UserController.class);
 
 	/**
@@ -61,12 +66,11 @@ public class UserController {
 		builder.append(returnJson);
 
 		User user = new User(0, userName, userPassword, fullName, email, deliveryAddress, mobileNumber, userRole);
-		System.out.println(user.getFullName());
 		if (userDAO.userExists(userName)) {
 			errorMsg += "usernametaken";
 			logger.info("Registration Failed, " + userName + " is already taken");
 		}
-		System.out.println(email);
+
 		if (userDAO.emailExists(email)) {
 			errorMsg += "emailtaken";
 			logger.info("Registration Failed, " + email + " is already taken");
@@ -98,20 +102,22 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/login", method = { RequestMethod.POST })
 	@ResponseBody
-	public Response<ModelWrapper<User>> loginUser(@RequestParam(value = "userName", required = true) String userName,
+	public Response<UserWrapper<User>> loginUser(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword) throws Exception {
 		logger.info(userName + " is logging in..");
 
-		ModelWrapper<User> items = new ModelWrapper<User>();
+		UserWrapper<User> items = new UserWrapper<User>();
 		User user = userDAO.validateAccount(userName, userPassword);
 		items.getItems().add(user);
 
-		Response<ModelWrapper<User>> response = new Response<ModelWrapper<User>>();
-		response.setData(items);
+		Response<UserWrapper<User>> response = new Response<UserWrapper<User>>();
 
 		if (user != null) {
+			boolean userHasCart = cartDAO.findCartByUser(user.getUserId());
+			items.setUserHasCart(userHasCart);
 			response.setSuccess(true);
 		}
+		response.setData(items);
 		return response;
 
 	}
@@ -141,7 +147,7 @@ public class UserController {
 	 * @return Response<ChangePasswordResult>
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/changePassword", method = { RequestMethod.GET })
+	@RequestMapping(value = "/changePassword", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<ChangePasswordResult> changePassword(@RequestParam(value = "userId", required = true) long userId,
 			@RequestParam(value = "userName", required = true) String userName,
@@ -176,7 +182,7 @@ public class UserController {
 	 * @return String
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/updateProfile", method = { RequestMethod.GET })
+	@RequestMapping(value = "/updateProfile", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<User> updateProfile(@RequestParam(value = "userId", required = true) String userId,
 			@RequestParam(value = "userName", required = true) String userName,
@@ -193,9 +199,9 @@ public class UserController {
 			user.setEmail(email);
 			user.setMobileNumber(mobileNumber);
 			user.setAddress(address);
-			user = userDAO.update(user);
 
-			if (user != null) {
+			if (userDAO.updateUser(user)) {
+				user.setUserPassword("");
 				response.setSuccess(true);
 				response.setData(user);
 			}
