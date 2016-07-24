@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.oocl.mnlb.junit;
+package com.oocl.mnlbc.junit;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,6 +12,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import com.oocl.mnlbc.jms.MembershipRequestJMSProducer;
 
 /**
+ * Test sending of MembershipRequest to Admin server
  * @author BRIONSE
  *
  */

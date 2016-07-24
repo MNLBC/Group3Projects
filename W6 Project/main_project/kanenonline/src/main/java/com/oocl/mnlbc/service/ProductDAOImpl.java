@@ -10,12 +10,12 @@ import javax.persistence.Query;
 import com.oocl.mnlbc.dao.ProductDAO;
 import com.oocl.mnlbc.entity.Product;
 
-public class ProductService implements ProductDAO {
+public class ProductDAOImpl implements ProductDAO {
 	@PersistenceContext
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager em;
 
-	public ProductService() {
+	public ProductDAOImpl() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink");
 		em = entityManagerFactory.createEntityManager();
 	}
