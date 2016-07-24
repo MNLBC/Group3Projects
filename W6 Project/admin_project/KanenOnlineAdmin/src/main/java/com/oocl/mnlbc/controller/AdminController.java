@@ -37,7 +37,7 @@ import com.oocl.mnlbc.services.UserService;
 @RequestMapping("/admin")
 public class AdminController {
 
-	@RequestMapping(value = "/userRequest", method = RequestMethod.GET)
+	@RequestMapping(value = "/userRequest", method = RequestMethod.POST)
 	@ResponseBody
 	public UserRequestList getAllUserRequest() {
 

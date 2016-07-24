@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,10 +24,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "ORDER_ITEM")
 public class OrderItem implements Serializable {
 
+	// @Id
+	// @GeneratedValue(generator = "ORDER_ITEM_ID_SEQ")
+	// @SequenceGenerator(name = "ORDER_ITEM_ID_SEQ", sequenceName =
+	// "ORDER_ITEM_ID_SEQ", allocationSize = 111)
+	// @Column(name = "ORDER_ITEM_ID")
+	// private long orderItemId;
+
+	@SequenceGenerator(name = "ORDER_ITEM_ID_SEQUENCE_GENERATOR", sequenceName = "KANENOS.ORDER_ITEM_ID_SEQ")
 	@Id
-	@GeneratedValue(generator = "ORDER_ITEM_ID_SEQ")
-	@SequenceGenerator(name = "ORDER_ITEM_ID_SEQ", sequenceName =
-	"ORDER_ITEM_ID_SEQ", allocationSize = 111)
+	@GeneratedValue( generator = "ORDER_ITEM_ID_SEQUENCE_GENERATOR",strategy=GenerationType.SEQUENCE)
 	@Column(name = "ORDER_ITEM_ID")
 	private long orderItemId;
 

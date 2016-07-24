@@ -12,20 +12,23 @@
 		<property name="password" value="cjkanen" />
 	</bean>
 
-	<bean id="productDAO" class="com.oocl.mnlbc.service.ProductService"
+	<bean id="productDAO" class="com.oocl.mnlbc.service.ProductDAOImpl"
 		scope="singleton">
 	</bean>
 
+	<bean id="cartDAO" class="com.oocl.mnlbc.service.CartDAOImpl"
+		scope="singleton">
+	</bean>
 
 	<bean id="userDAO" class="com.oocl.mnlbc.service.UserDAOImpl"
 		scope="singleton">
 	</bean>
-	
+
 	<bean id="membershipTypeDAO" class="com.oocl.mnlbc.service.MembershipTypeDAOImpl"
 		scope="singleton">
 	</bean>
 
-	<bean id="orderService" class="com.oocl.mnlbc.service.OrderDAOImpl"
+	<bean id="orderDAO" class="com.oocl.mnlbc.service.OrderDAOImpl"
 		scope="singleton">
 	</bean>
 
