@@ -22,6 +22,9 @@ Ext.define('MyApp.model.orderItem', {
 
     fields: [
         {
+            name: 'orderItemId'
+        },
+        {
             name: 'productId'
         },
         {

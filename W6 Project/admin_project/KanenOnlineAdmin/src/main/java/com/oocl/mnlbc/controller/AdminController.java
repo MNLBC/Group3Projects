@@ -76,7 +76,7 @@ public class AdminController {
 		return null;
 	}
 	
-	@RequestMapping(value = "/getOrders", method = RequestMethod.GET)
+	@RequestMapping(value = "/getOrders", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderAndItemList getAllOrders(){
 		

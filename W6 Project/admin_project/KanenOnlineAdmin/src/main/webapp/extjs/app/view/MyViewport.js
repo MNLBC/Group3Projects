@@ -17,16 +17,15 @@ Ext.define('MyApp.view.MyViewport', {
     extend: 'Ext.container.Viewport',
 
     requires: [
-        'Ext.form.Panel',
         'Ext.button.Button',
         'Ext.grid.Panel',
         'Ext.grid.column.Number',
-        'Ext.grid.column.Date',
         'Ext.grid.View',
         'Ext.form.field.ComboBox',
         'Ext.grid.plugin.RowEditing',
         'Ext.selection.RowModel',
-        'Ext.toolbar.Toolbar'
+        'Ext.toolbar.Toolbar',
+        'Ext.form.Panel'
     ],
 
     layout: 'fit',
@@ -36,68 +35,6 @@ Ext.define('MyApp.view.MyViewport', {
 
         Ext.applyIf(me, {
             items: [
-                {
-                    xtype: 'container',
-                    height: 785,
-                    id: 'loginContainer',
-                    itemId: 'loginContainer',
-                    style: 'background: url(resource/melvin.jpg) no-repeat center center fixed;\n-webkit-background-size: cover;\n  -moz-background-size: cover;\n  -o-background-size: cover;\n  background-size: cover;',
-                    layout: {
-                        type: 'vbox',
-                        align: 'center',
-                        pack: 'center'
-                    },
-                    items: [
-                        {
-                            xtype: 'form',
-                            height: 172,
-                            width: 418,
-                            bodyPadding: 10,
-                            title: 'Login',
-                            items: [
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    id: 'txtUsername',
-                                    itemId: 'txtUsername',
-                                    fieldLabel: 'Username',
-                                    emptyText: 'Username'
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    id: 'txtPassword',
-                                    itemId: 'txtPassword',
-                                    fieldLabel: 'Password',
-                                    inputType: 'password',
-                                    emptyText: 'Password'
-                                },
-                                {
-                                    xtype: 'container',
-                                    id: 'ContainerBtn',
-                                    itemId: 'ContainerBtn',
-                                    width: 355,
-                                    layout: {
-                                        type: 'hbox',
-                                        align: 'stretch',
-                                        pack: 'center'
-                                    },
-                                    items: [
-                                        {
-                                            xtype: 'button',
-                                            height: 20,
-                                            id: 'btnLogin',
-                                            itemId: 'btnLogin',
-                                            margin: 10,
-                                            width: 150,
-                                            text: 'Login'
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
                 {
                     xtype: 'container',
                     height: 775,
@@ -217,16 +154,18 @@ Ext.define('MyApp.view.MyViewport', {
                                                     xtype: 'numbercolumn',
                                                     dataIndex: 'orderId',
                                                     text: 'Order Id',
-                                                    flex: 1
+                                                    flex: 1,
+                                                    format: '00000'
                                                 },
                                                 {
                                                     xtype: 'numbercolumn',
                                                     dataIndex: 'userId',
                                                     text: 'User Id',
-                                                    flex: 1
+                                                    flex: 1,
+                                                    format: '0000'
                                                 },
                                                 {
-                                                    xtype: 'datecolumn',
+                                                    xtype: 'gridcolumn',
                                                     dataIndex: 'date',
                                                     text: 'Order Date',
                                                     flex: 1
@@ -235,7 +174,8 @@ Ext.define('MyApp.view.MyViewport', {
                                                     xtype: 'numbercolumn',
                                                     dataIndex: 'totalCost',
                                                     text: 'Total Cost',
-                                                    flex: 1
+                                                    flex: 1,
+                                                    format: '00000'
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
@@ -269,7 +209,8 @@ Ext.define('MyApp.view.MyViewport', {
                                                     width: 176,
                                                     dataIndex: 'orderId',
                                                     text: 'Order id',
-                                                    flex: 1
+                                                    flex: 1,
+                                                    format: '00000'
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
@@ -281,7 +222,7 @@ Ext.define('MyApp.view.MyViewport', {
                                                     flex: 1
                                                 },
                                                 {
-                                                    xtype: 'datecolumn',
+                                                    xtype: 'gridcolumn',
                                                     id: 'orderDate',
                                                     itemId: 'orderDate',
                                                     width: 151,
@@ -295,7 +236,8 @@ Ext.define('MyApp.view.MyViewport', {
                                                     itemId: 'totalCost',
                                                     dataIndex: 'totalCost',
                                                     text: 'Total Cost',
-                                                    flex: 1
+                                                    flex: 1,
+                                                    format: '00000'
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
@@ -384,6 +326,68 @@ Ext.define('MyApp.view.MyViewport', {
                                                     text: 'Reject Request'
                                                 }
                                             ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    xtype: 'container',
+                    height: 785,
+                    id: 'loginContainer',
+                    itemId: 'loginContainer',
+                    style: 'background: url(resource/melvin.jpg) no-repeat center center fixed;\n-webkit-background-size: cover;\n  -moz-background-size: cover;\n  -o-background-size: cover;\n  background-size: cover;',
+                    layout: {
+                        type: 'vbox',
+                        align: 'center',
+                        pack: 'center'
+                    },
+                    items: [
+                        {
+                            xtype: 'form',
+                            height: 172,
+                            width: 418,
+                            bodyPadding: 10,
+                            title: 'Login',
+                            items: [
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    id: 'txtUsername',
+                                    itemId: 'txtUsername',
+                                    fieldLabel: 'Username',
+                                    emptyText: 'Username'
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    id: 'txtPassword',
+                                    itemId: 'txtPassword',
+                                    fieldLabel: 'Password',
+                                    inputType: 'password',
+                                    emptyText: 'Password'
+                                },
+                                {
+                                    xtype: 'container',
+                                    id: 'ContainerBtn',
+                                    itemId: 'ContainerBtn',
+                                    width: 355,
+                                    layout: {
+                                        type: 'hbox',
+                                        align: 'stretch',
+                                        pack: 'center'
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'button',
+                                            height: 20,
+                                            id: 'btnLogin',
+                                            itemId: 'btnLogin',
+                                            margin: 10,
+                                            width: 150,
+                                            text: 'Login'
                                         }
                                     ]
                                 }
