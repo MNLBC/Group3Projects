@@ -12,6 +12,7 @@
 		<class>com.oocl.mnlbc.entity.OrderItem</class> 
 		<class>com.oocl.mnlbc.entity.User</class>
 		<class>com.oocl.mnlbc.entity.MembershipType</class>
+		<class>com.oocl.mnlbc.entity.CartItem</class>
 		<class>com.oocl.mnlbc.entity.UserMembershipAsn</class>
 		
 		
