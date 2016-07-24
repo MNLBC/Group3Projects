@@ -12,7 +12,6 @@ import com.oocl.mnlbc.dao.OrderDAO;
 import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.OrderItem;
 import com.oocl.mnlbc.model.CartItemBean;
-import com.oocl.mnlbc.security.AbstractJPAGenericDAO;
 
 /**
  * 

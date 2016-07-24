@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.oocl.mnlbc.dao.CartDAO;
 import com.oocl.mnlbc.entity.CartItem;
 import com.oocl.mnlbc.model.CartItemList;
-import com.oocl.mnlbc.security.AbstractJPAGenericDAO;
 
 /**
  * @author VERGAJO
