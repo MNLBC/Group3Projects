@@ -25,7 +25,34 @@ Ext.define('KanenOnlineShopping.store.MembershipStore', {
         cfg = cfg || {};
         me.callParent([Ext.apply({
             model: 'KanenOnlineShopping.model.Membership',
-            storeId: 'membershipStore'
+            storeId: 'membershipStore',
+            data: [
+                {
+                    membershipTypeId: 5000000005,
+                    membershipTypeName: 'SENIOR',
+                    discountRate: 20
+                },
+                {
+                    membershipTypeId: 5000000004,
+                    membershipTypeName: 'STUDENT',
+                    discountRate: 20
+                },
+                {
+                    membershipTypeId: 5000000003,
+                    membershipTypeName: 'VIP',
+                    discountRate: 30
+                },
+                {
+                    membershipTypeId: 5000000002,
+                    membershipTypeName: 'MEMBER',
+                    discountRate: 5
+                },
+                {
+                    membershipTypeId: 5000000001,
+                    membershipTypeName: 'REGULAR',
+                    discountRate: 0
+                }
+            ]
         }, cfg)]);
     }
 });

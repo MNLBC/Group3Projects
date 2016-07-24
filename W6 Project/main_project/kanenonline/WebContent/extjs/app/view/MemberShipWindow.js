@@ -24,7 +24,7 @@ Ext.define('KanenOnlineShopping.view.MemberShipWindow', {
         'Ext.button.Button'
     ],
 
-    height: 375,
+    height: 396,
     id: 'memberShipWindow',
     itemId: 'MemberShipWindow',
     width: 530,

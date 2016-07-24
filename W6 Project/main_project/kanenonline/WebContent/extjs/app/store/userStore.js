@@ -25,20 +25,7 @@ Ext.define('KanenOnlineShopping.store.userStore', {
         cfg = cfg || {};
         me.callParent([Ext.apply({
             model: 'KanenOnlineShopping.model.User',
-            storeId: 'userStore',
-            data: [
-                {
-                    userId: 'molestiae',
-                    userName: 'aut',
-                    userFullName: 'Dorothy Edwards',
-                    userEmail: 'jfernandez@mynte.name',
-                    userAddress: '2441 Di Loreto Lane',
-                    userMobileNumber: 'aliquid',
-                    userRole: 'assumenda',
-                    userPassword: 'OzrEw3DM',
-                    userMemberType: 'nesciunt'
-                }
-            ]
+            storeId: 'userStore'
         }, cfg)]);
     }
 });

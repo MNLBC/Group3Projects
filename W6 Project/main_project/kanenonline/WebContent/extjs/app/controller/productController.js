@@ -118,6 +118,10 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         {
             ref: 'membershipRequestRemarks',
             selector: '#membershipRequestRemarks'
+        },
+        {
+            ref: 'txtMembershipType',
+            selector: '#txtMembershipType'
         }
     ],
 
@@ -433,6 +437,20 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         											var user = responseData.items[0];
         											var userHasCart = responseData.userHasCart;
+                                                    var userMembershipTypeId = user.userMembershipId.membershipTypeId;
+
+
+                                                    var membershipTypeStore = Ext.getStore('MembershipStore');
+
+
+                                                    var membershipTypeArray = membershipTypeStore.queryBy(function(record){
+                                                        return record.data.membershipTypeId == userMembershipTypeId;
+                                                    });
+
+
+                                                    var discountRate = membershipTypeArray.items[0].data.discountRate;
+                							        var membershipTypeName = membershipTypeArray.items[0].data.membershipTypeName;
+
         											var loggedInUser = {
         												userId : user.userId,
         												userName : user.username,
@@ -441,9 +459,13 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         												userAddress : user.address,
         												userMobileNumber : user.mobileNumber,
         												userRole : user.userRole,
-        												userPassword : ''
+        												userPassword : '',
+                                                        userDiscountRate : discountRate,
+                                                        userMembershipTypeName : membershipTypeName
+
         											};
 
+                                                    debugger;
         											userStore.add(loggedInUser);
 
         											Ext.getCmp('btnMainLogin').hide();
@@ -937,13 +959,14 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         var email= userStore.data.items[0].data.userEmail;
         var address= userStore.data.items[0].data.userAddress;
         var mobileNumber= userStore.data.items[0].data.userMobileNumber;
+        var userMembershipTypeName = userStore.data.items[0].data.userMembershipTypeName;
 
         this.getUserName().setValue(userName);
         this.getUserFullname().setValue(fullName);
         this.getUserEmail().setValue(email);
         this.getUserAddress().setValue(address);
         this.getUserMobileNumber().setValue(mobileNumber);
-
+        this.getTxtMembershipType().setValue(userMembershipTypeName);
     },
 
     onBtnUpdateProfileClick: function() {

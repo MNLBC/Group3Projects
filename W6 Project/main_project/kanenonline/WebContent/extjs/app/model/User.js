@@ -47,6 +47,12 @@ Ext.define('KanenOnlineShopping.model.User', {
         },
         {
             name: 'userMemberType'
+        },
+        {
+            name: 'userDiscountRate'
+        },
+        {
+            name: 'userMembershipTypeName'
         }
     ]
 });
