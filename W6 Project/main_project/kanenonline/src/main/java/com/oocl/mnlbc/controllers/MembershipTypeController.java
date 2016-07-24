@@ -16,6 +16,7 @@ import com.oocl.mnlbc.jms.MembershipRequestJMSProducer;
 import com.oocl.mnlbc.model.ModelWrapper;
 import com.oocl.mnlbc.model.Response;
 import com.oocl.mnlbc.utils.CollectionUtils;
+
 /**
  * MembershipType Controller
  * 
@@ -31,7 +32,7 @@ public class MembershipTypeController {
 
 	@Autowired
 	private MembershipRequestJMSProducer membershipRequestProducer;
-	
+
 	@RequestMapping(value = "/getMembershipTypes", method = { RequestMethod.GET })
 	@ResponseBody
 	public Response<ModelWrapper<MembershipType>> getMembershipTypes() throws IOException {
@@ -48,28 +49,24 @@ public class MembershipTypeController {
 		return response;
 
 	};
-	
-	@RequestMapping(value = "/newMembershipTypRequest", method = { RequestMethod.GET })
+
+	@RequestMapping(value = "/newMembershipTypeRequest", method = { RequestMethod.GET })
 	@ResponseBody
-	public Response<ModelWrapper<String>> newMembershipTypRequest(@RequestParam(value = "userId", required = true) String userId,
-			@RequestParam(value = "requestedMembershipTypeName", required = true) String requestedMembershipTypeName) throws IOException {
-		
-		Response<ModelWrapper<String>> response = new Response<ModelWrapper<String>>();
-		
-		if(userId != null && requestedMembershipTypeName != null){
-			membershipRequestProducer.sendMessage(userId + "|"+requestedMembershipTypeName);
-		}
-		/*List<MembershipType> membershipTypes = membershipTypeDAO.getMembershipTypes();
+	public Response<String> newMembershipTypRequest(@RequestParam(value = "userId", required = true) String userId,
+			@RequestParam(value = "requestedMembershipTypeName", required = true) String requestedMembershipTypeName)
+			throws IOException {
 
-		ModelWrapper<MembershipType> wrapper = new ModelWrapper<MembershipType>();
-		wrapper.setItems(membershipTypes);
-		response.setData(wrapper);
+		Response<String> response = new Response<String>();
 
-		if (CollectionUtils.isNotEmptyList(membershipTypes)) {
+		if (userId != null && requestedMembershipTypeName != null) {
+			membershipRequestProducer.sendMessage(userId + "," + requestedMembershipTypeName);
 			response.setSuccess(true);
-		}*/
+		}
+		
+		response.setData("Request sent!");
+
 		return response;
 
 	};
-	
+
 }
