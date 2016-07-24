@@ -61,24 +61,23 @@ public class UpdateController {
 
 	@RequestMapping(value = "/updateOrderStatus", method = RequestMethod.GET)
 	@ResponseBody
-	public String updateOrderStatus(@RequestParam(value = "jsonData", required = true) String jsonData) {
+	public String updateOrderStatus(@RequestParam(value = "orderId", required = true) String orderId,
+			@RequestParam(value = "status", required = true) String status) {
 		OrderDAOImpl orderDAO = new OrderDAOImpl();
 		orderDAO.init();
 
-		Gson gson = new Gson();
-		User user = gson.fromJson(jsonData, User.class);
+		Order order= orderDAO.getOrderById(Long.parseLong(orderId));
+		
 
 		StringBuilder builder = new StringBuilder();
 		String errorMsg = "";
 
 		builder.append("{\"success\":true,\"data\":{\"errormsg\":\"");
-		if (user != null) {
-			if (user.getOrderList() != null) {
-				for (Order order : user.getOrderList()) {
-					orderDAO.updateOrderStatus(order);
-				}
+		if (order != null) {
+			order.setOrderStatus(status);
+			order = orderDAO.updateOrderStatus(order);
 				errorMsg += "none";
-			}
+			
 		} else {
 			errorMsg += "failed";
 		}
