@@ -150,7 +150,10 @@ Ext
 											if (buttonValue === "yes") {
 												var loginWindow = Ext
 														.getCmp('loginWindow');
+												var cartWindow = Ext.getCmp('cartWindow');
+												
 												loginWindow.show();
+												cartWindow.hide();
 											}
 										},
 										icon : Ext.Msg.WARNING
@@ -388,6 +391,7 @@ Ext
 																inputText,
 																showConfig) {
 															if (buttonValue === "yes") {
+															
 																Ext.Msg
 																		.confirm(
 																				'Reload Cart',
@@ -395,10 +399,10 @@ Ext
 																				function(
 																						btn) {
 																					if (btn == 'yes') {
-																						Ext.MessageBox
-																								.alert(
-																										'',
-																										'Reloading cart...');
+//																						Ext.MessageBox
+//																								.alert(
+//																										'',
+//																										'Reloading cart...');
 																						var userStore = Ext
 																								.getStore('userStore');
 																						var cartStore = Ext
@@ -511,6 +515,7 @@ Ext
 																													}
 																												});
 																					}
+																			
 
 																				});
 															}

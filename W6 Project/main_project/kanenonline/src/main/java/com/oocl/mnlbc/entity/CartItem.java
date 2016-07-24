@@ -6,6 +6,7 @@ package com.oocl.mnlbc.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -19,10 +20,16 @@ import javax.persistence.Table;
 @Table(name = "CART_ITEM")
 public class CartItem {
 
+//	@Id
+//	@GeneratedValue(generator = "CART_ITEM_ID_SEQ")
+//	@SequenceGenerator(name = "CART_ITEM_ID_SEQ", sequenceName = "CART_ITEM_ID_SEQ", allocationSize = 111)
+//	@Column(name = "CART_ITEM_ID")
+//	private long cartItemId;
+	
 	@Id
-	@GeneratedValue(generator = "CART_ITEM_ID_SEQ")
-	@SequenceGenerator(name = "CART_ITEM_ID_SEQ", sequenceName = "CART_ITEM_ID_SEQ", allocationSize = 111)
 	@Column(name = "CART_ITEM_ID")
+	@SequenceGenerator(name = "CART_ITEM_ID_SEQ", sequenceName = "CART_ITEM_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(generator = "CART_ITEM_ID_SEQ", strategy = GenerationType.SEQUENCE)
 	private long cartItemId;
 
 	@Column(name = "USER_ID")

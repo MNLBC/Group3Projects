@@ -26,26 +26,19 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 	@Override
 	public boolean saveCart(CartItemList cartItemList) {
 		long userId = cartItemList.getUserId();
-		CartItem cartItem = new CartItem();
-		cartItem.setUserId(userId);
+
 
 		try {
 			entityManager.getTransaction().begin();
 			for (CartItem item : cartItemList.getItems()) {
-				cartItem.setProductId(item.getProductId());
-				cartItem.setProductName(item.getProductName());
-				cartItem.setProductDescription(item.getProductDescription());
-				cartItem.setQuantity(item.getQuantity());
-				cartItem.setProductPrice(item.getProductPrice());
-				cartItem.setImagePath(item.getImagePath());
-				entityManager.persist(cartItem);
-				return true;
+				item.setUserId(userId);
+				entityManager.persist(item);	
 			}
 			entityManager.getTransaction().commit();
+			return true;
 		} catch (PersistenceException e) {
 			return false;
 		}
-		return false;
 
 	}
 
@@ -67,7 +60,7 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 	public boolean removeUserCart(long userId) {
 		Query query = entityManager.createQuery("SELECT CI FROM CartItem CI WHERE CI.userId = :userId");
 		query.setParameter("userId", userId);
-		
+
 		try {
 			List<CartItem> cartItemList = query.getResultList();
 			entityManager.getTransaction().begin();

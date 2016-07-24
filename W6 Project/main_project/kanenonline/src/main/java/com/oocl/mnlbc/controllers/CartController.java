@@ -65,9 +65,12 @@ public class CartController {
 
 	@RequestMapping(value = "/loadCart", method = RequestMethod.POST)
 	@ResponseBody
-	public Response<ModelWrapper<CartItem>> loadCart(@RequestParam(value = "userId", required = true) Long userId)
+	public Response<ModelWrapper<CartItem>> loadCart(@RequestParam(value = "userId", required = true) long userId)
 			throws IOException {
 		// Response<ModelWrapper<CartItem>>
+		
+		
+		String test = "";
 		List<CartItem> result = cartDAO.loadCart(userId);
 
 		ModelWrapper<CartItem> cartItemWrapper = new ModelWrapper<CartItem>();
@@ -80,9 +83,9 @@ public class CartController {
 			response.setData(cartItemWrapper);
 			logger.info("Cart items of user " + userId + "is successfully retrieved.");
 		} else {
-			response.setSuccess(false);
+			response.setSuccess(true);
 			response.setData(cartItemWrapper);
-			logger.info("Failed to retrieved previous cart for user " + userId);
+			logger.info("No previous cart for user " + userId);
 		}
 
 		return response;
