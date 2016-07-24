@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.OrderItem;
+import com.oocl.mnlbc.entity.Product;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
 import com.oocl.mnlbc.model.ItemOrder;
@@ -24,6 +25,7 @@ import com.oocl.mnlbc.model.UserRequest;
 import com.oocl.mnlbc.model.UserRequestList;
 import com.oocl.mnlbc.services.MembershipTypeService;
 import com.oocl.mnlbc.services.OrderDAOImpl;
+import com.oocl.mnlbc.services.ProductDAOImpl;
 import com.oocl.mnlbc.services.UserMembershipAsnService;
 import com.oocl.mnlbc.services.UserService;
 
@@ -84,26 +86,32 @@ public class AdminController {
 		return response;
 	}
 
-	@RequestMapping(value = "/getOrders", method = RequestMethod.POST)
+	@RequestMapping(value = "/getOrders", method = RequestMethod.GET)
 	@ResponseBody
 	public OrderAndItemList getAllOrders() {
 
 		OrderDAOImpl orderImpl = new OrderDAOImpl();
 		orderImpl.init();
+		ProductDAOImpl prodImpl = new ProductDAOImpl();
+		prodImpl.init();
 
-		OrderUser orderUser = new OrderUser();
-		ItemOrder itemOrder = new ItemOrder();
+		OrderUser orderUser;
+		ItemOrder itemOrder;
 		List<OrderUser> ordUserList = new ArrayList<OrderUser>();
 		List<ItemOrder> itemOrderList = new ArrayList<ItemOrder>();
 		for (Order order : orderImpl.getAllTransactions()) {
+			orderUser = new OrderUser();
 			orderUser.setOrder(order);
 			orderUser.setFullName(order.getUserId().getFullName());
 			orderUser.setUserID(order.getUserId().getUserId());
 			ordUserList.add(orderUser);
 		}
 		for (OrderItem item : orderImpl.getAllItems()) {
+			
+			itemOrder = new ItemOrder();
 			itemOrder.setItem(item);
 			itemOrder.setOrderId(item.getOrderId().getOrderId());
+			itemOrder.setProductname(prodImpl.getNameById(item.getProductId()));
 			itemOrderList.add(itemOrder);
 		}
 
