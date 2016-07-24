@@ -13,14 +13,9 @@ import com.oocl.mnlbc.entity.OrderItem;
  *
  */
 public interface OrderDAO {
-	
-	
-	public  List<Order> getAllTransactions();
 
-	/**
-	 * @return
-	 */
+	public List<Order> getAllTransactions();
+
 	public List<OrderItem> getAllItems();
-	
 
 }

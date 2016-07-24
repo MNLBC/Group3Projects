@@ -13,6 +13,19 @@ public class ItemOrder {
 	
 	private long orderId;
 	private OrderItem item;
+	private String productname;
+	/**
+	 * @return the productname
+	 */
+	public String getProductname() {
+		return productname;
+	}
+	/**
+	 * @param productname the productname to set
+	 */
+	public void setProductname(String productname) {
+		this.productname = productname;
+	}
 	/**
 	 * @return the orderId
 	 */
