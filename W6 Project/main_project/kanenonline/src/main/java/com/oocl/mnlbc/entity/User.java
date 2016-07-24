@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -20,15 +21,12 @@ import javax.persistence.Table;
 @Table(name = "USERS")
 public class User implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "USER_ID")
-	@GeneratedValue(generator = "USER_ID_SEQ")
-	@SequenceGenerator(name = "USER_ID_SEQ", sequenceName = "USER_ID_SEQ", allocationSize = 111)
+	@SequenceGenerator(name = "USER_ID_SEQ", sequenceName = "USER_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(generator = "USER_ID_SEQ", strategy = GenerationType.SEQUENCE)
 	private long userId;
 
 	@Column(name = "USERNAME")
@@ -55,18 +53,6 @@ public class User implements Serializable {
 	@Column(name = "IS_BLACKLISTED")
 	private String isBlacklisted;
 
-	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch =
-	// FetchType.LAZY)
-	// private List<Orders> orderList;
-
-	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch =
-	// FetchType.LAZY)
-	// private List<CartItem> cartItems;
-	//
-	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch =
-	// FetchType.LAZY)
-	// private List<UserMembershipAssn> userMembershipAssns;
-
 	@OneToOne(cascade = CascadeType.REMOVE, mappedBy = "userId", fetch = FetchType.EAGER)
 	private UserMembershipAsn userMembershipId;
 
@@ -84,9 +70,6 @@ public class User implements Serializable {
 		this.address = address;
 		this.mobileNumber = mobileNumber;
 		this.userRole = userRole;
-		// this.orderList = orderList;
-		// this.cartItems = cartItems;
-		// this.userMembershipAssns = userMembershipAssns;
 	}
 
 	/**
@@ -175,14 +158,6 @@ public class User implements Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-	// public List<Orders> getOrders() {
-	// return this.orderList;
-	// }
-	//
-	// public void setOrders(List<Orders> orderList) {
-	// this.orderList = orderList;
-	// }
 
 	@Override
 	public int hashCode() {

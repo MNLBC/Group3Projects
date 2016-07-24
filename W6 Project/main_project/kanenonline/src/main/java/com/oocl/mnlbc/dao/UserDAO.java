@@ -10,6 +10,8 @@ import com.oocl.mnlbc.entity.User;
  */
 public interface UserDAO extends GenericDAO<User> {
 
+	boolean updateUser(User user);
+	
 	boolean userExists(String username);
 
 	User validateAccount(String username, String password);

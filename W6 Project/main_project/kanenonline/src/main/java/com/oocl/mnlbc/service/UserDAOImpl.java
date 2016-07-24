@@ -3,7 +3,6 @@ package com.oocl.mnlbc.service;
 import java.util.List;
 
 import javax.persistence.NoResultException;
-
 import javax.persistence.Query;
 
 import com.oocl.mnlbc.dao.UserDAO;
@@ -172,6 +171,20 @@ public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO 
 			e.printStackTrace();
 		}
 
+		return false;
+
+	}
+
+	public boolean updateUser(User user) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(user);
+			entityManager.getTransaction().commit();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 
 	}

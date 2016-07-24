@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * @author VERGAJO
+ * @author Melvin Yu
  *
  */
 @Entity(name = "OrderItem")
@@ -40,17 +40,6 @@ public class OrderItem implements Serializable {
 	@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Order orderId;
-
-	/*
-	 * @JsonIgnore
-	 * 
-	 * @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
-	 * //@ManyToOne(cascade = CascadeType.ALL, optional = false, fetch =
-	 * FetchType.LAZY)
-	 * 
-	 * @ManyToOne(optional = false, fetch = FetchType.LAZY) private Product
-	 * productId;
-	 */
 
 	public OrderItem() {
 

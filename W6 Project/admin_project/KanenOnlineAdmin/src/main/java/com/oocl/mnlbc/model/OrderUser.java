@@ -52,5 +52,14 @@ public class OrderUser {
 	public void setUserID(long userID) {
 		this.userID = userID;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrderUser [fullName=" + fullName + ", userID=" + userID + ", order=" + order + "]";
+	}
+	
+	
 
 }
