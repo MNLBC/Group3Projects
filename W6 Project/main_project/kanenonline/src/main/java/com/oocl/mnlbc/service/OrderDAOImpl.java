@@ -16,20 +16,17 @@ import com.oocl.mnlbc.dao.OrderDAO;
 import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.OrderItem;
 import com.oocl.mnlbc.model.CartItemBean;
+import com.oocl.mnlbc.security.AbstractJPAGenericDAO;
 
 /**
  * 
  * @author ITAGroup3
  *
  */
-public class OrderDAOImpl implements OrderDAO {
+public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderDAO {
 
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
-
-	private String cUserId;
-	private String cTotalCost;
-	private List<CartItemBean> cItems;
 
 	public OrderDAOImpl() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink");
@@ -55,7 +52,9 @@ public class OrderDAOImpl implements OrderDAO {
 			for (OrderItem item : orderItems) {
 				item.setOrderId(order);
 				entityManager.persist(item);
-
+				System.out.println(item.getOrderItemId());
+				System.out.println(item.getOrderItemId());
+				
 			}
 			entityManager.getTransaction().commit();
 
@@ -72,18 +71,9 @@ public class OrderDAOImpl implements OrderDAO {
 	 * @return boolean
 	 */
 	public boolean saveCart(OrderItem items, long orderId) {
-		// Query query = entityManager.createNativeQuery(
-		// "INSERT INTO ORDER_ITEM(ORDER_ID, PRODUCT_ID, QUANTITY,
-		// ORDERED_PRICE) VALUES(?,?,?,?)");
-
 		long productId = items.getProductId();
 		double quantity = items.getQuantity();
 		double orderedPrice = items.getProductPrice();
-
-		// query.setParameter(1, orderId);
-		// query.setParameter(2, productId);
-		// query.setParameter(3, quantity);
-		// query.setParameter(4, orderedPrice);
 
 		Order entityOrderId = entityManager.find(Order.class, orderId);
 
@@ -116,16 +106,19 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public List<Order> getTransactions(long userId) {
 
-		/*
-		 * String sql = "SELECT * FROM ORDERS WHERE USER_ID='" + userId + "'";
-		 * List<OrderBean> orderList = jdbcTemplateObject.query(sql, new
-		 * OrderMapper()); return orderList;
-		 */
-		Query query = entityManager.createQuery("SELECT O FROM Order O WHERE O.userId = :userId");
-		query.setParameter("userId", userId);
-		List<Order> orderList = query.getResultList();
+		if (userId > 0) {
+			Query query = entityManager.createQuery("SELECT O FROM Order O WHERE O.userId = :userId");
+			query.setParameter("userId", userId);
+			try {
+				List<Order> orderList = query.getResultList();
+				return orderList;
+			} catch (PersistenceException e) {
+				return null;
+			}
 
-		return orderList;
+		}
+		return null;
+
 	}
 
 	/**
