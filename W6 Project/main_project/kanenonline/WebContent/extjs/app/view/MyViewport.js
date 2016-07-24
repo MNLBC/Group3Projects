@@ -462,6 +462,8 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                         {
                                             xtype: 'displayfield',
                                             flex: 1,
+                                            id: 'txtMembershipType',
+                                            itemId: 'txtMembershipType',
                                             width: 320,
                                             fieldLabel: 'Membership type',
                                             labelAlign: 'top',
