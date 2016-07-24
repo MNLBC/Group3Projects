@@ -2,7 +2,12 @@ package com.oocl.mnlbc.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Generic Wrapper class for items
+ * @author BRIONSE
+ *
+ * @param <T>
+ */
 public class ModelWrapper<T> {
 
 	List<T> items;

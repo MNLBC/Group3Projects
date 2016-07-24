@@ -34,7 +34,6 @@ public class OnlineCounterListener implements HttpSessionListener {
 		HttpSession session = event.getSession();
 		onlineUsers.add(session.getId());
 		session.setAttribute(OnlineCounterListener.session_cnt, this);
-		// logger.info("Session Created for " + event.getSession());
 		logger.info("Number of Page Viewers: " + onlineUsers.size());
 	}
 

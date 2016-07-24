@@ -36,7 +36,13 @@ public class CartController {
 	private CartDAO cartDAO;
 	private static final Logger logger = Logger.getLogger(OrderController.class);
 
-	//Saves the current cart of the user to the database.
+	/**
+	 * Saves the cart of the user to the database
+	 * 
+	 * @param jsonData
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/saveCart", method = RequestMethod.POST)
 	@ResponseBody
 	public String saveCart(@RequestParam(value = "jsonData", required = true) String jsonData) throws IOException {
@@ -64,8 +70,13 @@ public class CartController {
 
 	}
 
-	//Loads the previous cart transaction of the user.
-	//
+	/**
+	 * Loads the saved cart of the user
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/loadCart", method = RequestMethod.POST)
 	@ResponseBody
 	public Response<ModelWrapper<CartItem>> loadCart(@RequestParam(value = "userId", required = true) long userId)
@@ -92,7 +103,13 @@ public class CartController {
 
 	}
 
-	//Removes the existing cart of the user from the database
+	/**
+	 * Deletes the existing cart of the user from the database
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/removeUserCart", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean removeUserCart(@RequestParam(value = "userId", required = true) Long userId) throws IOException {

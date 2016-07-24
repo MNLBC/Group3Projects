@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.oocl.mnlbc.entity.Product;
-
+/**
+ * Wrapper class for products
+ * @author BRIONSE
+ *
+ */
 public class ProductList {
 
 	List<Product> products;

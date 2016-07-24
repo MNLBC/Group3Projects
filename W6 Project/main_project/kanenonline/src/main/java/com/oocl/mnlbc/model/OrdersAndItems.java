@@ -3,7 +3,6 @@ package com.oocl.mnlbc.model;
 import java.util.List;
 
 import com.oocl.mnlbc.entity.Order;
-import com.oocl.mnlbc.entity.OrderItem;
 
 public class OrdersAndItems {
 

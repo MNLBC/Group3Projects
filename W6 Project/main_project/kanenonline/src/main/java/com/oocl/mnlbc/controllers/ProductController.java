@@ -31,7 +31,7 @@ public class ProductController {
 	private static final Logger logger = Logger.getLogger(ProductController.class);
 
 	/**
-	 * getting all the products
+	 * Retrieves the products
 	 * 
 	 * @return String
 	 * @throws IOException
@@ -45,13 +45,13 @@ public class ProductController {
 		List<Product> productsList = productService.getProductList();
 
 		products.setProducts(productsList);
-         Response<ProductList> response= new Response<ProductList>();
-         response.setData(products);
+		Response<ProductList> response = new Response<ProductList>();
+		response.setData(products);
 		if (CollectionUtils.isNotEmptyList(productsList)) {
 			response.setSuccess(true);
 			logger.info("Products successfully retrieved.");
 		} else {
-			
+
 			logger.info("Retrieval of products failed.");
 		}
 
