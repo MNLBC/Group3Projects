@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * @author Melvin Yu
  *
+ *	This model handles the response of the list of User Request
  */
 public class UserRequestList {
 	

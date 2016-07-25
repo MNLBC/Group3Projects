@@ -8,6 +8,7 @@ import com.oocl.mnlbc.entity.OrderItem;
 /**
  * @author Melvin Yu
  *
+ *This Model is for the response of all the order_items and orderId
  */
 public class ItemOrder {
 	

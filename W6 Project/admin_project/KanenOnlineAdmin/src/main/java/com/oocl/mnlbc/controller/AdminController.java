@@ -32,12 +32,17 @@ import com.oocl.mnlbc.model.UserRequestList;
 /**
  * @author Melvin Yu
  *
+ *This class holds the admin controller
+ *it handles our ajax request for displaying user request, all orders and userlogin
  */
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
-	@RequestMapping(value = "/userRequest", method = RequestMethod.GET)
+/**
+ * maps the request for retrieving the user request
+ * @return UserRequestList
+ */
+	@RequestMapping(value = "/userRequest", method = RequestMethod.POST)
 	@ResponseBody
 	public UserRequestList getAllUserRequest() {
 
@@ -68,8 +73,15 @@ public class AdminController {
 
 		return response;
 	}
+	
+	/**
+	 * This methods handles the ajax of the Admin Login
+	 * @param userName
+	 * @param userPassword
+	 * @return Login
+	 */
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public Login loginAdmin(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword) {
@@ -86,6 +98,10 @@ public class AdminController {
 		return response;
 	}
 
+	/**
+	 * this methods handles the retrieval of all orders to be displayed in the UI
+	 * @return OrderAndItemList
+	 */
 	@RequestMapping(value = "/getOrders", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderAndItemList getAllOrders() {

@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * @author Melvin Yu
  *
+ *	This is the Entitiy of the ORDER_ITEM table
  */
 @Entity(name = "OrderItem")
 @Table(name = "ORDER_ITEM")

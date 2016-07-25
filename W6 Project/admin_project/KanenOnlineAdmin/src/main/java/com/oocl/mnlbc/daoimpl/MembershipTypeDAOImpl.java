@@ -11,11 +11,15 @@ import com.oocl.mnlbc.dao.MembershipTypeDAO;
  * 
  * @author Melvin Yu
  *
+ *This is the DAO Implementation of MembershipTypeDAO
+ *this manage the retrieval of membershipTypeId by typename and vice versa
  */
 public class MembershipTypeDAOImpl implements MembershipTypeDAO {
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
-
+/**
+ * initialize the EntityManager & Factory
+ */
 	public void init() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink", new java.util.HashMap());
 		System.out.println(entityManagerFactory.getClass().getSimpleName());
@@ -23,13 +27,19 @@ public class MembershipTypeDAOImpl implements MembershipTypeDAO {
 		System.out.println(entityManager.getClass().getSimpleName());
 
 	}
-
+/**
+ * returns the intance of a entityManager
+ * @return EntityManager
+ */
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.oocl.mnlbc.dao.MembershipTypeDAO#getType(long)
+	
+	/**
+	 * @param typeName
+	 * @return long
+	 * this gets the id of the given membership type name
 	 */
 	public long getIdByTypeName(String typeName) {
 		Query query = entityManager.createQuery("select r.membershipTypeId from memberType r where r.membershipTypeName = :typename");
@@ -42,7 +52,12 @@ public class MembershipTypeDAOImpl implements MembershipTypeDAO {
 		}
 		
 	}
-	
+	/**
+	 * 
+	 * @param typeId
+	 * @return String
+	 * this gets the membership type name of the given id of the membershiptype 
+	 */
 	public String getNameById(long typeId) {
 		Query query = entityManager.createQuery("select r.membershipTypeName from memberType r where r.membershipTypeId = :id");
 		query.setParameter("id", typeId);

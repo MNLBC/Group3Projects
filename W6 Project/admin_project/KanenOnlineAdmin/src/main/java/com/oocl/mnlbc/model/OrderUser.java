@@ -10,6 +10,7 @@ import com.oocl.mnlbc.entity.Order;
 /**
  * @author Melvin Yu
  *
+ * This model handles the order and the userId with its fullname
  */
 public class OrderUser {
 	private String fullName;

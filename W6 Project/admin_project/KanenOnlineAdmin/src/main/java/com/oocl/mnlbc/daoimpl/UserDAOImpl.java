@@ -18,11 +18,14 @@ import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
  * 
  * @author Melvin Yu
  *
+ * this is the User DAO Implementation of the UserDAO
  */
 public class UserDAOImpl implements UserDAO {
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
-
+	/**
+	 * initialize the EntityManager & Factory
+	 */
 	public void init() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink", new java.util.HashMap());
 		System.out.println(entityManagerFactory.getClass().getSimpleName());
@@ -31,23 +34,26 @@ public class UserDAOImpl implements UserDAO {
 
 	}
 
+	/**
+	 * returns the instance of the EntityManager
+	 * @return EntityManager
+	 */
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.oocl.mnlbc.dao.UserDAO#getList()
+	/**
+	 * @return List<User>
+	 * this gets all the list of the users in the DB
 	 */
 	public List<User> getList() {
 		return entityManager.createQuery("select r from user r").getResultList();
 	}
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.oocl.mnlbc.dao.UserDAO#validateUser(java.lang.String,
-	 * java.lang.String)
+	
+	/**
+	 * @param username password
+	 * @return User
+	 * This validates the login of the user
 	 */
 	public User validateUser(String username, String password) {
 
@@ -76,8 +82,10 @@ public class UserDAOImpl implements UserDAO {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.oocl.mnlbc.dao.UserDAO#findById(java.lang.String)
+	/**
+	 * @return User
+	 * @param id
+	 * this finds a user by user_id
 	 */
 	public User findById(long id) {
 	 	User user = entityManager.find(User.class, id);

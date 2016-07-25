@@ -326,8 +326,6 @@ Ext.define('MyApp.controller.AdminController', {
             var requestedMembershipLevel = selectedRows.data.requestedMembershipLevel;
             Ext.Msg.confirm('Approve Request', 'Do you want to Approve this request?',function(btn){
                 if (btn==='yes'){
-        //                userGridStore.data.items[rowIndex].data.currentMembershipLevel =  userGridStore.data.items[rowIndex].data.requestedMembershipLevel;
-        //                userRequestGrid.getView().refresh();
                         Ext.Ajax.request({
                             url: window.location.pathname +'update/membershipApproval',
                             method: 'POST',
@@ -402,7 +400,7 @@ Ext.define('MyApp.controller.AdminController', {
         var selectedRows = orderRequestsGrid.getSelectionModel().getSelection()[0];
         var rowIndex = orderRequestsStore.indexOf(selectedRows);
         if (rowIndex >-1 ){
-            var userId = selectedRows.data.userId;
+            var userId = selectedRows.data.orderId;
             var orderStatus = selectedRows.data.orderStatus;
             Ext.Msg.confirm('Approve Request', 'Do you want to Approve this request?',function(btn){
                 if (btn==='yes'){
@@ -410,8 +408,8 @@ Ext.define('MyApp.controller.AdminController', {
                             url: window.location.pathname +'update/updateOrderStatus',
                             method: 'POST',
                                 params:{
-                                    userId: userId,
-                                    orderStatus: orderStatus
+                                    orderId: userId,
+                                    status: orderStatus
                                 },
 
                         scope:this,

@@ -6,6 +6,7 @@ package com.oocl.mnlbc.model;
 /**
  * @author Melvin Yu
  *
+ * this handles the model response of the User Request
  */
 public class UserRequest {
 	

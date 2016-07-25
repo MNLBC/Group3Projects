@@ -19,7 +19,9 @@ import com.oocl.mnlbc.entity.UserMembershipAsn;
 public class UserMembershipAsnDAOImpl implements UserMembershipAsnDAO {
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
-
+	/**
+	 * initialize the EntityManager & Factory
+	 */
 	public void init() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink", new java.util.HashMap());
 		System.out.println(entityManagerFactory.getClass().getSimpleName());
@@ -27,15 +29,19 @@ public class UserMembershipAsnDAOImpl implements UserMembershipAsnDAO {
 		System.out.println(entityManager.getClass().getSimpleName());
 
 	}
-
+	/**
+	 * returns the instance of the EntityManager
+	 * @return EntityManager
+	 */
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * @param asn
+	 * @return UserMembershipAsn
 	 * 
-	 * @see com.oocl.mnlbc.dao.UserMembershipAsnDAO#updateMembership(long)
+	 * updates the membershipasn table if it is approved or disapproved
 	 */
 	public UserMembershipAsn updateMembership(UserMembershipAsn asn) {
 
@@ -46,8 +52,11 @@ public class UserMembershipAsnDAOImpl implements UserMembershipAsnDAO {
 		return newAsn;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.oocl.mnlbc.dao.UserMembershipAsnDAO#findMembership(long)
+	/**
+	 * @param userId
+	 * @return UserMembershipAsn
+	 * 
+	 * this gets a UserMembershipAsn by userId
 	 */
 	public UserMembershipAsn findMembership(User userId) {
 		  Query query = entityManager.createQuery("select r from userMemAssn r where r.userId = :userId");
@@ -56,8 +65,9 @@ public class UserMembershipAsnDAOImpl implements UserMembershipAsnDAO {
 			return result;
 	  }
 
-	/* (non-Javadoc)
-	 * @see com.oocl.mnlbc.dao.UserMembershipAsnDAO#allMembershipRequest()
+	/**
+	 * @return List<UserMembershipAsn>
+	 * this gets all the membership request. where forApproval = 1
 	 */
 	public List<UserMembershipAsn> allMembershipRequest() {
 		 Query query = entityManager.createQuery("select r from userMemAssn r where r.forApproval = :request ");

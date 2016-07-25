@@ -21,10 +21,19 @@ import com.oocl.mnlbc.entity.UserMembershipAsn;
 /**
  * @author Melvin Yu
  *
+ *This Controller handles all the request for Updates from the UI
  */
 @Controller
 @RequestMapping("/update")
 public class UpdateController {
+	
+	/**
+	 * this request approves or disapproves the Membership Request
+	 * @param userId
+	 * @param approvedType
+	 * @param isApproved
+	 * @return UserMembershipAsn
+	 */
 
 	@RequestMapping(value = "/membershipApproval", method = RequestMethod.POST)
 	@ResponseBody
@@ -42,12 +51,16 @@ public class UpdateController {
 		User user = userDAO.findById(Long.parseLong(userId));
 		System.out.println(user);
 		UserMembershipAsn memAsn = userMemberAsnService.findMembership(user);
-
+		/*
+		 * Default of isApproved is 0 -> 1 is Approved -> 2 is Disapproved
+		 * Default of forApproval is 0 not to be displayed in Admin Ui -> 1 is a pending request to be displayed in the UI
+		 * 
+		 */
 		if (user != null) {
-			if (isApproved.equals("1")) {
+			if (isApproved.equals("1")) {// if the value from the request param isApprove is 1 it will approve the user request.
 				memAsn.setForApproval(0);
-				memAsn.setRequestMembershipTypeId(0);
-				memAsn.setMembershipTypeId(memberService.getIdByTypeName(approvedType));
+				memAsn.setRequestMembershipTypeId(0);//once approved the requested type will be back to 0 
+				memAsn.setMembershipTypeId(memberService.getIdByTypeName(approvedType));//and the current will be the requested type.
 				memAsn.setRequestApproved(1);
 			} else {
 				memAsn.setForApproval(0);
@@ -59,7 +72,13 @@ public class UpdateController {
 
 	}
 
-	@RequestMapping(value = "/updateOrderStatus", method = RequestMethod.GET)
+	/**
+	 * This request updates the order status of a specific order.
+	 * @param orderId
+	 * @param status
+	 * @return String
+	 */
+	@RequestMapping(value = "/updateOrderStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateOrderStatus(@RequestParam(value = "orderId", required = true) String orderId,
 			@RequestParam(value = "status", required = true) String status) {
