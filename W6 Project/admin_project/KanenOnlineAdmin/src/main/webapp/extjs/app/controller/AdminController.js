@@ -326,8 +326,6 @@ Ext.define('MyApp.controller.AdminController', {
             var requestedMembershipLevel = selectedRows.data.requestedMembershipLevel;
             Ext.Msg.confirm('Approve Request', 'Do you want to Approve this request?',function(btn){
                 if (btn==='yes'){
-        //                userGridStore.data.items[rowIndex].data.currentMembershipLevel =  userGridStore.data.items[rowIndex].data.requestedMembershipLevel;
-        //                userRequestGrid.getView().refresh();
                         Ext.Ajax.request({
                             url: window.location.pathname +'update/membershipApproval',
                             method: 'POST',

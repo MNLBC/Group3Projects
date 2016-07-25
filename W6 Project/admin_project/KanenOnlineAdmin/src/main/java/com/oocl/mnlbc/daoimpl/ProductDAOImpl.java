@@ -15,12 +15,15 @@ import com.oocl.mnlbc.entity.User;
 /**
  * @author Melvin Yu
  *
+ *This class is the Product DAO implementation of ProductDAO
  */
 public class ProductDAOImpl implements ProductDAO {
 
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
-
+	/**
+	 * initialize the EntityManager & Factory
+	 */
 	public void init() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink", new java.util.HashMap());
 		System.out.println(entityManagerFactory.getClass().getSimpleName());
@@ -29,10 +32,10 @@ public class ProductDAOImpl implements ProductDAO {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.oocl.mnlbc.dao.ProductDAO#getNameById(long)
+	/**
+	 * @param id
+	 * @return String
+	 * this retrieves a product using a productId
 	 */
 	@Override
 

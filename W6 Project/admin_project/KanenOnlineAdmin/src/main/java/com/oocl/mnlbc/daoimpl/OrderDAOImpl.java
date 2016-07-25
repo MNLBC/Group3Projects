@@ -18,12 +18,16 @@ import com.oocl.mnlbc.entity.UserMembershipAsn;
 /**
  * @author Melvin Yu
  *
+ *This is the Order DAO Implementation
  */
 public class OrderDAOImpl implements OrderDAO {
 	
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
 
+	/**
+	 * initialize the EntityManager & Factory
+	 */
 	public void init() {	
 		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink", new java.util.HashMap());
 		System.out.println(entityManagerFactory.getClass().getSimpleName());
@@ -32,8 +36,10 @@ public class OrderDAOImpl implements OrderDAO {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.oocl.mnlbc.dao.OrderDAO#getAllTransactions()
+	/**
+	 * @return List<Order>
+	 * 
+	 * this gets all the order transaction from the DB
 	 */
 	@Override
 	public List<Order> getAllTransactions() {
@@ -43,6 +49,12 @@ public class OrderDAOImpl implements OrderDAO {
 			return result;
 	}
 	
+	/**
+	 * @return List<OrderItem> 
+	 * 
+	 * this gets all the order items in the DB
+	 */
+	
 	@Override
 	public List<OrderItem> getAllItems() {
 		
@@ -51,8 +63,11 @@ public class OrderDAOImpl implements OrderDAO {
 			return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.oocl.mnlbc.dao.OrderDAO#updateOrderStatus()
+	/**
+	 * @return Order
+	 * @param order
+	 * 
+	 * this methods updated a certain order that was change its Status
 	 */
 	@Override
 	public Order updateOrderStatus(Order order) {
@@ -70,8 +85,10 @@ public class OrderDAOImpl implements OrderDAO {
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see com.oocl.mnlbc.dao.OrderDAO#getOrderById(long)
+	/**
+	 * @param orderId
+	 * @return Order
+	 * gets an order by order_id
 	 */
 	@Override
 	public Order getOrderById(long orderId) {
