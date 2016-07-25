@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * 
  * @author Melvin Yu
- *
+ * This is the Entitiy of the User table
  */
 @Entity(name = "user")
 @Table(name = "users")

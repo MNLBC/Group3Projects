@@ -16,7 +16,7 @@ import javax.persistence.Table;
 /**
  * 
  * @author Melvin Yu
- *
+ * This is the Entitiy of the PRODUCT table
  */
 @Entity(name="products")
 @Table(name="PRODUCT")

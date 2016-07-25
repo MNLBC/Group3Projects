@@ -11,6 +11,7 @@ import com.oocl.mnlbc.entity.OrderItem;
 /**
  * @author Melvin Yu
  *
+ *	this model handles the list of Orders and Items response
  */
 public class OrderAndItemList {
 

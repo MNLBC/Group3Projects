@@ -19,6 +19,7 @@ import com.oocl.mnlbc.entity.UserMembershipAsn;
 /**
  * @author Melvin Yu
  *
+ * This is the JMS Consumer Listener Class 
  */
 public class DiscountRequestListener implements MessageListener {
 
@@ -26,6 +27,10 @@ public class DiscountRequestListener implements MessageListener {
 	 * (non-Javadoc)
 	 * 
 	 * @see javax.jms.MessageListener#onMessage(javax.jms.Message)
+	 */
+	/**
+	 * this method listens to to the ActiveMQ for any Pending message for the queue KanenOSQueue
+	 * also updates the membership request from the producer side in the main project
 	 */
 	public void onMessage(Message message) {
 		UserDAOImpl userDAO = new UserDAOImpl();

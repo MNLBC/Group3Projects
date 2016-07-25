@@ -8,6 +8,7 @@ import com.oocl.mnlbc.entity.User;
 /**
  * @author Melvin Yu
  *
+ * this class is the model of the login response
  */
 public class Login {
 	

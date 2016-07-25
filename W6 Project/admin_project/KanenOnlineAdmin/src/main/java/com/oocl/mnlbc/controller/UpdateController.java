@@ -21,10 +21,19 @@ import com.oocl.mnlbc.entity.UserMembershipAsn;
 /**
  * @author Melvin Yu
  *
+ *This Controller handles all the request for Updates from the UI
  */
 @Controller
 @RequestMapping("/update")
 public class UpdateController {
+	
+	/**
+	 * this request approves or disapproves the Membership Request
+	 * @param userId
+	 * @param approvedType
+	 * @param isApproved
+	 * @return UserMembershipAsn
+	 */
 
 	@RequestMapping(value = "/membershipApproval", method = RequestMethod.POST)
 	@ResponseBody
@@ -59,6 +68,12 @@ public class UpdateController {
 
 	}
 
+	/**
+	 * This request updates the order status of a specific order.
+	 * @param orderId
+	 * @param status
+	 * @return String
+	 */
 	@RequestMapping(value = "/updateOrderStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateOrderStatus(@RequestParam(value = "orderId", required = true) String orderId,

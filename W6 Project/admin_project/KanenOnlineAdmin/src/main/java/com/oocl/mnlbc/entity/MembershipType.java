@@ -11,6 +11,7 @@ import javax.persistence.Table;
 /**
  * @author Melvin Yu
  *
+ *	This is the Entitiy of the MEMBERSHIP_TYPE Table
  */
 @Entity(name="memberType")
 @Table(name="MEMBERSHIP_TYPE")

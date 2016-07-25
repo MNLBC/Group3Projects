@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * @author Melvin Yu
  *
+ * This is the Entitiy of the User_MEMBERSHIP_ASSN table
  */
 @Entity(name = "userMemAssn")
 @Table(name = "USER_MEMBERSHIP_ASSN")
