@@ -8,7 +8,6 @@ import javax.persistence.Query;
 import com.oocl.mnlbc.dao.UserDAO;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
-import com.oocl.mnlbc.security.AbstractJPAGenericDAO;
 import com.oocl.mnlbc.security.PasswordEncrypter;
 import com.oocl.mnlbc.security.PasswordEncrypter.CannotPerformOperationException;
 import com.oocl.mnlbc.security.PasswordEncrypter.InvalidHashException;
@@ -176,7 +175,7 @@ public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO 
 	public boolean updateUser(User user) {
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.persist(user);
+			entityManager.merge(user);
 			entityManager.getTransaction().commit();
 
 			return true;

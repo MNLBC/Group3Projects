@@ -269,6 +269,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     onOrderItemsGridPanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
 
+        // debugger;
         var orderItemsGridPanel = Ext.getCmp('orderItemsGridPanel');
         var  orderItemStore = Ext.getStore('orderItemStore');
         var selModel = orderItemsGridPanel.getSelectionModel();
@@ -276,9 +277,12 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         var selectionCount = selModel.getCount();
         var orderId = selectedRecords[0].data.orderId;
 
-        
+        // for(var i =0;i<selectionCount;i++) {
+        // alert(selectedRecords[i]);
+        // }
         orderItemStore.clearFilter(true);
         orderItemStore.filter('orderId', orderId);
+        // debugger;
         Ext.create('Ext.window.Window',{
 
                        rendetTo: Ext.getBody(),
@@ -560,10 +564,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         																										},
         																										failure : function() {
 
-        																											Ext.MessageBox
-        																													.alert(
-        																															'Fail',
-        																															'Unable to load cart');
+        																											
         																										}
         																									});
         																						} else {
@@ -602,10 +603,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         																										},
         																										failure : function() {
-        																											Ext.MessageBox
-        																													.alert(
-        																															'Fail',
-        																															'Unable to delete cart');
+        																											
         																										}
         																									});
         																						}
@@ -802,13 +800,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         																},
 
-        															// failure: function
-        															// (response) {
-
-        															// Ext.Msg.alert("Error",'Unable
-        															// to checkout
-        															// cart.');
-        															// }
+        														
         															});
 
         												} else {
@@ -862,8 +854,12 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         							Ext.getCmp('lblCheckoutTotalCost').setText(
         									'$' + totalCost);
+                                    var discountRate = 0;
+                                    if(Ext.getStore('userStore').data.items.length >0){
+                                        discountRate = Ext.getStore('userStore').data.items[0].data.userDiscountRate;
 
-                                    var discountRate = Ext.getStore('userStore').data.items[0].data.userDiscountRate;
+                                    }
+
                                     Ext.getCmp('lblDiscountRate').setText('Discount rate: '+discountRate+'%');
 
                                     var totalCost = parseInt(Ext.getCmp('lblCheckoutTotalCost').text.substr(1,Ext.getCmp('lblCheckoutTotalCost').text.length));
@@ -891,7 +887,8 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         var  userStore = Ext.getStore('userStore');
         var  orderStore = Ext.getStore('orderStore');
         var  orderItemStore = Ext.getStore('orderItemStore');
-        
+        orderStore.removeAll();
+        orderItemStore.removeAll();
         var userId = userStore.data.items[0].data.userId;
 
         Ext.Ajax.request({
@@ -909,8 +906,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
                  var responseText = Ext.decode(response.responseText);
                  var responseData = responseText.data;
-                 orderStore.removeAll();
-                 orderItemStore.removeAll();
+
                  for(var i=0; i < responseData.orders.length; i++){
                    var order = {
                       orderId: responseData.orders[i].orderId,
@@ -1253,7 +1249,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
           var itemBtn = itemContainer.items.items[2];
 
 
-        
+           // debugger;
           itemBtn.tooltip=record.data.productDescription;
 
           productPanel.add(itemContainer);
@@ -1266,7 +1262,8 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         });
 
 
-       
+        //Ext.MessageBox.alert('Async','Not waiting for response!');
+
         /*
         var productPanel = Ext.getCmp('productPanel');
         productStore.each(function(record){
@@ -1335,7 +1332,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                 productDescription: productDescription,
                 productPrice:productPrice,
                 quantity:1,
-                productImagePath:productImagePath
+                imagePath:productImagePath
 
             };
             cartStore.add(item);

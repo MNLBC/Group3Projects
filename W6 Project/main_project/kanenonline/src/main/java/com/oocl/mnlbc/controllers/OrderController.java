@@ -57,6 +57,7 @@ public class OrderController {
 			throws Exception {
 		logger.info("Retrieving orders for user " + userId + "..");
 		List<Order> orders = orderDAO.getTransactions(Long.parseLong(userId));
+		//uses Response model so that the jsondata will have the "success" and "data" value set
 		Response<OrdersAndItems> response = new Response<OrdersAndItems>();
 
 		if (orders != null) {

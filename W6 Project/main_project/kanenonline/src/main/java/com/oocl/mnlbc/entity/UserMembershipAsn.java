@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -25,10 +26,11 @@ public class UserMembershipAsn implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
 	@Id
 	@Column(name = "USER_MEMBERSHIP_ID")
-	@GeneratedValue(generator = "USER_MEMBERSHIP_ASSN_ID_SEQ")
-	@SequenceGenerator(name = "USER_MEMBERSHIP_ASSN_ID_SEQ", sequenceName = "USER_MEMBERSHIP_ASSN_ID_SEQ", allocationSize = 111)
+	@SequenceGenerator(name = "USER_MEMBERSHIP_ASSN_ID_SEQ", sequenceName = "USER_MEMBERSHIP_ASSN_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(generator = "USER_MEMBERSHIP_ASSN_ID_SEQ", strategy = GenerationType.SEQUENCE)
 	private long userMembershipId;
 	@Column(name = "MEMBERSHIP_TYPE_ID")
 	private long membershipTypeId;

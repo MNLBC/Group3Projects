@@ -1,4 +1,4 @@
-package com.oocl.mnlbc.security;
+package com.oocl.mnlbc.service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

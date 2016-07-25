@@ -3,6 +3,7 @@ package com.oocl.mnlbc.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -17,8 +18,8 @@ public class MembershipType {
 
 	@Id
 	@Column(name = "MEMBERSHIP_TYPE_ID")
-	@GeneratedValue(generator = "MEMBERSHIP_TYPE_ID_SEQ")
-	@SequenceGenerator(name = "MEMBERSHIP_TYPE_ID_SEQ", sequenceName = "MEMBERSHIP_TYPE_ID_SEQ", allocationSize = 111)
+	@SequenceGenerator(name = "MEMBERSHIP_TYPE_ID_SEQ", sequenceName = "MEMBERSHIP_TYPE_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(generator = "MEMBERSHIP_TYPE_ID_SEQ", strategy = GenerationType.SEQUENCE)
 	private long membershipTypeId;
 
 	@Column(name = "MEMBERSHIP_TYPE_NAME")
