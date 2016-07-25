@@ -121,7 +121,9 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                         xtype: 'textfield',
                                                         id: 'mainOrdrQty',
                                                         itemId: 'mainOrdrQty',
-                                                        allowBlank: false
+                                                        allowBlank: false,
+                                                        regex: /^[1-9]*$/,
+                                                        regexText: 'Input numbers Only'
                                                     }
                                                 },
                                                 {
