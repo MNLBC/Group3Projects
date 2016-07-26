@@ -10,17 +10,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.oocl.mnlbc.dao.MembershipTypeDAO;
 import com.oocl.mnlbc.entity.MembershipType;
-import com.oocl.mnlbc.jms.MembershipRequestJMSProducer;
 import com.oocl.mnlbc.model.ModelWrapper;
 import com.oocl.mnlbc.model.Response;
+import com.oocl.mnlbc.services.MembershipTypeService;
 import com.oocl.mnlbc.utils.CollectionUtils;
 
 /**
  * MembershipType Controller
  * 
- * @author Sebastian Briones
+ * @author FLOREJE
  *
  */
 @Controller
@@ -28,10 +27,7 @@ import com.oocl.mnlbc.utils.CollectionUtils;
 public class MembershipTypeController {
 
 	@Autowired
-	private MembershipTypeDAO membershipTypeDAO;
-
-	@Autowired
-	private MembershipRequestJMSProducer membershipRequestProducer;
+	MembershipTypeService membershipTypeService;
 
 	/**
 	 * Retrieves the user membership types
@@ -42,18 +38,23 @@ public class MembershipTypeController {
 	@RequestMapping(value = "/getMembershipTypes", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<ModelWrapper<MembershipType>> getMembershipTypes() throws IOException {
+		
 		Response<ModelWrapper<MembershipType>> response = new Response<ModelWrapper<MembershipType>>();
-		List<MembershipType> membershipTypes = membershipTypeDAO.getMembershipTypes();
-
-		ModelWrapper<MembershipType> wrapper = new ModelWrapper<MembershipType>();
-		wrapper.setItems(membershipTypes);
-		response.setData(wrapper);
-
-		if (CollectionUtils.isNotEmptyList(membershipTypes)) {
-			response.setSuccess(true);
-		}
-		return response;
-
+		
+		response = membershipTypeService.getMembershipTypes();
+//		
+//		Response<ModelWrapper<MembershipType>> response = new Response<ModelWrapper<MembershipType>>();
+//		List<MembershipType> membershipTypes = membershipTypeDAO.getMembershipTypes();
+//
+//		ModelWrapper<MembershipType> wrapper = new ModelWrapper<MembershipType>();
+//		wrapper.setItems(membershipTypes);
+//		response.setData(wrapper);
+//
+//		if (CollectionUtils.isNotEmptyList(membershipTypes)) {
+//			response.setSuccess(true);
+//		}
+//		return response;
+			return response;
 	};
 
 	/**
@@ -70,18 +71,22 @@ public class MembershipTypeController {
 	public Response<String> newMembershipTypRequest(@RequestParam(value = "userId", required = true) String userId,
 			@RequestParam(value = "requestedMembershipTypeName", required = true) String requestedMembershipTypeName)
 			throws IOException {
-
+		
 		Response<String> response = new Response<String>();
-
-		if (userId != null && requestedMembershipTypeName != null) {
-			membershipRequestProducer.sendMessage(userId + "," + requestedMembershipTypeName);
-			response.setSuccess(true);
-		}
-
-		response.setData("Request sent!");
-
+		
+		response = membershipTypeService.newMembershipTypRequest(userId, requestedMembershipTypeName);
+//
+//		Response<String> response = new Response<String>();
+//
+//		if (userId != null && requestedMembershipTypeName != null) {
+//			membershipRequestProducer.sendMessage(userId + "," + requestedMembershipTypeName);
+//			response.setSuccess(true);
+//		}
+//
+//		response.setData("Request sent!"); 
+//
+//		return response;
 		return response;
-
 	};
 
 }

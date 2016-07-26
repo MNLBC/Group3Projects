@@ -14,11 +14,12 @@ import com.oocl.mnlbc.dao.ProductDAO;
 import com.oocl.mnlbc.entity.Product;
 import com.oocl.mnlbc.model.ProductList;
 import com.oocl.mnlbc.model.Response;
+import com.oocl.mnlbc.services.ProductService;
 import com.oocl.mnlbc.utils.CollectionUtils;
 
 /**
  * 
- * @author BRIONSE
+ * @author VERGAJO
  *
  */
 @Controller
@@ -26,7 +27,7 @@ import com.oocl.mnlbc.utils.CollectionUtils;
 public class ProductController {
 
 	@Autowired
-	private ProductDAO productDAO;
+	private ProductService productService;
 
 	private static final Logger logger = Logger.getLogger(ProductController.class);
 
@@ -39,21 +40,10 @@ public class ProductController {
 	@RequestMapping(value = "/productList", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<ProductList> getProductList() throws IOException {
-		logger.info("Retrieving products from the database..");
 
-		ProductList products = new ProductList();
-		//List<Product> productsList = productService.getProductList();
-		List<Product> productsList = productDAO.findAll();
-		products.setProducts(productsList);
 		Response<ProductList> response = new Response<ProductList>();
-		response.setData(products);
-		if (CollectionUtils.isNotEmptyList(productsList)) {
-			response.setSuccess(true);
-			logger.info("Products successfully retrieved.");
-		} else {
 
-			logger.info("Retrieval of products failed.");
-		}
+		response = productService.getProductList();
 
 		return response;
 	}
