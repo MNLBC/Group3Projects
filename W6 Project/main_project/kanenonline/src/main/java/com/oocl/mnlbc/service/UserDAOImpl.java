@@ -55,6 +55,7 @@ public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO 
 		User user = null;
 		try {
 			user = (User) query.getSingleResult();
+			entityManager.refresh(user);
 		} catch (NoResultException e) {
 			user = null;
 		}
@@ -103,9 +104,10 @@ public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO 
 
 			// set the default membership type to member
 			userMembershipAsn.setMembershipTypeId(5000000001L);
-
+			
 			entityManager.persist(userMembershipAsn);
 			entityManager.getTransaction().commit();
+			
 
 			return true;
 		} catch (Exception e) {
@@ -139,6 +141,7 @@ public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO 
 		User user = null;
 		try {
 			user = (User) query.getSingleResult();
+			entityManager.refresh(user);
 		} catch (NoResultException e) {
 			user = null;
 		}

@@ -51,6 +51,7 @@ Ext.define('MyApp.controller.AdminController', {
         }
     ],
 
+    //Displaying requests of upgrading membership type of user 
     onBtnCustomerRequestClick: function() {
         this.getCustomerConfirmPanel().show();
         this.getOrderRequestsPanel().hide();
@@ -88,6 +89,7 @@ Ext.define('MyApp.controller.AdminController', {
         });
     },
 
+    //Displaying pending orders from users
     onConfirmOrderBtnClick: function() {
         this.getOrderRequestsPanel().show();
         this.getViewAllOrderPanel().hide();
@@ -131,7 +133,7 @@ Ext.define('MyApp.controller.AdminController', {
             }
         });
     },
-
+    //Login handle
     onBtnLoginClick: function() {
         var userName = Ext.getCmp('txtUsername').getValue();
         var userPassword = Ext.getCmp('txtPassword').getValue();
@@ -190,7 +192,8 @@ Ext.define('MyApp.controller.AdminController', {
 
         });
     },
-
+    
+    //Displaying the items included in a specific order
     onViewAllOrderGridItemDblClick: function() {
         var viewAllOrderGrid = Ext.getCmp('viewAllOrderGrid');
                  var orderItems = Ext.getStore('orderItems');
@@ -257,6 +260,7 @@ Ext.define('MyApp.controller.AdminController', {
                         var orderId = orderStore.data.items[0].data.orderId;
     },
 
+    //Displays the list of all orders made by the users and getting the items included in the specific order
     onViewAllOrderBtnClick: function() {
         this.getOrderRequestsPanel().hide();
         this.getCustomerConfirmPanel().hide();
@@ -316,6 +320,7 @@ Ext.define('MyApp.controller.AdminController', {
         });
     },
 
+    //Approve the request of the customer to upgrade membership type
     onBtnApproveRequestClick: function() {
         var userRequestGrid = Ext.getCmp('membershipRequestGrid');
         var userGridStore = userRequestGrid.getStore();
@@ -349,7 +354,8 @@ Ext.define('MyApp.controller.AdminController', {
                Ext.MessageBox.alert('Status','Please select a request to approve');
         }
     },
-
+    
+    //Approve the request of the customer to upgrade membership type
     onBtnRejectRequestClick: function() {
         var userRequestGrid = Ext.getCmp('membershipRequestGrid');
         var userGridStore = userRequestGrid.getStore();
@@ -383,7 +389,7 @@ Ext.define('MyApp.controller.AdminController', {
                Ext.MessageBox.alert('Status','Please select a request ');
         }
     },
-
+    //Logout
     onBtnLogoutClick: function() {
                 var userStore  = Ext.getStore('userStore');
                 userStore.removeAll();
@@ -391,7 +397,7 @@ Ext.define('MyApp.controller.AdminController', {
                 this.getAdminPageContainer().hide();
                 this.getLoginContainer().show();
     },
-
+    //Updates the status of orders from users
     onBtnSaveUpdatesClick: function() {
 
 

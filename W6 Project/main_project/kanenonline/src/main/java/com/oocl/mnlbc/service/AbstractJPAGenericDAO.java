@@ -1,12 +1,13 @@
 package com.oocl.mnlbc.service;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 import com.oocl.mnlbc.dao.GenericDAO;
 
@@ -18,7 +19,6 @@ import com.oocl.mnlbc.dao.GenericDAO;
  */
 public abstract class AbstractJPAGenericDAO<T> implements GenericDAO<T> {
 
-	@PersistenceContext
 	protected EntityManagerFactory entityManagerFactory;
 	protected EntityManager entityManager;
 
@@ -35,14 +35,26 @@ public abstract class AbstractJPAGenericDAO<T> implements GenericDAO<T> {
 
 	}
 
-	@Override
+	public void create(T entity){
+		entityManager.persist(entity);
+	}
+	
 	public T findById(long id) {
 		return (T) entityManager.find(type, id);
 	}
 
-	@Override
-	public T update(final T t) {
-		return this.entityManager.merge(t);
+	public T update(final T entity) {
+		return this.entityManager.merge(entity);
+	}
+	
+	public List<T> findAll(){
+		return entityManager.createQuery("SELECT u FROM " + type.getSimpleName() + " u").getResultList();
+	}
+	
+	public void delete(long id){
+		T entity = findById(id);
+		entityManager.remove(entity);
 	}
 
+	
 }

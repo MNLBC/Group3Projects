@@ -200,7 +200,7 @@ public class UserController {
 			user.setMobileNumber(mobileNumber);
 			user.setAddress(address);
 
-			if (userDAO.updateUser(user)) {
+			if (userDAO.update(user) != null) {
 				user.setUserPassword("");
 				response.setSuccess(true);
 				response.setData(user);
