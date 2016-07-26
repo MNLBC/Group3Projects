@@ -1,0 +1,165 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "container|align": "center",
+        "container|pack": "center",
+        "designer|userClassName": "MemberShipWindow",
+        "height": 396,
+        "id": "memberShipWindow",
+        "itemId": "MemberShipWindow",
+        "layout": "vbox",
+        "modal": true,
+        "title": "My Window",
+        "width": 530
+    },
+    "name": "MyWindow",
+    "designerId": "d23be0c8-2e3c-43d1-864b-6cecab391fd1",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Spacer",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top",
+                "height": 20,
+                "layout|flex": 1
+            },
+            "name": "MySpacer13",
+            "designerId": "c83877f3-1ec0-49a8-9a9f-f027193e6127"
+        },
+        {
+            "type": "Ext.form.Label",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": null,
+                "text": "Types of Membership:"
+            },
+            "name": "MyLabel2",
+            "designerId": "7ef4b4a8-2be6-4c1d-9287-d865df7cb35e"
+        },
+        {
+            "type": "Ext.form.Label",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": null,
+                "text": "VIP can avail 30% discount"
+            },
+            "name": "MyLabel3",
+            "designerId": "c7840a91-3a52-4d95-a9bf-14fe79f063dd"
+        },
+        {
+            "type": "Ext.form.Label",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": null,
+                "text": "Student/Senior  can avail 20% discount"
+            },
+            "name": "MyLabel4",
+            "designerId": "c11d0f10-9649-44b8-8eb0-3aafd9ec59fd"
+        },
+        {
+            "type": "Ext.form.Label",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": null,
+                "text": "Member can avail 5% discount"
+            },
+            "name": "MyLabel5",
+            "designerId": "29b94d47-7bf5-4a00-aacf-ed7a80a398a5"
+        },
+        {
+            "type": "Ext.toolbar.Spacer",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 50,
+                "layout|flex": 0
+            },
+            "name": "MySpacer14",
+            "designerId": "a8fd2f3a-b17f-4cf9-9f68-d9f33a094d51"
+        },
+        {
+            "type": "Ext.form.field.ComboBox",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "Membership Type",
+                "id": "memberShipField",
+                "itemId": "memberShipField",
+                "store": [
+                    "[\t\"REGULAR\", \"MEMBER\", \"VIP\", \"STUDENT\", \"SENIOR\"]"
+                ],
+                "width": 340
+            },
+            "name": "MyComboBox",
+            "configAlternates": {
+                "store": "array"
+            },
+            "designerId": "e91e3995-c177-4c9a-9c6f-d7c6ef42b8d7"
+        },
+        {
+            "type": "Ext.form.field.TextArea",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "Remarks",
+                "id": "membershipRequestRemarks",
+                "itemId": "membershipRequestRemarks",
+                "layout|flex": 0,
+                "width": 340
+            },
+            "name": "MyTextArea1",
+            "designerId": "3d0c70e9-f883-4ff4-b094-23fb3ce8126d"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 35,
+                "id": "btnSendRequest",
+                "itemId": "btnSendRequest",
+                "text": "Send",
+                "width": 201
+            },
+            "name": "MyButton24",
+            "designerId": "736272f2-93f2-4bd0-987b-35ae0e34814e"
+        }
+    ]
+}

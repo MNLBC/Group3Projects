@@ -1,0 +1,78 @@
+{
+    "name": "KanenOnlineShopping",
+    "settings": {
+        "cmd": {
+            "license": "commercial"
+        },
+        "canvasControls": {
+            "viewportSize": {
+                "name": "Auto Expand",
+                "builtIn": true,
+                "height": null,
+                "width": null
+            }
+        },
+        "urlPrefix": "",
+        "exportPath": "D:/My Documents/MyJabberFiles/cuntaal@oocl.com/sencha project file v2(1)/sencha project file v2/publish",
+        "projectHasEnabledWebServer": false,
+        "lockUrlPrefix": false,
+        "buildShouldOverwriteIndex": true,
+        "generateArchitectVersion": true,
+        "spacesToIndent": 4,
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "installStatus": "Not Installed",
+        "displayfield-ExtBox1-1186-inputEl": "a new version of the framework is available",
+        "displayfield-ExtBox1-1115-inputEl": "a new version of the framework is available",
+        "displayfield-ExtBox1-1170-inputEl": "a new version of the framework is available",
+        "displayfield-ExtBox1-1109-inputEl": "a new version of the framework is available",
+        "displayfield-ExtBox1-1114-inputEl": "a new version of the framework is available",
+        "displayfield-ExtBox1-1113-inputEl": "a new version of the framework is available"
+    },
+    "xdsVersion": "3.1.0",
+    "xdsBuild": 1943,
+    "schemaVersion": 1,
+    "upgradeVersion": 300000000007,
+    "framework": "ext42",
+    "viewOrderMap": {
+        "view": [
+            "fb612000-c78f-4297-8b6d-928b7604ba48",
+            "68c4d75c-3848-49f6-a6fe-8383be834f8d",
+            "7e2f8d44-0603-4b28-9ecc-bcefe70f2ae8",
+            "c3b14227-293d-4e69-b288-137e557c9913",
+            "e53fd0b8-9539-4c00-ba7e-bb3ff089c791",
+            "efcd53a1-ae1e-420a-b4a5-7b76eb2909a9",
+            "141764de-477f-47e5-850c-70214346a91f",
+            "d23be0c8-2e3c-43d1-864b-6cecab391fd1"
+        ],
+        "store": [
+            "5211f24b-1fec-4870-8820-11214584953c",
+            "7b04bbfb-91b7-48ed-8b7e-c5f93ae3de37",
+            "0efbf4be-277f-4279-a582-48a835fc92c9",
+            "2c5624c5-f45f-4af2-b76e-b7a17a2f7e13",
+            "0a2c04d3-db7e-441f-b076-482143f06670",
+            "2a283aa3-0e9c-4060-9c69-1e7d7758ddf7"
+        ],
+        "controller": [
+            "fc44f6a2-5bc4-4c83-839d-b9216bf6eeff",
+            "1b0c1513-7416-4f86-9ebd-2db3c06fdb62"
+        ],
+        "model": [
+            "ad813d27-46cd-46f1-8704-4499060cfa02",
+            "24811526-fb61-4175-8849-31d72ec937e5",
+            "00690f0f-1762-45dd-a58f-58ad4a6b43f1",
+            "3e2cef92-49fa-4e31-9233-1e71e71ec299",
+            "124d2991-f806-4ce8-b1d1-1882e3e27c9b",
+            "0ebaf20f-11bc-4ad4-862a-96f26702315e"
+        ],
+        "resource": [
+            "d8bbcfde-9a86-4aea-959f-518bad2d18a4",
+            "26463156-0499-4d6a-8475-f3e9be65254d",
+            "ca3ad8fd-d8c0-403f-9ef3-6b62beff2fab"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}
