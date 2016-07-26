@@ -26,7 +26,7 @@ import com.oocl.mnlbc.utils.CollectionUtils;
 public class ProductController {
 
 	@Autowired
-	private ProductDAO productService;
+	private ProductDAO productDAO;
 
 	private static final Logger logger = Logger.getLogger(ProductController.class);
 
@@ -42,8 +42,8 @@ public class ProductController {
 		logger.info("Retrieving products from the database..");
 
 		ProductList products = new ProductList();
-		List<Product> productsList = productService.getProductList();
-
+		//List<Product> productsList = productService.getProductList();
+		List<Product> productsList = productDAO.findAll();
 		products.setProducts(productsList);
 		Response<ProductList> response = new Response<ProductList>();
 		response.setData(products);

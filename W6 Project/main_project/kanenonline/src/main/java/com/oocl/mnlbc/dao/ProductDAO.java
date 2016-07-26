@@ -9,7 +9,7 @@ import com.oocl.mnlbc.entity.Product;
  * @author ITAGroup3
  *
  */
-public interface ProductDAO {
+public interface ProductDAO extends GenericDAO<Product> {
 
 	public List<Product> getProductList();
 

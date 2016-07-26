@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * @author VERGAJO
  *
  */
-@Entity(name="product")
+@Entity
 @Table(name="PRODUCT")
 public class Product implements Serializable {
 
