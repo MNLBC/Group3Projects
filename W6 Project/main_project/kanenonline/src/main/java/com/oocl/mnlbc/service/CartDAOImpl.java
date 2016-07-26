@@ -23,16 +23,19 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 	@Override
 	@Transactional
 	public boolean saveCart(CartItemList cartItemList) {
-		//Gets the userId from the CartItemList
+		// Gets the userId from the CartItemList
 		long userId = cartItemList.getUserId();
 
 		try {
-			entityManager.getTransaction().begin();
-			//iterates the items from the CartItemList and map it to CartItem 
+			if (!entityManager.getTransaction().isActive()) {
+				entityManager.getTransaction().begin();
+			}
+			// iterates the items from the CartItemList and map it to CartItem
 			for (CartItem item : cartItemList.getItems()) {
-				//sets the userId of the item
+				// sets the userId of the item
 				item.setUserId(userId);
-				//Saves the item to CART_ITEM table in the database since we use CartItem Entity to map the object
+				// Saves the item to CART_ITEM table in the database since we
+				// use CartItem Entity to map the object
 				entityManager.persist(item);
 			}
 			entityManager.getTransaction().commit();
@@ -40,7 +43,7 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 			return true;
 		} catch (PersistenceException e) {
 			return false;
-		} catch (Exception e){
+		} catch (Exception e) {
 			return false;
 		}
 
@@ -48,13 +51,13 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 
 	@Override
 	public List<CartItem> loadCart(long userId) {
-		//Load all the cartItem of the certain user using the userId
+		// Load all the cartItem of the certain user using the userId
 		Query query = entityManager.createQuery("SELECT CI FROM CartItem CI WHERE CI.userId = :userId");
-		//sets the parameter of the Entity Query
+		// sets the parameter of the Entity Query
 		query.setParameter("userId", userId);
 
 		try {
-			//Executes the query and get the resultList then Map it to CartItem
+			// Executes the query and get the resultList then Map it to CartItem
 			List<CartItem> result = query.getResultList();
 			return result;
 		} catch (PersistenceException e) {
@@ -65,18 +68,20 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 
 	@Override
 	public boolean removeUserCart(long userId) {
-		//remove the cartItem of the certain user using the userId
+		// remove the cartItem of the certain user using the userId
 		Query query = entityManager.createQuery("SELECT CI FROM CartItem CI WHERE CI.userId = :userId");
-		//sets the parameter of the Entity Query
+		// sets the parameter of the Entity Query
 		query.setParameter("userId", userId);
 
 		try {
-			//Executes the query and get the resultList then Map it to CartItem
+			// Executes the query and get the resultList then Map it to CartItem
 			List<CartItem> cartItemList = query.getResultList();
+
 			entityManager.getTransaction().begin();
-			//iterates the items from the CartItemList and map it to CartItem 
+			// iterates the items from the CartItemList and map it to CartItem
 			for (CartItem item : cartItemList) {
-				//deletes the certain item from the CartItem Table in the database
+				// deletes the certain item from the CartItem Table in the
+				// database
 				entityManager.remove(item);
 			}
 			entityManager.getTransaction().commit();
@@ -101,11 +106,11 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 
 	@Override
 	public boolean findCartByUser(long userId) {
-		////Load all the cartItem of the certain user using the userId
+		//// Load all the cartItem of the certain user using the userId
 		Query query = entityManager.createQuery("SELECT CI FROM CartItem CI WHERE CI.userId = :userId");
 		query.setParameter("userId", userId);
 		try {
-			//Executes the query and get the resultList then Map it to CartItem
+			// Executes the query and get the resultList then Map it to CartItem
 			List<CartItem> cartItemList = query.getResultList();
 			return cartItemList.size() > 0;
 		} catch (PersistenceException e) {

@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
-                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -29,6 +29,26 @@
 	</bean>
 
 	<bean id="orderDAO" class="com.oocl.mnlbc.service.OrderDAOImpl"
+		scope="singleton">
+	</bean>
+	
+	<bean id="productService" class="com.oocl.mnlbc.services.ProductService"
+		scope="singleton">
+	</bean>
+	
+	<bean id="userService" class="com.oocl.mnlbc.services.UserService"
+		scope="singleton">
+	</bean>
+	
+	<bean id="orderService" class="com.oocl.mnlbc.services.OrderService"
+		scope="singleton">
+	</bean>
+	
+	<bean id="membershipTypeService" class="com.oocl.mnlbc.services.MembershipTypeService"
+		scope="singleton">
+	</bean>
+	
+	<bean id="cartService" class="com.oocl.mnlbc.services.CartService"
 		scope="singleton">
 	</bean>
 

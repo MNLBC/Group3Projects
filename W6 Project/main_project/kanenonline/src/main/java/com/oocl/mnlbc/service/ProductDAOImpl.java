@@ -26,5 +26,4 @@ public class ProductDAOImpl extends AbstractJPAGenericDAO<Product>implements Pro
 		return query.getResultList();
 
 	}
-	
 }
