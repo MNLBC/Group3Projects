@@ -1,0 +1,33 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "controllers": [
+            "AdminController"
+        ],
+        "models": [
+            "orderModel",
+            "membershipRequest",
+            "userModel",
+            "orderItem",
+            "updatedOrder"
+        ],
+        "name": "MyApp",
+        "stores": [
+            "orderStore",
+            "membershipRequest",
+            "userStore",
+            "orderItems",
+            "updatedOrder"
+        ],
+        "views": [
+            "MyViewport"
+        ]
+    },
+    "name": "Application",
+    "designerId": "application"
+}

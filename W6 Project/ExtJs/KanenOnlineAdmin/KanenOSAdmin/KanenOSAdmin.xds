@@ -1,0 +1,58 @@
+{
+    "name": "KanenOSAdmin",
+    "settings": {
+        "cmd": {},
+        "lockUrlPrefix": true,
+        "exportPath": "D:/My Documents/KanenOSAdmin",
+        "buildShouldOverwriteIndex": true,
+        "generateArchitectVersion": true,
+        "spacesToIndent": 4,
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "installStatus": "Not Installed",
+        "urlPrefix": "",
+        "canvasControls": {
+            "viewportSize": {
+                "name": "Auto Expand",
+                "builtIn": true,
+                "height": null,
+                "width": null
+            }
+        }
+    },
+    "xdsVersion": "3.1.0",
+    "xdsBuild": 1943,
+    "schemaVersion": 1,
+    "upgradeVersion": 300000000007,
+    "framework": "ext42",
+    "viewOrderMap": {
+        "view": [
+            "965174fe-6534-4c69-8a44-473f9baca43a"
+        ],
+        "store": [
+            "13817381-306d-49cb-adea-78c888d3e046",
+            "8171fdcc-967d-4690-a6fd-283b6ada42b8",
+            "70a0abcb-1b22-432d-a523-6a044c0ba7b8",
+            "ad216dc7-39fb-4334-b0a7-04a0748e52c6",
+            "97c5568f-b3c0-4e13-a88e-349196d46cba"
+        ],
+        "controller": [
+            "3569a569-9f1c-455f-a9ba-8de788827777"
+        ],
+        "model": [
+            "2a5a9e0c-1696-4e60-9805-ee13e2bcc87f",
+            "50ae2336-b2e7-44a0-8463-56a9ec988eed",
+            "c730a63b-365a-42b7-a579-8eca42bf888f",
+            "aad2573a-c888-4a31-91c4-d803244f722b",
+            "8f20e1ff-7521-4df3-8ed3-b2dec2d0a31f"
+        ],
+        "resource": [
+            "b7276d73-09b8-4258-81d8-6379e4db620e",
+            "5746388d-62bf-415f-bb9e-663671fd1071"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}
