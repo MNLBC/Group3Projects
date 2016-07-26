@@ -40,17 +40,17 @@ public class ProductDAOTest {
 
 	@Test
 	public void testGetProducts() {
-		List<Product> productList = productDAO.getProductList();
+		List<Product> productList = productDAO.findAll();
 
 		Product testProduct = new Product();
 		testProduct.setProductId(2000000001);
 		testProduct.setProductDescription("Mac Book Pro");
 		testProduct.setProductName("Mac Book Pro");
-		testProduct.setProductPrice(new BigDecimal(1000));
-		testProduct.setProductStockQuantity(new BigDecimal(10));
+		testProduct.setProductPrice(1000L);
+		testProduct.setProductStockQuantity(10);
 		testProduct.setImagePath("resource/macbook.jpg");
 
-		assertNotNull(productDAO.getProductList());
+		assertNotNull(productDAO.findAll());
 		assertEquals(testProduct.getProductId(), productList.get(0).getProductId());
 		assertEquals(testProduct.getProductDescription(), productList.get(0).getProductDescription());
 		assertEquals(testProduct.getImagePath(), productList.get(0).getImagePath());
