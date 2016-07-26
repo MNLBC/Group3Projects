@@ -1,0 +1,139 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "container|align": "center",
+        "container|pack": "center",
+        "designer|userClassName": "ChangePassWindow",
+        "height": 340,
+        "hidden": false,
+        "id": "ChangePassWindow",
+        "itemId": "ChangePassWindow",
+        "layout": "vbox",
+        "modal": true,
+        "title": "Change Password",
+        "width": 530
+    },
+    "name": "MyWindow",
+    "designerId": "141764de-477f-47e5-850c-70214346a91f",
+    "cn": [
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "Old Password",
+                "id": "oldPassword",
+                "inputType": "password",
+                "itemId": "oldPassword",
+                "width": 341
+            },
+            "name": "MyTextField10",
+            "designerId": "4aff9ddb-65cb-4a1b-97a3-6d291a5d931b"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "New Password",
+                "id": "newPassword",
+                "inputType": "password",
+                "itemId": "newPassword",
+                "width": 339
+            },
+            "name": "MyTextField11",
+            "designerId": "914019a0-4387-464a-86a6-5ce0e6cfad33"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "Confirm New Password ",
+                "id": "confirmNewPass",
+                "inputType": "password",
+                "itemId": "confirmNewPass",
+                "width": 341
+            },
+            "name": "MyTextField12",
+            "designerId": "6390d92b-d87d-461e-95a3-28d008955883"
+        },
+        {
+            "type": "Ext.toolbar.Spacer",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": 0
+            },
+            "name": "MySpacer12",
+            "designerId": "2223f92f-d19f-424d-9342-9b891b1122cf"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 36,
+                "id": "btnResetPass",
+                "itemId": "btnResetPass",
+                "text": "Reset",
+                "width": 143
+            },
+            "name": "MyButton21",
+            "designerId": "b2172b64-1c80-47ff-8778-acffa1ca96bd"
+        },
+        {
+            "type": "Ext.toolbar.Spacer",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": null,
+                "height": 10,
+                "layout|flex": 0,
+                "width": 46
+            },
+            "name": "MySpacer11",
+            "designerId": "4a731735-a762-4ce3-8d14-4e79c262d8b9"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 39,
+                "id": "btnChangePassword",
+                "itemId": "btnChangePassword",
+                "text": "Change Password",
+                "width": 142
+            },
+            "name": "MyButton22",
+            "designerId": "c96a9d81-164c-4267-8a4e-401422900350"
+        }
+    ]
+}
