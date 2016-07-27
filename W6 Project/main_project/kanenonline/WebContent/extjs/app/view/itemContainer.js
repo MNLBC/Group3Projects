@@ -24,9 +24,9 @@ Ext.define('KanenOnlineShopping.view.itemContainer', {
     ],
 
     border: '2 px solid black',
-    height: 322,
+    height: 385,
     margin: '',
-    width: 267,
+    width: 287,
 
     layout: {
         type: 'vbox',
@@ -61,13 +61,12 @@ Ext.define('KanenOnlineShopping.view.itemContainer', {
                 {
                     xtype: 'tbspacer',
                     flex: 1,
-                    height: 21,
-                    width: 105
+                    height: 150,
+                    width: 90
                 },
                 {
                     xtype: 'button',
-                    flex: 1,
-                    width: 134,
+                    width: 87,
                     text: 'Add to Cart',
                     listeners: {
                         click: {
