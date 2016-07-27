@@ -33,13 +33,19 @@ public class ProductDAOImpl extends AbstractJPAGenericDAO<Product>implements Pro
 	 * 
 	 */
 	@Override
-	public boolean saveProductComment(ProductCommentAssn productComment) {
-
+	public boolean saveProductComment(long userId, long productId, String productComment) {
+		
+		ProductCommentAssn productCommentAssn = new ProductCommentAssn();
+		productCommentAssn.setProductId(productId);
+		productCommentAssn.setUserId(userId);
+		productCommentAssn.setProductComment(productComment);
+		
 		try {
-			entityManager.getTransaction().begin();
-			entityManager.persist(productComment);
+			entityManager.getTransaction().begin();	
+			entityManager.persist(productCommentAssn);
 			entityManager.getTransaction().commit();
 			return true;
+			
 		} catch (PersistenceException e) {
 			return false;
 		}

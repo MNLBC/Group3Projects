@@ -39,47 +39,60 @@ public class ProductCommentAssn implements Serializable {
 	@Column(name = "PRODUCT_ID")
 	private long productId;
 
-	@JsonIgnore
-	@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private User userId;
+//	@JsonIgnore
+//	@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+//	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@Column(name = "USER_ID")
+	private long userId;
 
 	public ProductCommentAssn() {
 
 	}
 
-	/**
-	 * @param productCommentAssnId
-	 * @param productComment
-	 * @param productId
-	 * @param userId
-	 * 
-	 */
+	public long getProductCommentAssnId() {
+		return productCommentAssnId;
+	}
 
-	public ProductCommentAssn(long productCommentAssnId, String productComment, long productId, User userId) {
-		super();
+	public void setProductCommentAssnId(long productCommentAssnId) {
 		this.productCommentAssnId = productCommentAssnId;
+	}
+
+	public String getProductComment() {
+		return productComment;
+	}
+
+	public void setProductComment(String productComment) {
 		this.productComment = productComment;
+	}
+
+	public long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(long productId) {
 		this.productId = productId;
+	}
+
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + (int) (userId ^ (userId >>> 32));
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -91,72 +104,11 @@ public class ProductCommentAssn implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ProductCommentAssn other = (ProductCommentAssn) obj;
-		if (userId == null) {
-			if (other.userId != null)
-				return false;
-		} else if (!userId.equals(other.userId))
+		if (userId != other.userId)
 			return false;
 		return true;
 	}
 
-	/**
-	 * @return the productCommentAssnId
-	 */
-	public long getproductCommentAssnId() {
-		return productCommentAssnId;
-	}
-
-	/**
-	 * @param productCommentAssnId
-	 *            the productCommentAssnId to set
-	 */
-	public void setproductCommentAssnId(long productCommentAssnId) {
-		this.productCommentAssnId = productCommentAssnId;
-	}
-
-	/**
-	 * @return the productComment
-	 */
-	public String getProductComment() {
-		return productComment;
-	}
-
-	/**
-	 * @param productComment
-	 *            the productComment to set
-	 */
-	public void setProductComment(String productComment) {
-		this.productComment = productComment;
-	}
-
-	/**
-	 * @return the productId
-	 */
-	public long getProductId() {
-		return productId;
-	}
-
-	/**
-	 * @param productId
-	 *            the productId to set
-	 */
-	public void setProductId(long productId) {
-		this.productId = productId;
-	}
-
-	/**
-	 * @return the userId
-	 */
-	public User getUserId() {
-		return userId;
-	}
-
-	/**
-	 * @param userId
-	 *            the userId to set
-	 */
-	public void setUserId(User userId) {
-		this.userId = userId;
-	}
+	
 
 }
