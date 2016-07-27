@@ -1,0 +1,88 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "bodyPadding": "",
+        "designer|userClassName": "CommentWindow",
+        "height": 260,
+        "hidden": false,
+        "id": "commentWindow",
+        "itemId": "commentWindow",
+        "padding": 20,
+        "title": "Comment",
+        "width": 420
+    },
+    "name": "MyWindow",
+    "designerId": "a734c993-9228-4207-b7c8-95784262c687",
+    "cn": [
+        {
+            "type": "Ext.form.field.TextArea",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "Comment",
+                "height": 100,
+                "width": 350
+            },
+            "name": "MyTextArea2",
+            "designerId": "322940fd-f87b-423b-b09c-46fbf0320a49"
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "bottom",
+                "height": 70
+            },
+            "name": "MyToolbar2",
+            "designerId": "7e4b7ac1-133c-4225-a259-3ed7f46b6e1f",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": "",
+                        "layout|flex": null,
+                        "width": 140
+                    },
+                    "name": "MySpacer",
+                    "designerId": "c39b9c1d-d402-4787-ae0e-98ab64338ae0"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|uiInterfaceName": "default",
+                        "height": 36,
+                        "id": "btnSendComment",
+                        "itemId": "btnSendComment",
+                        "layout|flex": null,
+                        "text": "Send",
+                        "width": 143
+                    },
+                    "name": "MyButton9",
+                    "designerId": "dd163b6d-a26b-4993-a9a7-c61ad29948af"
+                }
+            ]
+        }
+    ]
+}

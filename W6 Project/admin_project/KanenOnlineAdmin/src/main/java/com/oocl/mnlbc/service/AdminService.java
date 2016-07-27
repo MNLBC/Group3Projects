@@ -13,8 +13,10 @@ import com.oocl.mnlbc.daoimpl.UserDAOImpl;
 import com.oocl.mnlbc.daoimpl.UserMembershipAsnDAOImpl;
 import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.OrderItem;
+import com.oocl.mnlbc.entity.Product;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
+import com.oocl.mnlbc.model.AllProduct;
 import com.oocl.mnlbc.model.AllUser;
 import com.oocl.mnlbc.model.ItemOrder;
 import com.oocl.mnlbc.model.Login;
@@ -24,7 +26,7 @@ import com.oocl.mnlbc.model.UserRequest;
 import com.oocl.mnlbc.model.UserRequestList;
 
 /**
- * @author Jerica Flores
+ * @author Jerica Flores and Christian Kanen
  *
  */
 public class AdminService {
@@ -122,5 +124,19 @@ public class AdminService {
 		}
 		return response;
 	}
-
+	
+	public AllProduct retrieveAllProducts(){
+		ProductDAOImpl productDAO = new ProductDAOImpl();
+		productDAO.init();
+		List<Product> productList = new ArrayList<Product>();
+		AllProduct response = new AllProduct();
+		productList = productDAO.getProductList();
+		
+		if (productList != null){
+			response.setProductList(productList);
+			response.setSuccess(true);
+			return response;
+		}
+		return response;
+	}
 }

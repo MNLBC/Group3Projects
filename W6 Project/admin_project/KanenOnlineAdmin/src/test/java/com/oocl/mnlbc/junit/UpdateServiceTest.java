@@ -38,9 +38,12 @@ public class UpdateServiceTest extends TestCase {
 	
 	public void testServices(){
 		
-		System.out.println(updateService.createUser("rehanameee", "redhat", "Melvin Yu", "yu_melvinrobert@yahoo.com", "laguna",
-				"1234567890", "Admin"));
-
+//		System.out.println(updateService.createUser("rehanameee", "redhat", "Melvin Yu", "yu_melvinrobert@yahoo.com", "laguna",
+//				"1234567890", "Admin"));
+		
+		System.out.println(updateService.createProduct("Cherry Mobile", "Flare S4 Plus", 8000.00, 15, "resource/cherry.jpg"));
 	}
+	
+	
 
 }
