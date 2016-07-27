@@ -59,51 +59,11 @@ public class UserController {
 			@RequestParam(value = "mobileNumber", required = true) String mobileNumber,
 			@RequestParam(value = "userRole", required = true) String userRole) throws Exception {
 
-		String builder = userService.createUser(userName, userPassword, fullName, email, deliveryAddress, mobileNumber, userRole);
+		String builder = userService.createUser(userName, userPassword, fullName, email, deliveryAddress, mobileNumber,
+				userRole);
 		return builder;
 
 	}
-//	public String createUser(@RequestParam(value = "userName", required = true) String userName,
-//			@RequestParam(value = "userPassword", required = true) String userPassword,
-//			@RequestParam(value = "fullName", required = true) String fullName,
-//			@RequestParam(value = "email", required = true) String email,
-//			@RequestParam(value = "deliveryAddress", required = true) String deliveryAddress,
-//			@RequestParam(value = "mobileNumber", required = true) String mobileNumber,
-//			@RequestParam(value = "userRole", required = true) String userRole) throws Exception {
-//
-//		logger.info(userName + " is trying to register");
-//
-//		StringBuilder builder = new StringBuilder();
-//		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
-//		String errorMsg = "";
-//		builder.append(returnJson);
-//
-//		User user = new User(0, userName, userPassword, fullName, email, deliveryAddress, mobileNumber, userRole);
-//		if (userDAO.userExists(userName)) {
-//			errorMsg += "usernametaken";
-//			logger.info("Registration Failed, " + userName + " is already taken");
-//		}
-//
-//		if (userDAO.emailExists(email)) {
-//			errorMsg += "emailtaken";
-//			logger.info("Registration Failed, " + email + " is already taken");
-//		}
-//
-//		if (errorMsg.equals("")) {
-//			if (userDAO.registerUser(user)) {
-//				errorMsg += "none";
-//				logger.info("User successfully registered");
-//			} else {
-//				errorMsg += "failed";
-//				logger.info("Registration failed");
-//			}
-//		}
-//		builder.append(errorMsg);
-//
-//		builder.append("\"}}");
-//		return builder.toString();
-//
-//	}
 
 	/**
 	 * This handles the login in the UI
@@ -116,27 +76,13 @@ public class UserController {
 	@RequestMapping(value = "/login", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<UserWrapper<User>> loginUser(@RequestParam(value = "userName", required = true) String userName,
-			@RequestParam(value = "userPassword", required = true) String userPassword) throws Exception 
-	{
+			@RequestParam(value = "userPassword", required = true) String userPassword) throws Exception {
+
 		Response<UserWrapper<User>> response = new Response<UserWrapper<User>>();
+
 		response = userService.loginUser(userName, userPassword);
+
 		return response;
-		
-//		logger.info(userName + " is logging in..");
-//
-//		UserWrapper<User> items = new UserWrapper<User>();
-//		User user = userDAO.validateAccount(userName, userPassword);
-//		items.getItems().add(user);
-//
-//		Response<UserWrapper<User>> response = new Response<UserWrapper<User>>();
-//
-//		if (user != null) {
-//			boolean userHasCart = cartDAO.findCartByUser(user.getUserId());
-//			items.setUserHasCart(userHasCart);
-//			response.setSuccess(true);
-//		}
-//		response.setData(items);
-//		return response;
 
 	}
 
@@ -149,15 +95,10 @@ public class UserController {
 	@RequestMapping(value = "/logout", method = { RequestMethod.POST })
 	@ResponseBody
 	public String logoutUser() throws Exception {
-		
-		String returnJson= userService.logoutUser();
+
+		String returnJson = userService.logoutUser();
 		return returnJson;
-		
-//		StringBuilder builder = new StringBuilder();
-//		String returnJson = "{\"success\":true}";
-//		builder.append(returnJson);
-//		logger.info("User has successfully logged out.");
-//		return returnJson;
+
 	}
 
 	/**
@@ -175,28 +116,10 @@ public class UserController {
 			@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "oldPassword", required = true) String oldPassword,
 			@RequestParam(value = "newPassword", required = true) String newPassword) throws Exception {
-		
-		Response<ChangePasswordResult> response = userService.changePassword(userId, userName, oldPassword, newPassword);
-		return response;
 
-//		User user = userDAO.validateAccount(userName, oldPassword);
-//
-//		ChangePasswordResult chgPassResult = new ChangePasswordResult();
-//
-//		if (user == null) {
-//			chgPassResult.setResult("Incorrect old password.");
-//		} else {
-//			if (userDAO.changePassword(user, newPassword)) {
-//				chgPassResult.setResult("Password successfully changed.");
-//			}
-//		}
-//		Response<ChangePasswordResult> response = new Response<ChangePasswordResult>();
-//		response.setData(chgPassResult);
-//
-//		if (user != null) {
-//			response.setSuccess(true);
-//		}
-//		return response;
+		Response<ChangePasswordResult> response = userService.changePassword(userId, userName, oldPassword,
+				newPassword);
+		return response;
 
 	}
 
