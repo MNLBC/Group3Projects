@@ -51,7 +51,7 @@ public class User implements Serializable {
 	@Column(name = "IS_BLACKLISTED")
 	private String isBlacklisted;
 
-	@OneToOne(cascade = CascadeType.REMOVE, mappedBy = "userId", fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.EAGER)
 	private UserMembershipAsn userMembershipId;
 
 	public User() {

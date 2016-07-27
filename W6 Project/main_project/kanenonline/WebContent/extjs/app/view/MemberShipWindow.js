@@ -28,7 +28,7 @@ Ext.define('KanenOnlineShopping.view.MemberShipWindow', {
     id: 'memberShipWindow',
     itemId: 'MemberShipWindow',
     width: 530,
-    title: 'My Window',
+    title: 'Membeship Request',
     modal: true,
 
     layout: {
@@ -77,6 +77,8 @@ Ext.define('KanenOnlineShopping.view.MemberShipWindow', {
                     itemId: 'memberShipField',
                     width: 340,
                     fieldLabel: 'Membership Type',
+                    allowBlank: false,
+                    allowOnlyWhitespace: false,
                     store: [
                         'REGULAR',
                         'MEMBER',

@@ -1,0 +1,21 @@
+{
+    "type": "classicthemeresource",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "MyClassicTheme"
+    },
+    "designerId": "ca3ad8fd-d8c0-403f-9ef3-6b62beff2fab",
+    "storage": {
+        "needsCompile": false,
+        "simple": {
+            "pkgVersion": 1
+        },
+        "compiledCss": "",
+        "nameIndex": 1,
+        "varData": {}
+    }
+}

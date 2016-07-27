@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.oocl.mnlbc.model.AllProduct;
 import com.oocl.mnlbc.model.AllUser;
 import com.oocl.mnlbc.model.Login;
 import com.oocl.mnlbc.model.OrderAndItemList;
@@ -16,7 +17,7 @@ import com.oocl.mnlbc.model.UserRequestList;
 import com.oocl.mnlbc.service.AdminService;
 
 /**
- * @author Melvin Yu
+ * @author Melvin Yu and Christian Kanen
  * 
  *
  *This class holds the admin controller
@@ -82,6 +83,17 @@ public class AdminController {
 	public AllUser getAllUsers() {
 		AllUser allUser = adminService.retrieveAllUsers();
 		return allUser;
+	}
+	
+	/**
+	 * this methods handles the retrieval of all orders to be displayed in the UI
+	 * @return OrderAndItemList
+	 */
+	@RequestMapping(value = "/getProducts", method = RequestMethod.GET)
+	@ResponseBody
+	public AllProduct getAllProducts() {
+		AllProduct allProduct = adminService.retrieveAllProducts();
+		return allProduct;
 	}
 
 }

@@ -9,12 +9,16 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.oocl.mnlbc.daoimpl.MembershipTypeDAOImpl;
 import com.oocl.mnlbc.daoimpl.OrderDAOImpl;
+import com.oocl.mnlbc.daoimpl.ProductDAOImpl;
 import com.oocl.mnlbc.daoimpl.UserDAOImpl;
 import com.oocl.mnlbc.daoimpl.UserMembershipAsnDAOImpl;
 import com.oocl.mnlbc.entity.Order;
+import com.oocl.mnlbc.entity.Product;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
+import com.oocl.mnlbc.model.AllProduct;
 import com.oocl.mnlbc.model.AllUser;
+import com.oocl.mnlbc.model.ProductList;
 import com.oocl.mnlbc.model.UserList;
 
 /**
@@ -147,5 +151,35 @@ public class UpdateService {
 		return builder.toString();
 
 	}
-
+	
+	public String createProduct(String productName, String productDescription, double productPrice, int productStockQuantity, String productImagePath ){
+		ProductDAOImpl productDAO = new ProductDAOImpl();
+		productDAO.init();
+		
+		StringBuilder builder = new StringBuilder();
+		String returnJson = "{\"success\":true";
+		builder.append(returnJson);
+		Product product = new Product(0, productName, productDescription, productPrice, productStockQuantity, productImagePath);
+		builder.append("\"}");
+		return builder.toString();
+	}
+	
+	public AllProduct updateProduct(String jsonData){
+		
+		Gson gson = new Gson();
+		ProductList productList = gson.fromJson(jsonData, ProductList.class);
+		
+		AllProduct response = new AllProduct();
+		ProductDAOImpl productDAO = new ProductDAOImpl();
+		List<Product> updatedProduct = new ArrayList<Product>();
+		productDAO.init();
+		if (productList != null) {
+			for (Product product : productList.getProductList()) {
+				updatedProduct.add(productDAO.updateProduct(product));
+			}
+			response.setProductList(updatedProduct);
+			response.setSuccess(true);
+		}
+		return response;
+	}	
 }

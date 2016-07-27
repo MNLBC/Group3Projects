@@ -1,0 +1,14 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "cartStore",
+        "model": "CartItem",
+        "storeId": "cartStore"
+    },
+    "designerId": "0efbf4be-277f-4279-a582-48a835fc92c9"
+}
