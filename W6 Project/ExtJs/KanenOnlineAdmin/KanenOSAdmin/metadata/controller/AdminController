@@ -19,11 +19,25 @@
             },
             "codeClass": null,
             "userConfig": {
-                "ref": "centerContainer",
-                "selector": "#CenterContainer"
+                "ref": "productListPanel",
+                "selector": "#productListPanel"
             },
-            "name": "centerContainer",
-            "designerId": "a0e638c5-ae5b-4959-b2f5-677016096997"
+            "name": "productListPanel",
+            "designerId": "8d0e0faf-3e8c-4654-803e-7aedfc8e2ab0"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "customerConfirmPanel",
+                "selector": "#customerConfirmPanel"
+            },
+            "name": "customerConfirmPanel",
+            "designerId": "130ecbf2-9e67-4aa9-9f1e-4476f04f20b3"
         },
         {
             "type": "controllerref",
@@ -38,6 +52,34 @@
             },
             "name": "orderRequestsPanel",
             "designerId": "e26013c7-9a3e-44c2-84b1-c0bbe856ad0f"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "viewAllOrderPanel",
+                "selector": "#viewAllOrderPanel"
+            },
+            "name": "viewAllOrderPanel",
+            "designerId": "201f2005-70b7-4e39-846f-8b3c1402b628"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "centerContainer",
+                "selector": "#CenterContainer"
+            },
+            "name": "centerContainer",
+            "designerId": "a0e638c5-ae5b-4959-b2f5-677016096997"
         },
         {
             "type": "controlleraction",
@@ -151,20 +193,6 @@
             },
             "name": "onConfirmOrderBtnClick",
             "designerId": "2eb005c0-82db-41f4-b4d9-0d24f786a954"
-        },
-        {
-            "type": "controllerref",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "ref": "customerConfirmPanel",
-                "selector": "#customerConfirmPanel"
-            },
-            "name": "customerConfirmPanel",
-            "designerId": "130ecbf2-9e67-4aa9-9f1e-4476f04f20b3"
         },
         {
             "type": "controlleraction",
@@ -393,6 +421,7 @@
                 "implHandler": [
                     "this.getOrderRequestsPanel().hide();",
                     "this.getCustomerConfirmPanel().hide();",
+                    "this.getProductListPanel().hide();",
                     "this.getViewAllOrderPanel().show();",
                     "",
                     "var viewAllGrid = Ext.getCmp('viewAllOrderGrid');",
@@ -453,20 +482,6 @@
             },
             "name": "onViewAllOrderBtnClick",
             "designerId": "e61f5cdd-ac05-4227-b069-04ca1d11a104"
-        },
-        {
-            "type": "controllerref",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "ref": "viewAllOrderPanel",
-                "selector": "#viewAllOrderPanel"
-            },
-            "name": "viewAllOrderPanel",
-            "designerId": "201f2005-70b7-4e39-846f-8b3c1402b628"
         },
         {
             "type": "controlleraction",
@@ -636,6 +651,8 @@
                     "this.getCustomerConfirmPanel().show();",
                     "this.getOrderRequestsPanel().hide();",
                     "this.getViewAllOrderPanel().hide();",
+                    "this.getProductListPanel().hide();",
+                    "",
                     "",
                     "var customerRequestGrid = Ext.getCmp('membershipRequestGrid');",
                     "var customerRequestStore = customerRequestGrid.getStore();",
@@ -684,11 +701,13 @@
             "userConfig": {
                 "designer|controlQuery": "#orderReqeust",
                 "designer|targetType": "MyMenuItem2",
-                "fn": "onOrderReqeustClick",
+                "fn": "onOrderRequestClick",
                 "implHandler": [
                     "this.getOrderRequestsPanel().show();",
                     "this.getViewAllOrderPanel().hide();",
                     "this.getCustomerConfirmPanel().hide();",
+                    "this.getProductListPanel().hide();",
+                    "",
                     "",
                     "var orderGrid = Ext.getCmp('orderRequestsGrid');",
                     "var orderGridStore = orderGrid.getStore();",
@@ -731,7 +750,7 @@
                 "name": "click",
                 "scope": "me"
             },
-            "name": "onOrderReqeustClick",
+            "name": "onOrderRequestClick",
             "designerId": "a3c95ef4-d741-4fbc-83f2-48f42f568d1f"
         },
         {
@@ -748,6 +767,7 @@
                 "implHandler": [
                     "this.getOrderRequestsPanel().hide();",
                     "this.getCustomerConfirmPanel().hide();",
+                    "this.getProductListPanel().hide();",
                     "this.getViewAllOrderPanel().show();",
                     "",
                     "var viewAllGrid = Ext.getCmp('viewAllOrderGrid');",
@@ -817,6 +837,67 @@
             },
             "codeClass": null,
             "userConfig": {
+                "designer|controlQuery": "#products",
+                "designer|targetType": "MyMenuItem",
+                "fn": "onProductsClick",
+                "implHandler": [
+                    "        this.getOrderRequestsPanel().hide();",
+                    "        this.getCustomerConfirmPanel().hide();",
+                    "        this.getViewAllOrderPanel().hide();",
+                    "        this.getProductListPanel().show();",
+                    "",
+                    "        var productGrid = Ext.getCmp('producListGrid');",
+                    "        var productGridStore = productGrid.getStore();",
+                    "",
+                    "        productGridStore.removeAll();",
+                    "        productGridStore.clearData();",
+                    "        productGrid.getView().refresh();",
+                    "",
+                    "",
+                    "        Ext.Ajax.request({",
+                    "             url: window.location.pathname +'admin/getProducts',",
+                    "             method: 'POST',",
+                    "",
+                    "            scope: this,",
+                    "            success: function(response){",
+                    "                var responseText = Ext.decode(response.responseText);",
+                    "",
+                    "         ",
+                    "                for (var i = 0; i < responseText.itemList.length; i++){",
+                    "                    var items = {",
+                    "                        orderId: responseText.itemList[i].orderId,",
+                    "                        orderItemId: responseText.itemList[i].item.orderItemId,",
+                    "                        productId: responseText.itemList[i].item.productId,",
+                    "                        productName: responseText.itemList[i].productname,",
+                    "                        quantity: responseText.itemList[i].item.quantity,",
+                    "                        productPrice: responseText.itemList[i].item.productPrice",
+                    "",
+                    "                    };",
+                    "",
+                    "                    productGridStore.add(items);",
+                    "                }",
+                    "            },",
+                    "",
+                    "            failure: function(){",
+                    "                Ext.MessageBox.alert('Loading Failed','Unable to connect to server');",
+                    "            }",
+                    "",
+                    "        });"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onProductsClick",
+            "designerId": "60a661a5-1d8e-452f-875f-f4af2623ab30"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "designer|controlQuery": "#logout",
                 "designer|targetType": "MyMenuItem5",
                 "fn": "onLogoutClick",
@@ -833,6 +914,244 @@
             },
             "name": "onLogoutClick",
             "designerId": "16343560-228b-4e9b-adac-0b1add354241"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnAddProduct",
+                "designer|targetType": "MyButton7",
+                "fn": "onBtnAddProductClick",
+                "implHandler": [
+                    "Ext.create('Ext.window.Window',",
+                    "           {",
+                    "               renderTo : Ext.getBody(),",
+                    "               bodyPadding: 10,",
+                    "               title: 'Add Product',",
+                    "               closable: true,",
+                    "               autoShow: true,",
+                    "               resizable:false,",
+                    "               draggable: false,",
+                    "               modal: true,",
+                    "               width:800,",
+                    "               height:250,",
+                    "               items: [",
+                    "                   {",
+                    "                       xtype: 'form',",
+                    "                       autoScroll: true,",
+                    "                       bodyBorder: true,",
+                    "                       bodyPadding: 10,",
+                    "                       modal:true,",
+                    "",
+                    "                       layout: {",
+                    "                           type: 'vbox',",
+                    "                           align: 'stretch'",
+                    "                       },",
+                    "                       items: [",
+                    "                           {",
+                    "                               xtype: 'textfield',",
+                    "                               width: 800,",
+                    "                               id: 'txtProductName',",
+                    "                               labelWidth: 120,",
+                    "                               allowBlank: false,",
+                    "                               fieldLabel: 'Product Name'",
+                    "                           },",
+                    "                           {",
+                    "                               xtype: 'textfield',",
+                    "                               width: 800,",
+                    "                               id: 'txtProductDescription',",
+                    "                               labelWidth: 120,",
+                    "                               allowBlank: false,",
+                    "                               fieldLabel: 'Product Description'",
+                    "                           },",
+                    "",
+                    "",
+                    "                           {",
+                    "                               xtype: 'textfield',",
+                    "                               width: 800,",
+                    "                               labelWidth: 120,",
+                    "                               id:'txtProductPrice',",
+                    "                               regex: /^[1-9][0-9]*$/,",
+                    "                               allowBlank: false,",
+                    "                               fieldLabel: 'Product Price'",
+                    "                           },",
+                    "",
+                    "                           {",
+                    "                               xtype: 'textfield',",
+                    "                               width: 800,",
+                    "                               labelWidth: 120,",
+                    "                               id:'txtProductQuantity',",
+                    "                               regex: /^[1-9][0-9]*$/,",
+                    "                               allowBlank: false,",
+                    "                               fieldLabel: 'In Stock Quantity'",
+                    "                           },",
+                    "                           {",
+                    "                               xtype: 'textfield',",
+                    "                               width: 800,",
+                    "                               labelWidth: 120,",
+                    "                               id: 'productImagePath',",
+                    "                               allowBlank: false,",
+                    "                               fieldLabel: 'Image Path'",
+                    "                           },",
+                    "",
+                    "                           {",
+                    "                               xtype: 'container',",
+                    "                               flex: 0,",
+                    "                               width: 496,",
+                    "                               layout: {",
+                    "                                   type: 'hbox',",
+                    "                                   align: 'stretch',",
+                    "                                   pack:'center'",
+                    "                               },",
+                    "                               items: [",
+                    "                                   {",
+                    "                                       xtype: 'button',",
+                    "                                       width: 118,",
+                    "                                       margin:'2',",
+                    "                                       id: 'btnSaveProduct',",
+                    "                                       text: 'Add Product'",
+                    "                                   },",
+                    "                                    {",
+                    "                                       xtype: 'button',",
+                    "                                       width: 118,",
+                    "                                        margin:'2',",
+                    "                                       id: 'btnReset',",
+                    "                                       text: 'Reset'",
+                    "                                   }",
+                    "                               ]",
+                    "                           }",
+                    "                       ]",
+                    "                   }",
+                    "               ]",
+                    "           });",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnAddProductClick",
+            "designerId": "6a0de22a-9f96-4313-8690-522ae3392469"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnUpdateProduct",
+                "designer|targetType": "MyButton8",
+                "fn": "onBtnUpdateProductClick",
+                "implHandler": [
+                    " parms = [];",
+                    " var productListGrid = Ext.getCmp('productListGrid');",
+                    " var productListStore = productListGrid.getStore();",
+                    " var updatedRecords = productListStore.getModifiedRecords();",
+                    " var updateProduct = Ext.getStore('updateProduct');",
+                    " Ext.each(updatedRecords,function(record){",
+                    "     if (record.dirty){",
+                    "         parms.push(record.data);",
+                    "         var product = {",
+                    "             productName: record.data.productName,",
+                    "             productDescription: record.data.productDescription,",
+                    "             productPrice: record.data.productPrice,",
+                    "             productQuantity: record.data.productStockQuantity,",
+                    "             productImagePath: record.data.productImagePath",
+                    "",
+                    "         };",
+                    "         updateProduct.add(product);",
+                    "     }",
+                    "",
+                    " });",
+                    "",
+                    "Ext.Ajax.request({",
+                    "",
+                    "    url: 'update/updateProduct',",
+                    "    method: POST,",
+                    "",
+                    "    params:{",
+                    "",
+                    "        jsonData: parms,",
+                    "    },",
+                    "",
+                    "    scope: this,",
+                    "    success: function(response){",
+                    "        var responseText = Ext.decode(response.responseText);",
+                    "",
+                    "    }",
+                    "",
+                    "});",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnUpdateProductClick",
+            "designerId": "80c490c7-1bfa-4144-b286-73e77581fa6a"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "addProductContainer",
+                "selector": "#AddProductContainer"
+            },
+            "name": "addProductContainer",
+            "designerId": "832ca75f-2bfa-4d3c-a6a0-f88f6ca3e066"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnSaveProduct",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnSaveProduct",
+                "implHandler": [
+                    "var productName = Ext.getCmp('txtProductName').getValue();",
+                    "var productDescription = Ext.getCmp('txtProductDescription').getValue();",
+                    "var productPrice = Ext.getCmp('txtProductPrice').getValue();",
+                    "var productInStock = Ext.getCmp('txtProductQuantity').getValue();",
+                    "var productImagePath = Ext.getCmp('productImagePath').getValue();",
+                    "",
+                    "Ext.Ajax.request({",
+                    "       url: 'admin/addProduct',",
+                    "            method: POST,",
+                    "    params:{",
+                    "        productName: productName,",
+                    "        productDescription: productDescription,",
+                    "        productPrice:productPrice,",
+                    "        productStockQuantity: productInStock,",
+                    "        productImagePath: productImagePath",
+                    "    },",
+                    "    ",
+                    "    scope: this,",
+                    "    success: function(response){",
+                    "        var responseText = JSON.parse(response.responseText);",
+                    "        alert(responseText);",
+                    "    }",
+                    "    ",
+                    "});",
+                    "",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnSaveProduct",
+            "designerId": "1a6746a1-1938-4493-abbf-5f8019621542"
         }
     ]
 }

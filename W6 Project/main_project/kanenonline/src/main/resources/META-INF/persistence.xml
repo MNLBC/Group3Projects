@@ -14,7 +14,8 @@
 		<class>com.oocl.mnlbc.entity.MembershipType</class>
 		<class>com.oocl.mnlbc.entity.CartItem</class>
 		<class>com.oocl.mnlbc.entity.UserMembershipAsn</class>
-		
+		<class>com.oocl.mnlbc.entity.WishList</class>
+		<class>com.oocl.mnlbc.entity.ProductCommentAssn</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@zha-ita122-w7:1521:XE" />

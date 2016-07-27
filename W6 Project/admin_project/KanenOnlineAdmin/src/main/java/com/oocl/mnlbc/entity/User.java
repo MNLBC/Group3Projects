@@ -7,20 +7,22 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 
- * @author Melvin Yu
- * This is the Entitiy of the User table
+ * @author Melvin Yu This is the Entitiy of the User table
  */
-@Entity(name = "user")
-@Table(name = "users")
+@Entity(name = "User")
+@Table(name = "USERS")
 public class User implements Serializable {
 
 	/**
@@ -29,6 +31,8 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "USER_ID")
+	@SequenceGenerator(name = "USER_ID_SEQ", sequenceName = "USER_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(generator = "USER_ID_SEQ", strategy = GenerationType.SEQUENCE)
 	private long userId;
 	@Column(name = "USERNAME")
 	private String username;
@@ -36,16 +40,18 @@ public class User implements Serializable {
 	private String userPassword;
 	@Column(name = "FULL_NAME")
 	private String fullName;
+	@Column(name = "EMAIL")
+	private String email;
+	@Column(name = "ADDRESS")
+	private String address;
+	@Column(name = "MOBILE_NUMBER")
+	private String mobileNumber;
 	@Column(name = "USER_ROLE")
 	private String userRole;
-	@JsonIgnore
-	@OneToOne(cascade = CascadeType.REMOVE, mappedBy = "userId", fetch = FetchType.LAZY)
-	private UserMembershipAsn userMembershipId;
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "userId", fetch = FetchType.LAZY)
-	private List<Order> orderId;
+	@Column(name = "IS_BLACKLISTED")
+	private String isBlacklisted;
 
-	public User() {
+	User() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -54,33 +60,24 @@ public class User implements Serializable {
 	 * @param username
 	 * @param userPassword
 	 * @param fullName
+	 * @param email
+	 * @param address
+	 * @param mobileNumber
 	 * @param userRole
-	 * @param userMembershipId
+	 * @param isBlacklisted
 	 */
-	public User(long userId, String username, String userPassword, String fullName, String userRole,
-			UserMembershipAsn userMembershipId) {
+	public User(long userId, String username, String userPassword, String fullName, String email, String address,
+			String mobileNumber, String userRole) {
 		super();
 		this.userId = userId;
 		this.username = username;
 		this.userPassword = userPassword;
 		this.fullName = fullName;
+		this.email = email;
+		this.address = address;
+		this.mobileNumber = mobileNumber;
 		this.userRole = userRole;
-		this.userMembershipId = userMembershipId;
-	}
-
-	/**
-	 * @return the orderList
-	 */
-	public List<Order> getOrderList() {
-		return orderId;
-	}
-
-	/**
-	 * @param orderList
-	 *            the orderList to set
-	 */
-	public void setOrderList(List<Order> orderId) {
-		this.orderId = orderId;
+		this.isBlacklisted = isBlacklisted;
 	}
 
 	/**
@@ -144,6 +141,51 @@ public class User implements Serializable {
 	}
 
 	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email
+	 *            the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address
+	 *            the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	/**
+	 * @return the mobileNumber
+	 */
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	/**
+	 * @param mobileNumber
+	 *            the mobileNumber to set
+	 */
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	/**
 	 * @return the userRole
 	 */
 	public String getUserRole() {
@@ -159,18 +201,18 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the userMembershipId
+	 * @return the isBlacklisted
 	 */
-	public UserMembershipAsn getUserMembershipId() {
-		return userMembershipId;
+	public String getIsBlacklisted() {
+		return isBlacklisted;
 	}
 
 	/**
-	 * @param userMembershipId
-	 *            the userMembershipId to set
+	 * @param isBlacklisted
+	 *            the isBlacklisted to set
 	 */
-	public void setUserMembershipId(UserMembershipAsn userMembershipId) {
-		this.userMembershipId = userMembershipId;
+	public void setIsBlacklisted(String isBlacklisted) {
+		this.isBlacklisted = isBlacklisted;
 	}
 
 	/*
@@ -213,8 +255,8 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", username=" + username + ", userPassword=" + userPassword + ", fullName="
-				+ fullName + ", userRole=" + userRole + ", userMembershipId=" + userMembershipId + ", orderList="
-				+ orderId + "]";
+				+ fullName + ", email=" + email + ", address=" + address + ", mobileNumber=" + mobileNumber
+				+ ", userRole=" + userRole + ", isBlacklisted=" + isBlacklisted + "]";
 	}
 
 }

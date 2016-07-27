@@ -32,6 +32,10 @@
 		scope="singleton">
 	</bean>
 	
+	<bean id="wishListDAO" class="com.oocl.mnlbc.service.WishListDAOImpl"
+		scope="singleton">
+	</bean>
+	
 	<bean id="productService" class="com.oocl.mnlbc.services.ProductService"
 		scope="singleton">
 	</bean>
@@ -49,6 +53,10 @@
 	</bean>
 	
 	<bean id="cartService" class="com.oocl.mnlbc.services.CartService"
+		scope="singleton">
+	</bean>
+	
+	<bean id="wishListService" class="com.oocl.mnlbc.services.WishListService"
 		scope="singleton">
 	</bean>
 

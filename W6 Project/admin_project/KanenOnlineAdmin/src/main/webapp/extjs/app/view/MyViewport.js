@@ -19,15 +19,16 @@ Ext.define('MyApp.view.MyViewport', {
     requires: [
         'Ext.form.Panel',
         'Ext.button.Button',
-        'Ext.toolbar.Toolbar',
-        'Ext.form.Label',
-        'Ext.Img',
+        'Ext.menu.Menu',
+        'Ext.menu.Item',
         'Ext.grid.Panel',
         'Ext.grid.column.Number',
+        'Ext.form.field.Number',
         'Ext.grid.View',
-        'Ext.form.field.ComboBox',
+        'Ext.selection.RowModel',
         'Ext.grid.plugin.RowEditing',
-        'Ext.selection.RowModel'
+        'Ext.toolbar.Toolbar',
+        'Ext.form.field.ComboBox'
     ],
 
     layout: 'fit',
@@ -62,6 +63,7 @@ Ext.define('MyApp.view.MyViewport', {
                                     id: 'txtUsername',
                                     itemId: 'txtUsername',
                                     fieldLabel: 'Username',
+                                    allowBlank: false,
                                     emptyText: 'Username'
                                 },
                                 {
@@ -112,61 +114,20 @@ Ext.define('MyApp.view.MyViewport', {
                             height: 94,
                             itemId: 'TopContainer',
                             style: 'background-color:#201303',
-                            layout: {
-                                type: 'hbox',
-                                align: 'bottom',
-                                pack: 'end'
-                            },
-                            items: [
-                                {
-                                    xtype: 'toolbar',
-                                    flex: 1,
-                                    height: 95,
-                                    layout: {
-                                        type: 'hbox',
-                                        pack: 'end'
-                                    },
-                                    items: [
-                                        {
-                                            xtype: 'button',
-                                            height: 25,
-                                            id: 'btnLogout',
-                                            itemId: 'btnLogout',
-                                            width: 94,
-                                            glyph: '',
-                                            text: 'Logout'
-                                        },
-                                        {
-                                            xtype: 'label',
-                                            id: 'lblName',
-                                            itemId: 'lblName',
-                                            text: 'Admin'
-                                        },
-                                        {
-                                            xtype: 'image',
-                                            height: 39,
-                                            width: 46,
-                                            src: 'resource/profile.png'
-                                        }
-                                    ]
-                                }
-                            ]
+                            layout: 'border'
                         },
                         {
                             xtype: 'container',
                             region: 'west',
                             itemId: 'LeftContainer',
                             style: 'background-color:#201303',
-                            width: 186,
-                            layout: {
-                                type: 'vbox',
-                                align: 'center'
-                            },
+                            width: 253,
+                            layout: 'fit',
                             items: [
                                 {
                                     xtype: 'container',
-                                    flex: 0,
                                     height: 145,
+                                    hidden: true,
                                     id: 'confirmCustomerContainer',
                                     itemId: 'confirmCustomerContainer',
                                     style: 'background-color:#00aadd',
@@ -185,8 +146,8 @@ Ext.define('MyApp.view.MyViewport', {
                                 },
                                 {
                                     xtype: 'container',
-                                    flex: 0,
                                     height: 145,
+                                    hidden: true,
                                     id: 'updateOrderStatusContainer',
                                     itemId: 'updateOrderStatusContainer',
                                     width: 206,
@@ -202,8 +163,8 @@ Ext.define('MyApp.view.MyViewport', {
                                 },
                                 {
                                     xtype: 'container',
-                                    flex: 0,
                                     height: 145,
+                                    hidden: true,
                                     id: 'viewAllOrderbtnContainer',
                                     itemId: 'viewAllOrderbtnContainer',
                                     width: 206,
@@ -216,6 +177,68 @@ Ext.define('MyApp.view.MyViewport', {
                                             text: 'View All Orders'
                                         }
                                     ]
+                                },
+                                {
+                                    xtype: 'menu',
+                                    floating: false,
+                                    width: 120,
+                                    bodyStyle: 'background-color:#ffffff !important;',
+                                    animCollapse: true,
+                                    collapseDirection: 'left',
+                                    collapsed: false,
+                                    collapsible: true,
+                                    glyph: '',
+                                    overlapHeader: false,
+                                    placeholderCollapseHideMode: 2,
+                                    titleAlign: 'center',
+                                    titleCollapse: false,
+                                    ignoreParentClicks: true,
+                                    items: [
+                                        {
+                                            xtype: 'menuitem',
+                                            height: 45,
+                                            id: 'products',
+                                            itemId: 'products',
+                                            defaultAlign: 'center',
+                                            glyph: '',
+                                            iconCls: '',
+                                            menuAlign: 'center',
+                                            text: 'Products'
+                                        },
+                                        {
+                                            xtype: 'menuitem',
+                                            height: 45,
+                                            id: 'membershipRequest',
+                                            itemId: 'membershipRequest',
+                                            text: 'Membership Requests'
+                                        },
+                                        {
+                                            xtype: 'menuitem',
+                                            height: 45,
+                                            id: 'orderReqeust',
+                                            itemId: 'orderReqeust',
+                                            text: 'Order Requests'
+                                        },
+                                        {
+                                            xtype: 'menuitem',
+                                            height: 45,
+                                            id: 'viewAllOrder',
+                                            itemId: 'viewAllOrder',
+                                            text: 'View All Orders'
+                                        },
+                                        {
+                                            xtype: 'menuitem',
+                                            height: 45,
+                                            text: 'FAQ\'s'
+                                        },
+                                        {
+                                            xtype: 'menuitem',
+                                            height: 45,
+                                            id: 'logout',
+                                            itemId: 'logout',
+                                            text: 'Logout'
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -225,6 +248,84 @@ Ext.define('MyApp.view.MyViewport', {
                             itemId: 'CenterContainer',
                             layout: 'fit',
                             items: [
+                                {
+                                    xtype: 'panel',
+                                    id: 'productListPanel',
+                                    itemId: 'productListPanel',
+                                    title: 'Products',
+                                    items: [
+                                        {
+                                            xtype: 'gridpanel',
+                                            id: 'productListGrid',
+                                            itemId: 'productListGrid',
+                                            title: '',
+                                            store: 'product',
+                                            columns: [
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'productId',
+                                                    text: 'Product Id',
+                                                    flex: 1
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'productName',
+                                                    text: 'Product Name',
+                                                    flex: 1,
+                                                    editor: {
+                                                        xtype: 'textfield'
+                                                    }
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'productDescription',
+                                                    text: 'Product Description',
+                                                    flex: 2,
+                                                    editor: {
+                                                        xtype: 'textfield'
+                                                    }
+                                                },
+                                                {
+                                                    xtype: 'numbercolumn',
+                                                    dataIndex: 'productPrice',
+                                                    text: 'Price',
+                                                    flex: 1,
+                                                    editor: {
+                                                        xtype: 'numberfield'
+                                                    }
+                                                }
+                                            ],
+                                            selModel: Ext.create('Ext.selection.RowModel', {
+
+                                            }),
+                                            plugins: [
+                                                Ext.create('Ext.grid.plugin.RowEditing', {
+
+                                                })
+                                            ]
+                                        }
+                                    ],
+                                    dockedItems: [
+                                        {
+                                            xtype: 'toolbar',
+                                            dock: 'bottom',
+                                            items: [
+                                                {
+                                                    xtype: 'button',
+                                                    id: 'btnAddProduct',
+                                                    itemId: 'btnAddProduct',
+                                                    text: 'Add Product'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    id: 'btnUpdateProduct',
+                                                    itemId: 'btnUpdateProduct',
+                                                    text: 'Update Product'
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
                                 {
                                     xtype: 'panel',
                                     id: 'viewAllOrderPanel',
@@ -388,7 +489,7 @@ Ext.define('MyApp.view.MyViewport', {
                                                 {
                                                     xtype: 'gridcolumn',
                                                     dataIndex: 'fullName',
-                                                    text: 'Username',
+                                                    text: 'Name',
                                                     flex: 1
                                                 },
                                                 {
@@ -400,7 +501,7 @@ Ext.define('MyApp.view.MyViewport', {
                                                 {
                                                     xtype: 'gridcolumn',
                                                     dataIndex: 'requestedMembershipLevel',
-                                                    text: 'Membership Level',
+                                                    text: 'Requested Membership Level',
                                                     flex: 1
                                                 }
                                             ],
@@ -425,6 +526,91 @@ Ext.define('MyApp.view.MyViewport', {
                                                     id: 'btnRejectRequest',
                                                     itemId: 'btnRejectRequest',
                                                     text: 'Reject Request'
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'container',
+                                    hidden: true,
+                                    id: 'AddProductContainer',
+                                    width: 150,
+                                    items: [
+                                        {
+                                            xtype: 'form',
+                                            height: 250,
+                                            id: 'addProductForm',
+                                            itemId: 'addProductForm',
+                                            width: 575,
+                                            bodyPadding: 10,
+                                            title: 'Add Product',
+                                            items: [
+                                                {
+                                                    xtype: 'textfield',
+                                                    anchor: '100%',
+                                                    fieldLabel: 'Product Name',
+                                                    labelWidth: 120
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    anchor: '100%',
+                                                    fieldLabel: 'Product Description',
+                                                    labelWidth: 120
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    anchor: '100%',
+                                                    fieldLabel: 'Product Price',
+                                                    labelWidth: 120,
+                                                    regex: /^[1-9][0-9]*$/
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    anchor: '100%',
+                                                    fieldLabel: 'In Stock Quantity',
+                                                    labelWidth: 120,
+                                                    regex: /^[1-9][0-9]*$/
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    anchor: '100%',
+                                                    fieldLabel: 'Image Path',
+                                                    labelWidth: 120
+                                                },
+                                                {
+                                                    xtype: 'container',
+                                                    height: 25,
+                                                    id: 'ButtonContainer',
+                                                    itemId: 'ButtonContainer',
+                                                    layout: {
+                                                        type: 'hbox',
+                                                        align: 'stretch',
+                                                        pack: 'center'
+                                                    },
+                                                    items: [
+                                                        {
+                                                            xtype: 'button',
+                                                            margins: '',
+                                                            height: 25,
+                                                            margin: 2,
+                                                            padding: 1,
+                                                            width: 100,
+                                                            text: 'Save Product'
+                                                        },
+                                                        {
+                                                            xtype: 'button',
+                                                            margin: 2,
+                                                            width: 100,
+                                                            text: 'Reset'
+                                                        },
+                                                        {
+                                                            xtype: 'button',
+                                                            margin: 2,
+                                                            width: 100,
+                                                            text: 'Cancel'
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         }
