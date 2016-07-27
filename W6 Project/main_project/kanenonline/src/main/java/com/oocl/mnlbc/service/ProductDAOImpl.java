@@ -2,14 +2,16 @@ package com.oocl.mnlbc.service;
 
 import java.util.List;
 
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import com.oocl.mnlbc.dao.ProductDAO;
 import com.oocl.mnlbc.entity.Product;
+import com.oocl.mnlbc.entity.ProductCommentAssn;
 /**
  * 
  * @author BRIONSE
- *
+ * @author FLOREJE
  */
 public class ProductDAOImpl extends AbstractJPAGenericDAO<Product>implements ProductDAO {
 	
@@ -26,4 +28,21 @@ public class ProductDAOImpl extends AbstractJPAGenericDAO<Product>implements Pro
 		return query.getResultList();
 
 	}
+	/**
+	 * Saves the user's product comment to the database
+	 * 
+	 */
+	@Override
+	public boolean saveProductComment(ProductCommentAssn productComment) {
+
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(productComment);
+			entityManager.getTransaction().commit();
+			return true;
+		} catch (PersistenceException e) {
+			return false;
+		}
+	}
+	
 }
