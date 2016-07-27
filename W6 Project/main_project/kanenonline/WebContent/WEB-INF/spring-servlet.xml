@@ -28,5 +28,13 @@
 
 	<mvc:resources location="/extjs/resource/" mapping="resource/*.jpg"></mvc:resources>
 	<mvc:resources location="/extjs/resource/" mapping="resource/*.png"></mvc:resources>
+	
+	
+	 <mvc:interceptors>
+   <mvc:interceptor>
+     <mvc:mapping path="/user/login/**" />
+     <bean class="com.oocl.mnlbc.interceptor.BannedUsersInterceptors"/>
+   </mvc:interceptor>
+</mvc:interceptors>
 
 </beans>
