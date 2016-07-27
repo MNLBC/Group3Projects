@@ -24,13 +24,19 @@ Ext.application({
         'orderModel',
         'membershipRequest',
         'userModel',
-        'orderItem'
+        'orderItem',
+        'updatedOrder',
+        'product',
+        'updatedProduct'
     ],
     stores: [
         'orderStore',
         'membershipRequest',
         'userStore',
-        'orderItems'
+        'orderItems',
+        'updatedOrder',
+        'product',
+        'updateProduct'
     ],
     views: [
         'MyViewport'

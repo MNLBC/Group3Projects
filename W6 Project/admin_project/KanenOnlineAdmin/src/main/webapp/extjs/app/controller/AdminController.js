@@ -18,16 +18,24 @@ Ext.define('MyApp.controller.AdminController', {
 
     refs: [
         {
-            ref: 'centerContainer',
-            selector: '#CenterContainer'
+            ref: 'productListPanel',
+            selector: '#productListPanel'
+        },
+        {
+            ref: 'customerConfirmPanel',
+            selector: '#customerConfirmPanel'
         },
         {
             ref: 'orderRequestsPanel',
             selector: '#orderRequestsPanel'
         },
         {
-            ref: 'customerConfirmPanel',
-            selector: '#customerConfirmPanel'
+            ref: 'viewAllOrderPanel',
+            selector: '#viewAllOrderPanel'
+        },
+        {
+            ref: 'centerContainer',
+            selector: '#CenterContainer'
         },
         {
             ref: 'username',
@@ -46,12 +54,11 @@ Ext.define('MyApp.controller.AdminController', {
             selector: '#adminContainer'
         },
         {
-            ref: 'viewAllOrderPanel',
-            selector: '#viewAllOrderPanel'
+            ref: 'addProductContainer',
+            selector: '#AddProductContainer'
         }
     ],
 
-    //Displaying requests of upgrading membership type of user 
     onBtnCustomerRequestClick: function() {
         this.getCustomerConfirmPanel().show();
         this.getOrderRequestsPanel().hide();
@@ -89,7 +96,6 @@ Ext.define('MyApp.controller.AdminController', {
         });
     },
 
-    //Displaying pending orders from users
     onConfirmOrderBtnClick: function() {
         this.getOrderRequestsPanel().show();
         this.getViewAllOrderPanel().hide();
@@ -133,7 +139,7 @@ Ext.define('MyApp.controller.AdminController', {
             }
         });
     },
-    //Login handle
+
     onBtnLoginClick: function() {
         var userName = Ext.getCmp('txtUsername').getValue();
         var userPassword = Ext.getCmp('txtPassword').getValue();
@@ -171,8 +177,6 @@ Ext.define('MyApp.controller.AdminController', {
 
                             userStore.add(loggedInUser);
                             Ext.MessageBox.alert('Status', 'Logged in successfully');
-                            var lblName = Ext.getCmp('lblName').text;
-                            lblName = Ext.getStore('userStore').data.items[0].data.userFullName;
                             Ext.getCmp('txtUsername').setValue();
                             Ext.getCmp('txtPassword').setValue();
                             this.getLoginContainer().hide();
@@ -192,8 +196,7 @@ Ext.define('MyApp.controller.AdminController', {
 
         });
     },
-    
-    //Displaying the items included in a specific order
+
     onViewAllOrderGridItemDblClick: function() {
         var viewAllOrderGrid = Ext.getCmp('viewAllOrderGrid');
                  var orderItems = Ext.getStore('orderItems');
@@ -260,10 +263,10 @@ Ext.define('MyApp.controller.AdminController', {
                         var orderId = orderStore.data.items[0].data.orderId;
     },
 
-    //Displays the list of all orders made by the users and getting the items included in the specific order
     onViewAllOrderBtnClick: function() {
         this.getOrderRequestsPanel().hide();
         this.getCustomerConfirmPanel().hide();
+        this.getProductListPanel().hide();
         this.getViewAllOrderPanel().show();
 
         var viewAllGrid = Ext.getCmp('viewAllOrderGrid');
@@ -320,7 +323,6 @@ Ext.define('MyApp.controller.AdminController', {
         });
     },
 
-    //Approve the request of the customer to upgrade membership type
     onBtnApproveRequestClick: function() {
         var userRequestGrid = Ext.getCmp('membershipRequestGrid');
         var userGridStore = userRequestGrid.getStore();
@@ -331,6 +333,8 @@ Ext.define('MyApp.controller.AdminController', {
             var requestedMembershipLevel = selectedRows.data.requestedMembershipLevel;
             Ext.Msg.confirm('Approve Request', 'Do you want to Approve this request?',function(btn){
                 if (btn==='yes'){
+        //                userGridStore.data.items[rowIndex].data.currentMembershipLevel =  userGridStore.data.items[rowIndex].data.requestedMembershipLevel;
+        //                userRequestGrid.getView().refresh();
                         Ext.Ajax.request({
                             url: window.location.pathname +'update/membershipApproval',
                             method: 'POST',
@@ -354,8 +358,7 @@ Ext.define('MyApp.controller.AdminController', {
                Ext.MessageBox.alert('Status','Please select a request to approve');
         }
     },
-    
-    //Approve the request of the customer to upgrade membership type
+
     onBtnRejectRequestClick: function() {
         var userRequestGrid = Ext.getCmp('membershipRequestGrid');
         var userGridStore = userRequestGrid.getStore();
@@ -389,15 +392,7 @@ Ext.define('MyApp.controller.AdminController', {
                Ext.MessageBox.alert('Status','Please select a request ');
         }
     },
-    //Logout
-    onBtnLogoutClick: function() {
-                var userStore  = Ext.getStore('userStore');
-                userStore.removeAll();
-                Ext.Msg.alert('Status', 'Signing out.');
-                this.getAdminPageContainer().hide();
-                this.getLoginContainer().show();
-    },
-    //Updates the status of orders from users
+
     onBtnSaveUpdatesClick: function() {
 
 
@@ -406,7 +401,7 @@ Ext.define('MyApp.controller.AdminController', {
         var selectedRows = orderRequestsGrid.getSelectionModel().getSelection()[0];
         var rowIndex = orderRequestsStore.indexOf(selectedRows);
         if (rowIndex >-1 ){
-            var userId = selectedRows.data.orderId;
+            var userId = selectedRows.data.userId;
             var orderStatus = selectedRows.data.orderStatus;
             Ext.Msg.confirm('Approve Request', 'Do you want to Approve this request?',function(btn){
                 if (btn==='yes'){
@@ -414,8 +409,8 @@ Ext.define('MyApp.controller.AdminController', {
                             url: window.location.pathname +'update/updateOrderStatus',
                             method: 'POST',
                                 params:{
-                                    orderId: userId,
-                                    status: orderStatus
+                                    userId: userId,
+                                    orderStatus: orderStatus
                                 },
 
                         scope:this,
@@ -431,6 +426,381 @@ Ext.define('MyApp.controller.AdminController', {
             });} else {
                Ext.MessageBox.alert('Status','Please select a request to approve');
         }
+    },
+
+    onMembershipRequestClick: function() {
+        this.getCustomerConfirmPanel().show();
+        this.getOrderRequestsPanel().hide();
+        this.getViewAllOrderPanel().hide();
+        this.getProductListPanel().hide();
+
+
+        var customerRequestGrid = Ext.getCmp('membershipRequestGrid');
+        var customerRequestStore = customerRequestGrid.getStore();
+
+        customerRequestStore.clearData();
+        customerRequestGrid.getView().refresh();
+
+        Ext.Ajax.request({
+            url: window.location.pathname +'admin/userRequest',
+            method: 'POST',
+
+            scope: this,
+            success: function(response){
+                var responseText = Ext.decode(response.responseText);
+                for (var ctr = 0; ctr < responseText.userRequest.length; ctr++){
+                    var userRequest = {
+                        userId:responseText.userRequest[ctr].userId,
+                        fullName: responseText.userRequest[ctr].fullname,
+                        currentMembershipLevel: responseText.userRequest[ctr].currentType,
+                        requestedMembershipLevel: responseText.userRequest[ctr].requestType,
+                        isForApproval: responseText.userRequest[ctr].forApproval,
+                        isRequestApproved: responseText.userRequest[ctr].isApproved
+                    };
+                    customerRequestStore.add(userRequest);
+               }
+          },
+            failure: function(){
+                Ext.MessageBox.alert('Loading Failed','Unable to connect to server');
+            }
+
+        });
+    },
+
+    onOrderRequestClick: function() {
+        this.getOrderRequestsPanel().show();
+        this.getViewAllOrderPanel().hide();
+        this.getCustomerConfirmPanel().hide();
+        this.getProductListPanel().hide();
+
+
+        var orderGrid = Ext.getCmp('orderRequestsGrid');
+        var orderGridStore = orderGrid.getStore();
+
+        orderGridStore.remoteFilter = false;
+        orderGridStore.clearFilter();
+        orderGridStore.filter('orderStatus','Pending Order');
+
+        orderGridStore.clearData();
+        orderGrid.getView().refresh();
+
+        Ext.Ajax.request({
+             url: window.location.pathname +'admin/getOrders',
+             method: 'POST',
+
+            scope: this,
+            success: function(response){
+                  var responseText = Ext.decode(response.responseText);
+
+               for (var ctr = 0; ctr < responseText.orderList.length; ctr++){
+                    var order = {
+                        orderId: responseText.orderList[ctr].order.orderId,
+                        userId: responseText.orderList[ctr].userID,
+                        userFullName: responseText.orderList[ctr].fullName,
+                        orderDate: responseText.orderList[ctr].order.orderDate,
+                        totalCost: responseText.orderList[ctr].order.totalCost,
+                        orderStatus: responseText.orderList[ctr].order.orderStatus
+
+                    };
+
+                    orderGridStore.add(order);
+                }
+            },
+
+            failure: function(){
+                Ext.MessageBox.alert('Loading Failed','Unable to connect to server');
+            }
+        });
+    },
+
+    onViewAllOrderClick: function() {
+        this.getOrderRequestsPanel().hide();
+        this.getCustomerConfirmPanel().hide();
+        this.getProductListPanel().hide();
+        this.getViewAllOrderPanel().show();
+
+        var viewAllGrid = Ext.getCmp('viewAllOrderGrid');
+        var viewAllGridStore = viewAllGrid.getStore();
+        var orderItemsStore = Ext.getStore('orderItems');
+
+        orderItemsStore.removeAll();
+        viewAllGridStore.clearData();
+        viewAllGrid.getView().refresh();
+
+
+        Ext.Ajax.request({
+             url: window.location.pathname +'admin/getOrders',
+             method: 'POST',
+
+            scope: this,
+            success: function(response){
+                var responseText = Ext.decode(response.responseText);
+
+                for (var ctr = 0; ctr < responseText.orderList.length; ctr++){
+                    var order = {
+                        orderId: responseText.orderList[ctr].order.orderId,
+                        userId: responseText.orderList[ctr].userID,
+                        userFullName: responseText.orderList[ctr].fullName,
+                        orderDate: responseText.orderList[ctr].order.orderDate,
+                        totalCost: responseText.orderList[ctr].order.totalCost,
+                        orderStatus: responseText.orderList[ctr].order.orderStatus
+
+                    };
+
+                    viewAllGridStore.add(order);
+                }
+
+
+                for (var i = 0; i < responseText.itemList.length; i++){
+                    var items = {
+                        orderId: responseText.itemList[i].orderId,
+                        orderItemId: responseText.itemList[i].item.orderItemId,
+                        productId: responseText.itemList[i].item.productId,
+                        productName: responseText.itemList[i].productname,
+                        quantity: responseText.itemList[i].item.quantity,
+                        productPrice: responseText.itemList[i].item.productPrice
+
+                    };
+
+                    orderItemsStore.add(items);
+                }
+            },
+
+            failure: function(){
+                Ext.MessageBox.alert('Loading Failed','Unable to connect to server');
+            }
+
+        });
+    },
+
+    onProductsClick: function() {
+                this.getOrderRequestsPanel().hide();
+                this.getCustomerConfirmPanel().hide();
+                this.getViewAllOrderPanel().hide();
+                this.getProductListPanel().show();
+
+                var productGrid = Ext.getCmp('producListGrid');
+                var productGridStore = productGrid.getStore();
+
+                productGridStore.removeAll();
+                productGridStore.clearData();
+                productGrid.getView().refresh();
+
+
+                Ext.Ajax.request({
+                     url: window.location.pathname +'admin/getProducts',
+                     method: 'POST',
+
+                    scope: this,
+                    success: function(response){
+                        var responseText = Ext.decode(response.responseText);
+
+
+                        for (var i = 0; i < responseText.itemList.length; i++){
+                            var items = {
+                                orderId: responseText.itemList[i].orderId,
+                                orderItemId: responseText.itemList[i].item.orderItemId,
+                                productId: responseText.itemList[i].item.productId,
+                                productName: responseText.itemList[i].productname,
+                                quantity: responseText.itemList[i].item.quantity,
+                                productPrice: responseText.itemList[i].item.productPrice
+
+                            };
+
+                            productGridStore.add(items);
+                        }
+                    },
+
+                    failure: function(){
+                        Ext.MessageBox.alert('Loading Failed','Unable to connect to server');
+                    }
+
+                });
+    },
+
+    onLogoutClick: function() {
+                var userStore  = Ext.getStore('userStore');
+                userStore.removeAll();
+                Ext.Msg.alert('Status', 'Signing out.');
+
+                this.getAdminPageContainer().hide();
+                this.getLoginContainer().show();
+    },
+
+    onBtnAddProductClick: function() {
+        Ext.create('Ext.window.Window',
+                   {
+                       renderTo : Ext.getBody(),
+                       bodyPadding: 10,
+                       title: 'Add Product',
+                       closable: true,
+                       autoShow: true,
+                       resizable:false,
+                       draggable: false,
+                       modal: true,
+                       width:800,
+                       height:250,
+                       items: [
+                           {
+                               xtype: 'form',
+                               autoScroll: true,
+                               bodyBorder: true,
+                               bodyPadding: 10,
+                               modal:true,
+
+                               layout: {
+                                   type: 'vbox',
+                                   align: 'stretch'
+                               },
+                               items: [
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       id: 'txtProductName',
+                                       labelWidth: 120,
+                                       allowBlank: false,
+                                       fieldLabel: 'Product Name'
+                                   },
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       id: 'txtProductDescription',
+                                       labelWidth: 120,
+                                       allowBlank: false,
+                                       fieldLabel: 'Product Description'
+                                   },
+
+
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       labelWidth: 120,
+                                       id:'txtProductPrice',
+                                       regex: /^[1-9][0-9]*$/,
+                                       allowBlank: false,
+                                       fieldLabel: 'Product Price'
+                                   },
+
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       labelWidth: 120,
+                                       id:'txtProductQuantity',
+                                       regex: /^[1-9][0-9]*$/,
+                                       allowBlank: false,
+                                       fieldLabel: 'In Stock Quantity'
+                                   },
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       labelWidth: 120,
+                                       id: 'productImagePath',
+                                       allowBlank: false,
+                                       fieldLabel: 'Image Path'
+                                   },
+
+                                   {
+                                       xtype: 'container',
+                                       flex: 0,
+                                       width: 496,
+                                       layout: {
+                                           type: 'hbox',
+                                           align: 'stretch',
+                                           pack:'center'
+                                       },
+                                       items: [
+                                           {
+                                               xtype: 'button',
+                                               width: 118,
+                                               margin:'2',
+                                               id: 'btnSaveProduct',
+                                               text: 'Add Product'
+                                           },
+                                            {
+                                               xtype: 'button',
+                                               width: 118,
+                                                margin:'2',
+                                               id: 'btnReset',
+                                               text: 'Reset'
+                                           }
+                                       ]
+                                   }
+                               ]
+                           }
+                       ]
+                   });
+
+    },
+
+    onBtnUpdateProductClick: function() {
+         parms = [];
+         var productListGrid = Ext.getCmp('productListGrid');
+         var productListStore = productListGrid.getStore();
+         var updatedRecords = productListStore.getModifiedRecords();
+         var updateProduct = Ext.getStore('updateProduct');
+         Ext.each(updatedRecords,function(record){
+             if (record.dirty){
+                 parms.push(record.data);
+                 var product = {
+                     productName: record.data.productName,
+                     productDescription: record.data.productDescription,
+                     productPrice: record.data.productPrice,
+                     productQuantity: record.data.productStockQuantity,
+                     productImagePath: record.data.productImagePath
+
+                 };
+                 updateProduct.add(product);
+             }
+
+         });
+
+        Ext.Ajax.request({
+
+            url: 'update/updateProduct',
+            method: POST,
+
+            params:{
+
+                jsonData: parms,
+            },
+
+            scope: this,
+            success: function(response){
+                var responseText = Ext.decode(response.responseText);
+
+            }
+
+        });
+
+    },
+
+    onBtnSaveProduct: function(button, e, eOpts) {
+        var productName = Ext.getCmp('txtProductName').getValue();
+        var productDescription = Ext.getCmp('txtProductDescription').getValue();
+        var productPrice = Ext.getCmp('txtProductPrice').getValue();
+        var productInStock = Ext.getCmp('txtProductQuantity').getValue();
+        var productImagePath = Ext.getCmp('productImagePath').getValue();
+
+        Ext.Ajax.request({
+               url: 'admin/addProduct',
+                    method: POST,
+            params:{
+                productName: productName,
+                productDescription: productDescription,
+                productPrice:productPrice,
+                productStockQuantity: productInStock,
+                productImagePath: productImagePath
+            },
+
+            scope: this,
+            success: function(response){
+                var responseText = JSON.parse(response.responseText);
+                alert(responseText);
+            }
+
+        });
+
+
     },
 
     init: function(application) {
@@ -456,11 +826,32 @@ Ext.define('MyApp.controller.AdminController', {
             "#btnRejectRequest": {
                 click: this.onBtnRejectRequestClick
             },
-            "#btnLogout": {
-                click: this.onBtnLogoutClick
-            },
             "#btnSaveUpdates": {
                 click: this.onBtnSaveUpdatesClick
+            },
+            "#membershipRequest": {
+                click: this.onMembershipRequestClick
+            },
+            "#orderReqeust": {
+                click: this.onOrderRequestClick
+            },
+            "#viewAllOrder": {
+                click: this.onViewAllOrderClick
+            },
+            "#products": {
+                click: this.onProductsClick
+            },
+            "#logout": {
+                click: this.onLogoutClick
+            },
+            "#btnAddProduct": {
+                click: this.onBtnAddProductClick
+            },
+            "#btnUpdateProduct": {
+                click: this.onBtnUpdateProductClick
+            },
+            "#btnSaveProduct": {
+                click: this.onBtnSaveProduct
             }
         });
     }

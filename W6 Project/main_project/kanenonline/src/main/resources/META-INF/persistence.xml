@@ -14,6 +14,7 @@
 		<class>com.oocl.mnlbc.entity.MembershipType</class>
 		<class>com.oocl.mnlbc.entity.CartItem</class>
 		<class>com.oocl.mnlbc.entity.UserMembershipAsn</class>
+		<class>com.oocl.mnlbc.entity.WishList</class>
 		
 		
 		<properties>

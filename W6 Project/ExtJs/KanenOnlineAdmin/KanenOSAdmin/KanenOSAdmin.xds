@@ -19,7 +19,8 @@
                 "height": null,
                 "width": null
             }
-        }
+        },
+        "displayfield-ExtBox1-1180-inputEl": "a new version of the framework is available"
     },
     "xdsVersion": "3.1.0",
     "xdsBuild": 1943,
@@ -35,7 +36,9 @@
             "8171fdcc-967d-4690-a6fd-283b6ada42b8",
             "70a0abcb-1b22-432d-a523-6a044c0ba7b8",
             "ad216dc7-39fb-4334-b0a7-04a0748e52c6",
-            "97c5568f-b3c0-4e13-a88e-349196d46cba"
+            "97c5568f-b3c0-4e13-a88e-349196d46cba",
+            "95dbf9ca-0dc7-420d-b500-b1349156053d",
+            "65a76fce-0cab-4d75-9aba-b4c3a96d66a6"
         ],
         "controller": [
             "3569a569-9f1c-455f-a9ba-8de788827777"
@@ -45,7 +48,9 @@
             "50ae2336-b2e7-44a0-8463-56a9ec988eed",
             "c730a63b-365a-42b7-a579-8eca42bf888f",
             "aad2573a-c888-4a31-91c4-d803244f722b",
-            "8f20e1ff-7521-4df3-8ed3-b2dec2d0a31f"
+            "8f20e1ff-7521-4df3-8ed3-b2dec2d0a31f",
+            "22a1b03a-8aa9-4f40-979c-cfe435ed172f",
+            "81e1f9d2-b624-4269-92ab-bb99b1697a02"
         ],
         "resource": [
             "b7276d73-09b8-4258-81d8-6379e4db620e",

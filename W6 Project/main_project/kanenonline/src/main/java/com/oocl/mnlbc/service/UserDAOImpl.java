@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import com.oocl.mnlbc.constants.KanenOnlineConstants;
 import com.oocl.mnlbc.dao.UserDAO;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
@@ -103,7 +104,7 @@ public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO 
 			userMembershipAsn.setUserId(newlyCreatedUser);
 
 			// set the default membership type to member
-			userMembershipAsn.setMembershipTypeId(5000000001L);
+			userMembershipAsn.setMembershipTypeId(KanenOnlineConstants.DEFAULT_USER_MEMBERSHIP_TYPE);
 			
 			entityManager.persist(userMembershipAsn);
 			entityManager.getTransaction().commit();

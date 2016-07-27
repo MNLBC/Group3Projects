@@ -54,40 +54,7 @@ public class OrderController {
 
 		response = orderService.getOrderList(userId);
 
-		// logger.info("Retrieving orders for user " + userId + "..");
-		// List<Order> orders =
-		// orderDAO.getTransactions(Long.parseLong(userId));
-		// //uses Response model so that the jsondata will have the "success"
-		// and "data" value set
-		// Response<OrdersAndItems> response = new Response<OrdersAndItems>();
-		//
-		// if (orders != null) {
-		//
-		// OrdersAndItems ordersAndItems = new OrdersAndItems();
-		// ordersAndItems.setOrders(orders);
-		// List<CartItemBean> allOrderItems = new ArrayList<CartItemBean>();
-		//
-		// long orderId = 0;
-		// for (Order order : orders) {
-		// orderId = order.getOrderId();
-		//
-		// allOrderItems.addAll(orderDAO.getItems(orderId));
-		//
-		// }
-		//
-		// ordersAndItems.setItems(allOrderItems);
-		// if (CollectionUtils.isNotEmptyList(orders)) {
-		// response.setSuccess(true);
-		// response.setData(ordersAndItems);
-		// logger.info("Orders of user " + userId + "is successfully
-		// retrieved.");
-		// } else {
-		// response.setSuccess(false);
-		// response.setData(null);
-		// logger.info("Retrieval of user " + userId + " orders failed.");
-		// }
-		// }
-		// return response;
+		
 		return response;
 	}
 
@@ -106,37 +73,6 @@ public class OrderController {
 		String response;
 		response = orderService.saveOrder(jsonData);
 
-		// DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
-		// Date date = new Date();
-		// Gson gson = new Gson();
-		// Order order = gson.fromJson(jsonData, Order.class);
-		// order.setOrderDate(dateFormat.format(date));
-		// order.setOrderStatus(KanenOnlineConstants.DEFAULT_DELIVERY_STATUS);
-		// order.setOrderId(0);
-		//
-		// List<OrderItem> orderItems = order.getItems();
-		//
-		// order.setItems(null);
-		//
-		// long userId = order.getUserId();
-		//
-		// StringBuilder builder = new StringBuilder();
-		// String errorMsg = "";
-		//
-		// builder.append("{\"success\":true,\"data\":{\"errormsg\":\"");
-		// if (orderDAO.createOrder(order, orderItems)) {
-		// cartDAO.removeUserCart(userId);
-		// errorMsg += "none";
-		// } else {
-		//
-		// errorMsg += "failed";
-		// }
-		//
-		// builder.append(errorMsg);
-		//
-		// builder.append("\"}}");
-		//
-		// return builder.toString();
 		return response;
 	}
 
