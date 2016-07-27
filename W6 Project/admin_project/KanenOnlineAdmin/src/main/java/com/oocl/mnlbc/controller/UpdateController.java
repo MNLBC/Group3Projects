@@ -3,6 +3,8 @@
  */
 package com.oocl.mnlbc.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.oocl.mnlbc.entity.Product;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
+import com.oocl.mnlbc.model.AllProduct;
 import com.oocl.mnlbc.model.AllUser;
 import com.oocl.mnlbc.service.UpdateService;
 
@@ -85,7 +90,7 @@ public class UpdateController {
 		return updateService.updateUser(jsonData);
 	}
 
-	@RequestMapping(value = "/register", method = { RequestMethod.POST })
+	@RequestMapping(value = "/addUser", method = { RequestMethod.POST })
 	@ResponseBody
 	public String createUser(@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "userPassword", required = true) String userPassword,
@@ -99,5 +104,24 @@ public class UpdateController {
 				mobileNumber, userRole);
 		return builder;
 	}
+	
+	@RequestMapping(value = "/addProducts", method = { RequestMethod.POST })
+	@ResponseBody
+	public String createProduct(@RequestParam(value = "productName", required = true) String productName,
+			@RequestParam(value = "productDesctiption", required = true) String productDescription,
+			@RequestParam(value = "productPrice", required = true) double productPrice,
+			@RequestParam(value = "productStockQuantity", required = true) int productStockQuantity,
+			@RequestParam(value = "productImagePath", required = true) String productImagePath)
+				throws Exception {
 
+		String builder = updateService.createProduct(productName, productDescription, productPrice, productStockQuantity, productImagePath);
+		return builder;
+	}
+	
+	@RequestMapping(value = "/updateProduct", method = RequestMethod.POST)
+	@ResponseBody
+	public AllProduct updateProduct(@RequestParam(value = "jsonData", required = true) String jsonData) throws IOException {
+		return updateService.updateProduct(jsonData);
+		
+	}
 }
