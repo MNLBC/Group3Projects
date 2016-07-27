@@ -41,7 +41,9 @@ Ext.application({
         'userList'
     ],
     views: [
-        'MyViewport'
+        'MyViewport',
+        'AdminUserWindow',
+        'AdminAddProductWindow'
     ],
     controllers: [
         'AdminController'

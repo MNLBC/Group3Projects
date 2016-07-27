@@ -29,7 +29,9 @@
     "framework": "ext42",
     "viewOrderMap": {
         "view": [
-            "965174fe-6534-4c69-8a44-473f9baca43a"
+            "965174fe-6534-4c69-8a44-473f9baca43a",
+            "fe4883ea-1cff-441d-88d0-8215fcf37ce1",
+            "19e915e6-5876-4239-9adf-7e49c6220db4"
         ],
         "store": [
             "13817381-306d-49cb-adea-78c888d3e046",

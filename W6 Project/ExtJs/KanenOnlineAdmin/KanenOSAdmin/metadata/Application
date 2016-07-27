@@ -31,7 +31,9 @@
             "userList"
         ],
         "views": [
-            "MyViewport"
+            "MyViewport",
+            "AdminUserWindow",
+            "AdminAddProductWindow"
         ]
     },
     "name": "Application",

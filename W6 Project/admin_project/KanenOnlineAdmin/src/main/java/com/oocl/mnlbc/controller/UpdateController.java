@@ -108,7 +108,7 @@ public class UpdateController {
 	@RequestMapping(value = "/addProducts", method = { RequestMethod.POST })
 	@ResponseBody
 	public String createProduct(@RequestParam(value = "productName", required = true) String productName,
-			@RequestParam(value = "productDesctiption", required = true) String productDescription,
+			@RequestParam(value = "productDescription", required = true) String productDescription,
 			@RequestParam(value = "productPrice", required = true) double productPrice,
 			@RequestParam(value = "productStockQuantity", required = true) int productStockQuantity,
 			@RequestParam(value = "productImagePath", required = true) String productImagePath)

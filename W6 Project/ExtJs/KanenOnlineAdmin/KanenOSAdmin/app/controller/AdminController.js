@@ -271,6 +271,7 @@ Ext.define('MyApp.controller.AdminController', {
         this.getOrderRequestsPanel().hide();
         this.getCustomerConfirmPanel().hide();
         this.getProductListPanel().hide();
+        this.getUserListPanel().hide();
         this.getViewAllOrderPanel().show();
 
         var viewAllGrid = Ext.getCmp('viewAllOrderGrid');
@@ -405,7 +406,7 @@ Ext.define('MyApp.controller.AdminController', {
         var selectedRows = orderRequestsGrid.getSelectionModel().getSelection()[0];
         var rowIndex = orderRequestsStore.indexOf(selectedRows);
         if (rowIndex >-1 ){
-            var userId = selectedRows.data.userId;
+            var orderId = selectedRows.data.orderId;
             var orderStatus = selectedRows.data.orderStatus;
             Ext.Msg.confirm('Approve Request', 'Do you want to Approve this request?',function(btn){
                 if (btn==='yes'){
@@ -413,8 +414,8 @@ Ext.define('MyApp.controller.AdminController', {
                             url: window.location.pathname +'update/updateOrderStatus',
                             method: 'POST',
                                 params:{
-                                    userId: userId,
-                                    orderStatus: orderStatus
+                                    orderId: orderId,
+                                    status: orderStatus
                                 },
 
                         scope:this,
@@ -437,6 +438,7 @@ Ext.define('MyApp.controller.AdminController', {
         this.getOrderRequestsPanel().hide();
         this.getViewAllOrderPanel().hide();
         this.getProductListPanel().hide();
+        this.getUserListPanel().hide();
 
 
         var customerRequestGrid = Ext.getCmp('membershipRequestGrid');
@@ -475,6 +477,7 @@ Ext.define('MyApp.controller.AdminController', {
         this.getOrderRequestsPanel().show();
         this.getViewAllOrderPanel().hide();
         this.getCustomerConfirmPanel().hide();
+        this.getUserListPanel().hide();
         this.getProductListPanel().hide();
 
 
@@ -521,6 +524,7 @@ Ext.define('MyApp.controller.AdminController', {
         this.getOrderRequestsPanel().hide();
         this.getCustomerConfirmPanel().hide();
         this.getProductListPanel().hide();
+        this.getUserListPanel().hide();
         this.getViewAllOrderPanel().show();
 
         var viewAllGrid = Ext.getCmp('viewAllOrderGrid');
@@ -631,107 +635,8 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onBtnAddProductClick: function() {
-        Ext.create('Ext.window.Window',
-                   {
-                       renderTo : Ext.getBody(),
-                       bodyPadding: 10,
-                       title: 'Add Product',
-                       closable: true,
-                       autoShow: true,
-                       resizable:false,
-                       draggable: false,
-                       modal: true,
-                       width:800,
-                       height:250,
-                       items: [
-                           {
-                               xtype: 'form',
-                               autoScroll: true,
-                               bodyBorder: true,
-                               bodyPadding: 10,
-                               modal:true,
-
-                               layout: {
-                                   type: 'vbox',
-                                   align: 'stretch'
-                               },
-                               items: [
-                                   {
-                                       xtype: 'textfield',
-                                       width: 800,
-                                       id: 'txtProductName',
-                                       labelWidth: 120,
-                                       allowBlank: false,
-                                       fieldLabel: 'Product Name'
-                                   },
-                                   {
-                                       xtype: 'textfield',
-                                       width: 800,
-                                       id: 'txtProductDescription',
-                                       labelWidth: 120,
-                                       allowBlank: false,
-                                       fieldLabel: 'Product Description'
-                                   },
-
-
-                                   {
-                                       xtype: 'textfield',
-                                       width: 800,
-                                       labelWidth: 120,
-                                       id:'txtProductPrice',
-                                       regex: /^[1-9][0-9]*$/,
-                                       allowBlank: false,
-                                       fieldLabel: 'Product Price'
-                                   },
-
-                                   {
-                                       xtype: 'textfield',
-                                       width: 800,
-                                       labelWidth: 120,
-                                       id:'txtProductQuantity',
-                                       regex: /^[1-9][0-9]*$/,
-                                       allowBlank: false,
-                                       fieldLabel: 'In Stock Quantity'
-                                   },
-                                   {
-                                       xtype: 'textfield',
-                                       width: 800,
-                                       labelWidth: 120,
-                                       id: 'productImagePath',
-                                       allowBlank: false,
-                                       fieldLabel: 'Image Path'
-                                   },
-
-                                   {
-                                       xtype: 'container',
-                                       flex: 0,
-                                       width: 496,
-                                       layout: {
-                                           type: 'hbox',
-                                           align: 'stretch',
-                                           pack:'center'
-                                       },
-                                       items: [
-                                           {
-                                               xtype: 'button',
-                                               width: 118,
-                                               margin:'2',
-                                               id: 'btnSaveProduct',
-                                               text: 'Add Product'
-                                           },
-                                            {
-                                               xtype: 'button',
-                                               width: 118,
-                                                margin:'2',
-                                               id: 'btnReset',
-                                               text: 'Reset'
-                                           }
-                                       ]
-                                   }
-                               ]
-                           }
-                       ]
-                   });
+        var adminAddProduct = Ext.create('MyApp.view.AdminAddProductWindow', {});
+        adminAddProduct.show();
 
     },
 
@@ -778,11 +683,11 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onBtnSaveProduct: function(button, e, eOpts) {
-        var productName = Ext.getCmp('txtProductName').getValue();
-        var productDescription = Ext.getCmp('txtProductDescription').getValue();
-        var productPrice = Ext.getCmp('txtProductPrice').getValue();
-        var productInStock = Ext.getCmp('txtProductQuantity').getValue();
-        var productImagePath = Ext.getCmp('productImagePath').getValue();
+        var productName = Ext.getCmp('frmProductName').getValue();
+        var productDescription = Ext.getCmp('frmProductDescription').getValue();
+        var productPrice = Ext.getCmp('frmProductPrice').getValue();
+        var productInStock = Ext.getCmp('frmProductQuantity').getValue();
+        var productImagePath = Ext.getCmp('frmProductImagePath').getValue();
 
         Ext.Ajax.request({
                url: 'admin/addProduct',
@@ -857,122 +762,107 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onAddUserClick: function() {
-        Ext.create('Ext.window.Window',
-                   {
-                       renderTo : Ext.getBody(),
-                       bodyPadding: 10,
-                       title: 'Add User',
-                       closable: true,
-                       autoShow: true,
-                       resizable:false,
-                       draggable: false,
-                       modal: true,
-                       width:800,
-                       height:400,
-                       items: [
-                           {
-                               xtype: 'form',
-                               autoScroll: true,
-                               bodyBorder: true,
-                               bodyPadding: 10,
-                               modal:true,
+        this. userAdminWindow= Ext.create('MyApp.view.AdminUserWindow',{});
 
-                               layout: {
-                                   type: 'vbox',
-                                   align: 'stretch'
-                               },
-                               items: [
-                                   {
-                                       xtype: 'textfield',
-                                       width: 800,
-                                       id: 'txtFullName',
-                                       labelWidth: 120,
-                                       allowBlank: false,
-                                       fieldLabel: 'Fullname'
-                                   },
-                                   {
-                                       xtype: 'textfield',
-                                       width: 800,
-                                       id: 'txtUserName',
-                                       labelWidth: 120,
-                                       allowBlank: false,
-                                       fieldLabel: 'Username'
-                                   },
+                this.userAdminWindow.show();
+    },
+
+    onBtnSaveAdminClick: function() {
+        alert('');
+        var frmAddAdmin = Ext.getCmp('frmAddAdminUser');
+                var fullname = frmAddAdmin.query('#frmAdminFullname')[0].getValue();
+                var username = frmAddAdmin.query('#frmAdminUsername')[0].getValue();
+                var password = frmAddAdmin.query('#frmAdminPassword')[0].getValue();
+                var confirmPassword = frmAddAdmin.query('#frmAdminConfirm')[0].getValue();
+                var email = frmAddAdmin.query('#frmAdminEmail')[0].getValue();
+                var address = frmAddAdmin.query('#frmAdminAddress')[0].getValue();
+                var mobile = frmAddAdmin.query('#frmAdminMobile')[0].getValue();
+                var userRole = 'Admin';
+                //var userStore = Ext.getStore('userStore');
+
+                if(frmAddAdmin.isValid()){
+                            if(password === confirmPassword){
+
+                                    Ext.Ajax.request({
+
+                                         url: window.location.pathname +'update/addUser',
+                                         method: 'POST',
+
+                                         params: {
+                                            userName: username,
+                                            userPassword: password,
+                                            fullName: fullname,
+                                            email: email,
+                                            deliveryAddress: address,
+                                            mobileNumber: mobile,
+                                            userRole: userRole
+                                     },
+                                         scope: this,
+                                         success: function(response){
+                                                     var responseText = Ext.decode(response.responseText);
+                                             if(responseText.data.errormsg.indexOf('none') >-1){
+                                                 Ext.MessageBox.alert('Registation','Admin Account Created, Successfully Created Admin Account!');
+                                                  Ext.getCmp('adminUserWindow').close();
+                                             }
+
+                                             if (responseText.data.errormsg.indexOf('usernametaken') >-1){
+                                                 Ext.MessageBox.alert('Registation Failed','Username is already taken!');
+                                             }
+
+                                             if (responseText.data.errormsg.indexOf('emailtaken') >-1){
+                                                 Ext.MessageBox.alert('Registation Failed','Email is already taken!');
+                                             }
+
+                                         }
+                                         });
 
 
-                                   {
-                                       xtype: 'textfield',
-                                       width: 800,
-                                       labelWidth: 120,
-                                       id:'txtAdminPassword',
-                                       inputType:'password',
-                                       allowBlank: false,
-                                       fieldLabel: 'Password'
-                                   },
-                                   {
-                                       xtype: 'textfield',
-                                       width: 800,
-                                       labelWidth: 120,
-                                       id:'txtConfirmPassword',
-                                       inputType:'password',
-                                       allowBlank: false,
-                                       fieldLabel: 'Confirm Password'
-                                   },
-                                   {
-                                       xtype: 'textfield',
-                                       width: 800,
-                                       labelWidth: 120,
-                                       id:'txtEmail',
-                                       allowBlank: false,
-                                       fieldLabel: 'Email'
-                                   },
-                                   {
-                                       xtype: 'textfield',
-                                       width: 800,
-                                       labelWidth: 120,
-                                       id: 'txtAdress',
-                                       allowBlank: false,
-                                       fieldLabel: 'Address'
-                                   },
-                                   {
-                                       xtype: 'textfield',
-                                       width: 800,
-                                       labelWidth: 120,
-                                       id: 'txtMobile',
-                                       allowBlank: false,
-                                       fieldLabel: 'Mobile Number'
-                                   },
-                                   {
-                                       xtype: 'container',
-                                       flex: 0,
-                                       width: 496,
-                                       layout: {
-                                           type: 'hbox',
-                                           align: 'stretch',
-                                           pack:'center'
-                                       },
-                                       items: [
-                                           {
-                                               xtype: 'button',
-                                               width: 118,
-                                               margin:'2',
-                                               id: 'btnSaveProduct',
-                                               text: 'Add Product'
-                                           },
-                                            {
-                                               xtype: 'button',
-                                               width: 118,
-                                                margin:'2',
-                                               id: 'btnReset',
-                                               text: 'Reset'
-                                           }
-                                       ]
-                                   }
-                               ]
-                           }
-                       ]
-                   });
 
+
+                            }else{
+                                Ext.MessageBox.alert('Invalid confirmPassword','Passowrd does not match');
+                            }
+                        }else{
+                            Ext.MessageBox.alert('Missing fields','Please fill-up all the fields!');
+                        }
+    },
+
+    onFrmBtnSaveClick: function() {
+        var productName = Ext.getCmp('frmProductName').getValue();
+        var productDescription = Ext.getCmp('frmProductDescription').getValue();
+        var productPrice = Ext.getCmp('frmProductPrice').getValue();
+        var productInStock = Ext.getCmp('frmProductQuantity').getValue();
+        var productImagePath = Ext.getCmp('frmImagePath').getValue();
+
+        Ext.Ajax.request({
+               url: 'update/addProducts',
+                    method: 'POST',
+            params:{
+                productName: productName,
+                productDescription: productDescription,
+                productPrice:productPrice,
+                productStockQuantity: productInStock,
+                productImagePath: productImagePath
+            },
+
+            scope: this,
+            success: function(response){
+                var responseText = Ext.decode(response.responseText);
+                alert(responseText);
+                Ext.MessageBox.alert('Status', 'Successfully added product to the list');
+                Ext.getCmp('frmProductName').setValue();
+                Ext.getCmp('frmProductDescription').setValue();
+                Ext.getCmp('frmProductPrice').setValue();
+                Ext.getCmp('frmProductQuantity').setValue();
+                Ext.getCmp('frmImagePath').setValue();
+
+            },
+
+             failure: function(){
+                Ext.MessageBox.alert('Loading Failed','Unable to connect to server');
+             }
+
+        });
     },
 
     init: function(application) {
@@ -1030,6 +920,12 @@ Ext.define('MyApp.controller.AdminController', {
             },
             "#addUser": {
                 click: this.onAddUserClick
+            },
+            "#btnSaveAdmin": {
+                click: this.onBtnSaveAdminClick
+            },
+            "#frmBtnSave": {
+                click: this.onFrmBtnSaveClick
             }
         });
     }

@@ -231,7 +231,7 @@ Ext.define('MyApp.view.MyViewport', {
                                                     flex: 1,
                                                     editor: {
                                                         xtype: 'textfield',
-                                                        regex: /^[1-9][0-9]*$/
+                                                        regex: /^[1-9][0-9]{1,9}/
                                                     }
                                                 },
                                                 {
@@ -241,13 +241,14 @@ Ext.define('MyApp.view.MyViewport', {
                                                     flex: 1,
                                                     editor: {
                                                         xtype: 'textfield',
-                                                        regex: /^[1-9][0-9]*$/
+                                                        regex: /^[1-9][0-9]{1,9}/
                                                     }
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
                                                     dataIndex: 'productImagePath',
-                                                    text: 'Image Path'
+                                                    text: 'Image Path',
+                                                    flex: 1
                                                 }
                                             ],
                                             selModel: Ext.create('Ext.selection.RowModel', {
@@ -390,7 +391,7 @@ Ext.define('MyApp.view.MyViewport', {
                                                     xtype: 'button',
                                                     id: 'addUser',
                                                     itemId: 'addUser',
-                                                    text: 'Add User'
+                                                    text: 'Add Admin'
                                                 },
                                                 {
                                                     xtype: 'button',

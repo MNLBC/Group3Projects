@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.oocl.mnlbc.constants.KanenOnlineConstants;
 import com.oocl.mnlbc.daoimpl.MembershipTypeDAOImpl;
 import com.oocl.mnlbc.daoimpl.OrderDAOImpl;
 import com.oocl.mnlbc.daoimpl.ProductDAOImpl;
@@ -17,9 +18,7 @@ import com.oocl.mnlbc.entity.Product;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
 import com.oocl.mnlbc.model.AllProduct;
-import com.oocl.mnlbc.model.AllUser;
 import com.oocl.mnlbc.model.ProductList;
-import com.oocl.mnlbc.model.UserList;
 
 /**
  * @author Melvin Yu
@@ -130,6 +129,10 @@ public class UpdateService {
 		builder.append(returnJson);
 
 		User user = new User(0, userName, userPassword, fullName, email, deliveryAddress, mobileNumber, userRole);
+		UserMembershipAsn membership = new UserMembershipAsn();
+		membership.setUserId(user);
+		membership.setMembershipTypeId(KanenOnlineConstants.DEFAULT_USER_MEMBERSHIP_TYPE);
+		user.setUserMembershipId(membership);
 		if (userDAO.userExists(userName)) {
 			errorMsg += "usernametaken";
 		}
@@ -157,10 +160,18 @@ public class UpdateService {
 		productDAO.init();
 		
 		StringBuilder builder = new StringBuilder();
-		String returnJson = "{\"success\":true";
+		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
+		String errorMsg = "";
 		builder.append(returnJson);
 		Product product = new Product(0, productName, productDescription, productPrice, productStockQuantity, productImagePath);
-		builder.append("\"}");
+
+		if (productDAO.createProduct(product)) {
+			errorMsg += "none";
+		} else {
+			errorMsg += "failed";
+		}
+		
+		builder.append("\"}}");
 		return builder.toString();
 	}
 	

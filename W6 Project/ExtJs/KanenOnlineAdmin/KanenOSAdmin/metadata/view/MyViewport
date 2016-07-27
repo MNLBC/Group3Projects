@@ -453,7 +453,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "regex": "/^[1-9][0-9]*$/\n"
+                                                        "regex": "/^[1-9][0-9]{1,9}/\n"
                                                     },
                                                     "name": "MyTextField9",
                                                     "designerId": "6a3b085b-4ac8-4e59-8f12-d0439c484cc0"
@@ -483,7 +483,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "regex": "/^[1-9][0-9]*$/"
+                                                        "regex": "/^[1-9][0-9]{1,9}/"
                                                     },
                                                     "name": "MyTextField10",
                                                     "designerId": "a4d21cc1-a542-422f-ad34-37f9d44e0d35"
@@ -499,6 +499,7 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "dataIndex": "productImagePath",
+                                                "flex": 1,
                                                 "text": "Image Path"
                                             },
                                             "name": "MyColumn22",
@@ -866,7 +867,7 @@
                                                 "id": "addUser",
                                                 "itemId": "addUser",
                                                 "layout|flex": null,
-                                                "text": "Add User"
+                                                "text": "Add Admin"
                                             },
                                             "name": "MyButton12",
                                             "designerId": "d68d63c3-f0b5-4e64-b2e6-46dcc041032a"
