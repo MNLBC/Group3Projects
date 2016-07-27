@@ -18,16 +18,24 @@ Ext.define('MyApp.controller.AdminController', {
 
     refs: [
         {
-            ref: 'centerContainer',
-            selector: '#CenterContainer'
+            ref: 'productListPanel',
+            selector: '#productListPanel'
+        },
+        {
+            ref: 'customerConfirmPanel',
+            selector: '#customerConfirmPanel'
         },
         {
             ref: 'orderRequestsPanel',
             selector: '#orderRequestsPanel'
         },
         {
-            ref: 'customerConfirmPanel',
-            selector: '#customerConfirmPanel'
+            ref: 'viewAllOrderPanel',
+            selector: '#viewAllOrderPanel'
+        },
+        {
+            ref: 'centerContainer',
+            selector: '#CenterContainer'
         },
         {
             ref: 'username',
@@ -46,8 +54,8 @@ Ext.define('MyApp.controller.AdminController', {
             selector: '#adminContainer'
         },
         {
-            ref: 'viewAllOrderPanel',
-            selector: '#viewAllOrderPanel'
+            ref: 'addProductContainer',
+            selector: '#AddProductContainer'
         }
     ],
 
@@ -260,6 +268,7 @@ Ext.define('MyApp.controller.AdminController', {
     onViewAllOrderBtnClick: function() {
         this.getOrderRequestsPanel().hide();
         this.getCustomerConfirmPanel().hide();
+        this.getProductListPanel().hide();
         this.getViewAllOrderPanel().show();
 
         var viewAllGrid = Ext.getCmp('viewAllOrderGrid');
@@ -425,6 +434,8 @@ Ext.define('MyApp.controller.AdminController', {
         this.getCustomerConfirmPanel().show();
         this.getOrderRequestsPanel().hide();
         this.getViewAllOrderPanel().hide();
+        this.getProductListPanel().hide();
+
 
         var customerRequestGrid = Ext.getCmp('membershipRequestGrid');
         var customerRequestStore = customerRequestGrid.getStore();
@@ -458,10 +469,12 @@ Ext.define('MyApp.controller.AdminController', {
         });
     },
 
-    onOrderReqeustClick: function() {
+    onOrderRequestClick: function() {
         this.getOrderRequestsPanel().show();
         this.getViewAllOrderPanel().hide();
         this.getCustomerConfirmPanel().hide();
+        this.getProductListPanel().hide();
+
 
         var orderGrid = Ext.getCmp('orderRequestsGrid');
         var orderGridStore = orderGrid.getStore();
@@ -505,6 +518,7 @@ Ext.define('MyApp.controller.AdminController', {
     onViewAllOrderClick: function() {
         this.getOrderRequestsPanel().hide();
         this.getCustomerConfirmPanel().hide();
+        this.getProductListPanel().hide();
         this.getViewAllOrderPanel().show();
 
         var viewAllGrid = Ext.getCmp('viewAllOrderGrid');
@@ -561,6 +575,51 @@ Ext.define('MyApp.controller.AdminController', {
         });
     },
 
+    onProductsClick: function() {
+                this.getOrderRequestsPanel().hide();
+                this.getCustomerConfirmPanel().hide();
+                this.getViewAllOrderPanel().hide();
+                this.getProductListPanel().show();
+
+                var productGrid = Ext.getCmp('producListGrid');
+                var productGridStore = productGrid.getStore();
+
+                productGridStore.removeAll();
+                productGridStore.clearData();
+                productGrid.getView().refresh();
+
+
+                Ext.Ajax.request({
+                     url: window.location.pathname +'admin/getProducts',
+                     method: 'POST',
+
+                    scope: this,
+                    success: function(response){
+                        var responseText = Ext.decode(response.responseText);
+
+
+                        for (var i = 0; i < responseText.itemList.length; i++){
+                            var items = {
+                                orderId: responseText.itemList[i].orderId,
+                                orderItemId: responseText.itemList[i].item.orderItemId,
+                                productId: responseText.itemList[i].item.productId,
+                                productName: responseText.itemList[i].productname,
+                                quantity: responseText.itemList[i].item.quantity,
+                                productPrice: responseText.itemList[i].item.productPrice
+
+                            };
+
+                            productGridStore.add(items);
+                        }
+                    },
+
+                    failure: function(){
+                        Ext.MessageBox.alert('Loading Failed','Unable to connect to server');
+                    }
+
+                });
+    },
+
     onLogoutClick: function() {
                 var userStore  = Ext.getStore('userStore');
                 userStore.removeAll();
@@ -568,6 +627,182 @@ Ext.define('MyApp.controller.AdminController', {
 
                 this.getAdminPageContainer().hide();
                 this.getLoginContainer().show();
+    },
+
+    onBtnAddProductClick: function() {
+        Ext.create('Ext.window.Window',
+                   {
+                       renderTo : Ext.getBody(),
+                       bodyPadding: 10,
+                       title: 'Add Product',
+                       closable: true,
+                       autoShow: true,
+                       resizable:false,
+                       draggable: false,
+                       modal: true,
+                       width:800,
+                       height:250,
+                       items: [
+                           {
+                               xtype: 'form',
+                               autoScroll: true,
+                               bodyBorder: true,
+                               bodyPadding: 10,
+                               modal:true,
+
+                               layout: {
+                                   type: 'vbox',
+                                   align: 'stretch'
+                               },
+                               items: [
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       id: 'txtProductName',
+                                       labelWidth: 120,
+                                       allowBlank: false,
+                                       fieldLabel: 'Product Name'
+                                   },
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       id: 'txtProductDescription',
+                                       labelWidth: 120,
+                                       allowBlank: false,
+                                       fieldLabel: 'Product Description'
+                                   },
+
+
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       labelWidth: 120,
+                                       id:'txtProductPrice',
+                                       regex: /^[1-9][0-9]*$/,
+                                       allowBlank: false,
+                                       fieldLabel: 'Product Price'
+                                   },
+
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       labelWidth: 120,
+                                       id:'txtProductQuantity',
+                                       regex: /^[1-9][0-9]*$/,
+                                       allowBlank: false,
+                                       fieldLabel: 'In Stock Quantity'
+                                   },
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       labelWidth: 120,
+                                       id: 'productImagePath',
+                                       allowBlank: false,
+                                       fieldLabel: 'Image Path'
+                                   },
+
+                                   {
+                                       xtype: 'container',
+                                       flex: 0,
+                                       width: 496,
+                                       layout: {
+                                           type: 'hbox',
+                                           align: 'stretch',
+                                           pack:'center'
+                                       },
+                                       items: [
+                                           {
+                                               xtype: 'button',
+                                               width: 118,
+                                               margin:'2',
+                                               id: 'btnSaveProduct',
+                                               text: 'Add Product'
+                                           },
+                                            {
+                                               xtype: 'button',
+                                               width: 118,
+                                                margin:'2',
+                                               id: 'btnReset',
+                                               text: 'Reset'
+                                           }
+                                       ]
+                                   }
+                               ]
+                           }
+                       ]
+                   });
+
+    },
+
+    onBtnUpdateProductClick: function() {
+         parms = [];
+         var productListGrid = Ext.getCmp('productListGrid');
+         var productListStore = productListGrid.getStore();
+         var updatedRecords = productListStore.getModifiedRecords();
+         var updateProduct = Ext.getStore('updateProduct');
+         Ext.each(updatedRecords,function(record){
+             if (record.dirty){
+                 parms.push(record.data);
+                 var product = {
+                     productName: record.data.productName,
+                     productDescription: record.data.productDescription,
+                     productPrice: record.data.productPrice,
+                     productQuantity: record.data.productStockQuantity,
+                     productImagePath: record.data.productImagePath
+
+                 };
+                 updateProduct.add(product);
+             }
+
+         });
+
+        Ext.Ajax.request({
+
+            url: 'update/updateProduct',
+            method: POST,
+
+            params:{
+
+                jsonData: parms,
+            },
+
+            scope: this,
+            success: function(response){
+                var responseText = Ext.decode(response.responseText);
+
+            }
+
+        });
+
+    },
+
+    onBtnSaveProduct: function(button, e, eOpts) {
+        var productName = Ext.getCmp('txtProductName').getValue();
+        var productDescription = Ext.getCmp('txtProductDescription').getValue();
+        var productPrice = Ext.getCmp('txtProductPrice').getValue();
+        var productInStock = Ext.getCmp('txtProductQuantity').getValue();
+        var productImagePath = Ext.getCmp('productImagePath').getValue();
+
+        Ext.Ajax.request({
+               url: 'admin/addProduct',
+                    method: POST,
+            params:{
+                productName: productName,
+                productDescription: productDescription,
+                productPrice:productPrice,
+                productStockQuantity: productInStock,
+                productImagePath: productImagePath
+            },
+
+            scope: this,
+            success: function(response){
+                var responseText = JSON.parse(response.responseText);
+                alert(responseText);
+            }
+
+        });
+
+
     },
 
     init: function(application) {
@@ -600,13 +835,25 @@ Ext.define('MyApp.controller.AdminController', {
                 click: this.onMembershipRequestClick
             },
             "#orderReqeust": {
-                click: this.onOrderReqeustClick
+                click: this.onOrderRequestClick
             },
             "#viewAllOrder": {
                 click: this.onViewAllOrderClick
             },
+            "#products": {
+                click: this.onProductsClick
+            },
             "#logout": {
                 click: this.onLogoutClick
+            },
+            "#btnAddProduct": {
+                click: this.onBtnAddProductClick
+            },
+            "#btnUpdateProduct": {
+                click: this.onBtnUpdateProductClick
+            },
+            "#btnSaveProduct": {
+                click: this.onBtnSaveProduct
             }
         });
     }
