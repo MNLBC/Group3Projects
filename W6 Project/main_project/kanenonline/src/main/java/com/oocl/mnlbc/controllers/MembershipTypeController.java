@@ -42,18 +42,7 @@ public class MembershipTypeController {
 		Response<ModelWrapper<MembershipType>> response = new Response<ModelWrapper<MembershipType>>();
 		
 		response = membershipTypeService.getMembershipTypes();
-//		
-//		Response<ModelWrapper<MembershipType>> response = new Response<ModelWrapper<MembershipType>>();
-//		List<MembershipType> membershipTypes = membershipTypeDAO.getMembershipTypes();
-//
-//		ModelWrapper<MembershipType> wrapper = new ModelWrapper<MembershipType>();
-//		wrapper.setItems(membershipTypes);
-//		response.setData(wrapper);
-//
-//		if (CollectionUtils.isNotEmptyList(membershipTypes)) {
-//			response.setSuccess(true);
-//		}
-//		return response;
+		
 			return response;
 	};
 
@@ -75,17 +64,7 @@ public class MembershipTypeController {
 		Response<String> response = new Response<String>();
 		
 		response = membershipTypeService.newMembershipTypRequest(userId, requestedMembershipTypeName);
-//
-//		Response<String> response = new Response<String>();
-//
-//		if (userId != null && requestedMembershipTypeName != null) {
-//			membershipRequestProducer.sendMessage(userId + "," + requestedMembershipTypeName);
-//			response.setSuccess(true);
-//		}
-//
-//		response.setData("Request sent!"); 
-//
-//		return response;
+
 		return response;
 	};
 
