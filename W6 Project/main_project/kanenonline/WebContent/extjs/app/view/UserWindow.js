@@ -26,7 +26,7 @@ Ext.define('KanenOnlineShopping.view.UserWindow', {
     id: 'UserWindow',
     itemId: 'UserWindow',
     width: 530,
-    title: 'My Window',
+    title: 'Update Information',
     modal: true,
 
     layout: {
@@ -45,26 +45,34 @@ Ext.define('KanenOnlineShopping.view.UserWindow', {
                     id: 'fullNameField',
                     itemId: 'fullNameField',
                     width: 316,
-                    fieldLabel: 'Full Name'
+                    fieldLabel: 'Full Name',
+                    allowBlank: false,
+                    allowOnlyWhitespace: false
                 },
                 {
                     xtype: 'textfield',
                     id: 'emailField',
                     width: 316,
-                    fieldLabel: 'Email'
+                    fieldLabel: 'Email',
+                    allowBlank: false,
+                    allowOnlyWhitespace: false
                 },
                 {
                     xtype: 'textfield',
                     id: 'addressField',
                     width: 316,
-                    fieldLabel: 'Address'
+                    fieldLabel: 'Address',
+                    allowBlank: false,
+                    allowOnlyWhitespace: false
                 },
                 {
                     xtype: 'textfield',
                     id: 'mobileNumberField',
                     itemId: 'mobileNumberField',
                     width: 316,
-                    fieldLabel: 'Mobile Number'
+                    fieldLabel: 'Mobile Number',
+                    allowBlank: false,
+                    allowOnlyWhitespace: false
                 },
                 {
                     xtype: 'toolbar',

@@ -47,7 +47,9 @@ Ext.define('KanenOnlineShopping.view.ChangePassWindow', {
                     itemId: 'oldPassword',
                     width: 341,
                     fieldLabel: 'Old Password',
-                    inputType: 'password'
+                    inputType: 'password',
+                    allowBlank: false,
+                    allowOnlyWhitespace: false
                 },
                 {
                     xtype: 'textfield',
@@ -55,7 +57,9 @@ Ext.define('KanenOnlineShopping.view.ChangePassWindow', {
                     itemId: 'newPassword',
                     width: 339,
                     fieldLabel: 'New Password',
-                    inputType: 'password'
+                    inputType: 'password',
+                    allowBlank: false,
+                    allowOnlyWhitespace: false
                 },
                 {
                     xtype: 'textfield',
@@ -63,7 +67,9 @@ Ext.define('KanenOnlineShopping.view.ChangePassWindow', {
                     itemId: 'confirmNewPass',
                     width: 341,
                     fieldLabel: 'Confirm New Password ',
-                    inputType: 'password'
+                    inputType: 'password',
+                    allowBlank: false,
+                    allowOnlyWhitespace: false
                 },
                 {
                     xtype: 'tbspacer',

@@ -17,14 +17,15 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
     extend: 'Ext.container.Viewport',
 
     requires: [
+        'Ext.form.Panel',
         'Ext.grid.Panel',
         'Ext.grid.View',
         'Ext.grid.column.Number',
         'Ext.grid.plugin.CellEditing',
         'Ext.form.field.Text',
         'Ext.grid.column.Action',
-        'Ext.toolbar.Spacer',
         'Ext.button.Button',
+        'Ext.toolbar.Spacer',
         'Ext.Img',
         'Ext.toolbar.Toolbar',
         'Ext.form.field.Display'
@@ -58,142 +59,141 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                     region: 'center',
                                     id: 'productContainer',
                                     itemId: 'productContainer',
-                                    layout: 'fit',
+                                    layout: 'border',
                                     items: [
                                         {
                                             xtype: 'panel',
+                                            flex: 12,
+                                            region: 'center',
                                             id: 'productPanel',
                                             itemId: 'productPanel',
                                             autoScroll: true,
                                             layout: 'column',
                                             title: 'Products'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'container',
-                                    flex: 8,
-                                    region: 'east',
-                                    width: 150,
-                                    layout: 'border',
-                                    items: [
-                                        {
-                                            xtype: 'gridpanel',
-                                            flex: 15,
-                                            region: 'center',
-                                            id: 'cartGrid',
-                                            itemId: 'cartGrid',
-                                            bodyBorder: true,
-                                            title: 'My Cart',
-                                            store: 'cartStore',
-                                            viewConfig: {
-                                                border: 30
-                                            },
-                                            columns: [
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    width: 160,
-                                                    dataIndex: 'productName',
-                                                    text: 'Product Name',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    width: 264,
-                                                    dataIndex: 'productDescription',
-                                                    text: 'Product Description',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'numbercolumn',
-                                                    width: 99,
-                                                    dataIndex: 'productPrice',
-                                                    text: 'Price',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'numbercolumn',
-                                                    dataIndex: 'quantity',
-                                                    text: 'Quantity',
-                                                    flex: 1,
-                                                    format: '0,000',
-                                                    editor: {
-                                                        xtype: 'textfield',
-                                                        id: 'mainOrdrQty',
-                                                        itemId: 'mainOrdrQty',
-                                                        allowBlank: false,
-                                                        regex: /^[1-9][0-9]*$/,
-                                                        regexText: 'Input numbers Only'
-                                                    }
-                                                },
-                                                {
-                                                    xtype: 'actioncolumn',
-                                                    flex: 1,
-                                                    items: [
-                                                        {
-                                                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                Ext.Msg.alert('Status', 'Item removed from cart.');
-                                                                var cartGrid = Ext.getCmp('cartGrid');
-                                                                var orderStore = cartGrid.getStore();
-                                                                //                         var orderHistoryGrid= this.getCartGrid();
-                                                                //                         var cartStore = cartGrid.getStore();
-
-                                                                //delete selected rows if selModel is checkboxmodel
-                                                                var selectedRows = orderStore.getAt(rowIndex);
-
-
-                                                                orderStore.remove(selectedRows);
-
-
-                                                                //                         else
-                                                                //                             Ext.Msg.alert('Status', 'Please select at least one record to delete!');
-                                                            },
-                                                            icon: 'resource/trash.png'
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            plugins: [
-                                                Ext.create('Ext.grid.plugin.CellEditing', {
-
-                                                })
-                                            ]
                                         },
                                         {
-                                            xtype: 'container',
-                                            flex: 4,
-                                            region: 'south',
-                                            height: 150,
+                                            xtype: 'form',
+                                            flex: 5,
+                                            region: 'east',
+                                            width: 100,
+                                            bodyPadding: 10,
+                                            collapsible: true,
+                                            title: '',
                                             layout: {
                                                 type: 'vbox',
-                                                align: 'stretch',
-                                                pack: 'center'
+                                                align: 'stretch'
                                             },
                                             items: [
                                                 {
-                                                    xtype: 'tbspacer',
-                                                    flex: 1,
-                                                    height: 10
+                                                    xtype: 'gridpanel',
+                                                    flex: 15,
+                                                    id: 'cartGrid',
+                                                    itemId: 'cartGrid',
+                                                    width: 150,
+                                                    bodyBorder: false,
+                                                    collapseDirection: 'right',
+                                                    collapsible: false,
+                                                    title: '',
+                                                    store: 'cartStore',
+                                                    viewConfig: {
+                                                        border: 30
+                                                    },
+                                                    columns: [
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            width: 160,
+                                                            dataIndex: 'productName',
+                                                            text: 'Product Name',
+                                                            flex: 3
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            width: 264,
+                                                            dataIndex: 'productDescription',
+                                                            text: 'Product Description',
+                                                            flex: 4
+                                                        },
+                                                        {
+                                                            xtype: 'numbercolumn',
+                                                            width: 99,
+                                                            dataIndex: 'productPrice',
+                                                            text: 'Price',
+                                                            flex: 2
+                                                        },
+                                                        {
+                                                            xtype: 'numbercolumn',
+                                                            dataIndex: 'quantity',
+                                                            text: 'Quantity',
+                                                            flex: 2,
+                                                            format: '0,000',
+                                                            editor: {
+                                                                xtype: 'textfield',
+                                                                id: 'mainOrdrQty',
+                                                                itemId: 'mainOrdrQty',
+                                                                allowBlank: false,
+                                                                regex: '^[1-9][0-9]*$',
+                                                                regexText: 'Only numbers are allowed'
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: 'actioncolumn',
+                                                            flex: 1,
+                                                            items: [
+                                                                {
+                                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                                        Ext.Msg.alert('Status', 'Item removed from cart.');
+                                                                        var cartGrid = Ext.getCmp('cartGrid');
+                                                                        var orderStore = cartGrid.getStore();
+                                                                        //                         var orderHistoryGrid= this.getCartGrid();
+                                                                        //                         var cartStore = cartGrid.getStore();
+
+                                                                        //delete selected rows if selModel is checkboxmodel
+                                                                        var selectedRows = orderStore.getAt(rowIndex);
+
+
+                                                                        orderStore.remove(selectedRows);
+
+
+                                                                        //                         else
+                                                                        //                             Ext.Msg.alert('Status', 'Please select at least one record to delete!');
+                                                                    },
+                                                                    icon: 'resource/trash.png'
+                                                                }
+                                                            ]
+                                                        }
+                                                    ],
+                                                    plugins: [
+                                                        Ext.create('Ext.grid.plugin.CellEditing', {
+
+                                                        })
+                                                    ]
                                                 },
                                                 {
-                                                    xtype: 'button',
-                                                    height: 46,
-                                                    id: 'btnClearCart',
-                                                    width: 414,
-                                                    text: 'Clear Cart'
-                                                },
-                                                {
-                                                    xtype: 'tbspacer',
-                                                    flex: 1,
-                                                    height: 3
-                                                },
-                                                {
-                                                    xtype: 'button',
-                                                    height: 52,
-                                                    id: 'btnMainCheckout',
-                                                    itemId: 'btnMainCheckout',
-                                                    width: 162,
-                                                    text: 'Checkout Items'
+                                                    xtype: 'container',
+                                                    flex: 4,
+                                                    height: 50,
+                                                    layout: {
+                                                        type: 'vbox',
+                                                        align: 'stretch',
+                                                        pack: 'center'
+                                                    },
+                                                    items: [
+                                                        {
+                                                            xtype: 'button',
+                                                            height: 46,
+                                                            id: 'btnClearCart',
+                                                            width: 414,
+                                                            text: 'Clear Cart'
+                                                        },
+                                                        {
+                                                            xtype: 'button',
+                                                            height: 52,
+                                                            id: 'btnMainCheckout',
+                                                            itemId: 'btnMainCheckout',
+                                                            width: 162,
+                                                            text: 'Checkout Items'
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         }
@@ -245,6 +245,22 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                     },
                                     items: [
                                         {
+                                            xtype: 'textfield',
+                                            id: 'txtProductSearch',
+                                            itemId: 'txtProductSearch',
+                                            width: 288,
+                                            fieldLabel: 'Search',
+                                            labelAlign: 'right'
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            height: 33,
+                                            id: 'btnSearchProduct',
+                                            itemId: 'btnSearchProduct',
+                                            width: 96,
+                                            text: 'Search'
+                                        },
+                                        {
                                             xtype: 'button',
                                             height: 33,
                                             id: 'btnHistory',
@@ -253,7 +269,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                         },
                                         {
                                             xtype: 'tbspacer',
-                                            width: 1500
+                                            width: 1350
                                         },
                                         {
                                             xtype: 'button',
