@@ -18,7 +18,7 @@ public interface UserDAO extends GenericDAO<User> {
 
 	boolean registerUser(User user);
 
-	List<User> getBannedUsers();
+	 List<User> getBannedUsers();
 
 	boolean emailExists(String email);
 	

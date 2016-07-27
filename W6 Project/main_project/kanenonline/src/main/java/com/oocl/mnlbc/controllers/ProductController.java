@@ -20,6 +20,7 @@ import com.oocl.mnlbc.services.ProductService;
 /**
  * 
  * @author VERGAJO
+ * @author FLOREJE
  *
  */
 @Controller

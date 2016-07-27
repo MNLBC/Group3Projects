@@ -1,5 +1,9 @@
 package com.oocl.mnlbc.services;
 
+
+
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,7 +16,7 @@ import com.oocl.mnlbc.model.Response;
 import com.oocl.mnlbc.model.UserWrapper;
 
 /**
- * @author VERGAJO
+ * @author FLOREJE
  *
  */
 
@@ -113,5 +117,10 @@ public class UserService {
 		return response;
 
 	}
+	
+	public List<User> getBannedUsers() throws Exception{
+		return userDAO.getBannedUsers();
+				
 
+	}
 }
