@@ -95,25 +95,25 @@ public class UpdateService {
 
 	}
 
-	public AllUser updateUser(String jsonData) {
-
-		Gson gson = new Gson();
-		UserList userList = gson.fromJson(jsonData, UserList.class);
-
-		AllUser response = new AllUser();
-		UserDAOImpl userDAO = new UserDAOImpl();
-		List<User> updatedUsers = new ArrayList<User>();
-		userDAO.init();
-		if (userList != null) {
-			for (User user : userList.getUserList()) {
-				updatedUsers.add(userDAO.updateUser(user));
-			}
-			response.setUserList(updatedUsers);
-			response.setSuccess(true);
-		}
-
-		return response;
-	}
+//	public AllUser updateUser(String jsonData) {
+//
+//		Gson gson = new Gson();
+//		UserList userList = gson.fromJson(jsonData, UserList.class);
+//
+//		AllUser response = new AllUser();
+//		UserDAOImpl userDAO = new UserDAOImpl();
+//		List<User> updatedUsers = new ArrayList<User>();
+//		userDAO.init();
+//		if (userList != null) {
+//			for (User user : userList.getUserList()) {
+//				updatedUsers.add(userDAO.updateUser(user));
+//			}
+//			response.setUserList(updatedUsers);
+//			response.setSuccess(true);
+//		}
+//
+//		return response;
+//	}
 
 	public String createUser(String userName, String userPassword, String fullName, String email,
 			String deliveryAddress, String mobileNumber, String userRole) {

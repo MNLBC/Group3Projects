@@ -71,19 +71,19 @@ public class UpdateController {
 		return builder.toString();
 	}
 
-	/**
-	 * This request updates the order status of a specific order.
-	 * 
-	 * @param orderId
-	 * @param status
-	 * @return String
-	 */
-	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
-	@ResponseBody
-	public AllUser updateUser(@RequestParam(value = "jsonData", required = true) String jsonData) {
-
-		return updateService.updateUser(jsonData);
-	}
+//	/**
+//	 * This request updates the order status of a specific order.
+//	 * 
+//	 * @param orderId
+//	 * @param status
+//	 * @return String
+//	 */
+//	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+//	@ResponseBody
+//	public AllUser updateUser(@RequestParam(value = "jsonData", required = true) String jsonData) {
+//	
+//		return updateService.updateUser(jsonData);
+//	}
 
 	@RequestMapping(value = "/register", method = { RequestMethod.POST })
 	@ResponseBody

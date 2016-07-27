@@ -36,6 +36,7 @@ public class User implements Serializable {
 	private long userId;
 	@Column(name = "USERNAME")
 	private String username;
+	@JsonIgnore
 	@Column(name = "USER_PASSWORD")
 	private String userPassword;
 	@Column(name = "FULL_NAME")
@@ -50,6 +51,9 @@ public class User implements Serializable {
 	private String userRole;
 	@Column(name = "IS_BLACKLISTED")
 	private String isBlacklisted;
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.LAZY)
+	private UserMembershipAsn userMembershipId;
 
 	User() {
 		// TODO Auto-generated constructor stub
@@ -213,6 +217,22 @@ public class User implements Serializable {
 	 */
 	public void setIsBlacklisted(String isBlacklisted) {
 		this.isBlacklisted = isBlacklisted;
+	}
+
+	
+	
+	/**
+	 * @return the userMembershipId
+	 */
+	public UserMembershipAsn getUserMembershipId() {
+		return userMembershipId;
+	}
+
+	/**
+	 * @param userMembershipId the userMembershipId to set
+	 */
+	public void setUserMembershipId(UserMembershipAsn userMembershipId) {
+		this.userMembershipId = userMembershipId;
 	}
 
 	/*

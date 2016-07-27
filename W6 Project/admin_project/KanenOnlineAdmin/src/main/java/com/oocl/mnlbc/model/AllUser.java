@@ -15,38 +15,32 @@ import com.oocl.mnlbc.entity.User;
  */
 public class AllUser {
 
-	private List<User> userList;
+	private List<UserAndMembership> userList;
 	private boolean success;
-
-
 	/**
 	 * @return the userList
 	 */
-	public List<User> getUserList() {
+	public List<UserAndMembership> getUserList() {
 		return userList;
 	}
-
 	/**
-	 * @param userList
-	 *            the userList to set
+	 * @param userList the userList to set
 	 */
-	public void setUserList(List<User> userList) {
+	public void setUserList(List<UserAndMembership> userList) {
 		this.userList = userList;
 	}
-
 	/**
 	 * @return the success
 	 */
 	public boolean isSuccess() {
 		return success;
 	}
-
 	/**
-	 * @param success
-	 *            the success to set
+	 * @param success the success to set
 	 */
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
+
 
 }
