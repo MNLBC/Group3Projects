@@ -1,0 +1,9 @@
+POST TO 
+http://localhost:8081/kanenonline/order/userOrder
+
+
+Custom-Header
+Content-Type and Value: application/x-www-form-urlencoded 
+
+Body 
+userId=1000000336

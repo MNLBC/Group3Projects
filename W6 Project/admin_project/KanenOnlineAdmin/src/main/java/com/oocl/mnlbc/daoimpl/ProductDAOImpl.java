@@ -54,9 +54,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	public List<Product> getProductList() {
-
 		return entityManager.createQuery("select p from products p").getResultList();
-
 	}
 
 	/*
@@ -76,4 +74,23 @@ public class ProductDAOImpl implements ProductDAO {
 			return null;
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see com.oocl.mnlbc.dao.ProductDAO#addProduct(com.oocl.mnlbc.entity.Product)
+	 */
+	@Override
+	public boolean createProduct(Product product) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(product);
+			entityManager.getTransaction().commit();
+			entityManager.refresh(product);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
 }

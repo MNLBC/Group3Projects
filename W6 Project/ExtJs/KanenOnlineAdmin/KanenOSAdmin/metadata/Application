@@ -16,7 +16,8 @@
             "orderItem",
             "updatedOrder",
             "product",
-            "updatedProduct"
+            "updatedProduct",
+            "userListModel"
         ],
         "name": "MyApp",
         "stores": [
@@ -26,10 +27,13 @@
             "orderItems",
             "updatedOrder",
             "product",
-            "updateProduct"
+            "updateProduct",
+            "userList"
         ],
         "views": [
-            "MyViewport"
+            "MyViewport",
+            "AdminUserWindow",
+            "AdminAddProductWindow"
         ]
     },
     "name": "Application",

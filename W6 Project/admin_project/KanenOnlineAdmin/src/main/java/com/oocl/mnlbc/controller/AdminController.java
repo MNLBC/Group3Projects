@@ -78,7 +78,7 @@ public class AdminController {
 	 * this methods handles the retrieval of all orders to be displayed in the UI
 	 * @return OrderAndItemList
 	 */
-	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
+	@RequestMapping(value = "/getUsers", method = RequestMethod.POST)
 	@ResponseBody
 	public AllUser getAllUsers() {
 		AllUser allUser = adminService.retrieveAllUsers();
@@ -89,7 +89,7 @@ public class AdminController {
 	 * this methods handles the retrieval of all orders to be displayed in the UI
 	 * @return OrderAndItemList
 	 */
-	@RequestMapping(value = "/getProducts", method = RequestMethod.GET)
+	@RequestMapping(value = "/getProducts", method = RequestMethod.POST)
 	@ResponseBody
 	public AllProduct getAllProducts() {
 		AllProduct allProduct = adminService.retrieveAllProducts();
