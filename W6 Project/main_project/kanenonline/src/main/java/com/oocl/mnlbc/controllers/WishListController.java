@@ -48,7 +48,7 @@ public class WishListController {
 		return response;
 	}
 
-	@RequestMapping(value = "/clearUserWishList", method = RequestMethod.GET)
+	@RequestMapping(value = "/clearUserWishList", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean clearUserWishList(@RequestParam(value = "userId", required = true) long userId) throws IOException {
 		boolean result;
@@ -58,7 +58,7 @@ public class WishListController {
 		return result;
 	}
 
-	@RequestMapping(value = "/removeFromWishList", method = RequestMethod.GET)
+	@RequestMapping(value = "/removeFromWishList", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean removeFromWishList(@RequestParam(value = "wishListId", required = true) long wishListId)
 			throws IOException {
@@ -70,7 +70,7 @@ public class WishListController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/loadUserWishList", method = RequestMethod.GET)
+	@RequestMapping(value = "/loadUserWishList", method = RequestMethod.POST)
 	@ResponseBody
 	public Response<ModelWrapper<WishList>> loadUserWishList(@RequestParam(value = "userId", required = true) long userId)
 			throws IOException {
