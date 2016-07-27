@@ -56,6 +56,10 @@ Ext.define('MyApp.controller.AdminController', {
         {
             ref: 'addProductContainer',
             selector: '#AddProductContainer'
+        },
+        {
+            ref: 'userListPanel',
+            selector: '#userListPanel'
         }
     ],
 
@@ -177,8 +181,6 @@ Ext.define('MyApp.controller.AdminController', {
 
                             userStore.add(loggedInUser);
                             Ext.MessageBox.alert('Status', 'Logged in successfully');
-                            var lblName = Ext.getCmp('lblName').text;
-                            lblName = Ext.getStore('userStore').data.items[0].data.userFullName;
                             Ext.getCmp('txtUsername').setValue();
                             Ext.getCmp('txtPassword').setValue();
                             this.getLoginContainer().hide();
@@ -576,12 +578,12 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onProductsClick: function() {
-                this.getOrderRequestsPanel().hide();
+        this.getOrderRequestsPanel().hide();
                 this.getCustomerConfirmPanel().hide();
                 this.getViewAllOrderPanel().hide();
                 this.getProductListPanel().show();
 
-                var productGrid = Ext.getCmp('producListGrid');
+                var productGrid = Ext.getCmp('productListGrid');
                 var productGridStore = productGrid.getStore();
 
                 productGridStore.removeAll();
@@ -598,15 +600,14 @@ Ext.define('MyApp.controller.AdminController', {
                         var responseText = Ext.decode(response.responseText);
 
 
-                        for (var i = 0; i < responseText.itemList.length; i++){
+                        for (var i = 0; i < responseText.productList.length; i++){
                             var items = {
-                                orderId: responseText.itemList[i].orderId,
-                                orderItemId: responseText.itemList[i].item.orderItemId,
-                                productId: responseText.itemList[i].item.productId,
-                                productName: responseText.itemList[i].productname,
-                                quantity: responseText.itemList[i].item.quantity,
-                                productPrice: responseText.itemList[i].item.productPrice
-
+                                productId: responseText.productList[i].productId,
+                                productName: responseText.productList[i].productName,
+                                productDescription: responseText.productList[i].productDescription,
+                                productPrice: responseText.productList[i].productPrice,
+                                productStockQuantity: responseText.productList[i].productStockQuantity,
+                                productImagePath: responseText.productList[i].productImagePath
                             };
 
                             productGridStore.add(items);
@@ -805,6 +806,175 @@ Ext.define('MyApp.controller.AdminController', {
 
     },
 
+    onViewUserListClick: function() {
+          this.getOrderRequestsPanel().hide();
+                this.getCustomerConfirmPanel().hide();
+                this.getProductListPanel().hide();
+                this.getViewAllOrderPanel().hide();
+        this.getUserListPanel().show();
+
+
+                var viewUserGrid = Ext.getCmp('viewUserListGrid');
+                var viewUserGridStore = viewUserGrid.getStore();
+                var userListStore = Ext.getStore('userList');
+
+                userListStore.removeAll();
+                viewUserGridStore.clearData();
+                viewUserGrid.getView().refresh();
+
+
+                Ext.Ajax.request({
+                     url: window.location.pathname +'admin/getUsers',
+                     method: 'POST',
+
+                    scope: this,
+                    success: function(response){
+                        var responseText = Ext.decode(response.responseText);
+
+                        for (var ctr = 0; ctr < responseText.userList.length; ctr++){
+                            var user = {
+                                userId: responseText.userList[ctr].user.userId,
+                                fullName: responseText.userList[ctr].user.fullName,
+                                userName: responseText.userList[ctr].user.username,
+                                email: responseText.userList[ctr].user.email,
+                                address: responseText.userList[ctr].user.address,
+                                mobile: responseText.userList[ctr].user.mobileNumber,
+                                userRole: responseText.userList[ctr].user.userRole,
+                                isBlacklisted: responseText.userList[ctr].user.isBlacklisted,
+                                membershipType: responseText.userList[ctr].membershipType
+
+                            };
+
+                            viewUserGridStore.add(user);
+                        }
+                    },
+
+                    failure: function(){
+                        Ext.MessageBox.alert('Loading Failed','Unable to connect to server');
+                    }
+
+                });
+    },
+
+    onAddUserClick: function() {
+        Ext.create('Ext.window.Window',
+                   {
+                       renderTo : Ext.getBody(),
+                       bodyPadding: 10,
+                       title: 'Add User',
+                       closable: true,
+                       autoShow: true,
+                       resizable:false,
+                       draggable: false,
+                       modal: true,
+                       width:800,
+                       height:400,
+                       items: [
+                           {
+                               xtype: 'form',
+                               autoScroll: true,
+                               bodyBorder: true,
+                               bodyPadding: 10,
+                               modal:true,
+
+                               layout: {
+                                   type: 'vbox',
+                                   align: 'stretch'
+                               },
+                               items: [
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       id: 'txtFullName',
+                                       labelWidth: 120,
+                                       allowBlank: false,
+                                       fieldLabel: 'Fullname'
+                                   },
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       id: 'txtUserName',
+                                       labelWidth: 120,
+                                       allowBlank: false,
+                                       fieldLabel: 'Username'
+                                   },
+
+
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       labelWidth: 120,
+                                       id:'txtAdminPassword',
+                                       inputType:'password',
+                                       allowBlank: false,
+                                       fieldLabel: 'Password'
+                                   },
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       labelWidth: 120,
+                                       id:'txtConfirmPassword',
+                                       inputType:'password',
+                                       allowBlank: false,
+                                       fieldLabel: 'Confirm Password'
+                                   },
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       labelWidth: 120,
+                                       id:'txtEmail',
+                                       allowBlank: false,
+                                       fieldLabel: 'Email'
+                                   },
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       labelWidth: 120,
+                                       id: 'txtAdress',
+                                       allowBlank: false,
+                                       fieldLabel: 'Address'
+                                   },
+                                   {
+                                       xtype: 'textfield',
+                                       width: 800,
+                                       labelWidth: 120,
+                                       id: 'txtMobile',
+                                       allowBlank: false,
+                                       fieldLabel: 'Mobile Number'
+                                   },
+                                   {
+                                       xtype: 'container',
+                                       flex: 0,
+                                       width: 496,
+                                       layout: {
+                                           type: 'hbox',
+                                           align: 'stretch',
+                                           pack:'center'
+                                       },
+                                       items: [
+                                           {
+                                               xtype: 'button',
+                                               width: 118,
+                                               margin:'2',
+                                               id: 'btnSaveProduct',
+                                               text: 'Add Product'
+                                           },
+                                            {
+                                               xtype: 'button',
+                                               width: 118,
+                                                margin:'2',
+                                               id: 'btnReset',
+                                               text: 'Reset'
+                                           }
+                                       ]
+                                   }
+                               ]
+                           }
+                       ]
+                   });
+
+    },
+
     init: function(application) {
         this.control({
             "#btnCustomerRequest": {
@@ -854,6 +1024,12 @@ Ext.define('MyApp.controller.AdminController', {
             },
             "#btnSaveProduct": {
                 click: this.onBtnSaveProduct
+            },
+            "#viewUserList": {
+                click: this.onViewUserListClick
+            },
+            "#addUser": {
+                click: this.onAddUserClick
             }
         });
     }

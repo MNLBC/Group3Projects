@@ -22,12 +22,12 @@ Ext.define('MyApp.view.MyViewport', {
         'Ext.menu.Item',
         'Ext.grid.Panel',
         'Ext.grid.column.Number',
-        'Ext.form.field.Number',
         'Ext.grid.View',
         'Ext.selection.RowModel',
         'Ext.grid.plugin.RowEditing',
         'Ext.toolbar.Toolbar',
         'Ext.form.field.ComboBox',
+        'Ext.form.field.Checkbox',
         'Ext.form.Panel'
     ],
 
@@ -166,7 +166,9 @@ Ext.define('MyApp.view.MyViewport', {
                                         {
                                             xtype: 'menuitem',
                                             height: 45,
-                                            text: 'FAQ\'s'
+                                            id: 'viewUserList',
+                                            itemId: 'viewUserList',
+                                            text: 'View All Users'
                                         },
                                         {
                                             xtype: 'menuitem',
@@ -228,8 +230,24 @@ Ext.define('MyApp.view.MyViewport', {
                                                     text: 'Price',
                                                     flex: 1,
                                                     editor: {
-                                                        xtype: 'numberfield'
+                                                        xtype: 'textfield',
+                                                        regex: /^[1-9][0-9]*$/
                                                     }
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'productStockQuantity',
+                                                    text: 'Product In Stock',
+                                                    flex: 1,
+                                                    editor: {
+                                                        xtype: 'textfield',
+                                                        regex: /^[1-9][0-9]*$/
+                                                    }
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'productImagePath',
+                                                    text: 'Image Path'
                                                 }
                                             ],
                                             selModel: Ext.create('Ext.selection.RowModel', {
@@ -258,6 +276,129 @@ Ext.define('MyApp.view.MyViewport', {
                                                     id: 'btnUpdateProduct',
                                                     itemId: 'btnUpdateProduct',
                                                     text: 'Update Product'
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'panel',
+                                    id: 'userListPanel',
+                                    itemId: 'userListPanel',
+                                    title: 'Users',
+                                    items: [
+                                        {
+                                            xtype: 'gridpanel',
+                                            id: 'viewUserListGrid',
+                                            itemId: 'viewUserListGrid',
+                                            title: '',
+                                            store: 'userList',
+                                            columns: [
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'userId',
+                                                    text: 'User Id',
+                                                    flex: 1
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'fullName',
+                                                    text: 'Full Name',
+                                                    flex: 1
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'userName',
+                                                    text: 'Username',
+                                                    flex: 1
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'email',
+                                                    text: 'Email',
+                                                    flex: 1
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'address',
+                                                    text: 'Address',
+                                                    flex: 1
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'mobile',
+                                                    text: 'Mobile Number',
+                                                    flex: 1
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'userRole',
+                                                    text: 'User Role',
+                                                    flex: 1,
+                                                    editor: {
+                                                        xtype: 'combobox',
+                                                        store: [
+                                                            'Admin',
+                                                            'Customer'
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'isBlacklisted',
+                                                    text: 'Blocked',
+                                                    flex: 1,
+                                                    editor: {
+                                                        xtype: 'checkboxfield',
+                                                        inputValue: 'YES',
+                                                        uncheckedValue: 'NO'
+                                                    }
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'membershipType',
+                                                    text: 'Membership Type',
+                                                    flex: 1,
+                                                    editor: {
+                                                        xtype: 'combobox',
+                                                        store: [
+                                                            'Regular',
+                                                            'Member',
+                                                            'VIP',
+                                                            'Student',
+                                                            'Senior'
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            plugins: [
+                                                Ext.create('Ext.grid.plugin.RowEditing', {
+
+                                                })
+                                            ],
+                                            selModel: Ext.create('Ext.selection.RowModel', {
+
+                                            })
+                                        }
+                                    ],
+                                    dockedItems: [
+                                        {
+                                            xtype: 'toolbar',
+                                            dock: 'bottom',
+                                            items: [
+                                                {
+                                                    xtype: 'button',
+                                                    id: 'addUser',
+                                                    itemId: 'addUser',
+                                                    text: 'Add User'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    text: 'Save Changes'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    text: 'Reset Changes'
                                                 }
                                             ]
                                         }
