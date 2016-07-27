@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * This is the Entitiy of the ORDER Table
  */
 @Entity(name = "order")
-@Table(name = "orders")
+@Table(name = "ORDERS")
 public class Order implements Serializable {
 
 	@Id

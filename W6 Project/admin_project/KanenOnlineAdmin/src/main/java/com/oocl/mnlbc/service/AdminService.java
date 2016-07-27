@@ -15,6 +15,7 @@ import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.OrderItem;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
+import com.oocl.mnlbc.model.AllUser;
 import com.oocl.mnlbc.model.ItemOrder;
 import com.oocl.mnlbc.model.Login;
 import com.oocl.mnlbc.model.OrderAndItemList;
@@ -56,7 +57,7 @@ public class AdminService {
 
 		return response;
 	}
-	
+
 	public Login loginAdmin(String userName, String userPassword) {
 		UserDAOImpl userDAO = new UserDAOImpl();
 		userDAO.init();
@@ -70,7 +71,7 @@ public class AdminService {
 		}
 		return response;
 	}
-	
+
 	public OrderAndItemList getAllOrders() {
 
 		OrderDAOImpl orderImpl = new OrderDAOImpl();
@@ -91,7 +92,7 @@ public class AdminService {
 			System.out.println(orderUser);
 		}
 		for (OrderItem item : orderImpl.getAllItems()) {
-			
+
 			itemOrder = new ItemOrder();
 			itemOrder.setItem(item);
 			itemOrder.setOrderId(item.getOrderId().getOrderId());
@@ -105,6 +106,21 @@ public class AdminService {
 		orderList.setSuccess(true);
 
 		return orderList;
-
 	}
+
+	public AllUser retrieveAllUsers() {
+		UserDAOImpl userDAO = new UserDAOImpl();
+		userDAO.init();
+		List<User> userList= new ArrayList<User>();
+		AllUser response = new AllUser();
+		userList = userDAO.getList();
+		
+		if (userList != null) {
+			response.setUserList(userList);
+			response.setSuccess(true);
+			return response;
+		}
+		return response;
+	}
+
 }

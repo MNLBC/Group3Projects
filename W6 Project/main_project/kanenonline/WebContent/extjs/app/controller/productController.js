@@ -564,7 +564,10 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         																										},
         																										failure : function() {
 
-        																											
+        																											Ext.MessageBox
+        																													.alert(
+        																															'Fail',
+        																															'Unable to load cart');
         																										}
         																									});
         																						} else {
@@ -603,7 +606,10 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         																										},
         																										failure : function() {
-        																											
+        																											Ext.MessageBox
+        																													.alert(
+        																															'Fail',
+        																															'Unable to delete cart');
         																										}
         																									});
         																						}
@@ -800,7 +806,13 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         																},
 
-        														
+        															// failure: function
+        															// (response) {
+
+        															// Ext.Msg.alert("Error",'Unable
+        															// to checkout
+        															// cart.');
+        															// }
         															});
 
         												} else {
@@ -851,6 +863,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         									.each(function(record) {
         										totalCost = totalCost + (record.data.productPrice * record.data.quantity);
         									});
+                                    totalCost = Math.round(totalCost * 100) / 100;
 
         							Ext.getCmp('lblCheckoutTotalCost').setText(
         									'$' + totalCost);
@@ -864,6 +877,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
                                     var totalCost = parseInt(Ext.getCmp('lblCheckoutTotalCost').text.substr(1,Ext.getCmp('lblCheckoutTotalCost').text.length));
                                     var discountedCost = totalCost * ((100-discountRate)/100);
+                                    discountedCost = Math.round(discountedCost * 100) / 100;
                                     Ext.getCmp('lblDiscountedCost').setText('Discounted price: $'+ discountedCost);
 
         							this.cartWindow.doLayout();
@@ -1170,6 +1184,35 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     },
 
+    onTxtSearchProductChanged: function(field, newValue, oldValue, eOpts) {
+                this.filterProducts();
+    },
+
+    onBtnSearchProductClicked: function(button, e, eOpts) {
+                this.filterProducts();
+    },
+
+    onBtnProductDetailClick: function() {
+        var productDetailsWindow = Ext.create('KanenOnlineShopping.view.ProductDetailsWindow',{ });
+
+        	productDetailsWindow.productId   = this.productId;
+        	productDetailsWindow.productName = this.productName;
+        	productDetailsWindow.productDescription = this.productDescription;
+        	productDetailsWindow.productPrice = this.productPrice;
+        	productDetailsWindow.productPrice = this.productStockQuantity;
+        	productDetailsWindow.productStockQuantity = this.productStockQuantity;
+
+        	productDetailsWindow.show();
+    },
+
+    onBtnProductDetailsClick: function() {
+
+    },
+
+    onBtnProductDetailsClick: function() {
+
+    },
+
     onLaunch: function() {
 
         this.bodyContainer = this.getBodyContainer();
@@ -1399,6 +1442,49 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                         }
     },
 
+    filterProducts: function() {
+
+           var productPanel = Ext.getCmp('productPanel');
+           productPanel.removeAll();
+
+           productsStore = Ext.getStore('productsStore');
+           productsStore.clearFilter(true);
+
+           productsStore.filterBy(function(record,id){
+              var searchText = Ext.getCmp('txtProductSearch').getValue().trim().toUpperCase();
+              return record.data.productName.toUpperCase().indexOf(searchText)> -1;
+           });
+
+           productsStore.each(function(record){
+
+              var itemContainer = Ext.create('KanenOnlineShopping.view.itemContainer', {
+
+              });
+
+              itemContainer.productId = record.data.productId;
+              itemContainer.productName = record.data.productName;
+              itemContainer.productDescription = record.data.productDescription;
+              itemContainer.productPrice = record.data.productPrice;
+              itemContainer.productStockQuantity = record.data.productStockQuantity;
+              itemContainer.productImagePath = record.data.productImagePath;
+
+              var itemImage = itemContainer.items.items[0];
+              itemImage.src = record.data.productImagePath;
+
+              var itemNameLabel = itemContainer.items.items[1];
+              itemNameLabel.text = record.data.productName + record.data.productDescription;
+
+
+              var itemBtn = itemContainer.items.items[2];
+              itemBtn.tooltip=record.data.productDescription;
+
+              productPanel.add(itemContainer);
+              productPanel.doLayout();
+
+           });
+
+    },
+
     init: function(application) {
         this.control({
             "#btnBuy": {
@@ -1484,6 +1570,19 @@ Ext.define('KanenOnlineShopping.controller.productController', {
             },
             "#btnViewTransaction": {
                 click: this.onBtnViewTransactionClick
+            },
+            "#txtProductSearch": {
+                change: this.onTxtSearchProductChanged
+            },
+            "#btnSearchProduct": {
+                click: this.onBtnSearchProductClicked
+            },
+            "#btnProductDetail": {
+                click: this.onBtnProductDetailClick
+            },
+            "#btnProductDetails": {
+                click: this.onBtnProductDetailsClick,
+                click: this.onBtnProductDetailsClick
             }
         });
     }
