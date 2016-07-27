@@ -3,11 +3,13 @@
  */
 package com.oocl.mnlbc.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.oocl.mnlbc.model.AllUser;
 import com.oocl.mnlbc.model.Login;
 import com.oocl.mnlbc.model.OrderAndItemList;
 import com.oocl.mnlbc.model.UserRequestList;
@@ -24,6 +26,11 @@ import com.oocl.mnlbc.service.AdminService;
 @RequestMapping("/admin")
 public class AdminController {
 	
+	@Autowired
+	private AdminService adminService;
+	
+	
+	
 /**
  * maps the request for retrieving the user request
  * @return UserRequestList
@@ -31,7 +38,7 @@ public class AdminController {
 	@RequestMapping(value = "/userRequest", method = RequestMethod.POST)
 	@ResponseBody
 	public UserRequestList getAllUserRequest() {
-		AdminService adminService = new AdminService();
+		
 		UserRequestList response = new UserRequestList();
 		response = adminService.getAllUserRequest();
 		return response;
@@ -48,7 +55,7 @@ public class AdminController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public Login loginAdmin(String userName, String userPassword) {
-		AdminService adminService = new AdminService();
+
 		Login response = new Login();
 		response = adminService.loginAdmin(userName, userPassword);
 		return response;
@@ -62,9 +69,19 @@ public class AdminController {
 	@RequestMapping(value = "/getOrders", method = RequestMethod.POST)
 	@ResponseBody
 	public OrderAndItemList getAllOrders() {
-		AdminService adminService = new AdminService();
 		OrderAndItemList orderList = adminService.getAllOrders();
 		return orderList;
+	}
+	
+	/**
+	 * this methods handles the retrieval of all orders to be displayed in the UI
+	 * @return OrderAndItemList
+	 */
+	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
+	@ResponseBody
+	public AllUser getAllUsers() {
+		AllUser allUser = adminService.retrieveAllUsers();
+		return allUser;
 	}
 
 }
