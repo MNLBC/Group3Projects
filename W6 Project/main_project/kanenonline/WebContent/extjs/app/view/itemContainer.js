@@ -19,7 +19,7 @@ Ext.define('KanenOnlineShopping.view.itemContainer', {
     requires: [
         'Ext.Img',
         'Ext.form.Label',
-        'Ext.toolbar.Spacer',
+        'Ext.container.Container',
         'Ext.button.Button'
     ],
 
@@ -59,26 +59,41 @@ Ext.define('KanenOnlineShopping.view.itemContainer', {
                     text: 'My Label'
                 },
                 {
-                    xtype: 'tbspacer',
+                    xtype: 'container',
                     flex: 1,
-                    height: 150,
-                    width: 90
-                },
-                {
-                    xtype: 'button',
-                    width: 87,
-                    text: 'Add to Cart',
-                    listeners: {
-                        click: {
-                            fn: me.onButtonClick,
-                            scope: me
+                    items: [
+                        {
+                            xtype: 'button',
+                            text: 'MyButton',
+                            listeners: {
+                                click: {
+                                    fn: me.onButtonClick1,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'button',
+                            width: 87,
+                            text: 'Add to Cart',
+                            listeners: {
+                                click: {
+                                    fn: me.onButtonClick,
+                                    scope: me
+                                }
+                            }
                         }
-                    }
+                    ]
                 }
             ]
         });
 
         me.callParent(arguments);
+    },
+
+    onButtonClick1: function(button, e, eOpts) {
+
+        KanenOnlineShopping.app.getController('productController').showProductDetails(this.productId,this.productName,this.productDescription,this.productPrice,this.productStockQuantity,this.productImagePath);
     },
 
     onButtonClick: function(button, e, eOpts) {

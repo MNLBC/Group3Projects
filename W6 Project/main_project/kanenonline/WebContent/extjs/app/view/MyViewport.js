@@ -131,7 +131,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                                 id: 'mainOrdrQty',
                                                                 itemId: 'mainOrdrQty',
                                                                 allowBlank: false,
-                                                                regex: '^[1-9][0-9]*$',
+                                                                regex: '/^[1-9][0-9]*$/',
                                                                 regexText: 'Only numbers are allowed'
                                                             }
                                                         },
@@ -188,6 +188,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                         {
                                                             xtype: 'button',
                                                             height: 52,
+                                                            hidden: true,
                                                             id: 'btnMainCheckout',
                                                             itemId: 'btnMainCheckout',
                                                             width: 162,
@@ -388,6 +389,9 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                     itemId: 'userProfileContainer',
                     style: 'style="background-color: #A6CBED;"',
                     items: [
+                        {
+                            xtype: 'container'
+                        },
                         {
                             xtype: 'container',
                             height: 1000,

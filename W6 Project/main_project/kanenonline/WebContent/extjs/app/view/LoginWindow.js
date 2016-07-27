@@ -20,16 +20,15 @@ Ext.define('KanenOnlineShopping.view.LoginWindow', {
         'Ext.form.Panel',
         'Ext.form.field.Text',
         'Ext.toolbar.Toolbar',
-        'Ext.toolbar.Spacer',
         'Ext.button.Button'
     ],
 
     draggable: false,
-    height: 213,
+    height: 226,
     hidden: false,
     id: 'loginWindow',
     itemId: 'loginWindow',
-    width: 605,
+    width: 598,
     resizable: false,
     closable: false,
     title: 'Login',
@@ -47,15 +46,16 @@ Ext.define('KanenOnlineShopping.view.LoginWindow', {
                     itemId: 'frmLogin',
                     padding: 10,
                     width: 604,
+                    layout: 'auto',
                     bodyPadding: 10,
                     items: [
                         {
                             xtype: 'textfield',
-                            anchor: '100%',
                             height: 33,
                             id: 'txtLoginUsername',
                             itemId: 'txtLoginUsername',
                             padding: 5,
+                            width: 398,
                             fieldLabel: 'Username:',
                             labelWidth: 150,
                             allowBlank: false,
@@ -63,11 +63,11 @@ Ext.define('KanenOnlineShopping.view.LoginWindow', {
                         },
                         {
                             xtype: 'textfield',
-                            anchor: '100%',
                             height: 33,
                             id: 'txtLoginPassword',
                             itemId: 'txtLoginPassword',
                             padding: 5,
+                            width: 397,
                             fieldLabel: 'Password',
                             labelWidth: 150,
                             inputType: 'password',
@@ -79,11 +79,11 @@ Ext.define('KanenOnlineShopping.view.LoginWindow', {
                         {
                             xtype: 'toolbar',
                             dock: 'bottom',
+                            layout: {
+                                type: 'hbox',
+                                pack: 'center'
+                            },
                             items: [
-                                {
-                                    xtype: 'tbspacer',
-                                    width: 150
-                                },
                                 {
                                     xtype: 'button',
                                     height: 33,

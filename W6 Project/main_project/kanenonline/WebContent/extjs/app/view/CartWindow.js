@@ -144,6 +144,7 @@ Ext.define('KanenOnlineShopping.view.CartWindow', {
                                 {
                                     xtype: 'button',
                                     height: 38,
+                                    hidden: true,
                                     id: 'btnBuy',
                                     itemId: 'btnBuy',
                                     width: 132,
