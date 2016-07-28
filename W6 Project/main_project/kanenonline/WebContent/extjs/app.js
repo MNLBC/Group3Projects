@@ -49,7 +49,8 @@ Ext.application({
         'UserWindow',
         'ChangePassWindow',
         'MemberShipWindow',
-        'MyWindow'
+        'CommentWindow',
+        'WishListWindow'
     ],
     controllers: [
         'productController',

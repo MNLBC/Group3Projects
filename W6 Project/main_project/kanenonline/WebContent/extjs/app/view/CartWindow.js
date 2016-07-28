@@ -43,6 +43,8 @@ Ext.define('KanenOnlineShopping.view.CartWindow', {
                     xtype: 'gridpanel',
                     flex: 9,
                     region: 'center',
+                    id: 'cartWindowGrid',
+                    itemId: 'cartWindowGrid',
                     title: '',
                     store: 'cartStore',
                     columns: [
@@ -144,7 +146,6 @@ Ext.define('KanenOnlineShopping.view.CartWindow', {
                                 {
                                     xtype: 'button',
                                     height: 38,
-                                    hidden: true,
                                     id: 'btnBuy',
                                     itemId: 'btnBuy',
                                     width: 132,
