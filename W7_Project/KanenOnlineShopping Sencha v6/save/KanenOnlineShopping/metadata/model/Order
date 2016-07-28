@@ -1,0 +1,92 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Order"
+    },
+    "designerId": "3e2cef92-49fa-4e31-9233-1e71e71ec299",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "orderId"
+            },
+            "name": "MyField",
+            "designerId": "36a9d85e-4b6e-4a88-8704-a043e8b9e866"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "userId"
+            },
+            "name": "MyField1",
+            "designerId": "4f39465d-8dd5-40e3-a95b-bafdd247ec39"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "orderDate"
+            },
+            "name": "MyField2",
+            "designerId": "cff8b476-5b17-4193-b3e7-ee00e49a5f4d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "totalCost"
+            },
+            "name": "MyField3",
+            "designerId": "e5b7bbec-d352-4e93-9457-fbb8f29209ee"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "orderStatus"
+            },
+            "name": "MyField4",
+            "designerId": "940ed901-8613-45a2-b41b-644696691efd"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "items"
+            },
+            "name": "MyField5",
+            "designerId": "0cb1e262-c584-4601-bdb4-44e7cd743f79"
+        }
+    ]
+}

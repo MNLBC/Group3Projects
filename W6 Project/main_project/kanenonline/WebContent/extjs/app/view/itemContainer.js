@@ -19,8 +19,8 @@ Ext.define('KanenOnlineShopping.view.itemContainer', {
     requires: [
         'Ext.Img',
         'Ext.form.Label',
-        'Ext.container.Container',
         'Ext.toolbar.Spacer',
+        'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
 
@@ -72,25 +72,32 @@ Ext.define('KanenOnlineShopping.view.itemContainer', {
                             height: 20
                         },
                         {
-                            xtype: 'button',
-                            text: 'Product Details',
-                            listeners: {
-                                click: {
-                                    fn: me.onButtonClick1,
-                                    scope: me
+                            xtype: 'toolbar',
+                            flex: 1,
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    text: 'Product Details',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick1,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    height: 28,
+                                    width: 105,
+                                    text: 'Add to Cart',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick,
+                                            scope: me
+                                        }
+                                    }
                                 }
-                            }
-                        },
-                        {
-                            xtype: 'button',
-                            width: 87,
-                            text: 'Add to Cart',
-                            listeners: {
-                                click: {
-                                    fn: me.onButtonClick,
-                                    scope: me
-                                }
-                            }
+                            ]
                         }
                     ]
                 }

@@ -122,6 +122,10 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         {
             ref: 'txtMembershipType',
             selector: '#txtMembershipType'
+        },
+        {
+            ref: 'btnWishList',
+            selector: '#btnWishList'
         }
     ],
 
@@ -136,9 +140,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         											'Order these items?',
         											function(btn) {
         												if (btn == 'yes') {
-        													Ext.MessageBox
-        															.alert('',
-        																	'Order successfully created. Please wait for confirmation.');
 
         													var cartStore = Ext
         															.getStore('cartStore');
@@ -189,6 +190,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         																				.getStore(
         																						'cartStore')
         																				.removeAll();
+                                                                                Ext.getCmp('cartWindow').hide();
         																	}
         																	if (responseeErrormsg == 'failed') {
         																		Ext.Msg
@@ -269,7 +271,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     onOrderItemsGridPanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
 
-        // debugger;
+
         var orderItemsGridPanel = Ext.getCmp('orderItemsGridPanel');
         var  orderItemStore = Ext.getStore('orderItemStore');
         var selModel = orderItemsGridPanel.getSelectionModel();
@@ -277,17 +279,14 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         var selectionCount = selModel.getCount();
         var orderId = selectedRecords[0].data.orderId;
 
-        // for(var i =0;i<selectionCount;i++) {
-        // alert(selectedRecords[i]);
-        // }
         orderItemStore.clearFilter(true);
         orderItemStore.filter('orderId', orderId);
-        // debugger;
+
         Ext.create('Ext.window.Window',{
 
                        rendetTo: Ext.getBody(),
                        bodyPadding: 10,
-                       title: 'Order Summary',
+                       title: 'Order Details',
                        closable: true,
                        autoShow: true,
                        resizable: false,
@@ -300,7 +299,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                                             xtype: 'gridpanel',
                                             id: 'orderSummaryGridPanel',
                                             itemId: 'orderSummaryGridPanel',
-                                            title: 'Transactions',
                                             store: 'orderItemStore',
                                             columns: [
                                                 {
@@ -352,45 +350,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         var orderId = orderStore.data.items[0].data.orderId;
 
-
-        // Ext.Ajax.request({
-
-        //      url: window.location.pathname +'order/userOrderDetails',
-        //      method: 'POST',
-
-        //      params: {
-        //      orderId: orderId
-
-        //  },
-        //      scope: this,
-        //      success: function(response){
-
-
-        //          var responseText = Ext.decode(response.responseText);
-        //          var responseData = responseText.data;
-        //          debugger;
-
-
-        //          for(var i=0; i < responseData.items.length; i++){
-        //          var items = {
-        //               productId: responseData.items[i].productId,
-        //               productName: responseData.items[i].productName,
-        //               productDescription: responseData.items[i].productDescription,
-        //               quantity: responseData.items[i].quantity,
-        //               productPrice: responseData.items[i].productPrice
-        //         };
-        //         orderItemStore.add(items);
-
-        // }
-
-
-
-        //      },
-        //      failure: function(){
-        //          Ext.MessageBox.alert('Login failed', 'Unable to connect to server, please try again.');
-        //      }
-        //  });
-
     },
 
     btnMainLoginClicked: function(button, e, eOpts) {
@@ -399,243 +358,273 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     btnLoginClicked: function(button, e, eOpts) {
 
-                // debugger;
-        						// this.loginWindow = Ext.getCmp('LogiNwindow');
-        						// this.frmLogin = this.getFrmLogin();
 
-        						var frmLogin = Ext.getCmp('frmLogin');
-        						var userName = frmLogin.query('#txtLoginUsername')[0]
-        								.getValue();
-        						var userPassword = frmLogin.query('#txtLoginPassword')[0]
-        								.getValue();
-        						var userStore = Ext.getStore('userStore');
-        						userStore.removeAll();
+        var frmLogin = Ext.getCmp('frmLogin');
+        var userName = frmLogin.query('#txtLoginUsername')[0]
+        .getValue();
+        var userPassword = frmLogin.query('#txtLoginPassword')[0]
+        .getValue();
+        var userStore = Ext.getStore('userStore');
+        userStore.removeAll();
 
-        						Ext.Ajax
-        								.request({
+        Ext.Ajax
+        .request({
 
-        									url : window.location.pathname
-        											+ 'user/login',
-        									method : 'POST',
+            url : window.location.pathname
+            + 'user/login',
+            method : 'POST',
 
-        									params : {
-        										userName : userName,
-        										userPassword : userPassword
-        									},
-        									scope : this,
-        									success : function(response) {
+            params : {
+                userName : userName,
+                userPassword : userPassword
+            },
+            scope : this,
+            success : function(response) {
 
-        										var responseText = Ext
-        												.decode(response.responseText);
-        										var responseData = responseText.data;
+                var responseText = Ext
+                .decode(response.responseText);
+                var responseData = responseText.data;
 
-        										if (responseData.banned == true) {
-        											Ext.MessageBox.alert(
-        													'Login failed',
-        													'Your account is blocked.');
-        										} else if (!responseData.items[0]) {
-        											Ext.MessageBox.alert(
-        													'Login failed',
-        													'Invalid credentials.');
-        										} else {
+                if (responseData.banned == true) {
+                    Ext.MessageBox.alert(
+                        'Login failed',
+                        'Your account is blocked.');
+                } else if (!responseData.items[0]) {
+                    Ext.MessageBox.alert(
+                        'Login failed',
+                        'Invalid credentials.');
+                } else {
 
-        											var user = responseData.items[0];
-        											var userHasCart = responseData.userHasCart;
-                                                    var userMembershipTypeId = user.userMembershipId.membershipTypeId;
+                    var user = responseData.items[0];
+                    var userHasCart = responseData.userHasCart;
+                    var userMembershipTypeId = user.userMembershipId.membershipTypeId;
 
 
-                                                    var membershipTypeStore = Ext.getStore('MembershipStore');
+                    var membershipTypeStore = Ext.getStore('MembershipStore');
 
 
-                                                    var membershipTypeArray = membershipTypeStore.queryBy(function(record){
-                                                        return record.data.membershipTypeId == userMembershipTypeId;
-                                                    });
+                    var membershipTypeArray = membershipTypeStore.queryBy(function(record){
+                        return record.data.membershipTypeId == userMembershipTypeId;
+                    });
 
 
-                                                    var discountRate = membershipTypeArray.items[0].data.discountRate;
-                							        var membershipTypeName = membershipTypeArray.items[0].data.membershipTypeName;
+                    var discountRate = membershipTypeArray.items[0].data.discountRate;
+                    var membershipTypeName = membershipTypeArray.items[0].data.membershipTypeName;
 
-        											var loggedInUser = {
-        												userId : user.userId,
-        												userName : user.username,
-        												userFullName : user.fullName,
-        												userEmail : user.email,
-        												userAddress : user.address,
-        												userMobileNumber : user.mobileNumber,
-        												userRole : user.userRole,
-        												userPassword : '',
-                                                        userDiscountRate : discountRate,
-                                                        userMembershipTypeName : membershipTypeName
+                    var loggedInUser = {
+                        userId : user.userId,
+                        userName : user.username,
+                        userFullName : user.fullName,
+                        userEmail : user.email,
+                        userAddress : user.address,
+                        userMobileNumber : user.mobileNumber,
+                        userRole : user.userRole,
+                        userPassword : '',
+                        userDiscountRate : discountRate,
+                        userMembershipTypeName : membershipTypeName
 
-        											};
+                    };
 
 
-        											userStore.add(loggedInUser);
+                    userStore.add(loggedInUser);
 
-        											Ext.getCmp('btnMainLogin').hide();
-        											Ext.getCmp('btnMainRegister')
-        													.hide();
-        											Ext.getCmp('btnMainLogout').show();
-        											this.resetLoginFields();
-        											Ext.getCmp('loginWindow').hide();
-        											Ext.getCmp('loginToolbar')
-        													.doLayout();
-        											Ext.getCmp('btnHistory').show();
+                    Ext.getCmp('btnMainLogin').hide();
+                    Ext.getCmp('btnMainRegister')
+                    .hide();
+                    Ext.getCmp('btnMainLogout').show();
+                    this.resetLoginFields();
+                    Ext.getCmp('loginWindow').hide();
+                    Ext.getCmp('loginToolbar')
+                    .doLayout();
+                    Ext.getCmp('btnHistory').show();
 
-        											var cartStore = Ext
-        													.getStore('cartStore');
-                                                    Ext.getCmp('btnUserProfile').show();
-        											Ext.Msg
-        													.show({
-        														title : '',
-        														msg : 'Logged in successfully',
-        														width : 300,
-        														closable : false,
-        														buttons : Ext.Msg.YES,
-        														buttonText : {
-        															yes : 'Ok'
-        														},
-        														multiline : false,
-        														fn : function(
-        																buttonValue,
-        																inputText,
-        																showConfig) {
-        															if (buttonValue === "yes") {
+                    var cartStore = Ext
+                    .getStore('cartStore');
+                    Ext.getCmp('btnUserProfile').show();
+                    Ext.getCmp('btnWishList').show();
+                    Ext.Msg
+                    .show({
+                        title : '',
+                        msg : 'Logged in successfully',
+                        width : 300,
+                        closable : false,
+                        buttons : Ext.Msg.YES,
+                        buttonText : {
+                            yes : 'Ok'
+                        },
+                        multiline : false,
+                        fn : function(
+                        buttonValue,
+                         inputText,
+                         showConfig) {
+                            if (buttonValue === "yes") {
 
-        																if (userHasCart  && cartStore.data.items.length == 0) {
-        //																	 && cartStore.data.items.length == 0
-        																	Ext.Msg
-        																			.confirm(
-        																					'Reload Cart',
-        																					'Do you want to continue your saved cart?',
-        																					function(
-        																							btn) {
-        																						if (btn == 'yes') {
-        																							// Ext.MessageBox
-        																							// .alert(
-        																							// '',
-        																							// 'Reloading
-        																							// cart...');
-        																							var userStore = Ext
-        																									.getStore('userStore');
+                                var userStore = Ext.getStore('userStore');
+                                var userId = userStore.data.items[0].data.userId;
+                                var wishListStore = Ext.getStore('wishListStore');
+                                Ext.Ajax.request({
+                                    url : window.location.pathname+ 'wishList/loadUserWishList',
+                                    method : 'POST',
+                                    params : {
+                                        userId : userId
+                                    },
+                                    scope : this,
+                                    success : function(response) {
+                                        var responseText = Ext.decode(response.responseText);
+                                        var responseData = responseText.data;
+                                        for (var i = 0; i < responseData.items.length; i++) {
+                                            var items = {
+                                                wishListId : responseData.items[i].wishListId,
+                                                userId : responseData.items[i].orderId,
+                                                productId : responseData.items[i].productId,
+                                                productName : responseData.items[i].productName,
+                                                productDescription : responseData.items[i].productDescription,
+                                                productPrice : responseData.items[i].productPrice,
+                                                imagePath : responseData.items[i].imagePath
+                                            };
+                                            Ext.getStore('wishListStore').add(items);
+                                        }
+                                    },
+                                    failure : function() {
+                                        Ext.MessageBox.alert('Fail','Unable to load cart');
+                                    }
+                                });
 
-        																							var userId = userStore.data.items[0].data.userId;
+                                if (userHasCart  && cartStore.data.items.length == 0) {
 
-        																							userStore
-        																									.clearFilter(true);
-        																							userStore
-        																									.filter(
-        																											'userId',
-        																											userId);
-        																							Ext.Ajax
-        																									.request({
+                                    Ext.Msg
+                                    .confirm(
+                                        'Reload Cart',
+                                        'Do you want to continue your saved cart?',
+                                        function(
+                                        btn) {
+                                            if (btn == 'yes') {
+                                                // Ext.MessageBox
+                                                // .alert(
+                                                // '',
+                                                // 'Reloading
+                                                // cart...');
+                                                var userStore = Ext
+                                                .getStore('userStore');
 
-        																										url : window.location.pathname
-        																												+ 'cart/loadCart',
-        																										method : 'POST',
+                                                var userId = userStore.data.items[0].data.userId;
 
-        																										params : {
-        																											userId : userId
+                                                userStore
+                                                .clearFilter(true);
+                                                userStore
+                                                .filter(
+                                                    'userId',
+                                                    userId);
+                                                Ext.Ajax
+                                                .request({
 
-        																										},
+                                                    url : window.location.pathname
+                                                    + 'cart/loadCart',
+                                                    method : 'POST',
 
-        																										scope : this,
-        																										success : function(
-        																												response) {
-        																											var responseText = Ext
-        																													.decode(response.responseText);
-        																											var responseData = responseText.data;
-        																											for (var i = 0; i < responseData.items.length; i++) {
-        																												var items = {
-        																													orderId : responseData.items[i].orderId,
-        																													productId : responseData.items[i].productId,
-        																													productName : responseData.items[i].productName,
-        																													productDescription : responseData.items[i].productDescription,
-        																													quantity : responseData.items[i].quantity,
-        																													productPrice : responseData.items[i].productPrice
-        																												};
+                                                    params : {
+                                                        userId : userId
 
-        																												Ext
-        																														.getStore(
-        																																'cartStore')
-        																														.add(
-        																																items);
-        																											}
-        																										},
-        																										failure : function() {
+                                                    },
 
-        																											Ext.MessageBox
-        																													.alert(
-        																															'Fail',
-        																															'Unable to load cart');
-        																										}
-        																									});
-        																						} else {
+                                                    scope : this,
+                                                    success : function(
+                                                    response) {
+                                                        var responseText = Ext
+                                                        .decode(response.responseText);
+                                                        var responseData = responseText.data;
+                                                        for (var i = 0; i < responseData.items.length; i++) {
+                                                            var items = {
+                                                                orderId : responseData.items[i].orderId,
+                                                                productId : responseData.items[i].productId,
+                                                                productName : responseData.items[i].productName,
+                                                                productDescription : responseData.items[i].productDescription,
+                                                                quantity : responseData.items[i].quantity,
+                                                                productPrice : responseData.items[i].productPrice,
+                                                                imagePath : responseData.items[i].imagePath
 
-        																							var userStore = Ext
-        																									.getStore('userStore');
-        																							var cartStore = Ext
-        																									.getStore('cartStore');
+                                                            };
 
-        																							var userId = userStore.data.items[0].data.userId;
+                                                            Ext
+                                                            .getStore(
+                                                                'cartStore')
+                                                            .add(
+                                                                items);
+                                                        }
+                                                    },
+                                                    failure : function() {
 
-        																							userStore
-        																									.clearFilter(true);
-        																							userStore
-        																									.filter(
-        																											'userId',
-        																											userId);
+                                                        Ext.MessageBox
+                                                        .alert(
+                                                            'Fail',
+                                                            'Unable to load cart');
+                                                    }
+                                                });
+                                            } else {
 
-        																							Ext.Ajax
-        																									.request({
+                                                var userStore = Ext
+                                                .getStore('userStore');
+                                                var cartStore = Ext
+                                                .getStore('cartStore');
 
-        																										url : window.location.pathname
-        																												+ 'cart/removeUserCart',
-        																										method : 'POST',
+                                                var userId = userStore.data.items[0].data.userId;
 
-        																										params : {
-        																											userId : userId
+                                                userStore
+                                                .clearFilter(true);
+                                                userStore
+                                                .filter(
+                                                    'userId',
+                                                    userId);
 
-        																										},
-        																										scope : this,
-        																										success : function(
-        																												response) {
-        																											cartStore
-        																													.removeAll();
-        																											alert('Cart Removed from db!');
+                                                Ext.Ajax
+                                                .request({
 
-        																										},
-        																										failure : function() {
-        																											Ext.MessageBox
-        																													.alert(
-        																															'Fail',
-        																															'Unable to delete cart');
-        																										}
-        																									});
-        																						}
+                                                    url : window.location.pathname
+                                                    + 'cart/removeUserCart',
+                                                    method : 'POST',
 
-        																					});
+                                                    params : {
+                                                        userId : userId
 
-        																}
+                                                    },
+                                                    scope : this,
+                                                    success : function(
+                                                    response) {
+                                                        cartStore
+                                                        .removeAll();
 
-        															}
-        														},
-        														icon : Ext.Msg.INFORMATION
-        													});
-        										}
+                                                    },
+                                                    failure : function() {
+                                                        Ext.MessageBox
+                                                        .alert(
+                                                            'Fail',
+                                                            'Unable to delete cart');
+                                                    }
+                                                });
+                                            }
 
-        									},
-        									failure : function() {
-        										Ext.MessageBox
-        												.alert('Login failed',
-        														'Unable to connect to server, please try again.');
-        									}
-        								});
+                                        });
+
+                                }
+
+                            }
+                        },
+                        icon : Ext.Msg.INFORMATION
+                    });
+                }
+
+            },
+            failure : function() {
+                Ext.MessageBox
+                .alert('Login failed',
+                       'Unable to connect to server, please try again.');
+            }
+        });
 
     },
 
     onBtnMainRegisterClick: function(button, e, eOpts) {
-        // var windowReg = Ext.create('KanenOnlineShopping.view.RegisterWindow', {});
+
         this.registerWindow.show();
     },
 
@@ -649,7 +638,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         var address = frmRegister.query('#txtRegAddress')[0].getValue();
         var contactNumber = frmRegister.query('#txtRegContactNumber')[0].getValue();
         var userRole = 'Customer';
-        //var userStore = Ext.getStore('userStore');
+
 
         if(frmRegister.isValid()){
                     if(userPassword === confirmPassword){
@@ -672,7 +661,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                                  success: function(response){
                                              var responseText = Ext.decode(response.responseText);
                                      if(responseText.data.errormsg.indexOf('none') >-1){
-                                         Ext.MessageBox.alert('Registation','Account Created, You are now registered!');
+                                         Ext.MessageBox.alert('Registation','Successfully Registered');
                                           this.resetRegistrationFields();
                                           this.registerWindow.hide();
                                      }
@@ -704,7 +693,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
     },
 
     onBtnRegCancelClick: function(button, e, eOpts) {
-        // var registerWindow = Ext.getCmp('registerWindow');
+
         this.resetRegistrationFields();
         this.registerWindow.hide();
     },
@@ -726,15 +715,9 @@ Ext.define('KanenOnlineShopping.controller.productController', {
     onBtnMainLogoutClicked: function(button, e, eOpts) {
         var cartStore = Ext.getStore('cartStore');
         var userStore = Ext.getStore('userStore');
+        var wishListStore = Ext.getStore('wishListStore');
         var userId = userStore.data.items[0].data.userId;
         if (cartStore.getCount() > 0) {
-            //	Ext.Msg
-            //			.confirm(
-            //					'Save Cart',
-            //					'Do you want to save your cart?',
-            //					function(btn) {
-
-            //						if (btn == 'yes') {
 
             var jsonData = '{ "userId": '
             + userStore
@@ -806,23 +789,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
                 },
 
-                // failure: function
-                // (response) {
-
-                // Ext.Msg.alert("Error",'Unable
-                // to checkout
-                // cart.');
-                // }
             });
-
-
-
-            //	} else {
-
-            //	userStore.removeAll();
-
-            //	cartStore.removeAll();
-
         }
         Ext.Msg.show({
             title : '',
@@ -837,15 +804,14 @@ Ext.define('KanenOnlineShopping.controller.productController', {
             icon : Ext.Msg.INFO
         });
 
-        //}, this, true);
-        //	}
 
         userStore.removeAll();
-
+        wishListStore.removeAll();
         Ext.getCmp('btnUserProfile').hide();
         Ext.getCmp('btnMainLogin').show();
         Ext.getCmp('btnMainRegister').show();
         Ext.getCmp('btnMainLogout').hide();
+        Ext.getCmp('btnWishList').hide();
 
         Ext.getCmp('loginToolbar').doLayout();
 
@@ -859,8 +825,9 @@ Ext.define('KanenOnlineShopping.controller.productController', {
     },
 
     onBtnMainCheckoutClicked: function(button, e, eOpts) {
-         var cartStore = Ext.getStore('cartStore');
-
+        var cartStore = Ext.getStore('cartStore');
+        var cartWindowGrid = Ext.getCmp('cartWindowGrid');
+        cartWindowGrid.getView().refresh();
         						if (cartStore.count() > 0) {
 
         							var totalCost = 0.00;
@@ -925,6 +892,8 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
                  var responseText = Ext.decode(response.responseText);
                  var responseData = responseText.data;
+                 if(responseData != null){
+
 
                  for(var i=0; i < responseData.orders.length; i++){
                    var order = {
@@ -952,7 +921,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                        };
                 orderItemStore.add(items);
                  }
-
+                }
 
 
 
@@ -995,8 +964,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     onBtnUpdateProfileClick: function() {
         this. userWindow= Ext.create('KanenOnlineShopping.view.UserWindow',{});
-        //this.userWindow.hide();
-        //this.userWindow = Ext.getCmp('UserWindow');
+
         this.userWindow.show();
 
         var userStore = Ext.getStore('userStore');
@@ -1214,8 +1182,82 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         Ext.getCmp('commentWindow').close();
     },
 
-    onLaunch: function() {
+    onBtnWishListClicked: function(button, e, eOpts) {
+        var wishListStore = Ext.getStore('wishListStore');
 
+        var wishListSize = wishListStore.data.items.length;
+
+        if(wishListSize > 0){
+            var wishListWindow = Ext.create('KanenOnlineShopping.view.WishListWindow', {});
+            wishListWindow.show();
+        }else{
+            Ext.Msg.alert('Status', 'Your Wish List is empty');
+        }
+
+    },
+
+    onBtnWLAddAllToCart: function(button, e, eOpts) {
+
+        var cartStore = Ext.getStore('cartStore');
+        var wishListStore = Ext.getStore('wishListStore');
+        var alreadyinCart = false;
+        var userStore = Ext.getStore('userStore');
+        var userId = userStore.data.items[0].data.userId;
+
+        Ext.Ajax.request({
+            url : window.location.pathname+ 'wishList/clearUserWishList',
+            method : 'POST',
+            params : {
+                userId : userId
+            },
+            scope : this,
+            success : function(response) {
+                for(i = 0; i < wishListStore.data.items.length ; i++){
+                    var items = {
+                        productId: wishListStore.data.items[i].data.productId,
+                        productName: wishListStore.data.items[i].data.productName,
+                        productDescription: wishListStore.data.items[i].data.productDescription,
+                        productPrice: wishListStore.data.items[i].data.productPrice,
+                        quantity: 1,
+                        imagePath: wishListStore.data.items[i].data.imagePath
+                    };
+                    alreadyinCart = this.alreadyInCart(wishListStore.data.items[i].data.productId);
+                    if(!alreadyinCart){
+                        cartStore.add(items);
+                    }
+                }
+                wishListStore.removeAll();
+                Ext.getCmp('WishListWindow').close();
+                Ext.MessageBox.alert('Success','All items has been added to cart');
+            }
+        });
+
+
+    },
+
+    onBtnWLRemoveAll: function(button, e, eOpts) {
+        var wishListStore = Ext.getStore('wishListStore');
+        var userStore = Ext.getStore('userStore');
+        var userId = userStore.data.items[0].data.userId;
+
+
+        Ext.Ajax.request({
+          url : window.location.pathname+ 'wishList/clearUserWishList',
+          method : 'POST',
+          params : {
+        		userId : userId
+          },
+           scope : this,
+           success : function(response) {
+               wishListStore.removeAll();
+               Ext.getCmp('WishListWindow').close();
+             Ext.MessageBox.alert('Success','All items has been removed');
+        	     }
+        	});
+
+    },
+
+    onLaunch: function() {
         this.bodyContainer = this.getBodyContainer();
         this.productContainer = Ext.getCmp('productContainer');
 
@@ -1238,6 +1280,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         this.mainContainer = Ext.getCmp('mainContainer');
         this.userProfileContainer = Ext.getCmp('userProfileContainer');
 
+        Ext.getCmp('btnWishList').hide();
         Ext.getCmp('btnMainLogout').hide();
         Ext.getCmp('btnHistory').hide();
         Ext.getCmp('btnUserProfile').hide();
@@ -1288,12 +1331,8 @@ Ext.define('KanenOnlineShopping.controller.productController', {
           var itemNameLabel = itemContainer.items.items[1];
           itemNameLabel.text = record.data.productName + record.data.productDescription;
 
-          //var itemDescriptionLabel = itemContainer.items.items[2];
-          //itemDescriptionLabel.text = record.data.productDescription;
           var itemBtn = itemContainer.items.items[2];
 
-
-           // debugger;
           itemBtn.tooltip=record.data.productDescription;
 
           productPanel.add(itemContainer);
@@ -1305,47 +1344,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
             }
         });
 
-
-        //Ext.MessageBox.alert('Async','Not waiting for response!');
-
-        /*
-        var productPanel = Ext.getCmp('productPanel');
-        productStore.each(function(record){
-            var mystr ='';
-
-           // debugger;
-
-          var itemContainer = Ext.create('KanenOnlineShopping.view.itemContainer', {
-
-          });
-
-          itemContainer.productId = record.data.productId;
-          itemContainer.productName = record.data.productName;
-          itemContainer.productDescription = record.data.productDescription;
-          itemContainer.productPrice = record.data.productPrice;
-          itemContainer.productStockQuantity = record.data.productStockQuantity;
-          itemContainer.productImagePath = record.data.productImagePath;
-
-          var itemImage = itemContainer.items.items[0];
-          itemImage.src = record.data.productImagePath;
-
-          var itemNameLabel = itemContainer.items.items[1];
-          itemNameLabel.text = record.data.productName + record.data.productDescription;
-
-          //var itemDescriptionLabel = itemContainer.items.items[2];
-          //itemDescriptionLabel.text = record.data.productDescription;
-          var itemBtn = itemContainer.items.items[2];
-
-
-           // debugger;
-          itemBtn.tooltip=record.data.productDescription;
-
-          productPanel.add(itemContainer);
-          productPanel.doLayout();
-
-
-        });
-        */
 
     },
 
@@ -1366,7 +1364,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         if(itemAlreadyInCart){
             Ext.getCmp('cartGrid').getView().refresh();
-            Ext.Msg.alert('Status', 'Item quantity increased.');
 
         }else{
 
@@ -1380,7 +1377,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
             };
             cartStore.add(item);
-            Ext.Msg.alert('Status', 'Item added to cart.');
 
         }
     },
@@ -1428,7 +1424,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                 frmRegister.query('#txtRegEmail')[0].setValue('');
                 frmRegister.query('#txtRegAddress')[0].setValue('');
                 frmRegister.query('#txtRegContactNumber')[0].setValue('');
-        //frmRegister.invalidate();
+
     },
 
     checkIfUserExist: function(userName, userStore) {
@@ -1523,47 +1519,128 @@ Ext.define('KanenOnlineShopping.controller.productController', {
     sendComment: function(productId) {
         var userStore = Ext.getStore('userStore');
         if(userStore.getCount()>0){
-           var maxLength = Ext.getCmp('txtAreaComment').maxLength;
-           var textLength = Ext.getCmp('txtAreaComment').getValue().length;
-             if(textLength <= maxLength){
-                 var userId = userStore.data.items[0].data.userId;
-                 var productComment = Ext.getCmp('txtAreaComment').getValue();
+            var maxLength = Ext.getCmp('txtAreaComment').maxLength;
+            var textLength = Ext.getCmp('txtAreaComment').getValue().length;
+            if(textLength <= maxLength){
+                var userId = userStore.data.items[0].data.userId;
+                var productComment = Ext.getCmp('txtAreaComment').getValue();
 
-            Ext.Ajax.request({
-            url : window.location.pathname + 'product/saveProdComment',
-            method: 'POST',
-            params: {
-                userId: userId,
-                productId: productId,
-                productComment: productComment
-            },
-            success : function(
-            response){
-                var responseText = Ext.decode(response.responseText);
-                var responseErrormsg = responseText.data.errormsg;
-                if (responseErrormsg == 'none') {
-                    Ext.Msg.alert("Success",'Your comment has been sent.');
+                Ext.Ajax.request({
+                    url : window.location.pathname + 'product/saveProdComment',
+                    method: 'POST',
+                    params: {
+                        userId: userId,
+                        productId: productId,
+                        productComment: productComment
+                    },
+                    success : function(
+                    response){
+                        var responseText = Ext.decode(response.responseText);
+                        var responseErrormsg = responseText.data.errormsg;
+                        if (responseErrormsg == 'none') {
+                            Ext.Msg.alert("Success",'Your comment has been sent.');
 
-                }
-                if (responseErrormsg == 'failed') {
-                    Ext.Msg.alert("Failed",'Unable to send your comment.');
-                }
-            }
-        });
+                        }
+                        if (responseErrormsg == 'failed') {
+                            Ext.Msg.alert("Failed",'Unable to send your comment.');
+                        }
+                    }
+                });
             }else{
                 Ext.Msg.alert("Warning","You can only put 200 characters on your comment.");
             }
         }else{
-            Ext.Msg.alert("Warning","You must be logged in to send a comment.");
+            Ext.Msg.alert("Warning","Log in to send your comment.");
         }
 
         Ext.getCmp('commentWindow').close();
     },
 
     showCommentWindow: function(productId) {
+
                 var commentWindow = Ext.create('KanenOnlineShopping.view.CommentWindow', {});
                 commentWindow.show();
                 commentWindow.productId = productId;
+
+    },
+
+    addItemToWishList: function(productId, productName, productDescription, productPrice, imagePath) {
+
+        var wishListStore = Ext.getStore('wishListStore');
+        var userStore = Ext.getStore('userStore');
+
+        var alreadyInWishList = false;
+        var userLength = userStore.data.items.length;
+
+        if(userLength > 0){
+                var userId = userStore.data.items[0].data.userId;
+        for(i = 0; i <wishListStore.data.items.length; i++){
+            if(productId == wishListStore.data.items[i].data.productId){
+                alreadyInWishList = true;
+            }
+        }
+        if(alreadyInWishList){
+            Ext.Msg.alert('Status', 'Item already in Wish List');
+        }else{
+            Ext.Ajax.request({
+                url : window.location.pathname+ 'wishList/saveWishList',
+                method : 'POST',
+                params : {
+                    userId : userId,
+                    productId : productId,
+                    productName : productName,
+                    productDescription : productDescription,
+                    productPrice : productPrice,
+                    imagePath : imagePath
+                },
+                scope : this,
+                success : function(response) {
+                    var responseText = Ext.decode(response.responseText);
+                    var responseData = responseText.data;
+
+                    var wishListId = responseData.id;
+                    var item = {
+                        wishListId : wishListId,
+                        userId : userId,
+                        productId : productId,
+                        productName : productName,
+                        productDescription : productDescription,
+                        productPrice : productPrice,
+                        imagePath : imagePath
+
+                    };
+
+                    wishListStore.add(item);
+                    Ext.MessageBox.alert('Success','Item added to Wish List');
+                },
+                failure : function(response) {
+                    Ext.Msg.alert("Error",'Unable to checkout cart.');
+                }
+            });
+
+
+            }
+        }else{
+            Ext.Msg.alert('Status', 'Log in to add to Wish List');
+
+        }
+    },
+
+    alreadyInCart: function(productId) {
+        var cartStore = Ext.getStore('cartStore');
+        var cartLength = cartStore.data.items.length;
+
+        if(cartLength > 0){
+               for(i = 0; i <cartStore.data.items.length; i++){
+                if(productId == cartStore.data.items[i].data.productId){
+                    return true;
+                }
+            }
+        }else{
+            return false;
+        }
+        return false;
+
     },
 
     init: function(application) {
@@ -1663,6 +1740,15 @@ Ext.define('KanenOnlineShopping.controller.productController', {
             },
             "#btnCommentCancel": {
                 click: this.onBtnCommentCancel
+            },
+            "#btnWishList": {
+                click: this.onBtnWishListClicked
+            },
+            "#btnWLAddAllToCart": {
+                click: this.onBtnWLAddAllToCart
+            },
+            "#btnWLRemoveAll": {
+                click: this.onBtnWLRemoveAll
             }
         });
     }

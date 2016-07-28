@@ -1,0 +1,388 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoScroll": true,
+        "designer|userClassName": "WishListWindow",
+        "height": 438,
+        "id": "WishListWindow",
+        "itemId": "WishListWindow",
+        "modal": true,
+        "title": "Wish List",
+        "width": 730
+    },
+    "name": "MyWindow",
+    "designerId": "efd248bf-76e5-4104-ae4d-3d67c364290d",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "wishListGridPanel",
+                "itemId": "wishListGridPanel",
+                "store": "wishListStore",
+                "title": null
+            },
+            "name": "MyGridPanel3",
+            "designerId": "b8315d35-103f-4e00-9b1b-e59a495ededf",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "imagePath",
+                        "defaultWidth": 160,
+                        "flex": 1,
+                        "maxWidth": 160,
+                        "minWidth": 160,
+                        "text": "Image",
+                        "width": 160
+                    },
+                    "name": "MyColumn10",
+                    "designerId": "81e9ed54-526a-47fd-8fa8-d91a12204474",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "                return '<img src=\"' + value + '\"  width=\"150\" height=\"150\"  />';"
+                                ]
+                            },
+                            "name": "renderer",
+                            "designerId": "b9c86e3b-c995-4783-99b2-16912eec8f2a"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "productName",
+                        "flex": 1,
+                        "text": "Product Name"
+                    },
+                    "name": "MyColumn7",
+                    "designerId": "72ccce84-82cb-4d9d-9218-8c3341f7f49c"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "productDescription",
+                        "flex": 1,
+                        "text": "Description"
+                    },
+                    "name": "MyColumn8",
+                    "designerId": "93823512-7836-4b1b-8d75-a2ee6c3dd240"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "productPrice",
+                        "flex": 1,
+                        "text": "Price"
+                    },
+                    "name": "MyColumn9",
+                    "designerId": "ff392957-1232-459e-ae0f-dfefeb75bc1b"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyGridView3",
+                    "designerId": "1d1bc683-c9f4-4c05-961d-1b52bd1a6c9b"
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "icon": "resource/trash.png"
+                    },
+                    "name": "MyActionColumn2",
+                    "designerId": "dd72e6ea-f9d2-45ca-b9bf-02041e765553",
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "icon": "resource/trash.png"
+                            },
+                            "name": "MyActionColumnItem2",
+                            "designerId": "4de8c9c6-f231-4913-b2d7-87dd5cc27780",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "                         var wishListGridPanel = Ext.getCmp('wishListGridPanel');",
+                                            "                        var wishListStore = wishListGridPanel.getStore();",
+                                            "",
+                                            "                        var selectedRows = wishListStore.getAt(rowIndex);",
+                                            "",
+                                            "                        var wishListId = wishListStore.getAt(rowIndex).data.wishListId;",
+                                            "",
+                                            "",
+                                            "                        Ext.Ajax.request({",
+                                            "                          url : window.location.pathname+ 'wishList/removeFromWishList',",
+                                            "                          method : 'POST',",
+                                            "                          params : {",
+                                            "                                wishListId : wishListId",
+                                            "                          },",
+                                            "                           scope : this,",
+                                            "                           success : function(response) {",
+                                            "                             wishListStore.remove(selectedRows);",
+                                            "                               if(wishListStore.data.items.length === 0){",
+                                            "                                   Ext.MessageBox.alert('Success','Your wish list is now empty');",
+                                            "                                   Ext.getCmp('WishListWindow').close();",
+                                            "                               }else{",
+                                            "                                   Ext.MessageBox.alert('Success','Selected item was removed');",
+                                            "                               }",
+                                            "",
+                                            "                                 }",
+                                            "                            });",
+                                            ""
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "65f441ad-d027-4131-b876-e2e2cc847b93"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "name": "MyActionColumn1",
+                    "designerId": "c519f945-a6de-4f1c-949b-f86680208c99",
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "icon": "resource/cartIcon.png"
+                            },
+                            "name": "MyActionColumnItem1",
+                            "designerId": "10320998-9718-4ca9-a30a-f4325ee6976f",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "                        var wishListGridPanel = Ext.getCmp('wishListGridPanel');",
+                                            "                        var wishListStore = wishListGridPanel.getStore();",
+                                            "                        var cartStore = Ext.getStore('cartStore');",
+                                            "                        var cartLength = cartStore.data.items.length;",
+                                            "                        var alreadyInCart = false;",
+                                            "                        var selectedRows = wishListStore.getAt(rowIndex);",
+                                            "",
+                                            "",
+                                            "                        var wishListId = wishListStore.getAt(rowIndex).data.wishListId;",
+                                            "",
+                                            "                        Ext.Ajax.request({",
+                                            "                          url : window.location.pathname+ 'wishList/removeFromWishList',",
+                                            "                          method : 'POST',",
+                                            "                          params : {",
+                                            "                                wishListId : wishListId",
+                                            "                          },",
+                                            "                           scope : this,",
+                                            "                           success : function(response) {",
+                                            "                               var item = {",
+                                            "                                        productId: wishListStore.getAt(rowIndex).data.productId,",
+                                            "                                        productName: wishListStore.getAt(rowIndex).data.productName,",
+                                            "                                        productDescription: wishListStore.getAt(rowIndex).data.productDescription,",
+                                            "                                        productPrice: wishListStore.getAt(rowIndex).data.productPrice,",
+                                            "                                        quantity: 1,",
+                                            "                                        imagePath: wishListStore.getAt(rowIndex).data.imagePath",
+                                            "                                    };",
+                                            "",
+                                            "",
+                                            "                               wishListStore.remove(selectedRows);",
+                                            "                                if(cartLength > 0){",
+                                            "                                   for(i = 0; i < cartStore.data.items.length; i++){",
+                                            "                                        if(selectedRows.data.productId == cartStore.data.items[i].data.productId){",
+                                            "                                            alreadyInCart = true;",
+                                            "                                        }",
+                                            "                                    }",
+                                            "                                }else{",
+                                            "                                    alreadyInCart = false;",
+                                            "                                }",
+                                            "",
+                                            "                               if(alreadyInCart){",
+                                            "                                    Ext.MessageBox.alert('Info','Item already in cart');",
+                                            "                               }else{",
+                                            "                                  cartStore.add(item);",
+                                            "                                   Ext.MessageBox.alert('Success','Selected item added to carted');",
+                                            "                               }",
+                                            "",
+                                            "                               if(wishListStore.data.items.length === 0){",
+                                            "                                   Ext.MessageBox.alert('Success','Your wish list is now empty');",
+                                            "                                   Ext.getCmp('WishListWindow').close();",
+                                            "                               }",
+                                            "                             }",
+                                            "                            });",
+                                            "",
+                                            ""
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "0768adec-d4bd-484f-981b-a973cc14deea"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "bottom"
+            },
+            "name": "MyToolbar6",
+            "designerId": "6f9fd934-df74-4cbf-bf75-876f99d235c8",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "width": 500
+                    },
+                    "name": "MySpacer4",
+                    "designerId": "b40839d4-c23c-49cd-8ec9-5421255430ba"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "btnWLRemoveAll",
+                        "itemId": "btnWLRemoveAll",
+                        "layout|flex": null,
+                        "text": "Remove All"
+                    },
+                    "name": "MyButton32",
+                    "designerId": "20b2346b-6670-4a5f-a351-fd7e1728d9f1"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "btnWLAddAllToCart",
+                        "itemId": "btnWLAddAllToCart",
+                        "layout|flex": null,
+                        "text": "Add all to Cart"
+                    },
+                    "name": "MyButton33",
+                    "designerId": "1d792a0c-0bee-4385-ac77-741aea9a11e7"
+                }
+            ]
+        }
+    ]
+}

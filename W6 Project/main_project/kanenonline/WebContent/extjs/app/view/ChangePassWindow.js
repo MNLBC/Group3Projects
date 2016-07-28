@@ -19,6 +19,7 @@ Ext.define('KanenOnlineShopping.view.ChangePassWindow', {
     requires: [
         'Ext.form.field.Text',
         'Ext.toolbar.Spacer',
+        'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
 
@@ -76,26 +77,32 @@ Ext.define('KanenOnlineShopping.view.ChangePassWindow', {
                     flex: 0
                 },
                 {
-                    xtype: 'button',
-                    height: 36,
-                    id: 'btnResetPass',
-                    itemId: 'btnResetPass',
-                    width: 143,
-                    text: 'Reset'
+                    xtype: 'toolbar',
+                    flex: 0,
+                    items: [
+                        {
+                            xtype: 'button',
+                            height: 36,
+                            id: 'btnResetPass',
+                            itemId: 'btnResetPass',
+                            width: 143,
+                            text: 'Reset'
+                        },
+                        {
+                            xtype: 'button',
+                            height: 39,
+                            id: 'btnChangePassword',
+                            itemId: 'btnChangePassword',
+                            width: 142,
+                            text: 'Change Password'
+                        }
+                    ]
                 },
                 {
                     xtype: 'tbspacer',
                     flex: 0,
                     height: 10,
                     width: 46
-                },
-                {
-                    xtype: 'button',
-                    height: 39,
-                    id: 'btnChangePassword',
-                    itemId: 'btnChangePassword',
-                    width: 142,
-                    text: 'Change Password'
                 }
             ]
         });
