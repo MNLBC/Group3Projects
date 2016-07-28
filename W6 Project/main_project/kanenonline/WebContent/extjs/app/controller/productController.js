@@ -140,9 +140,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         											'Order these items?',
         											function(btn) {
         												if (btn == 'yes') {
-        													Ext.MessageBox
-        															.alert('',
-        																	'Order successfully created. Please wait for confirmation.');
 
         													var cartStore = Ext
         															.getStore('cartStore');
@@ -193,6 +190,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         																				.getStore(
         																						'cartStore')
         																				.removeAll();
+                                                                                Ext.getCmp('cartWindow').hide();
         																	}
         																	if (responseeErrormsg == 'failed') {
         																		Ext.Msg
@@ -288,7 +286,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
                        rendetTo: Ext.getBody(),
                        bodyPadding: 10,
-                       title: 'Order Summary',
+                       title: 'Order Details',
                        closable: true,
                        autoShow: true,
                        resizable: false,
@@ -301,7 +299,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
                                             xtype: 'gridpanel',
                                             id: 'orderSummaryGridPanel',
                                             itemId: 'orderSummaryGridPanel',
-                                            title: 'Transactions',
                                             store: 'orderItemStore',
                                             columns: [
                                                 {
@@ -828,8 +825,8 @@ Ext.define('KanenOnlineShopping.controller.productController', {
     },
 
     onBtnMainCheckoutClicked: function(button, e, eOpts) {
-        var cartWindowGrid = Ext.getCmp('cartWindowGrid');
         var cartStore = Ext.getStore('cartStore');
+        var cartWindowGrid = Ext.getCmp('cartWindowGrid');
         cartWindowGrid.getView().refresh();
         						if (cartStore.count() > 0) {
 
@@ -1367,7 +1364,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
         if(itemAlreadyInCart){
             Ext.getCmp('cartGrid').getView().refresh();
-            Ext.Msg.alert('Status', 'Item quantity increased.');
 
         }else{
 
@@ -1381,7 +1377,6 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
             };
             cartStore.add(item);
-            Ext.Msg.alert('Status', 'Item added to cart.');
 
         }
     },
@@ -1562,9 +1557,11 @@ Ext.define('KanenOnlineShopping.controller.productController', {
     },
 
     showCommentWindow: function(productId) {
+
                 var commentWindow = Ext.create('KanenOnlineShopping.view.CommentWindow', {});
                 commentWindow.show();
                 commentWindow.productId = productId;
+
     },
 
     addItemToWishList: function(productId, productName, productDescription, productPrice, imagePath) {
@@ -1624,7 +1621,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
             }
         }else{
-            Ext.Msg.alert('Status', 'You must be logged in to add to wish list');
+            Ext.Msg.alert('Status', 'Log in to add to Wish List');
 
         }
     },

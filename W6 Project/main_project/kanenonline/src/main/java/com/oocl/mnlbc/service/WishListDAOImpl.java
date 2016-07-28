@@ -36,7 +36,6 @@ public class WishListDAOImpl extends AbstractJPAGenericDAO<WishList> implements 
 			
 			return wishListId;
 		} catch (PersistenceException e) {
-
 			e.printStackTrace();
 			return 0;
 		} catch (Exception e){
@@ -66,7 +65,6 @@ public class WishListDAOImpl extends AbstractJPAGenericDAO<WishList> implements 
 
 			return true;
 		} catch (PersistenceException e) {
-			e.printStackTrace();
 			return false;
 		}
 
@@ -92,7 +90,6 @@ public class WishListDAOImpl extends AbstractJPAGenericDAO<WishList> implements 
 			entityManager.getTransaction().commit();
 			return true;
 		} catch (PersistenceException e) {
-			e.printStackTrace();
 			return false;
 		}
 	}
@@ -111,7 +108,6 @@ public class WishListDAOImpl extends AbstractJPAGenericDAO<WishList> implements 
 			List<WishList> result = query.getResultList();
 			return result;
 		} catch (PersistenceException e) {
-			e.printStackTrace();
 			return null;
 		}
 

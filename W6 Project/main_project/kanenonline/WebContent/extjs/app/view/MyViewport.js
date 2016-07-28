@@ -55,7 +55,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                             items: [
                                 {
                                     xtype: 'container',
-                                    flex: 14,
+                                    flex: 0,
                                     region: 'center',
                                     id: 'productContainer',
                                     itemId: 'productContainer',
@@ -63,7 +63,6 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                     items: [
                                         {
                                             xtype: 'panel',
-                                            flex: 12,
                                             region: 'center',
                                             id: 'productPanel',
                                             itemId: 'productPanel',
@@ -73,9 +72,9 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                         },
                                         {
                                             xtype: 'form',
-                                            flex: 5,
+                                            flex: 0,
                                             region: 'east',
-                                            width: 100,
+                                            width: 700,
                                             bodyPadding: 10,
                                             collapsible: true,
                                             title: '',
@@ -110,21 +109,21 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                             defaultWidth: 160,
                                                             dataIndex: 'imagePath',
                                                             text: 'Image',
-                                                            flex: 1
+                                                            flex: 0
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
                                                             width: 160,
                                                             dataIndex: 'productName',
                                                             text: 'Product Name',
-                                                            flex: 3
+                                                            flex: 5
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
                                                             width: 264,
                                                             dataIndex: 'productDescription',
                                                             text: 'Product Description',
-                                                            flex: 4
+                                                            flex: 6
                                                         },
                                                         {
                                                             xtype: 'numbercolumn',
@@ -215,19 +214,8 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                         },
                         {
                             xtype: 'container',
-                            flex: 0,
                             region: 'north',
-                            height: 30,
-                            style: 'background-color:#292c2f',
-                            layout: {
-                                type: 'hbox',
-                                align: 'stretch'
-                            }
-                        },
-                        {
-                            xtype: 'container',
-                            region: 'north',
-                            height: 90,
+                            height: 120,
                             style: 'background-color:#292c2f',
                             layout: 'hbox',
                             items: [
@@ -238,8 +226,8 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                 {
                                     xtype: 'image',
                                     flex: 0,
-                                    height: 108,
-                                    width: 239,
+                                    height: 123,
+                                    width: 250,
                                     src: 'resource/logo2.jpg'
                                 },
                                 {
@@ -258,14 +246,14 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                         {
                                             xtype: 'tbspacer',
                                             flex: 1,
-                                            height: 20
+                                            height: 30
                                         },
                                         {
                                             xtype: 'textfield',
-                                            height: 42,
+                                            height: 50,
                                             id: 'txtProductSearch',
                                             itemId: 'txtProductSearch',
-                                            width: 150,
+                                            width: 400,
                                             fieldLabel: '',
                                             labelAlign: 'right',
                                             emptyText: 'Search for Products'
@@ -275,7 +263,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                 {
                                     xtype: 'container',
                                     flex: 0,
-                                    height: 80,
+                                    height: 110,
                                     layout: {
                                         type: 'vbox',
                                         align: 'center',
@@ -285,7 +273,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                         {
                                             xtype: 'button',
                                             cls: 'btnSearch',
-                                            height: 44,
+                                            height: 50,
                                             id: 'btnSearchProduct',
                                             itemId: 'btnSearchProduct',
                                             style: '.btnSearch {\n    background: url(resource/search.png) !important;\n    width: 50px;\n    height: 45px;\n}',
@@ -302,8 +290,8 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                 {
                                     xtype: 'container',
                                     flex: 0,
-                                    height: 80,
-                                    width: 67,
+                                    height: 113,
+                                    width: 69,
                                     layout: {
                                         type: 'vbox',
                                         align: 'center'
@@ -312,15 +300,15 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                         {
                                             xtype: 'tbspacer',
                                             flex: 0,
-                                            height: 10
+                                            height: 20
                                         },
                                         {
                                             xtype: 'button',
-                                            height: 67,
+                                            height: 65,
                                             id: 'btnUserProfile',
                                             itemId: 'btnUserProfile',
                                             style: '.btnCart {\n    background: url(resource/profileMain.png) !important;\n    width: 50px;\n    height: 45px;\n}',
-                                            width: 79,
+                                            width: 72,
                                             text: ''
                                         }
                                     ]
@@ -402,6 +390,36 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                     items: [
                         {
                             xtype: 'container',
+                            region: 'north',
+                            height: 112,
+                            style: 'background-color:#292c2f',
+                            layout: 'hbox',
+                            items: [
+                                {
+                                    xtype: 'tbspacer',
+                                    width: 380
+                                },
+                                {
+                                    xtype: 'image',
+                                    flex: 0,
+                                    height: 123,
+                                    width: 250,
+                                    src: 'resource/logo2.jpg'
+                                },
+                                {
+                                    xtype: 'tbspacer',
+                                    flex: 0,
+                                    width: 60
+                                },
+                                {
+                                    xtype: 'tbspacer',
+                                    flex: 0,
+                                    width: 400
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'container',
                             flex: 13,
                             region: 'center',
                             id: 'orderBodyContainer',
@@ -476,6 +494,62 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                         },
                         {
                             xtype: 'container',
+                            height: 30,
+                            style: 'background-color:#292c2f',
+                            layout: {
+                                type: 'hbox',
+                                align: 'stretch'
+                            }
+                        },
+                        {
+                            xtype: 'container',
+                            height: 90,
+                            style: 'background-color:#292c2f',
+                            layout: 'hbox',
+                            items: [
+                                {
+                                    xtype: 'tbspacer',
+                                    width: 380
+                                },
+                                {
+                                    xtype: 'image',
+                                    flex: 0,
+                                    height: 108,
+                                    width: 239,
+                                    src: 'resource/logo2.jpg'
+                                },
+                                {
+                                    xtype: 'tbspacer',
+                                    flex: 0,
+                                    width: 60
+                                },
+                                {
+                                    xtype: 'tbspacer',
+                                    flex: 0,
+                                    width: 400
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'container',
+                            height: 212,
+                            width: 1200,
+                            layout: {
+                                type: 'hbox',
+                                align: 'middle',
+                                pack: 'center'
+                            },
+                            items: [
+                                {
+                                    xtype: 'image',
+                                    height: 200,
+                                    width: 200,
+                                    src: 'resource/profile.png'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'container',
                             height: 1000,
                             layout: {
                                 type: 'vbox',
@@ -484,32 +558,13 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                             items: [
                                 {
                                     xtype: 'container',
-                                    flex: 0,
-                                    height: 212,
-                                    width: 1270,
-                                    layout: {
-                                        type: 'vbox',
-                                        align: 'center',
-                                        pack: 'center'
-                                    },
-                                    items: [
-                                        {
-                                            xtype: 'image',
-                                            flex: 0,
-                                            height: 200,
-                                            width: 200,
-                                            src: 'resource/profile.png'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'container',
                                     height: 300,
                                     html: '<html>\n<head>\n<style>\n\n</style>\n</head>\n<body>\n\n<center>\n<img src="resource/user.png"  width="400" height="400">\n</center>\n\n</body>\n</html>',
                                     width: 1200,
                                     layout: {
                                         type: 'vbox',
-                                        align: 'center'
+                                        align: 'center',
+                                        pack: 'center'
                                     },
                                     items: [
                                         {
