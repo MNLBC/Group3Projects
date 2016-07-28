@@ -13,21 +13,30 @@ import com.oocl.mnlbc.entity.User;
  */
 public class UserList {
 
-	private List<User> userList;
+	private List<UpdatedUsers> userList;
 
 	/**
 	 * @return the userList
 	 */
-	public List<User> getUserList() {
+	public List<UpdatedUsers> getUserList() {
 		return userList;
 	}
 
 	/**
-	 * @param userList
-	 *            the userList to set
+	 * @param userList the userList to set
 	 */
-	public void setUserList(List<User> userList) {
+	public void setUserList(List<UpdatedUsers> userList) {
 		this.userList = userList;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "UserList [userList=" + userList + "]";
+	}
+
+	
 
 }

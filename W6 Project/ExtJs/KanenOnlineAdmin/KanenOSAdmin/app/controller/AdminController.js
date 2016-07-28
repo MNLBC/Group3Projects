@@ -871,52 +871,52 @@ Ext.define('MyApp.controller.AdminController', {
 
     onBtnUpdateAdminClick: function() {
 
-                var viewUserListGrid = Ext.getCmp('viewUserListGrid');
-                var userListStore = viewUserListGrid.getStore();
-                var updatedRecords = userListStore.getModifiedRecords();
-                var updateUser = Ext.getStore('updatedUser');
-                Ext.each(updatedRecords,function(record){
-                    if (record.dirty){
-                        var user = {
+        var viewUserListGrid = Ext.getCmp('viewUserListGrid');
+        var userListStore = viewUserListGrid.getStore();
+        var updatedRecords = userListStore.getModifiedRecords();
+        var updateUser = Ext.getStore('updatedUser');
+        Ext.each(updatedRecords,function(record){
+            if (record.dirty){
+                var user = {
 
-                         userId: record.data.userId,
-                         fullName: record.data.fullName,
-                         userName: record.data.userName,
-                         email: record.data.email,
-                         address: record.data.address,
-                         mobile: record.data.mobile,
-                         userRole: record.data.userRole,
-                         isBlacklisted: record.data.isBlacklisted,
-                         membershipType: record.data.membershipType
+                    userId: record.data.userId,
+                    fullName: record.data.fullName,
+                    userName: record.data.userName,
+                    email: record.data.email,
+                    address: record.data.address,
+                    mobile: record.data.mobile,
+                    userRole: record.data.userRole,
+                    isBlacklisted: record.data.isBlacklisted,
+                    membershipType: record.data.membershipType
 
 
-                        };
-                        updateUser.add(user);
-                    }
+                };
+                updateUser.add(user);
+            }
 
-                });
+        });
 
-                var jsonData = '{ "userList": ';
-                jsonData += Ext.encode(Ext.pluck(updateUser.data.items,'data'));
-                jsonData += '}';
+        var jsonData = '{ "userList": ';
+        jsonData += Ext.encode(Ext.pluck(updateUser.data.items,'data'));
+        jsonData += '}';
 
-                Ext.Ajax.request({
+        Ext.Ajax.request({
 
-                    url: 'update/updateUser',
-                    method: 'POST',
+            url: 'update/updateUser',
+            method: 'POST',
 
-                    params:{
+            params:{
 
-                        jsonData: jsonData,
-                    },
+                jsonData: jsonData,
+            },
 
-                    scope: this,
-                    success: function(response){
-                        var responseText = Ext.decode(response.responseText);
-                        Ext.MessageBox.alert('User Update','Successfully Updated Changes');
-                    }
+            scope: this,
+            success: function(response){
+                var responseText = Ext.decode(response.responseText);
+                Ext.MessageBox.alert('User Update','Successfully Updated Changes');
+            }
 
-                });
+        });
 
     },
 

@@ -760,18 +760,22 @@
                                             "designerId": "ec05c82d-424c-4cba-b955-bb242bd56273",
                                             "cn": [
                                                 {
-                                                    "type": "Ext.form.field.Checkbox",
+                                                    "type": "Ext.form.field.ComboBox",
                                                     "reference": {
                                                         "name": "editor",
                                                         "type": "object"
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "inputValue": "YES",
-                                                        "uncheckedValue": "NO"
+                                                        "store": [
+                                                            "['YES','NO']"
+                                                        ]
                                                     },
-                                                    "name": "MyCheckbox",
-                                                    "designerId": "9cf8614d-0809-4d78-98d0-0c1061a66ef2"
+                                                    "name": "MyComboBox3",
+                                                    "configAlternates": {
+                                                        "store": "array"
+                                                    },
+                                                    "designerId": "9d497cb6-7612-4ff0-bce1-81a190712875"
                                                 }
                                             ]
                                         },
