@@ -36,14 +36,20 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 				item.setUserId(userId);
 				// Saves the item to CART_ITEM table in the database since we
 				// use CartItem Entity to map the object
+
 				entityManager.persist(item);
+				if (!entityManager.getTransaction().isActive()) {
+					entityManager.getTransaction().begin();
+				}
 			}
 			entityManager.getTransaction().commit();
 
 			return true;
 		} catch (PersistenceException e) {
+			e.printStackTrace();
 			return false;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 
@@ -61,6 +67,7 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 			List<CartItem> result = query.getResultList();
 			return result;
 		} catch (PersistenceException e) {
+			e.printStackTrace();
 			return null;
 		}
 
