@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.oocl.mnlbc.constants.KanenOnlineConstants;
 import com.oocl.mnlbc.controllers.UserController;
 import com.oocl.mnlbc.dao.CartDAO;
 import com.oocl.mnlbc.dao.UserDAO;
@@ -85,7 +86,7 @@ public class UserService {
 			response.setSuccess(true);
 
 			membershipRequestProducer
-					.sendMessage("INCREMENT_ONLINE_USERS-" + user.getUserId() + "-" + user.getUsername());
+					.sendMessage(KanenOnlineConstants.USER_LOGGED_IN + "-" + user.getUserId() + "-" + user.getUsername());
 		}
 		response.setData(items);
 		return response;
@@ -97,7 +98,7 @@ public class UserService {
 		String returnJson = "{\"success\":true}";
 		builder.append(returnJson);
 
-		membershipRequestProducer.sendMessage("DECREMENT_ONLINE_USERS-" + userId + "-" + userName);
+		membershipRequestProducer.sendMessage(KanenOnlineConstants.USER_LOGGED_OUT + "-" + userId + "-" + userName);
 
 		logger.info("User has successfully logged out.");
 		return returnJson;
