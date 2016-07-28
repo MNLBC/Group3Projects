@@ -121,7 +121,6 @@ public class UpdateController {
 	@RequestMapping(value = "/updateProduct", method = RequestMethod.POST)
 	@ResponseBody
 	public AllProduct updateProduct(@RequestParam(value = "jsonData", required = true) String jsonData) throws IOException {
-		System.out.println(jsonData);
 		return updateService.updateProduct(jsonData);
 		
 	}

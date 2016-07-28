@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.oocl.mnlbc.model.AllProduct;
 import com.oocl.mnlbc.model.AllUser;
 import com.oocl.mnlbc.model.Login;
+import com.oocl.mnlbc.model.OnlineUsers;
 import com.oocl.mnlbc.model.OrderAndItemList;
+import com.oocl.mnlbc.model.ProductCommentList;
 import com.oocl.mnlbc.model.UserRequestList;
 import com.oocl.mnlbc.service.AdminService;
 
@@ -95,5 +97,23 @@ public class AdminController {
 		AllProduct allProduct = adminService.retrieveAllProducts();
 		return allProduct;
 	}
+	
+	@RequestMapping(value = "/getProductComments", method = RequestMethod.POST)
+	@ResponseBody
+	public ProductCommentList getAllComments() {
+		ProductCommentList comment = adminService.getAllComments();
+		return comment;
+	}
+	
+	@RequestMapping(value = "/getOnlineUsers", method = RequestMethod.POST)
+	@ResponseBody
+	public OnlineUsers getOnlineUsers() {
+		OnlineUsers online = adminService.getOnlineUsers();
+		return online;
+	}
+	
+	
+	
+	
 
 }

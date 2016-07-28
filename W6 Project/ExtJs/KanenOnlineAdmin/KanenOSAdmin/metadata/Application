@@ -18,7 +18,9 @@
             "product",
             "updatedProduct",
             "userListModel",
-            "updatedUser"
+            "updatedUser",
+            "onlineUsersModel",
+            "productFeedbackModel"
         ],
         "name": "MyApp",
         "stores": [
@@ -30,7 +32,9 @@
             "product",
             "updateProduct",
             "userList",
-            "updatedUser"
+            "updatedUser",
+            "onlineUsersStore",
+            "productFeedbackStore"
         ],
         "views": [
             "MyViewport",

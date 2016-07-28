@@ -27,6 +27,17 @@ import com.oocl.mnlbc.model.LoggedInUser;
 public class DiscountRequestListener implements MessageListener {
 	private static int onlineUserCount;
 	private static Map<String, LoggedInUser> onlineUsers = new HashMap<String, LoggedInUser>();
+	
+	
+
+	/**
+	 * @return the onlineUsers
+	 */
+	public static Map<String, LoggedInUser> getOnlineUsers() {
+		return onlineUsers;
+	}
+
+
 
 	/*
 	 * (non-Javadoc)
@@ -52,26 +63,24 @@ public class DiscountRequestListener implements MessageListener {
 				String request = msg.getText();
 				if (request.indexOf(',') > -1) {
 					String[] splittedStr = request.split(",");
-					System.out.println(request + "    " + splittedStr[0]);
 
 					User user = userDAO.findById(Long.parseLong(splittedStr[0]));
-					System.out.println(user);
+					System.out.println("Request recieved from queue. User: " + user.getFullName()+" Request is upgrade to: "+splittedStr[1]);
 
 					UserMembershipAsn memAsn = userMemberAsnDAO.findMembership(user);
 					memAsn.setForApproval(1);
 					memAsn.setRequestApproved(0);
 					memAsn.setRequestMembershipTypeId(memberDAO.getIdByTypeName(splittedStr[1]));
 					memAsn = userMemberAsnDAO.updateMembership(memAsn);
-					System.out.println(memAsn);
 				} else {
 					if (request.contains(KanenOnlineConstants.USER_LOGGED_IN)) {
 						System.out.println(request);
 						String userId = request.split("-")[1];
-						
+
 						System.out.println(userId);
 						String userName = request.split("-")[2];
 						System.out.println(userName);
-						
+
 						onlineUsers.put(userId, new LoggedInUser(userId, userName));
 
 						onlineUserCount++;

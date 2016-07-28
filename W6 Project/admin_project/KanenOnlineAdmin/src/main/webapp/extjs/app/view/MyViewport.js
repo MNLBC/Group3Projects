@@ -17,16 +17,16 @@ Ext.define('MyApp.view.MyViewport', {
     extend: 'Ext.container.Viewport',
 
     requires: [
-        'Ext.button.Button',
-        'Ext.menu.Menu',
-        'Ext.menu.Item',
         'Ext.grid.Panel',
         'Ext.grid.column.Number',
         'Ext.grid.View',
         'Ext.selection.RowModel',
         'Ext.grid.plugin.RowEditing',
         'Ext.toolbar.Toolbar',
+        'Ext.button.Button',
         'Ext.form.field.ComboBox',
+        'Ext.menu.Menu',
+        'Ext.menu.Item',
         'Ext.form.Panel'
     ],
 
@@ -54,658 +54,631 @@ Ext.define('MyApp.view.MyViewport', {
                         },
                         {
                             xtype: 'container',
-                            region: 'west',
-                            itemId: 'LeftContainer',
-                            style: 'background-color:#201303',
-                            width: 253,
-                            layout: 'fit',
-                            items: [
-                                {
-                                    xtype: 'container',
-                                    height: 145,
-                                    hidden: true,
-                                    id: 'confirmCustomerContainer',
-                                    itemId: 'confirmCustomerContainer',
-                                    style: 'background-color:#00aadd',
-                                    width: 207,
-                                    layout: 'fit',
-                                    items: [
-                                        {
-                                            xtype: 'button',
-                                            height: 150,
-                                            id: 'btnCustomerRequest',
-                                            itemId: 'btnCustomerRequest',
-                                            width: 186,
-                                            text: 'Customer Requests'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'container',
-                                    height: 145,
-                                    hidden: true,
-                                    id: 'updateOrderStatusContainer',
-                                    itemId: 'updateOrderStatusContainer',
-                                    width: 206,
-                                    layout: 'fit',
-                                    items: [
-                                        {
-                                            xtype: 'button',
-                                            id: 'confirmOrderBtn',
-                                            itemId: 'confirmOrderBtn',
-                                            text: 'Pending Orders'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'container',
-                                    height: 145,
-                                    hidden: true,
-                                    id: 'viewAllOrderbtnContainer',
-                                    itemId: 'viewAllOrderbtnContainer',
-                                    width: 206,
-                                    layout: 'fit',
-                                    items: [
-                                        {
-                                            xtype: 'button',
-                                            id: 'viewAllOrderBtn',
-                                            itemId: 'viewAllOrderBtn',
-                                            text: 'View All Orders'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'menu',
-                                    floating: false,
-                                    width: 120,
-                                    bodyStyle: 'background-color:#ffffff !important;',
-                                    animCollapse: true,
-                                    collapseDirection: 'left',
-                                    collapsed: false,
-                                    collapsible: true,
-                                    glyph: '',
-                                    overlapHeader: false,
-                                    placeholderCollapseHideMode: 2,
-                                    titleAlign: 'center',
-                                    titleCollapse: false,
-                                    ignoreParentClicks: true,
-                                    items: [
-                                        {
-                                            xtype: 'menuitem',
-                                            height: 45,
-                                            id: 'products',
-                                            itemId: 'products',
-                                            defaultAlign: 'center',
-                                            glyph: '',
-                                            iconCls: '',
-                                            menuAlign: 'center',
-                                            text: 'Products'
-                                        },
-                                        {
-                                            xtype: 'menuitem',
-                                            height: 45,
-                                            id: 'membershipRequest',
-                                            itemId: 'membershipRequest',
-                                            text: 'Membership Requests'
-                                        },
-                                        {
-                                            xtype: 'menuitem',
-                                            height: 45,
-                                            id: 'orderReqeust',
-                                            itemId: 'orderReqeust',
-                                            text: 'Order Requests'
-                                        },
-                                        {
-                                            xtype: 'menuitem',
-                                            height: 45,
-                                            id: 'viewAllOrder',
-                                            itemId: 'viewAllOrder',
-                                            text: 'View All Orders'
-                                        },
-                                        {
-                                            xtype: 'menuitem',
-                                            height: 45,
-                                            id: 'viewUserList',
-                                            itemId: 'viewUserList',
-                                            text: 'View All Users'
-                                        },
-                                        {
-                                            xtype: 'menuitem',
-                                            height: 45,
-                                            id: 'logout',
-                                            itemId: 'logout',
-                                            text: 'Logout'
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'container',
                             region: 'center',
                             itemId: 'CenterContainer',
-                            layout: 'fit',
+                            layout: 'border',
                             items: [
                                 {
-                                    xtype: 'panel',
-                                    id: 'productListPanel',
-                                    itemId: 'productListPanel',
-                                    title: 'Products',
-                                    items: [
-                                        {
-                                            xtype: 'gridpanel',
-                                            id: 'productListGrid',
-                                            itemId: 'productListGrid',
-                                            title: '',
-                                            store: 'product',
-                                            columns: [
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'productId',
-                                                    text: 'Product Id',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'productName',
-                                                    text: 'Product Name',
-                                                    flex: 1,
-                                                    editor: {
-                                                        xtype: 'textfield'
-                                                    }
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'productDescription',
-                                                    text: 'Product Description',
-                                                    flex: 2,
-                                                    editor: {
-                                                        xtype: 'textfield'
-                                                    }
-                                                },
-                                                {
-                                                    xtype: 'numbercolumn',
-                                                    dataIndex: 'productPrice',
-                                                    text: 'Price',
-                                                    flex: 1,
-                                                    editor: {
-                                                        xtype: 'textfield',
-                                                        allowBlank: false,
-                                                        allowOnlyWhitespace: false,
-                                                        maxLength: 6,
-                                                        maxLengthText: 'Please enter values from 1-999999',
-                                                        regex: /^[1-9][0-9]*$/,
-                                                        regexText: 'Invalid Input'
-                                                    }
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'productStockQuantity',
-                                                    text: 'Product In Stock',
-                                                    flex: 1,
-                                                    editor: {
-                                                        xtype: 'textfield',
-                                                        allowBlank: false,
-                                                        allowOnlyWhitespace: false,
-                                                        maxLength: 3,
-                                                        maxLengthText: 'Please enter values from 1-999',
-                                                        regex: /^[1-9][0-9]*$/,
-                                                        regexText: 'Invalid input'
-                                                    }
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'productImagePath',
-                                                    text: 'Image Path',
-                                                    flex: 1
-                                                }
-                                            ],
-                                            selModel: Ext.create('Ext.selection.RowModel', {
-
-                                            }),
-                                            plugins: [
-                                                Ext.create('Ext.grid.plugin.RowEditing', {
-
-                                                })
-                                            ]
-                                        }
-                                    ],
-                                    dockedItems: [
-                                        {
-                                            xtype: 'toolbar',
-                                            dock: 'bottom',
-                                            items: [
-                                                {
-                                                    xtype: 'button',
-                                                    id: 'btnAddProduct',
-                                                    itemId: 'btnAddProduct',
-                                                    text: 'Add Product'
-                                                },
-                                                {
-                                                    xtype: 'button',
-                                                    id: 'btnUpdateProduct',
-                                                    itemId: 'btnUpdateProduct',
-                                                    text: 'Update Product'
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'panel',
-                                    id: 'userListPanel',
-                                    itemId: 'userListPanel',
-                                    title: 'Users',
-                                    items: [
-                                        {
-                                            xtype: 'gridpanel',
-                                            id: 'viewUserListGrid',
-                                            itemId: 'viewUserListGrid',
-                                            title: '',
-                                            store: 'userList',
-                                            columns: [
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'userId',
-                                                    text: 'User Id',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'fullName',
-                                                    text: 'Full Name',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'userName',
-                                                    text: 'Username',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'email',
-                                                    text: 'Email',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'address',
-                                                    text: 'Address',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'mobile',
-                                                    text: 'Mobile Number',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'userRole',
-                                                    text: 'User Role',
-                                                    flex: 1,
-                                                    editor: {
-                                                        xtype: 'combobox',
-                                                        editable: false,
-                                                        store: [
-                                                            'Admin',
-                                                            'Customer'
-                                                        ]
-                                                    }
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'isBlacklisted',
-                                                    text: 'Blocked',
-                                                    flex: 1,
-                                                    editor: {
-                                                        xtype: 'combobox',
-                                                        editable: false,
-                                                        store: [
-                                                            'YES',
-                                                            'NO'
-                                                        ]
-                                                    }
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'membershipType',
-                                                    text: 'Membership Type',
-                                                    flex: 1,
-                                                    editor: {
-                                                        xtype: 'combobox',
-                                                        editable: false,
-                                                        store: [
-                                                            'Regular',
-                                                            'Member',
-                                                            'VIP',
-                                                            'Student',
-                                                            'Senior'
-                                                        ]
-                                                    }
-                                                }
-                                            ],
-                                            plugins: [
-                                                Ext.create('Ext.grid.plugin.RowEditing', {
-
-                                                })
-                                            ],
-                                            selModel: Ext.create('Ext.selection.RowModel', {
-
-                                            })
-                                        }
-                                    ],
-                                    dockedItems: [
-                                        {
-                                            xtype: 'toolbar',
-                                            dock: 'bottom',
-                                            items: [
-                                                {
-                                                    xtype: 'button',
-                                                    id: 'addUser',
-                                                    itemId: 'addUser',
-                                                    text: 'Add Admin'
-                                                },
-                                                {
-                                                    xtype: 'button',
-                                                    id: 'btnUpdateAdmin',
-                                                    itemId: 'btnUpdateAdmin',
-                                                    text: 'Save Changes'
-                                                },
-                                                {
-                                                    xtype: 'button',
-                                                    text: 'Reset Changes'
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'panel',
-                                    id: 'viewAllOrderPanel',
-                                    itemId: 'viewAllOrderPanel',
-                                    layout: 'fit',
-                                    title: 'Transactions',
-                                    items: [
-                                        {
-                                            xtype: 'gridpanel',
-                                            id: 'viewAllOrderGrid',
-                                            itemId: 'viewAllOrderGrid',
-                                            title: '',
-                                            store: 'orderStore',
-                                            columns: [
-                                                {
-                                                    xtype: 'numbercolumn',
-                                                    dataIndex: 'orderId',
-                                                    text: 'Order Id',
-                                                    flex: 1,
-                                                    format: '00000'
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'userFullName',
-                                                    text: 'Name',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'orderDate',
-                                                    text: 'Order Date',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'numbercolumn',
-                                                    dataIndex: 'totalCost',
-                                                    text: 'Total Cost',
-                                                    flex: 1,
-                                                    format: '00000'
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'orderStatus',
-                                                    text: 'Order Status',
-                                                    flex: 1
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'panel',
-                                    id: 'orderRequestsPanel',
-                                    itemId: 'orderRequestsPanel',
-                                    layout: 'fit',
-                                    title: 'Order Requests',
-                                    items: [
-                                        {
-                                            xtype: 'gridpanel',
-                                            height: 427,
-                                            id: 'orderRequestsGrid',
-                                            itemId: 'orderRequestsGrid',
-                                            title: '',
-                                            store: 'orderStore',
-                                            columns: [
-                                                {
-                                                    xtype: 'numbercolumn',
-                                                    id: 'orderId',
-                                                    itemId: 'orderId',
-                                                    width: 176,
-                                                    dataIndex: 'orderId',
-                                                    text: 'Order id',
-                                                    flex: 1,
-                                                    format: '00000'
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    id: 'userId',
-                                                    itemId: 'userId',
-                                                    width: 141,
-                                                    dataIndex: 'userFullName',
-                                                    text: 'Name',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    id: 'orderDate',
-                                                    itemId: 'orderDate',
-                                                    width: 151,
-                                                    dataIndex: 'orderDate',
-                                                    text: 'Order Date',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'numbercolumn',
-                                                    id: 'totalCost',
-                                                    itemId: 'totalCost',
-                                                    dataIndex: 'totalCost',
-                                                    text: 'Total Cost',
-                                                    flex: 1,
-                                                    format: '00000'
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    id: 'orderStatus',
-                                                    itemId: 'orderStatus',
-                                                    width: 212,
-                                                    dataIndex: 'orderStatus',
-                                                    text: 'Order Status',
-                                                    flex: 1,
-                                                    editor: {
-                                                        xtype: 'combobox',
-                                                        editable: false,
-                                                        queryMode: 'local',
-                                                        store: [
-                                                            'Order Delivered'
-                                                        ],
-                                                        typeAhead: true
-                                                    }
-                                                }
-                                            ],
-                                            plugins: [
-                                                Ext.create('Ext.grid.plugin.RowEditing', {
-
-                                                })
-                                            ],
-                                            selModel: Ext.create('Ext.selection.RowModel', {
-
-                                            })
-                                        }
-                                    ],
-                                    dockedItems: [
-                                        {
-                                            xtype: 'toolbar',
-                                            dock: 'bottom',
-                                            items: [
-                                                {
-                                                    xtype: 'button',
-                                                    id: 'btnSaveUpdates',
-                                                    itemId: 'btnSaveUpdates',
-                                                    width: 100,
-                                                    text: 'Save Updates'
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'panel',
-                                    id: 'customerConfirmPanel',
-                                    itemId: 'customerConfirmPanel',
-                                    layout: 'fit',
-                                    title: 'Customer Requests',
-                                    items: [
-                                        {
-                                            xtype: 'gridpanel',
-                                            id: 'membershipRequestGrid',
-                                            itemId: 'membershipRequestGrid',
-                                            store: 'membershipRequest',
-                                            columns: [
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'fullName',
-                                                    text: 'Name',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'currentMembershipLevel',
-                                                    text: 'Current Membership Level',
-                                                    flex: 1
-                                                },
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'requestedMembershipLevel',
-                                                    text: 'Requested Membership Level',
-                                                    flex: 1
-                                                }
-                                            ],
-                                            selModel: Ext.create('Ext.selection.RowModel', {
-
-                                            })
-                                        }
-                                    ],
-                                    dockedItems: [
-                                        {
-                                            xtype: 'toolbar',
-                                            dock: 'bottom',
-                                            items: [
-                                                {
-                                                    xtype: 'button',
-                                                    id: 'btnApproveRequest',
-                                                    width: 116,
-                                                    text: 'Approve Request'
-                                                },
-                                                {
-                                                    xtype: 'button',
-                                                    id: 'btnRejectRequest',
-                                                    itemId: 'btnRejectRequest',
-                                                    text: 'Reject Request'
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
                                     xtype: 'container',
-                                    hidden: true,
-                                    id: 'AddProductContainer',
-                                    width: 150,
+                                    flex: 0,
+                                    region: 'center',
+                                    layout: 'fit',
                                     items: [
                                         {
-                                            xtype: 'form',
-                                            height: 250,
-                                            id: 'addProductForm',
-                                            itemId: 'addProductForm',
-                                            width: 575,
-                                            bodyPadding: 10,
-                                            title: 'Add Product',
+                                            xtype: 'panel',
+                                            id: 'productListPanel',
+                                            itemId: 'productListPanel',
+                                            title: 'Products',
                                             items: [
                                                 {
-                                                    xtype: 'textfield',
-                                                    anchor: '100%',
-                                                    fieldLabel: 'Product Name',
-                                                    labelWidth: 120
-                                                },
+                                                    xtype: 'gridpanel',
+                                                    id: 'productListGrid',
+                                                    itemId: 'productListGrid',
+                                                    autoScroll: true,
+                                                    title: '',
+                                                    store: 'product',
+                                                    columns: [
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'productId',
+                                                            text: 'Product Id',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'productName',
+                                                            text: 'Product Name',
+                                                            flex: 1,
+                                                            editor: {
+                                                                xtype: 'textfield'
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'productDescription',
+                                                            text: 'Product Description',
+                                                            flex: 2,
+                                                            editor: {
+                                                                xtype: 'textfield'
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: 'numbercolumn',
+                                                            dataIndex: 'productPrice',
+                                                            text: 'Price',
+                                                            flex: 1,
+                                                            editor: {
+                                                                xtype: 'textfield',
+                                                                allowBlank: false,
+                                                                allowOnlyWhitespace: false,
+                                                                maxLength: 6,
+                                                                maxLengthText: 'Please enter values from 1-999999',
+                                                                regex: /^[1-9][0-9]*$/,
+                                                                regexText: 'Invalid Input'
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'productStockQuantity',
+                                                            text: 'Product In Stock',
+                                                            flex: 1,
+                                                            editor: {
+                                                                xtype: 'textfield',
+                                                                allowBlank: false,
+                                                                allowOnlyWhitespace: false,
+                                                                maxLength: 3,
+                                                                maxLengthText: 'Please enter values from 1-999',
+                                                                regex: /^[1-9][0-9]*$/,
+                                                                regexText: 'Invalid input'
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'productImagePath',
+                                                            text: 'Image Path',
+                                                            flex: 1,
+                                                            editor: {
+                                                                xtype: 'textfield',
+                                                                allowBlank: false,
+                                                                allowOnlyWhitespace: false,
+                                                                maxLength: 50
+                                                            }
+                                                        }
+                                                    ],
+                                                    selModel: Ext.create('Ext.selection.RowModel', {
+
+                                                    }),
+                                                    plugins: [
+                                                        Ext.create('Ext.grid.plugin.RowEditing', {
+
+                                                        })
+                                                    ]
+                                                }
+                                            ],
+                                            dockedItems: [
                                                 {
-                                                    xtype: 'textfield',
-                                                    anchor: '100%',
-                                                    fieldLabel: 'Product Description',
-                                                    labelWidth: 120
-                                                },
-                                                {
-                                                    xtype: 'textfield',
-                                                    anchor: '100%',
-                                                    fieldLabel: 'Product Price',
-                                                    labelWidth: 120,
-                                                    regex: /^[1-9][0-9]*$/
-                                                },
-                                                {
-                                                    xtype: 'textfield',
-                                                    anchor: '100%',
-                                                    fieldLabel: 'In Stock Quantity',
-                                                    labelWidth: 120,
-                                                    regex: /^[1-9][0-9]*$/
-                                                },
-                                                {
-                                                    xtype: 'textfield',
-                                                    anchor: '100%',
-                                                    fieldLabel: 'Image Path',
-                                                    labelWidth: 120
-                                                },
-                                                {
-                                                    xtype: 'container',
-                                                    height: 25,
-                                                    id: 'ButtonContainer',
-                                                    itemId: 'ButtonContainer',
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'stretch',
-                                                        pack: 'center'
-                                                    },
+                                                    xtype: 'toolbar',
+                                                    dock: 'bottom',
                                                     items: [
                                                         {
                                                             xtype: 'button',
-                                                            margins: '',
-                                                            height: 25,
-                                                            margin: 2,
-                                                            padding: 1,
-                                                            width: 100,
-                                                            text: 'Save Product'
+                                                            id: 'btnAddProduct',
+                                                            itemId: 'btnAddProduct',
+                                                            text: 'Add Product'
                                                         },
                                                         {
                                                             xtype: 'button',
-                                                            margin: 2,
-                                                            width: 100,
-                                                            text: 'Reset'
+                                                            id: 'btnUpdateProduct',
+                                                            itemId: 'btnUpdateProduct',
+                                                            text: 'Update Product'
                                                         },
                                                         {
                                                             xtype: 'button',
-                                                            margin: 2,
-                                                            width: 100,
-                                                            text: 'Cancel'
+                                                            id: 'btnProductsReset',
+                                                            itemId: 'btnProductsReset',
+                                                            text: 'Reset Changes'
                                                         }
                                                     ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'panel',
+                                            id: 'productFeedbackPanel',
+                                            itemId: 'productFeedbackPanel',
+                                            title: 'Product Feedbacks',
+                                            items: [
+                                                {
+                                                    xtype: 'gridpanel',
+                                                    id: 'productFeedbackGrid',
+                                                    itemId: 'productFeedbackGrid',
+                                                    autoScroll: true,
+                                                    title: '',
+                                                    store: 'productFeedbackStore',
+                                                    columns: [
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'productName',
+                                                            text: 'Product Name',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'comment',
+                                                            text: 'Comment',
+                                                            flex: 5
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'panel',
+                                            id: 'customerConfirmPanel',
+                                            itemId: 'customerConfirmPanel',
+                                            layout: 'fit',
+                                            title: 'Customer Requests',
+                                            items: [
+                                                {
+                                                    xtype: 'gridpanel',
+                                                    id: 'membershipRequestGrid',
+                                                    itemId: 'membershipRequestGrid',
+                                                    autoScroll: true,
+                                                    store: 'membershipRequest',
+                                                    columns: [
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'fullName',
+                                                            text: 'Name',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'currentMembershipLevel',
+                                                            text: 'Current Membership Level',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'requestedMembershipLevel',
+                                                            text: 'Requested Membership Level',
+                                                            flex: 1
+                                                        }
+                                                    ],
+                                                    selModel: Ext.create('Ext.selection.RowModel', {
+
+                                                    })
+                                                }
+                                            ],
+                                            dockedItems: [
+                                                {
+                                                    xtype: 'toolbar',
+                                                    dock: 'bottom',
+                                                    items: [
+                                                        {
+                                                            xtype: 'button',
+                                                            id: 'btnApproveRequest',
+                                                            width: 116,
+                                                            text: 'Approve Request'
+                                                        },
+                                                        {
+                                                            xtype: 'button',
+                                                            id: 'btnRejectRequest',
+                                                            itemId: 'btnRejectRequest',
+                                                            text: 'Reject Request'
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'panel',
+                                            id: 'orderRequestsPanel',
+                                            itemId: 'orderRequestsPanel',
+                                            layout: 'fit',
+                                            title: 'Order Requests',
+                                            items: [
+                                                {
+                                                    xtype: 'gridpanel',
+                                                    height: 427,
+                                                    id: 'orderRequestsGrid',
+                                                    itemId: 'orderRequestsGrid',
+                                                    autoScroll: true,
+                                                    title: '',
+                                                    store: 'orderStore',
+                                                    columns: [
+                                                        {
+                                                            xtype: 'numbercolumn',
+                                                            id: 'orderId',
+                                                            itemId: 'orderId',
+                                                            width: 176,
+                                                            dataIndex: 'orderId',
+                                                            text: 'Order id',
+                                                            flex: 1,
+                                                            format: '00000'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            id: 'userId',
+                                                            itemId: 'userId',
+                                                            width: 141,
+                                                            dataIndex: 'userFullName',
+                                                            text: 'Name',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            id: 'orderDate',
+                                                            itemId: 'orderDate',
+                                                            width: 151,
+                                                            dataIndex: 'orderDate',
+                                                            text: 'Order Date',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'numbercolumn',
+                                                            id: 'totalCost',
+                                                            itemId: 'totalCost',
+                                                            dataIndex: 'totalCost',
+                                                            text: 'Total Cost',
+                                                            flex: 1,
+                                                            format: '00000'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            id: 'orderStatus',
+                                                            itemId: 'orderStatus',
+                                                            width: 212,
+                                                            dataIndex: 'orderStatus',
+                                                            text: 'Order Status',
+                                                            flex: 1,
+                                                            editor: {
+                                                                xtype: 'combobox',
+                                                                editable: false,
+                                                                queryMode: 'local',
+                                                                store: [
+                                                                    'Pending Order',
+                                                                    'Order Delivered'
+                                                                ],
+                                                                typeAhead: true
+                                                            }
+                                                        }
+                                                    ],
+                                                    plugins: [
+                                                        Ext.create('Ext.grid.plugin.RowEditing', {
+
+                                                        })
+                                                    ],
+                                                    selModel: Ext.create('Ext.selection.RowModel', {
+
+                                                    })
+                                                }
+                                            ],
+                                            dockedItems: [
+                                                {
+                                                    xtype: 'toolbar',
+                                                    dock: 'bottom',
+                                                    items: [
+                                                        {
+                                                            xtype: 'button',
+                                                            id: 'btnSaveUpdates',
+                                                            itemId: 'btnSaveUpdates',
+                                                            width: 100,
+                                                            text: 'Save Updates'
+                                                        },
+                                                        {
+                                                            xtype: 'button',
+                                                            id: 'btnOrderRequestReset',
+                                                            itemId: 'btnOrderRequestReset',
+                                                            text: 'Reset Change'
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'panel',
+                                            id: 'viewAllOrderPanel',
+                                            itemId: 'viewAllOrderPanel',
+                                            layout: 'fit',
+                                            title: 'Transactions',
+                                            items: [
+                                                {
+                                                    xtype: 'gridpanel',
+                                                    id: 'viewAllOrderGrid',
+                                                    itemId: 'viewAllOrderGrid',
+                                                    autoScroll: true,
+                                                    title: '',
+                                                    store: 'orderStore',
+                                                    columns: [
+                                                        {
+                                                            xtype: 'numbercolumn',
+                                                            dataIndex: 'orderId',
+                                                            text: 'Order Id',
+                                                            flex: 1,
+                                                            format: '00000'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'userFullName',
+                                                            text: 'Name',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'orderDate',
+                                                            text: 'Order Date',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'numbercolumn',
+                                                            dataIndex: 'totalCost',
+                                                            text: 'Total Cost',
+                                                            flex: 1,
+                                                            format: '00000'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'orderStatus',
+                                                            text: 'Order Status',
+                                                            flex: 1
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'panel',
+                                            id: 'userListPanel',
+                                            itemId: 'userListPanel',
+                                            title: 'Users',
+                                            items: [
+                                                {
+                                                    xtype: 'gridpanel',
+                                                    id: 'viewUserListGrid',
+                                                    itemId: 'viewUserListGrid',
+                                                    autoScroll: true,
+                                                    title: '',
+                                                    store: 'userList',
+                                                    columns: [
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'userId',
+                                                            text: 'User Id',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'fullName',
+                                                            text: 'Full Name',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'userName',
+                                                            text: 'Username',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'email',
+                                                            text: 'Email',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'address',
+                                                            text: 'Address',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'mobile',
+                                                            text: 'Mobile Number',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'userRole',
+                                                            text: 'User Role',
+                                                            flex: 1,
+                                                            editor: {
+                                                                xtype: 'combobox',
+                                                                editable: false,
+                                                                store: [
+                                                                    'Admin',
+                                                                    'Customer'
+                                                                ]
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'isBlacklisted',
+                                                            text: 'Blocked',
+                                                            flex: 1,
+                                                            editor: {
+                                                                xtype: 'combobox',
+                                                                editable: false,
+                                                                store: [
+                                                                    'YES',
+                                                                    'NO'
+                                                                ]
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'membershipType',
+                                                            text: 'Membership Type',
+                                                            flex: 1,
+                                                            editor: {
+                                                                xtype: 'combobox',
+                                                                editable: false,
+                                                                store: [
+                                                                    'Regular',
+                                                                    'Member',
+                                                                    'VIP',
+                                                                    'Student',
+                                                                    'Senior'
+                                                                ]
+                                                            }
+                                                        }
+                                                    ],
+                                                    plugins: [
+                                                        Ext.create('Ext.grid.plugin.RowEditing', {
+
+                                                        })
+                                                    ],
+                                                    selModel: Ext.create('Ext.selection.RowModel', {
+
+                                                    })
+                                                }
+                                            ],
+                                            dockedItems: [
+                                                {
+                                                    xtype: 'toolbar',
+                                                    dock: 'bottom',
+                                                    items: [
+                                                        {
+                                                            xtype: 'button',
+                                                            id: 'addUser',
+                                                            itemId: 'addUser',
+                                                            text: 'Add Admin'
+                                                        },
+                                                        {
+                                                            xtype: 'button',
+                                                            id: 'btnUpdateAdmin',
+                                                            itemId: 'btnUpdateAdmin',
+                                                            text: 'Save Changes'
+                                                        },
+                                                        {
+                                                            xtype: 'button',
+                                                            id: 'btnAdminResetChange',
+                                                            itemId: 'btnAdminResetChange',
+                                                            text: 'Reset Changes'
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'panel',
+                                            id: 'onlineUsersPanel',
+                                            title: 'Online Users',
+                                            items: [
+                                                {
+                                                    xtype: 'gridpanel',
+                                                    id: 'onlineUsersGrid',
+                                                    itemId: 'onlineUsersGrid',
+                                                    autoScroll: true,
+                                                    title: '',
+                                                    store: 'onlineUsersStore',
+                                                    columns: [
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'userId',
+                                                            text: 'User Id',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'userName',
+                                                            text: 'Username',
+                                                            flex: 1
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'panel',
+                                    flex: 0,
+                                    region: 'west',
+                                    id: 'adminMenu',
+                                    itemId: 'adminMenu',
+                                    width: 250,
+                                    layout: 'fit',
+                                    animCollapse: true,
+                                    collapseDirection: 'left',
+                                    collapsible: true,
+                                    title: 'Admin Menu',
+                                    items: [
+                                        {
+                                            xtype: 'menu',
+                                            floating: false,
+                                            width: 120,
+                                            bodyStyle: 'background-color:#ffffff !important;',
+                                            animCollapse: false,
+                                            collapseDirection: 'left',
+                                            collapsed: false,
+                                            collapsible: false,
+                                            glyph: '',
+                                            overlapHeader: false,
+                                            placeholderCollapseHideMode: 2,
+                                            titleAlign: 'center',
+                                            titleCollapse: false,
+                                            ignoreParentClicks: true,
+                                            items: [
+                                                {
+                                                    xtype: 'menuitem',
+                                                    height: 45,
+                                                    id: 'products',
+                                                    itemId: 'products',
+                                                    defaultAlign: 'center',
+                                                    glyph: '',
+                                                    iconCls: '',
+                                                    menuAlign: 'center',
+                                                    text: 'Products'
+                                                },
+                                                {
+                                                    xtype: 'menuitem',
+                                                    height: 45,
+                                                    id: 'viewProductFeedback',
+                                                    itemId: 'viewProductFeedback',
+                                                    text: 'Feedbacks'
+                                                },
+                                                {
+                                                    xtype: 'menuitem',
+                                                    height: 45,
+                                                    id: 'membershipRequest',
+                                                    itemId: 'membershipRequest',
+                                                    text: 'Membership Requests'
+                                                },
+                                                {
+                                                    xtype: 'menuitem',
+                                                    height: 45,
+                                                    id: 'orderRequest',
+                                                    itemId: 'orderRequest',
+                                                    text: 'Order Requests'
+                                                },
+                                                {
+                                                    xtype: 'menuitem',
+                                                    height: 45,
+                                                    id: 'viewAllOrder',
+                                                    itemId: 'viewAllOrder',
+                                                    text: 'View All Orders'
+                                                },
+                                                {
+                                                    xtype: 'menuitem',
+                                                    height: 45,
+                                                    id: 'viewUserList',
+                                                    itemId: 'viewUserList',
+                                                    text: 'View All Users'
+                                                },
+                                                {
+                                                    xtype: 'menuitem',
+                                                    height: 45,
+                                                    id: 'viewOnlineUsers',
+                                                    itemId: 'viewOnlineUsers',
+                                                    text: 'View Online Users'
+                                                },
+                                                {
+                                                    xtype: 'menuitem',
+                                                    height: 45,
+                                                    id: 'logout',
+                                                    itemId: 'logout',
+                                                    text: 'Logout'
                                                 }
                                             ]
                                         }
