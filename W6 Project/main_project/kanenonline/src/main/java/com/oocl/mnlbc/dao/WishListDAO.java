@@ -13,7 +13,7 @@ import com.oocl.mnlbc.entity.WishList;
  */
 public interface WishListDAO extends GenericDAO<WishList> {
 
-	boolean saveUserWishList(WishList items);
+	long saveWishList(long userId, long productId, String productName, String productDescription, long productPrice, String imagePath);
 
 	boolean clearUserWishList(long userId);
 
