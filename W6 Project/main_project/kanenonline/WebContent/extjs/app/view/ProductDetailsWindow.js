@@ -152,7 +152,13 @@ Ext.define('KanenOnlineShopping.view.ProductDetailsWindow', {
                                             itemId: 'btnAddComment',
                                             style: 'background: url(resource/comment.png) !important;\nwidth: 50px;\nheight: 45px;',
                                             width: 53,
-                                            text: ''
+                                            text: '',
+                                            listeners: {
+                                                click: {
+                                                    fn: me.onButtonClick,
+                                                    scope: me
+                                                }
+                                            }
                                         }
                                     ]
                                 }
@@ -164,6 +170,10 @@ Ext.define('KanenOnlineShopping.view.ProductDetailsWindow', {
         });
 
         me.callParent(arguments);
+    },
+
+    onButtonClick: function(button, e, eOpts) {
+        KanenOnlineShopping.app.getController('productController').showCommentWindow(this.productId);
     }
 
 });

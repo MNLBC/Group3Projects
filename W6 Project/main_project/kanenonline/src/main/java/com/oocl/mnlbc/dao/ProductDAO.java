@@ -3,6 +3,7 @@ package com.oocl.mnlbc.dao;
 import java.util.List;
 import com.oocl.mnlbc.entity.Product;
 import com.oocl.mnlbc.entity.ProductCommentAssn;
+import com.oocl.mnlbc.entity.User;
 
 /**
  * Interface of Products
@@ -13,6 +14,6 @@ import com.oocl.mnlbc.entity.ProductCommentAssn;
 public interface ProductDAO extends GenericDAO<Product> {
 
 	public List<Product> getProductList();
-	public boolean saveProductComment (long userId, long productId, String productComment);
+	public boolean saveProductComment(User userId, long productId, String productComment);
 
 }
