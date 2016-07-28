@@ -829,6 +829,7 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     onBtnMainCheckoutClicked: function(button, e, eOpts) {
         var cartWindowGrid = Ext.getCmp('cartWindowGrid');
+        var cartStore = Ext.getStore('cartStore');
         cartWindowGrid.getView().refresh();
         						if (cartStore.count() > 0) {
 
