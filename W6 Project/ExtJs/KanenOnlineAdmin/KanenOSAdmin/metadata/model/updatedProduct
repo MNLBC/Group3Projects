@@ -58,7 +58,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "productQuantity"
+                "name": "productStockQuantity"
             },
             "name": "MyField41",
             "designerId": "39d64603-ecf6-4863-b244-cacb62808044"
@@ -75,6 +75,19 @@
             },
             "name": "MyField42",
             "designerId": "9030426a-4ef5-463a-9424-1dd433081242"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "productId"
+            },
+            "name": "MyField52",
+            "designerId": "83fa025b-e688-4113-91ad-cf9764a2e8e6"
         }
     ]
 }
