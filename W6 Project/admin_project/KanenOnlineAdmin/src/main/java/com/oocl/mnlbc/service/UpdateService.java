@@ -19,6 +19,8 @@ import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
 import com.oocl.mnlbc.model.AllProduct;
 import com.oocl.mnlbc.model.ProductList;
+import com.oocl.mnlbc.model.UpdatedUsers;
+import com.oocl.mnlbc.model.UserList;
 
 /**
  * @author Melvin Yu
@@ -98,25 +100,44 @@ public class UpdateService {
 
 	}
 
-//	public AllUser updateUser(String jsonData) {
-//
-//		Gson gson = new Gson();
-//		UserList userList = gson.fromJson(jsonData, UserList.class);
-//
-//		AllUser response = new AllUser();
-//		UserDAOImpl userDAO = new UserDAOImpl();
-//		List<User> updatedUsers = new ArrayList<User>();
-//		userDAO.init();
-//		if (userList != null) {
-//			for (User user : userList.getUserList()) {
-//				updatedUsers.add(userDAO.updateUser(user));
-//			}
-//			response.setUserList(updatedUsers);
-//			response.setSuccess(true);
-//		}
-//
-//		return response;
-//	}
+	public String updateUser(String jsonData) {
+
+		MembershipTypeDAOImpl memDao = new MembershipTypeDAOImpl();
+		memDao.init();
+		UserDAOImpl userDAO = new UserDAOImpl();
+		userDAO.init();
+		UserMembershipAsnDAOImpl userMemberAsnDAO = new UserMembershipAsnDAOImpl();
+		userMemberAsnDAO.init();
+
+		Gson gson = new Gson();
+		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
+		String errorMsg = "";
+		UserList userList = gson.fromJson(jsonData, UserList.class);
+		System.out.println(userList);
+		UserMembershipAsn membership = new UserMembershipAsn();
+
+		if (userList != null) {
+			for (UpdatedUsers updatedUsers : userList.getUserList()) {
+				User user = null;
+				user = userDAO.findById(updatedUsers.getUserId());
+				user.setUserRole(updatedUsers.getUserRole());
+				user.setIsBlacklisted(updatedUsers.getIsBlacklisted());
+				userDAO.updateUser(user);
+
+				membership = userMemberAsnDAO.findMembership(user);
+				membership.setMembershipTypeId(memDao.getIdByTypeName(updatedUsers.getMembershipType()));
+				userMemberAsnDAO.updateMembership(membership);
+
+			}
+
+			errorMsg += "none";
+
+		} else {
+			errorMsg += "failed";
+		}
+		returnJson += errorMsg + "\"}}";
+		return returnJson;
+	}
 
 	public String createUser(String userName, String userPassword, String fullName, String email,
 			String deliveryAddress, String mobileNumber, String userRole) {
@@ -154,29 +175,31 @@ public class UpdateService {
 		return builder.toString();
 
 	}
-	
-	public String createProduct(String productName, String productDescription, double productPrice, int productStockQuantity, String productImagePath ){
+
+	public String createProduct(String productName, String productDescription, double productPrice,
+			int productStockQuantity, String productImagePath) {
 		ProductDAOImpl productDAO = new ProductDAOImpl();
 		productDAO.init();
-		
+
 		StringBuilder builder = new StringBuilder();
 		String returnJson = "{\"success\":true,\"data\":{\"errormsg\":\"";
 		String errorMsg = "";
 		builder.append(returnJson);
-		Product product = new Product(0, productName, productDescription, productPrice, productStockQuantity, productImagePath);
+		Product product = new Product(0, productName, productDescription, productPrice, productStockQuantity,
+				productImagePath);
 
 		if (productDAO.createProduct(product)) {
 			errorMsg += "none";
 		} else {
 			errorMsg += "failed";
 		}
-		
+
 		builder.append("\"}}");
 		return builder.toString();
 	}
-	
-	public AllProduct updateProduct(String jsonData){
-		
+
+	public AllProduct updateProduct(String jsonData) {
+
 		Gson gson = new Gson();
 		ProductList productList = gson.fromJson(jsonData, ProductList.class);
 		System.out.println(productList);
@@ -192,5 +215,5 @@ public class UpdateService {
 			response.setSuccess(true);
 		}
 		return response;
-	}	
+	}
 }

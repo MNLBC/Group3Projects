@@ -30,8 +30,6 @@ public class UserController {
 	private UserDAO userDAO;
 
 	@Autowired
-	private CartDAO cartDAO;
-	@Autowired
 	private UserService userService;
 	@Autowired
 	private static final Logger logger = Logger.getLogger(UserController.class);
@@ -94,9 +92,10 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/logout", method = { RequestMethod.POST })
 	@ResponseBody
-	public String logoutUser() throws Exception {
+	public String logoutUser(@RequestParam(value = "userId", required = true) String userId,
+							 @RequestParam(value = "userName", required = true) String userName) throws Exception {
 
-		String returnJson = userService.logoutUser();
+		String returnJson = userService.logoutUser(userId, userName);
 		return returnJson;
 
 	}

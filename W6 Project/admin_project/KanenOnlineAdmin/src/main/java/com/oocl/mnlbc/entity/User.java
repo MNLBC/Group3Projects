@@ -52,10 +52,12 @@ public class User implements Serializable {
 	@Column(name = "IS_BLACKLISTED")
 	private String isBlacklisted;
 	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.REMOVE, mappedBy = "userId", fetch = FetchType.LAZY)
 	private UserMembershipAsn userMembershipId;
+	
 
-	User() {
+
+	public User() {
 		// TODO Auto-generated constructor stub
 	}
 

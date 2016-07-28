@@ -453,7 +453,12 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "regex": "/^[1-9][0-9]{1,9}/\n"
+                                                        "allowBlank": false,
+                                                        "allowOnlyWhitespace": false,
+                                                        "maxLength": 6,
+                                                        "maxLengthText": "Please enter values from 1-999999",
+                                                        "regex": "/^[1-9][0-9]*$/\n",
+                                                        "regexText": "Invalid Input"
                                                     },
                                                     "name": "MyTextField9",
                                                     "designerId": "6a3b085b-4ac8-4e59-8f12-d0439c484cc0"
@@ -483,7 +488,12 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "regex": "/^[1-9][0-9]{1,9}/"
+                                                        "allowBlank": false,
+                                                        "allowOnlyWhitespace": false,
+                                                        "maxLength": 3,
+                                                        "maxLengthText": "Please enter values from 1-999",
+                                                        "regex": "/^[1-9][0-9]*$/",
+                                                        "regexText": "Invalid input"
                                                     },
                                                     "name": "MyTextField10",
                                                     "designerId": "a4d21cc1-a542-422f-ad34-37f9d44e0d35"
@@ -732,6 +742,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "editable": false,
                                                         "store": [
                                                             "['Admin','Customer']"
                                                         ]
@@ -760,18 +771,23 @@
                                             "designerId": "ec05c82d-424c-4cba-b955-bb242bd56273",
                                             "cn": [
                                                 {
-                                                    "type": "Ext.form.field.Checkbox",
+                                                    "type": "Ext.form.field.ComboBox",
                                                     "reference": {
                                                         "name": "editor",
                                                         "type": "object"
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "inputValue": "YES",
-                                                        "uncheckedValue": "NO"
+                                                        "editable": false,
+                                                        "store": [
+                                                            "['YES','NO']"
+                                                        ]
                                                     },
-                                                    "name": "MyCheckbox",
-                                                    "designerId": "9cf8614d-0809-4d78-98d0-0c1061a66ef2"
+                                                    "name": "MyComboBox3",
+                                                    "configAlternates": {
+                                                        "store": "array"
+                                                    },
+                                                    "designerId": "9d497cb6-7612-4ff0-bce1-81a190712875"
                                                 }
                                             ]
                                         },
@@ -798,6 +814,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "editable": false,
                                                         "store": [
                                                             "['Regular','Member','VIP','Student','Senior']"
                                                         ]
@@ -880,6 +897,8 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
+                                                "id": "btnUpdateAdmin",
+                                                "itemId": "btnUpdateAdmin",
                                                 "layout|flex": null,
                                                 "text": "Save Changes"
                                             },

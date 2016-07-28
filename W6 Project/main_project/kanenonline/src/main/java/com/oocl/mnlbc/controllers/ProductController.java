@@ -56,9 +56,6 @@ public class ProductController {
 	public String saveProductComment(@RequestParam(value = "userId", required = true) long userId, @RequestParam(value = "productId", required = true) long productId, 
 						@RequestParam(value = "productComment", required = true) String productComment) throws IOException {
 		
-		//Gson gson = new Gson();
-		//ProductCommentAssn productComment = gson.fromJson(jsonData, ProductCommentAssn.class);
-		
 		String response = productCommentAssnService.saveProductComment(userId,productId,productComment);
 		
 		return response;
