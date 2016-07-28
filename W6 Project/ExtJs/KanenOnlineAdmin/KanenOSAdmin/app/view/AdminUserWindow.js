@@ -58,7 +58,11 @@ Ext.define('MyApp.view.AdminUserWindow', {
                                     id: 'frmAdminFullname',
                                     width: 450,
                                     fieldLabel: 'Fullname',
-                                    labelWidth: 120
+                                    labelWidth: 120,
+                                    allowBlank: false,
+                                    allowOnlyWhitespace: false,
+                                    maxLength: 100,
+                                    maxLengthText: 'exceed maximum limit'
                                 },
                                 {
                                     xtype: 'textfield',
@@ -66,7 +70,11 @@ Ext.define('MyApp.view.AdminUserWindow', {
                                     itemId: 'frmAdminUsername',
                                     width: 450,
                                     fieldLabel: 'Username',
-                                    labelWidth: 120
+                                    labelWidth: 120,
+                                    allowBlank: false,
+                                    allowOnlyWhitespace: false,
+                                    maxLength: 100,
+                                    maxLengthText: 'Exceed maximum limit'
                                 },
                                 {
                                     xtype: 'textfield',
@@ -74,7 +82,10 @@ Ext.define('MyApp.view.AdminUserWindow', {
                                     itemId: 'frmAdminPassword',
                                     width: 450,
                                     fieldLabel: 'Password',
-                                    labelWidth: 120
+                                    labelWidth: 120,
+                                    inputType: 'password',
+                                    allowBlank: false,
+                                    allowOnlyWhitespace: false
                                 },
                                 {
                                     xtype: 'textfield',
@@ -82,7 +93,10 @@ Ext.define('MyApp.view.AdminUserWindow', {
                                     itemId: 'frmAdminConfirm',
                                     width: 450,
                                     fieldLabel: 'Confirm Password',
-                                    labelWidth: 120
+                                    labelWidth: 120,
+                                    inputType: 'password',
+                                    allowBlank: false,
+                                    allowOnlyWhitespace: false
                                 },
                                 {
                                     xtype: 'textfield',
@@ -90,7 +104,9 @@ Ext.define('MyApp.view.AdminUserWindow', {
                                     itemId: 'frmAdminEmail',
                                     width: 450,
                                     fieldLabel: 'Email',
-                                    labelWidth: 120
+                                    labelWidth: 120,
+                                    inputType: 'email',
+                                    allowBlank: false
                                 },
                                 {
                                     xtype: 'textfield',
@@ -98,7 +114,11 @@ Ext.define('MyApp.view.AdminUserWindow', {
                                     itemId: 'frmAdminAddress',
                                     width: 450,
                                     fieldLabel: 'Address',
-                                    labelWidth: 120
+                                    labelWidth: 120,
+                                    allowBlank: false,
+                                    allowOnlyWhitespace: false,
+                                    maxLength: 150,
+                                    maxLengthText: 'Exceed maximum limit'
                                 },
                                 {
                                     xtype: 'textfield',
@@ -106,7 +126,11 @@ Ext.define('MyApp.view.AdminUserWindow', {
                                     itemId: 'frmAdminMobile',
                                     width: 450,
                                     fieldLabel: 'Mobile Number',
-                                    labelWidth: 120
+                                    labelWidth: 120,
+                                    allowBlank: false,
+                                    allowOnlyWhitespace: false,
+                                    maxLength: 11,
+                                    regex: /^[1-9][0-9]*$/
                                 },
                                 {
                                     xtype: 'toolbar',

@@ -453,7 +453,12 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "regex": "/^[1-9][0-9]{1,9}/\n"
+                                                        "allowBlank": false,
+                                                        "allowOnlyWhitespace": false,
+                                                        "maxLength": 6,
+                                                        "maxLengthText": "Please enter values from 1-999999",
+                                                        "regex": "/^[1-9][0-9]*$/\n",
+                                                        "regexText": "Invalid Input"
                                                     },
                                                     "name": "MyTextField9",
                                                     "designerId": "6a3b085b-4ac8-4e59-8f12-d0439c484cc0"
@@ -483,7 +488,12 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "regex": "/^[1-9][0-9]{1,9}/"
+                                                        "allowBlank": false,
+                                                        "allowOnlyWhitespace": false,
+                                                        "maxLength": 3,
+                                                        "maxLengthText": "Please enter values from 1-999",
+                                                        "regex": "/^[1-9][0-9]*$/",
+                                                        "regexText": "Invalid input"
                                                     },
                                                     "name": "MyTextField10",
                                                     "designerId": "a4d21cc1-a542-422f-ad34-37f9d44e0d35"
@@ -732,6 +742,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "editable": false,
                                                         "store": [
                                                             "['Admin','Customer']"
                                                         ]
@@ -767,6 +778,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "editable": false,
                                                         "store": [
                                                             "['YES','NO']"
                                                         ]
@@ -802,6 +814,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "editable": false,
                                                         "store": [
                                                             "['Regular','Member','VIP','Student','Senior']"
                                                         ]
