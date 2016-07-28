@@ -2,7 +2,6 @@ package com.oocl.mnlbc.dao;
 
 import java.util.List;
 import com.oocl.mnlbc.entity.Product;
-import com.oocl.mnlbc.entity.ProductCommentAssn;
 import com.oocl.mnlbc.entity.User;
 
 /**
