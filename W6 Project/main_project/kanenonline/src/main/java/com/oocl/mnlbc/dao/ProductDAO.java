@@ -13,6 +13,6 @@ import com.oocl.mnlbc.entity.ProductCommentAssn;
 public interface ProductDAO extends GenericDAO<Product> {
 
 	public List<Product> getProductList();
-	public boolean saveProductComment (ProductCommentAssn productComment);
+	public boolean saveProductComment (long userId, long productId, String productComment);
 
 }

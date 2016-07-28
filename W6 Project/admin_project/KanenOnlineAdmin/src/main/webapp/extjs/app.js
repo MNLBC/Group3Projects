@@ -27,7 +27,8 @@ Ext.application({
         'orderItem',
         'updatedOrder',
         'product',
-        'updatedProduct'
+        'updatedProduct',
+        'userListModel'
     ],
     stores: [
         'orderStore',
@@ -36,10 +37,13 @@ Ext.application({
         'orderItems',
         'updatedOrder',
         'product',
-        'updateProduct'
+        'updateProduct',
+        'userList'
     ],
     views: [
-        'MyViewport'
+        'MyViewport',
+        'AdminUserWindow',
+        'AdminAddProductWindow'
     ],
     controllers: [
         'AdminController'

@@ -1,0 +1,292 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "closable": false,
+        "designer|userClassName": "CartWindow",
+        "height": 529,
+        "hidden": false,
+        "id": "cartWindow",
+        "itemId": "cartWindow",
+        "layout": "border",
+        "title": "Please review your items:",
+        "width": 876
+    },
+    "designerId": "e53fd0b8-9539-4c00-ba7e-bb3ff089c791",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": 9,
+                "layout|region": "center",
+                "store": "cartStore",
+                "title": ""
+            },
+            "name": "MyGridPanel2",
+            "designerId": "82ce93ec-ed6c-48ab-9d52-f8ca3abbc44d",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "productName",
+                        "flex": 4,
+                        "text": "Product Name:",
+                        "width": 151
+                    },
+                    "name": "MyColumn5",
+                    "designerId": "3adaf703-f52f-4010-adfe-2f77904f4236"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "checkoutCartGrid",
+                        "itemId": "checkoutCartGrid"
+                    },
+                    "name": "MyGridView2",
+                    "designerId": "eab1eac6-7010-4dcb-86f1-fe77ddf92137"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "productDescription",
+                        "flex": 7,
+                        "text": "Product Description",
+                        "width": 243
+                    },
+                    "name": "MyColumn6",
+                    "designerId": "23e842b8-d87a-4cf4-95a4-10b679297b5c"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "productPrice",
+                        "flex": 2,
+                        "text": "Price",
+                        "width": 197
+                    },
+                    "name": "MyNumberColumn3",
+                    "designerId": "d50abebe-2843-4850-8720-802b078b125b"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "quantity",
+                        "flex": 2,
+                        "format": "0,000",
+                        "text": "Quantity",
+                        "width": 191
+                    },
+                    "name": "MyNumberColumn4",
+                    "designerId": "68e1afca-94dd-4be6-a153-a760dff660a0"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": null,
+                "height": 150,
+                "layout": "border",
+                "layout|flex": 3,
+                "layout|region": "south",
+                "title": "Total Cost:"
+            },
+            "name": "MyPanel1",
+            "designerId": "871418d2-7c11-434f-87df-7e818c105e86",
+            "cn": [
+                {
+                    "type": "Ext.container.Container",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "container|pack": "center",
+                        "container|padding": 8,
+                        "layout": "hbox",
+                        "layout|flex": 5,
+                        "layout|region": "west",
+                        "width": 150
+                    },
+                    "name": "MyContainer9",
+                    "designerId": "1a52cd6b-1392-4341-ac4d-9014f8ba6a3b",
+                    "cn": [
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 70,
+                                "id": "lblCheckoutTotalCost",
+                                "itemId": "lblCheckoutTotalCost",
+                                "layout|flex": 1,
+                                "padding": 11,
+                                "text": "My Label",
+                                "width": 224
+                            },
+                            "name": "MyLabel1",
+                            "designerId": "93329ca5-bd0b-40c8-9cef-86a31f0abfad"
+                        },
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "lblDiscountRate",
+                                "layout|flex": 2,
+                                "padding": 11,
+                                "text": "My Label"
+                            },
+                            "name": "MyLabel7",
+                            "designerId": "c6ae873d-3990-4fce-8e77-fe24bddc7886"
+                        },
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "lblDiscountedCost",
+                                "layout|flex": 1,
+                                "padding": 11,
+                                "text": "My Label"
+                            },
+                            "name": "MyLabel8",
+                            "designerId": "9a545d64-543e-4fcc-af72-871a58d942bc"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.container.Container",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "middle",
+                        "layout": "hbox",
+                        "layout|flex": 8,
+                        "layout|region": "center",
+                        "padding": 10
+                    },
+                    "name": "MyContainer10",
+                    "designerId": "fe216319-5ecc-4686-8179-220fc98b94bc",
+                    "cn": [
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "width": 220
+                            },
+                            "name": "MySpacer7",
+                            "designerId": "7b876ecd-41b2-4fd5-be81-597b89a49c2e"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 38,
+                                "hidden": true,
+                                "id": "btnBuy",
+                                "itemId": "btnBuy",
+                                "text": "Buy these items",
+                                "width": 132
+                            },
+                            "name": "MyButton14",
+                            "designerId": "ecd47c89-3eb6-43c9-aa1e-87dc0b56db46"
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": 1,
+                                "width": 20
+                            },
+                            "name": "MySpacer8",
+                            "designerId": "12e67b8a-e854-4ec8-99f2-e5e9d610ef74"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 37,
+                                "id": "btnCartWindowCancel",
+                                "itemId": "btnCartWindowCancel",
+                                "text": "Cancel",
+                                "width": 143
+                            },
+                            "name": "MyButton15",
+                            "designerId": "e1a98e9f-b19b-4862-9886-3185d2d34b82"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

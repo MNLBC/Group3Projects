@@ -1213,6 +1213,14 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     },
 
+    onIconAddCommentClick: function(button, e, eOpts) {
+                Ext.getCmp('commentWindow').show();
+    },
+
+    onBtnSendCommentClick: function(button, e, eOpts) {
+    
+    },
+
     onLaunch: function() {
 
         this.bodyContainer = this.getBodyContainer();
@@ -1485,6 +1493,40 @@ Ext.define('KanenOnlineShopping.controller.productController', {
 
     },
 
+    showProductDetails: function(productId, productName, productDescription, productPrice, productStockQuantity, productImagePath) {
+        var productDetailsWindow = Ext.create('KanenOnlineShopping.view.ProductDetailsWindow',{ });
+        	productDetailsWindow.productId   = productId;
+        	productDetailsWindow.productName = productName;
+        	productDetailsWindow.productDescription = productDescription;
+        	productDetailsWindow.productPrice = productPrice;
+        	productDetailsWindow.productStockQuantity = productStockQuantity;
+
+        productDetailsWindow.productImagePath = productImagePath;
+
+
+        var imageContainer = productDetailsWindow.items.items[0].items.items[2];
+
+
+        var labelProductImage =   imageContainer.items.items[0];
+        labelProductImage.src = productImagePath;
+        var labelProductPrice =   imageContainer.items.items[1];
+        labelProductPrice.text = productPrice;
+
+        var labelProductName =productDetailsWindow.items.items[0].items.items[1].items.items[1];
+        labelProductName.text= productName;
+
+        var labelProductDescription = productDetailsWindow.items.items[0].items.items[3].items.items[0];
+        labelProductDescription.text = productDescription;
+
+        var labelProductStockQuantity =productDetailsWindow.items.items[0].items.items[3].items.items[1];
+        labelProductStockQuantity.text=productStockQuantity;
+
+
+
+
+        	productDetailsWindow.show();
+    },
+
     init: function(application) {
         this.control({
             "#btnBuy": {
@@ -1583,6 +1625,12 @@ Ext.define('KanenOnlineShopping.controller.productController', {
             "#btnProductDetails": {
                 click: this.onBtnProductDetailsClick,
                 click: this.onBtnProductDetailsClick
+            },
+            "#btnAddComment": {
+                click: this.onIconAddCommentClick
+            },
+            "#btnSendComment": {
+                click: this.onBtnSendCommentClick
             }
         });
     }

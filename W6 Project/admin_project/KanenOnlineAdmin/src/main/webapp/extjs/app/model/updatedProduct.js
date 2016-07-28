@@ -31,10 +31,13 @@ Ext.define('MyApp.model.updatedProduct', {
             name: 'productPrice'
         },
         {
-            name: 'productQuantity'
+            name: 'productStockQuantity'
         },
         {
             name: 'productImagePath'
+        },
+        {
+            name: 'productId'
         }
     ]
 });

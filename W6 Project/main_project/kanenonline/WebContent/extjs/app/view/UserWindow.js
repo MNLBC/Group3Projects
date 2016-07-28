@@ -23,6 +23,7 @@ Ext.define('KanenOnlineShopping.view.UserWindow', {
     ],
 
     height: 340,
+    hidden: false,
     id: 'UserWindow',
     itemId: 'UserWindow',
     width: 530,

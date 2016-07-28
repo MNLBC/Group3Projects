@@ -13,6 +13,7 @@ import com.oocl.mnlbc.entity.Product;
  */
 public interface ProductDAO {
 	public String getNameById(long typeId);
-	
+	public Product updateProduct(Product product);
+	boolean createProduct(Product product);
 	
 }
