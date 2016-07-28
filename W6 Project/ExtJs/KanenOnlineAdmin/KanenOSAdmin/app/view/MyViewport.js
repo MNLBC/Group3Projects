@@ -27,7 +27,6 @@ Ext.define('MyApp.view.MyViewport', {
         'Ext.grid.plugin.RowEditing',
         'Ext.toolbar.Toolbar',
         'Ext.form.field.ComboBox',
-        'Ext.form.field.Checkbox',
         'Ext.form.Panel'
     ],
 
@@ -350,9 +349,11 @@ Ext.define('MyApp.view.MyViewport', {
                                                     text: 'Blocked',
                                                     flex: 1,
                                                     editor: {
-                                                        xtype: 'checkboxfield',
-                                                        inputValue: 'YES',
-                                                        uncheckedValue: 'NO'
+                                                        xtype: 'combobox',
+                                                        store: [
+                                                            'YES',
+                                                            'NO'
+                                                        ]
                                                     }
                                                 },
                                                 {
@@ -395,6 +396,8 @@ Ext.define('MyApp.view.MyViewport', {
                                                 },
                                                 {
                                                     xtype: 'button',
+                                                    id: 'btnUpdateAdmin',
+                                                    itemId: 'btnUpdateAdmin',
                                                     text: 'Save Changes'
                                                 },
                                                 {

@@ -641,14 +641,13 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onBtnUpdateProductClick: function() {
-        updatedProduct = [];
+
         var productListGrid = Ext.getCmp('productListGrid');
         var productListStore = productListGrid.getStore();
         var updatedRecords = productListStore.getModifiedRecords();
         var updateProduct = Ext.getStore('updateProduct');
         Ext.each(updatedRecords,function(record){
             if (record.dirty){
-                updatedProduct.push(record.data);
                 var product = {
                     productId: record.data.productId,
                     productName: record.data.productName,
@@ -870,6 +869,57 @@ Ext.define('MyApp.controller.AdminController', {
         });
     },
 
+    onBtnUpdateAdminClick: function() {
+
+        var viewUserListGrid = Ext.getCmp('viewUserListGrid');
+        var userListStore = viewUserListGrid.getStore();
+        var updatedRecords = userListStore.getModifiedRecords();
+        var updateUser = Ext.getStore('updatedUser');
+        Ext.each(updatedRecords,function(record){
+            if (record.dirty){
+                var user = {
+
+                    userId: record.data.userId,
+                    fullName: record.data.fullName,
+                    userName: record.data.userName,
+                    email: record.data.email,
+                    address: record.data.address,
+                    mobile: record.data.mobile,
+                    userRole: record.data.userRole,
+                    isBlacklisted: record.data.isBlacklisted,
+                    membershipType: record.data.membershipType
+
+
+                };
+                updateUser.add(user);
+            }
+
+        });
+
+        var jsonData = '{ "userList": ';
+        jsonData += Ext.encode(Ext.pluck(updateUser.data.items,'data'));
+        jsonData += '}';
+
+        Ext.Ajax.request({
+
+            url: 'update/updateUser',
+            method: 'POST',
+
+            params:{
+
+                jsonData: jsonData,
+            },
+
+            scope: this,
+            success: function(response){
+                var responseText = Ext.decode(response.responseText);
+                Ext.MessageBox.alert('User Update','Successfully Updated Changes');
+            }
+
+        });
+
+    },
+
     init: function(application) {
         this.control({
             "#btnCustomerRequest": {
@@ -931,6 +981,9 @@ Ext.define('MyApp.controller.AdminController', {
             },
             "#frmBtnSave": {
                 click: this.onFrmBtnSaveClick
+            },
+            "#btnUpdateAdmin": {
+                click: this.onBtnUpdateAdminClick
             }
         });
     }
