@@ -179,7 +179,7 @@ public class UpdateService {
 		
 		Gson gson = new Gson();
 		ProductList productList = gson.fromJson(jsonData, ProductList.class);
-		
+		System.out.println(productList);
 		AllProduct response = new AllProduct();
 		ProductDAOImpl productDAO = new ProductDAOImpl();
 		List<Product> updatedProduct = new ArrayList<Product>();

@@ -28,5 +28,15 @@ public class ProductList {
 	public void setProductList(List<Product> productList) {
 		this.productList = productList;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ProductList [productList=" + productList + "]";
+	}
+	
+	
 	
 }
