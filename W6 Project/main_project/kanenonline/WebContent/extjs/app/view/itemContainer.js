@@ -20,6 +20,7 @@ Ext.define('KanenOnlineShopping.view.itemContainer', {
         'Ext.Img',
         'Ext.form.Label',
         'Ext.container.Container',
+        'Ext.toolbar.Spacer',
         'Ext.button.Button'
     ],
 
@@ -61,10 +62,18 @@ Ext.define('KanenOnlineShopping.view.itemContainer', {
                 {
                     xtype: 'container',
                     flex: 1,
+                    layout: {
+                        type: 'vbox',
+                        align: 'center'
+                    },
                     items: [
                         {
+                            xtype: 'tbspacer',
+                            height: 20
+                        },
+                        {
                             xtype: 'button',
-                            text: 'MyButton',
+                            text: 'Product Details',
                             listeners: {
                                 click: {
                                     fn: me.onButtonClick1,

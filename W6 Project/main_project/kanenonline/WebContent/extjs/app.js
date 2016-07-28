@@ -26,8 +26,7 @@ Ext.application({
         'CartItem',
         'Order',
         'OrderItem',
-        'Membership',
-        'WishList'
+        'Membership'
     ],
     stores: [
         'productsStore',
@@ -35,8 +34,7 @@ Ext.application({
         'cartStore',
         'orderItemStore',
         'userStore',
-        'MembershipStore',
-        'wishListStore'
+        'MembershipStore'
     ],
     views: [
         'MyViewport',
@@ -49,7 +47,7 @@ Ext.application({
         'UserWindow',
         'ChangePassWindow',
         'MemberShipWindow',
-        'MyWindow'
+        'CommentWindow'
     ],
     controllers: [
         'productController',

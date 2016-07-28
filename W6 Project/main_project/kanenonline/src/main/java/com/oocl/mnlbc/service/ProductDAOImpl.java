@@ -8,6 +8,7 @@ import javax.persistence.Query;
 import com.oocl.mnlbc.dao.ProductDAO;
 import com.oocl.mnlbc.entity.Product;
 import com.oocl.mnlbc.entity.ProductCommentAssn;
+import com.oocl.mnlbc.entity.User;
 /**
  * 
  * @author BRIONSE
@@ -33,7 +34,7 @@ public class ProductDAOImpl extends AbstractJPAGenericDAO<Product>implements Pro
 	 * 
 	 */
 	@Override
-	public boolean saveProductComment(long userId, long productId, String productComment) {
+	public boolean saveProductComment(User userId, long productId, String productComment) {
 		
 		ProductCommentAssn productCommentAssn = new ProductCommentAssn();
 		productCommentAssn.setProductId(productId);
