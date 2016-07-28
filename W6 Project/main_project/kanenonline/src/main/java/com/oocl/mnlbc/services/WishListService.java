@@ -26,26 +26,26 @@ public class WishListService {
 
 	private static final Logger logger = Logger.getLogger(OrderController.class);
 
-	public String saveCart(WishList wishList) {
+	public long saveWishList(long userId, long productId, String productName, String productDescription,
+			long productPrice, String imagePath) {
 		logger.info("Saving cart to database");
-		StringBuilder builder = new StringBuilder();
-		String errorMsg = "";
-
-		builder.append("{\"success\":true,\"data\":{\"errormsg\":\"");
-		// cartDAO.savecart accepts the parameter cartItemList to save to the
-		// Database
-		if (wishListDAO.saveUserWishList(wishList)) {
-			logger.info("WishList successfully saved to the database.");
-			errorMsg += "none";
+		// StringBuilder builder = new StringBuilder();
+		// String errorMsg = "";
+		//
+		// builder.append("{\"success\":true,\"data\":{\"errormsg\":\"");
+		// // cartDAO.savecart accepts the parameter cartItemList to save to the
+		// // Database
+		long wishListId = wishListDAO.saveWishList(userId, productId, productName, productDescription, productPrice, imagePath);
+		
+		if (wishListId > 0) {
+			// logger.info("WishList successfully saved to the database.");
+			// errorMsg += "none";
+			return wishListId;
 		} else {
-			logger.info("WishList failed to save to database.");
-			errorMsg += "failed";
+			// logger.info("WishList failed to save to database.");
+			// errorMsg += "failed";
+			return 0;
 		}
-
-		builder.append(errorMsg);
-		builder.append("\"}}");
-
-		return builder.toString();
 
 	}
 

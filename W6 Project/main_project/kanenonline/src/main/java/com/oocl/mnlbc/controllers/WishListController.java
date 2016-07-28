@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
 import com.oocl.mnlbc.entity.WishList;
-import com.oocl.mnlbc.model.CartItemList;
 import com.oocl.mnlbc.model.ModelWrapper;
 import com.oocl.mnlbc.model.Response;
+import com.oocl.mnlbc.model.WishListId;
 import com.oocl.mnlbc.services.WishListService;
 
 /**
@@ -32,19 +31,25 @@ public class WishListController {
 
 	@RequestMapping(value = "/saveWishList", method = RequestMethod.POST)
 	@ResponseBody()
-	public String saveWishList(@RequestParam(value = "jsonData", required = true) String jsonData) throws IOException {
+	public Response<WishListId> saveWishList(@RequestParam(value = "userId", required = true) long userId,
+			@RequestParam(value = "productId", required = true) long productId,
+			@RequestParam(value = "productName", required = true) String productName,
+			@RequestParam(value = "productDescription", required = true) String productDescription,
+			@RequestParam(value = "productPrice", required = true) long productPrice,
+			@RequestParam(value = "imagePath", required = true) String imagePath) throws IOException {
+		long result;
 
-		Gson gson = new Gson();
-		// accepts the jsonData from the request and uses GSON to convert JSON
-		// to Object
-		// uses CartItemList to map the jsonData to java object
+		result = wishListService.saveWishList(userId, productId, productName, productDescription, productPrice,
+				imagePath);
 
-		WishList wishList = gson.fromJson(jsonData, CartItemList.class);
-
-		String response = "";
-
-		response = wishListService.saveCart(wishList);
-
+		WishListId wishListId = new WishListId();
+		wishListId.setId(result);
+		
+		Response<WishListId> response = new Response<WishListId>();
+		
+		response.setSuccess(true);
+		response.setData(wishListId);
+		
 		return response;
 	}
 
@@ -62,18 +67,18 @@ public class WishListController {
 	@ResponseBody
 	public boolean removeFromWishList(@RequestParam(value = "wishListId", required = true) long wishListId)
 			throws IOException {
-		
+
 		boolean result;
 
 		result = wishListService.removeFromWishList(wishListId);
 
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/loadUserWishList", method = RequestMethod.POST)
 	@ResponseBody
-	public Response<ModelWrapper<WishList>> loadUserWishList(@RequestParam(value = "userId", required = true) long userId)
-			throws IOException {
+	public Response<ModelWrapper<WishList>> loadUserWishList(
+			@RequestParam(value = "userId", required = true) long userId) throws IOException {
 
 		Response<ModelWrapper<WishList>> response = new Response<ModelWrapper<WishList>>();
 
