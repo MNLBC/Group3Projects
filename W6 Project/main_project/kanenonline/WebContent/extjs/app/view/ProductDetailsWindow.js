@@ -134,7 +134,13 @@ Ext.define('KanenOnlineShopping.view.ProductDetailsWindow', {
                                             itemId: 'btnAddtoCart',
                                             style: '.btnCart {\n    background: url(resource/cartIcon.png) !important;\n    width: 50px;\n    height: 45px;\n}',
                                             width: 53,
-                                            text: ''
+                                            text: '',
+                                            listeners: {
+                                                click: {
+                                                    fn: me.productDetailesAddToCart,
+                                                    scope: me
+                                                }
+                                            }
                                         },
                                         {
                                             xtype: 'button',
@@ -143,7 +149,13 @@ Ext.define('KanenOnlineShopping.view.ProductDetailsWindow', {
                                             itemId: 'btnAddFavorite',
                                             style: '.btnFavorite {\n    background: url(resource/favorite.png) !important;\n    width: 50px;\n    height: 45px;\n}',
                                             width: 53,
-                                            text: ''
+                                            text: '',
+                                            listeners: {
+                                                click: {
+                                                    fn: me.onBtnAddToWishListClicked,
+                                                    scope: me
+                                                }
+                                            }
                                         },
                                         {
                                             xtype: 'button',
@@ -170,6 +182,14 @@ Ext.define('KanenOnlineShopping.view.ProductDetailsWindow', {
         });
 
         me.callParent(arguments);
+    },
+
+    productDetailesAddToCart: function(button, e, eOpts) {
+        KanenOnlineShopping.app.getController('productController').addItemToCart(this.productId,this.productName,this.productDescription,this.productPrice,this.productStockQuantity,this.productImagePath);
+    },
+
+    onBtnAddToWishListClicked: function(button, e, eOpts) {
+        KanenOnlineShopping.app.getController('productController').addItemToWishList(this.productId,this.productName,this.productDescription,this.productPrice,this.productImagePath);;
     },
 
     onButtonClick: function(button, e, eOpts) {

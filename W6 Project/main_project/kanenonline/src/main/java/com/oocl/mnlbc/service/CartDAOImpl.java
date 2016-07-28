@@ -77,12 +77,18 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 			// Executes the query and get the resultList then Map it to CartItem
 			List<CartItem> cartItemList = query.getResultList();
 
-			entityManager.getTransaction().begin();
+			if (!entityManager.getTransaction().isActive()) {
+				entityManager.getTransaction().begin();
+			}
+
 			// iterates the items from the CartItemList and map it to CartItem
 			for (CartItem item : cartItemList) {
 				// deletes the certain item from the CartItem Table in the
 				// database
 				entityManager.remove(item);
+				if (!entityManager.getTransaction().isActive()) {
+					entityManager.getTransaction().begin();
+				}
 			}
 			entityManager.getTransaction().commit();
 			return true;
