@@ -395,6 +395,8 @@ Ext.define('MyApp.view.MyViewport', {
                                                 },
                                                 {
                                                     xtype: 'button',
+                                                    id: 'btnUpdateAdmin',
+                                                    itemId: 'btnUpdateAdmin',
                                                     text: 'Save Changes'
                                                 },
                                                 {

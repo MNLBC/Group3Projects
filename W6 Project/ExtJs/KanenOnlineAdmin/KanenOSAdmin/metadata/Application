@@ -17,7 +17,8 @@
             "updatedOrder",
             "product",
             "updatedProduct",
-            "userListModel"
+            "userListModel",
+            "updatedUser"
         ],
         "name": "MyApp",
         "stores": [
@@ -28,7 +29,8 @@
             "updatedOrder",
             "product",
             "updateProduct",
-            "userList"
+            "userList",
+            "updatedUser"
         ],
         "views": [
             "MyViewport",

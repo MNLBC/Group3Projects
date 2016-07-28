@@ -880,6 +880,8 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
+                                                "id": "btnUpdateAdmin",
+                                                "itemId": "btnUpdateAdmin",
                                                 "layout|flex": null,
                                                 "text": "Save Changes"
                                             },
