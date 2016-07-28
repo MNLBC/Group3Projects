@@ -1,16 +1,16 @@
 package com.oocl.mnlbc.services;
 
-
-
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.oocl.mnlbc.constants.KanenOnlineConstants;
 import com.oocl.mnlbc.controllers.UserController;
 import com.oocl.mnlbc.dao.CartDAO;
 import com.oocl.mnlbc.dao.UserDAO;
 import com.oocl.mnlbc.entity.User;
+import com.oocl.mnlbc.jms.MembershipRequestJMSProducer;
 import com.oocl.mnlbc.model.ChangePasswordResult;
 import com.oocl.mnlbc.model.Response;
 import com.oocl.mnlbc.model.UserWrapper;
@@ -26,6 +26,9 @@ public class UserService {
 
 	@Autowired
 	private CartDAO cartDAO;
+
+	@Autowired
+	private MembershipRequestJMSProducer membershipRequestProducer;
 
 	@Autowired
 	private static final Logger logger = Logger.getLogger(UserController.class);
@@ -81,21 +84,28 @@ public class UserService {
 			boolean userHasCart = cartDAO.findCartByUser(user.getUserId());
 			items.setUserHasCart(userHasCart);
 			response.setSuccess(true);
+
+			membershipRequestProducer
+					.sendMessage(KanenOnlineConstants.USER_LOGGED_IN + "-" + user.getUserId() + "-" + user.getUsername());
 		}
 		response.setData(items);
 		return response;
 
 	}
 
-	public String logoutUser(){
+	public String logoutUser(String userId, String userName) {
 		StringBuilder builder = new StringBuilder();
 		String returnJson = "{\"success\":true}";
 		builder.append(returnJson);
+
+		membershipRequestProducer.sendMessage(KanenOnlineConstants.USER_LOGGED_OUT + "-" + userId + "-" + userName);
+
 		logger.info("User has successfully logged out.");
 		return returnJson;
 	}
-	
-	public Response<ChangePasswordResult> changePassword(long userId, String userName,String oldPassword,String newPassword) throws Exception {
+
+	public Response<ChangePasswordResult> changePassword(long userId, String userName, String oldPassword,
+			String newPassword) throws Exception {
 
 		User user = userDAO.validateAccount(userName, oldPassword);
 
@@ -117,10 +127,9 @@ public class UserService {
 		return response;
 
 	}
-	
-	public List<User> getBannedUsers() throws Exception{
+
+	public List<User> getBannedUsers() throws Exception {
 		return userDAO.getBannedUsers();
-				
 
 	}
 }

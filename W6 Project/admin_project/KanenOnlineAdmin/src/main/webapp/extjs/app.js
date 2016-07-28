@@ -28,7 +28,8 @@ Ext.application({
         'updatedOrder',
         'product',
         'updatedProduct',
-        'userListModel'
+        'userListModel',
+        'updatedUser'
     ],
     stores: [
         'orderStore',
@@ -38,7 +39,8 @@ Ext.application({
         'updatedOrder',
         'product',
         'updateProduct',
-        'userList'
+        'userList',
+        'updatedUser'
     ],
     views: [
         'MyViewport',
