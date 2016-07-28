@@ -215,7 +215,7 @@ Ext.define('MyApp.controller.AdminController', {
 
                                        rendetTo: Ext.getBody(),
                                        bodyPadding: 10,
-                                       title: 'Order Summary',
+                                       title: 'My Transactions',
                                        closable: true,
                                        autoShow: true,
                                        resizable: false,
@@ -228,7 +228,6 @@ Ext.define('MyApp.controller.AdminController', {
                                                    xtype: 'gridpanel',
                                                    id: 'orderSummaryGridPanel',
                                                    itemId: 'orderSummaryGridPanel',
-                                                   title: 'List of Transactions',
                                                    store: 'orderItems',
                                                             columns: [
                                                                 {
@@ -250,6 +249,7 @@ Ext.define('MyApp.controller.AdminController', {
                                                                     width: 272,
                                                                     flex:1,
                                                                     dataIndex: 'quantity',
+                                                                   format: 0,
                                                                     text: 'Quantity'
                                                                 },
                                                                {
@@ -338,8 +338,7 @@ Ext.define('MyApp.controller.AdminController', {
             var requestedMembershipLevel = selectedRows.data.requestedMembershipLevel;
             Ext.Msg.confirm('Approve Request', 'Do you want to Approve this request?',function(btn){
                 if (btn==='yes'){
-        //                userGridStore.data.items[rowIndex].data.currentMembershipLevel =  userGridStore.data.items[rowIndex].data.requestedMembershipLevel;
-        //                userRequestGrid.getView().refresh();
+
                         Ext.Ajax.request({
                             url: window.location.pathname +'update/membershipApproval',
                             method: 'POST',
@@ -347,17 +346,19 @@ Ext.define('MyApp.controller.AdminController', {
                                 userId: userId,
                                 approvedType:requestedMembershipLevel,
                                 isApproved:1
-
                                 },
 
-                        scope:this,
-                        success: function(response){
-                            var responseText = Ext.decode(response.responseText);
+                            scope:this,
+                            success: function(response){
+                                var responseText = Ext.decode(response.responseText);
+                                Ext.MessageBox.alert('Status', 'Record Updated');
 
-                        }
-
-                    });
-
+                            },
+                            failure:function(){
+                                Ext.MessageBox.alert('Status', 'Unable to connect to server');
+                            }
+                      });
+                    userGridStore.remove(selectedRows);
                 }
             });} else {
                Ext.MessageBox.alert('Status','Please select a request to approve');
@@ -388,7 +389,10 @@ Ext.define('MyApp.controller.AdminController', {
                         success: function(response){
                             var responseText = Ext.decode(response.responseText);
 
-                        }
+                        },
+                          failure:function(){
+                              Ext.MessageBox.alert('Status','Unable to connect to server')
+                          }
 
                     });
                     userGridStore.remove(selectedRows);
@@ -484,9 +488,11 @@ Ext.define('MyApp.controller.AdminController', {
         var orderGrid = Ext.getCmp('orderRequestsGrid');
         var orderGridStore = orderGrid.getStore();
 
+
         orderGridStore.remoteFilter = false;
         orderGridStore.clearFilter();
-        orderGridStore.filter('orderStatus','Pending Order');
+
+
 
         orderGridStore.clearData();
         orderGrid.getView().refresh();
@@ -511,6 +517,7 @@ Ext.define('MyApp.controller.AdminController', {
                     };
 
                     orderGridStore.add(order);
+                   orderGridStore.filter('orderStatus','Pending');
                 }
             },
 
@@ -641,49 +648,60 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onBtnUpdateProductClick: function() {
-
         var productListGrid = Ext.getCmp('productListGrid');
         var productListStore = productListGrid.getStore();
         var updatedRecords = productListStore.getModifiedRecords();
         var updateProduct = Ext.getStore('updateProduct');
+
         Ext.each(updatedRecords,function(record){
-            if (record.dirty){
-                var product = {
-                    productId: record.data.productId,
-                    productName: record.data.productName,
-                    productDescription: record.data.productDescription,
-                    productPrice: record.data.productPrice,
-                    productStockQuantity: record.data.productStockQuantity,
-                    productImagePath: record.data.productImagePath
+                    if (record.dirty){
+                        var product = {
+                            productId: record.data.productId,
+                            productName: record.data.productName,
+                            productDescription: record.data.productDescription,
+                            productPrice: record.data.productPrice,
+                            productStockQuantity: record.data.productStockQuantity,
+                            productImagePath: record.data.productImagePath
 
-                };
-                updateProduct.add(product);
-            }
+                        };
+                        updateProduct.add(product);
+                    }
 
-        });
+                });
+        if (updateProduct.data.items.length > 0){
+                Ext.Msg.confirm('Status', 'Do you want to update?', function(btn){
 
-        var jsonData = '{ "productList": ';
-        jsonData += Ext.encode(Ext.pluck(updateProduct.data.items,'data'));
-        jsonData += '}';
+                    if (btn==='yes'){
+                        var jsonData = '{ "productList": ';
+                        jsonData += Ext.encode(Ext.pluck(updateProduct.data.items,'data'));
+                        jsonData += '}';
 
-        Ext.Ajax.request({
+                        Ext.Ajax.request({
+                            url: 'update/updateProduct',
+                            method: 'POST',
 
-            url: 'update/updateProduct',
-            method: 'POST',
+                            params:{
 
-            params:{
+                                jsonData: jsonData,
+                            },
 
-                jsonData: jsonData,
-            },
+                            scope: this,
+                            success: function(response){
+                                var responseText = Ext.decode(response.responseText);
+                                Ext.MessageBox.alert('Status','Records Updated Successfully');
+                            },
+                            failure:function(response){
+                                Ext.MessageBox.alert('Status','Unable to connect to server');
+                            }
 
-            scope: this,
-            success: function(response){
-                var responseText = Ext.decode(response.responseText);
+                        });
 
-            }
+                    }
+                });
+        }else{
 
-        });
-
+            Ext.MessageBox.alert('Status', 'Please select a record to update');
+        }
     },
 
     onBtnSaveProduct: function(button, e, eOpts) {
@@ -695,7 +713,7 @@ Ext.define('MyApp.controller.AdminController', {
 
         Ext.Ajax.request({
                url: 'admin/addProduct',
-                    method: POST,
+                    method: 'POST',
             params:{
                 productName: productName,
                 productDescription: productDescription,
@@ -707,7 +725,7 @@ Ext.define('MyApp.controller.AdminController', {
             scope: this,
             success: function(response){
                 var responseText = JSON.parse(response.responseText);
-                alert(responseText);
+
             }
 
         });
@@ -772,8 +790,7 @@ Ext.define('MyApp.controller.AdminController', {
     },
 
     onBtnSaveAdminClick: function() {
-        alert('');
-        var frmAddAdmin = Ext.getCmp('frmAddAdminUser');
+                var frmAddAdmin = Ext.getCmp('frmAddAdminUser');
                 var fullname = frmAddAdmin.query('#frmAdminFullname')[0].getValue();
                 var username = frmAddAdmin.query('#frmAdminUsername')[0].getValue();
                 var password = frmAddAdmin.query('#frmAdminPassword')[0].getValue();
@@ -782,11 +799,9 @@ Ext.define('MyApp.controller.AdminController', {
                 var address = frmAddAdmin.query('#frmAdminAddress')[0].getValue();
                 var mobile = frmAddAdmin.query('#frmAdminMobile')[0].getValue();
                 var userRole = 'Admin';
-                //var userStore = Ext.getStore('userStore');
 
                 if(frmAddAdmin.isValid()){
                             if(password === confirmPassword){
-
                                     Ext.Ajax.request({
 
                                          url: window.location.pathname +'update/addUser',
@@ -820,57 +835,62 @@ Ext.define('MyApp.controller.AdminController', {
                                          }
                                          });
 
-
-
-
                             }else{
                                 Ext.MessageBox.alert('Invalid confirmPassword','Passowrd does not match');
                             }
                         }else{
-                            Ext.MessageBox.alert('Missing fields','Please fill-up all the fields!');
+                            Ext.MessageBox.alert('Invalid Information','Kindly fill up the form with correct information');
                         }
     },
 
     onFrmBtnSaveClick: function() {
+        var frmAdminAddProduct = Ext.getCmp('frmAdminAddProduct');
         var productName = Ext.getCmp('frmProductName').getValue();
         var productDescription = Ext.getCmp('frmProductDescription').getValue();
         var productPrice = Ext.getCmp('frmProductPrice').getValue();
         var productInStock = Ext.getCmp('frmProductQuantity').getValue();
         var productImagePath = Ext.getCmp('frmImagePath').getValue();
 
-        Ext.Ajax.request({
-               url: 'update/addProducts',
-                    method: 'POST',
-            params:{
-                productName: productName,
-                productDescription: productDescription,
-                productPrice:productPrice,
-                productStockQuantity: productInStock,
-                productImagePath: productImagePath
-            },
 
-            scope: this,
-            success: function(response){
-                var responseText = Ext.decode(response.responseText);
-                alert(responseText);
-                Ext.MessageBox.alert('Status', 'Successfully added product to the list');
-                Ext.getCmp('frmProductName').setValue();
-                Ext.getCmp('frmProductDescription').setValue();
-                Ext.getCmp('frmProductPrice').setValue();
-                Ext.getCmp('frmProductQuantity').setValue();
-                Ext.getCmp('frmImagePath').setValue();
 
-            },
+        if (frmAdminAddProduct.isValid()){
 
-             failure: function(){
-                Ext.MessageBox.alert('Loading Failed','Unable to connect to server');
-             }
+            Ext.Ajax.request({
+                   url: 'update/addProducts',
+                        method: 'POST',
+                params:{
+                    productName: productName,
+                    productDescription: productDescription,
+                    productPrice:productPrice,
+                    productStockQuantity: productInStock,
+                    productImagePath: productImagePath
+                },
 
-        });
+                scope: this,
+                success: function(response){
+                    var responseText = Ext.decode(response.responseText);
+                    alert(responseText);
+                    Ext.MessageBox.alert('Status', 'Successfully added product to the list');
+                    Ext.getCmp('frmProductName').setValue();
+                    Ext.getCmp('frmProductDescription').setValue();
+                    Ext.getCmp('frmProductPrice').setValue();
+                    Ext.getCmp('frmProductQuantity').setValue();
+                    Ext.getCmp('frmImagePath').setValue();
+
+                },
+
+                 failure: function(){
+                    Ext.MessageBox.alert('Loading Failed','Unable to connect to server');
+                 }
+
+            });
+        } else{
+            Ext.MessageBox.alert('Invalid information','Kindly fill up the form with correct information');
+        }
+
     },
 
     onBtnUpdateAdminClick: function() {
-
         var viewUserListGrid = Ext.getCmp('viewUserListGrid');
         var userListStore = viewUserListGrid.getStore();
         var updatedRecords = userListStore.getModifiedRecords();
@@ -888,36 +908,44 @@ Ext.define('MyApp.controller.AdminController', {
                     userRole: record.data.userRole,
                     isBlacklisted: record.data.isBlacklisted,
                     membershipType: record.data.membershipType
-
-
                 };
                 updateUser.add(user);
             }
 
         });
 
-        var jsonData = '{ "userList": ';
-        jsonData += Ext.encode(Ext.pluck(updateUser.data.items,'data'));
-        jsonData += '}';
+        if (updateUser.data.items.length > 0){
+            Ext.Msg.confirm('Status', 'Do you want to update?', function(btn){
+               if (btn==='yes'){
+                    var jsonData = '{ "userList": ';
+                    jsonData += Ext.encode(Ext.pluck(updateUser.data.items,'data'));
+                    jsonData += '}';
 
-        Ext.Ajax.request({
+                    Ext.Ajax.request({
 
-            url: 'update/updateUser',
-            method: 'POST',
+                        url: 'update/updateUser',
+                        method: 'POST',
 
-            params:{
+                        params:{
 
-                jsonData: jsonData,
-            },
+                            jsonData: jsonData,
+                        },
 
-            scope: this,
-            success: function(response){
-                var responseText = Ext.decode(response.responseText);
-                Ext.MessageBox.alert('User Update','Successfully Updated Changes');
-            }
+                        scope: this,
+                        success: function(response){
+                            var responseText = Ext.decode(response.responseText);
+                            Ext.MessageBox.alert('User Update','Successfully Updated Changes');
+                        },
+                        failure:function(){
+                            Ext.MessageBox.alert('Status','Unable to connect to server');
+                        }
+                    });
+                }
 
-        });
-
+            });
+                }else{
+                    Ext.MessageBox.alert('Status','Please select a record to update');
+                }
     },
 
     init: function(application) {
