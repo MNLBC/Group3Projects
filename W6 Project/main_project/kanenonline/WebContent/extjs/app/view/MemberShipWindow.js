@@ -21,6 +21,7 @@ Ext.define('KanenOnlineShopping.view.MemberShipWindow', {
         'Ext.form.Label',
         'Ext.form.field.ComboBox',
         'Ext.form.field.TextArea',
+        'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
 
@@ -96,12 +97,19 @@ Ext.define('KanenOnlineShopping.view.MemberShipWindow', {
                     fieldLabel: 'Remarks'
                 },
                 {
-                    xtype: 'button',
-                    height: 35,
-                    id: 'btnSendRequest',
-                    itemId: 'btnSendRequest',
-                    width: 201,
-                    text: 'Send'
+                    xtype: 'toolbar',
+                    flex: 0,
+                    width: 217,
+                    items: [
+                        {
+                            xtype: 'button',
+                            height: 35,
+                            id: 'btnSendRequest',
+                            itemId: 'btnSendRequest',
+                            width: 201,
+                            text: 'Send'
+                        }
+                    ]
                 }
             ]
         });

@@ -15,6 +15,7 @@ import com.oocl.mnlbc.entity.User;
 
 /**
  * @author FLOREJE
+ * This Service accepts the params passed from controller and and build the responseData
  *
  */
 public class ProductCommentAssnService {

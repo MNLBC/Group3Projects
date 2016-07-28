@@ -44,7 +44,10 @@ public abstract class AbstractJPAGenericDAO<T> implements GenericDAO<T> {
 	}
 
 	public T update(final T entity) {
-		return this.entityManager.merge(entity);
+		entityManager.getTransaction().begin();
+		T updatedEntity = this.entityManager.merge(entity);
+		entityManager.getTransaction().commit();
+		return updatedEntity;
 	}
 	
 	public List<T> findAll(){

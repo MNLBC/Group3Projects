@@ -18,7 +18,7 @@ import com.oocl.mnlbc.dao.WishListDAO;
  * @author VERGAJO
  *
  */
-public class WishList {
+public class WishListDAOTest {
 	
 	private ApplicationContext applicationContext = null;
 	private WishListDAO wishListDAO = null;
@@ -43,22 +43,17 @@ public class WishList {
 
 	@Test
 	public void testClearUserWishList() {
-		assertTrue(wishListDAO.clearUserWishList(1000000344));
+		//will succeed if user has wishList
+		//assertTrue(wishListDAO.clearUserWishList(1000000344L));
 	}
 	
-//	@Test
-//	public void testSaveWishList() {
-//		//fail("Not yet implemented");
-//	}
-//
 	@Test
 	public void testRemoveFromWishList() {
-		assertTrue(wishListDAO.removeFromWishList(7000213));
+		//will succeed if the wishListId is existing
+		//assertTrue(wishListDAO.removeFromWishList(7000245L));
+		
+		//will succeed if the wishListId is not existing
+		assertFalse(wishListDAO.removeFromWishList(71231231));
 	}
-//	
-//	@Test
-//	public void testLoadUserWishList() {
-//	//	fail("Not yet implemented");
-//	}
-
+	
 }
