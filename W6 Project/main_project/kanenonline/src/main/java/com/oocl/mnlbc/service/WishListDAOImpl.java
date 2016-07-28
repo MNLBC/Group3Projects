@@ -18,16 +18,30 @@ import com.oocl.mnlbc.entity.WishList;
 public class WishListDAOImpl extends AbstractJPAGenericDAO<WishList> implements WishListDAO {
 
 	@Override
-	public boolean saveUserWishList(WishList wishListItem) {
+	public long saveWishList(long userId, long productId, String productName, String productDescription, long productPrice, String imagePath) {
 		try {
+			
+			WishList wishListItem = new WishList();
+			wishListItem.setUserId(userId);
+			wishListItem.setProductId(productId);
+			wishListItem.setProductName(productName);
+			wishListItem.setProductDescription(productDescription);
+			wishListItem.setProductPrice(productPrice);
+			wishListItem.setImagePath(imagePath);
+			
 			entityManager.getTransaction().begin();
-			entityManager.remove(wishListItem);
+			entityManager.persist(wishListItem);
 			entityManager.getTransaction().commit();
-			return true;
+			long wishListId = wishListItem.getWishListId();
+			
+			return wishListId;
 		} catch (PersistenceException e) {
 
 			e.printStackTrace();
-			return false;
+			return 0;
+		} catch (Exception e){
+			e.printStackTrace();
+			return 0;
 		}
 
 	}

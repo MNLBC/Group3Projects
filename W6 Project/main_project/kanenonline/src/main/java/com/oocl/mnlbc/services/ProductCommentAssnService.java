@@ -22,7 +22,7 @@ public class ProductCommentAssnService {
 	
 	private static final Logger logger = Logger.getLogger(ProductController.class);
 	
-	public String saveProductComment(ProductCommentAssn productComment) {
+	public String saveProductComment(long userId, long productId, String productComment) {
 		logger.info("Saving product comments to database");
 		
 		StringBuilder builder = new StringBuilder();
@@ -30,7 +30,7 @@ public class ProductCommentAssnService {
 		
 		builder.append("{\"success\":true,\"data\":{\"errormsg\":\"");
 		
-		if(productDAO.saveProductComment(productComment)){
+		if(productDAO.saveProductComment(userId, productId, productComment)){
 			logger.info("Product comment successfully saved to the database.");
 			errorMsg += "none";
 		}else{

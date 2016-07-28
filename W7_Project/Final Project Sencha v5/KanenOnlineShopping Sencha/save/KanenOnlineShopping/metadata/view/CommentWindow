@@ -1,0 +1,134 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "bodyPadding": "",
+        "container|align": "center",
+        "designer|userClassName": "CommentWindow",
+        "height": 259,
+        "hidden": false,
+        "id": "commentWindow",
+        "itemId": "commentWindow",
+        "layout": "vbox",
+        "padding": 20,
+        "title": "Comment",
+        "width": 460
+    },
+    "name": "MyWindow",
+    "designerId": "a734c993-9228-4207-b7c8-95784262c687",
+    "cn": [
+        {
+            "type": "Ext.form.field.TextArea",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "Comment",
+                "height": 100,
+                "id": "txtAreaComment",
+                "itemId": "txtAreaComment",
+                "maxLength": 200,
+                "maxLengthText": "The maximum length for this field is 200",
+                "width": 350
+            },
+            "name": "MyTextArea2",
+            "designerId": "322940fd-f87b-423b-b09c-46fbf0320a49"
+        },
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|align": "middle",
+                "dock": null,
+                "layout": "hbox",
+                "layout|flex": 1
+            },
+            "name": "MyContainer21",
+            "designerId": "0e3531af-fad1-419e-8776-8fd8e318f6b3",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": "",
+                        "layout|flex": null,
+                        "width": 100
+                    },
+                    "name": "MySpacer",
+                    "designerId": "c39b9c1d-d402-4787-ae0e-98ab64338ae0"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|uiInterfaceName": "default",
+                        "height": 36,
+                        "id": "btnSendComment",
+                        "itemId": "btnSendComment",
+                        "layout|flex": null,
+                        "text": "Send",
+                        "width": 143
+                    },
+                    "name": "MyButton9",
+                    "designerId": "dd163b6d-a26b-4993-a9a7-c61ad29948af",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "KanenOnlineShopping.app.getController('productController').sendComment(this.productId);"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "3321ae71-0ced-4439-9a76-20c92ce8eb33"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 36,
+                        "id": "btnCommentCancel",
+                        "itemId": "btnCommentCancel",
+                        "layout|flex": null,
+                        "text": "Cancel",
+                        "width": 143
+                    },
+                    "name": "MyButton31",
+                    "designerId": "bf25493e-58db-4d4c-b5a4-bdbb244018ae"
+                }
+            ]
+        }
+    ]
+}
