@@ -86,7 +86,7 @@ public class CartController {
 	 */
 	@RequestMapping(value = "/removeUserCart", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean removeUserCart(@RequestParam(value = "userId", required = true) Long userId) throws IOException {
+	public boolean removeUserCart(@RequestParam(value = "userId", required = true) long userId) throws IOException {
 		boolean result;
 
 		result = cartService.removeUserCart(userId);

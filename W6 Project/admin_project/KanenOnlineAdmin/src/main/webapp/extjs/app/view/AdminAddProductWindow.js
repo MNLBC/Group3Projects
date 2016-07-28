@@ -38,6 +38,8 @@ Ext.define('MyApp.view.AdminAddProductWindow', {
             items: [
                 {
                     xtype: 'form',
+                    id: 'frmAdminAddProduct',
+                    itemId: 'frmAdminAddProduct',
                     bodyPadding: 10,
                     title: '',
                     items: [
@@ -49,7 +51,8 @@ Ext.define('MyApp.view.AdminAddProductWindow', {
                             fieldLabel: 'Product Name',
                             labelWidth: 120,
                             allowBlank: false,
-                            allowOnlyWhitespace: false
+                            allowOnlyWhitespace: false,
+                            maxLength: 100
                         },
                         {
                             xtype: 'textfield',
@@ -59,7 +62,8 @@ Ext.define('MyApp.view.AdminAddProductWindow', {
                             fieldLabel: 'Product Description',
                             labelWidth: 120,
                             allowBlank: false,
-                            allowOnlyWhitespace: false
+                            allowOnlyWhitespace: false,
+                            maxLength: 200
                         },
                         {
                             xtype: 'textfield',
@@ -70,6 +74,8 @@ Ext.define('MyApp.view.AdminAddProductWindow', {
                             labelWidth: 120,
                             allowBlank: false,
                             allowOnlyWhitespace: false,
+                            maxLength: 6,
+                            maxLengthText: 'Please input values from 1-999999',
                             regex: /^[1-9][0-9]*$/
                         },
                         {
@@ -81,6 +87,8 @@ Ext.define('MyApp.view.AdminAddProductWindow', {
                             labelWidth: 120,
                             allowBlank: false,
                             allowOnlyWhitespace: false,
+                            maxLength: 3,
+                            maxLengthText: 'Please input values from 1-999',
                             regex: /^[1-9][0-9]*$/
                         },
                         {
@@ -91,7 +99,8 @@ Ext.define('MyApp.view.AdminAddProductWindow', {
                             fieldLabel: 'Image Path',
                             labelWidth: 120,
                             allowBlank: false,
-                            allowOnlyWhitespace: false
+                            allowOnlyWhitespace: false,
+                            maxLength: 100
                         },
                         {
                             xtype: 'container',

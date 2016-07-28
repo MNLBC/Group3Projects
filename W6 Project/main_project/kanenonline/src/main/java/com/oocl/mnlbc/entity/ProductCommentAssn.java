@@ -39,11 +39,10 @@ public class ProductCommentAssn implements Serializable {
 	@Column(name = "PRODUCT_ID")
 	private long productId;
 
-//	@JsonIgnore
-//	@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-//	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@Column(name = "USER_ID")
-	private long userId;
+	@JsonIgnore
+	@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	private User userId;
 
 	public ProductCommentAssn() {
 
@@ -73,11 +72,11 @@ public class ProductCommentAssn implements Serializable {
 		this.productId = productId;
 	}
 
-	public long getUserId() {
+	public User getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(User userId) {
 		this.userId = userId;
 	}
 
@@ -88,7 +87,7 @@ public class ProductCommentAssn implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (userId ^ (userId >>> 32));
+		result = prime * result + (int) (productCommentAssnId ^ (productCommentAssnId >>> 32));
 		return result;
 	}
 
@@ -104,7 +103,7 @@ public class ProductCommentAssn implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ProductCommentAssn other = (ProductCommentAssn) obj;
-		if (userId != other.userId)
+		if (productCommentAssnId != other.productCommentAssnId)
 			return false;
 		return true;
 	}

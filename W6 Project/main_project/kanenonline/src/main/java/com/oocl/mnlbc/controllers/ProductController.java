@@ -36,10 +36,12 @@ public class ProductController {
 
 	/**
 	 * Retrieves the products
+	 * Calls the method from service and set the return value to response
 	 * 
 	 * @return String
 	 * @throws IOException
 	 */
+	
 	@RequestMapping(value = "/productList", method = { RequestMethod.POST })
 	@ResponseBody
 	public Response<ProductList> getProductList() throws IOException {
@@ -50,14 +52,18 @@ public class ProductController {
 
 		return response;
 	}
-	
+	/**
+	 * Saves the product comments to database
+	 * Gets the parameters from AJAX request, pass it and call the method from service
+	 * Sets the return value from service to response
+	 * 
+	 * @return String
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/saveProdComment", method = { RequestMethod.POST })
 	@ResponseBody
 	public String saveProductComment(@RequestParam(value = "userId", required = true) long userId, @RequestParam(value = "productId", required = true) long productId, 
 						@RequestParam(value = "productComment", required = true) String productComment) throws IOException {
-		
-		//Gson gson = new Gson();
-		//ProductCommentAssn productComment = gson.fromJson(jsonData, ProductCommentAssn.class);
 		
 		String response = productCommentAssnService.saveProductComment(userId,productId,productComment);
 		

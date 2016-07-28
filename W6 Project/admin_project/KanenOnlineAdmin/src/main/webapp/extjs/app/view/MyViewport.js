@@ -230,7 +230,12 @@ Ext.define('MyApp.view.MyViewport', {
                                                     flex: 1,
                                                     editor: {
                                                         xtype: 'textfield',
-                                                        regex: /^[1-9][0-9]{1,9}/
+                                                        allowBlank: false,
+                                                        allowOnlyWhitespace: false,
+                                                        maxLength: 6,
+                                                        maxLengthText: 'Please enter values from 1-999999',
+                                                        regex: /^[1-9][0-9]*$/,
+                                                        regexText: 'Invalid Input'
                                                     }
                                                 },
                                                 {
@@ -240,7 +245,12 @@ Ext.define('MyApp.view.MyViewport', {
                                                     flex: 1,
                                                     editor: {
                                                         xtype: 'textfield',
-                                                        regex: /^[1-9][0-9]{1,9}/
+                                                        allowBlank: false,
+                                                        allowOnlyWhitespace: false,
+                                                        maxLength: 3,
+                                                        maxLengthText: 'Please enter values from 1-999',
+                                                        regex: /^[1-9][0-9]*$/,
+                                                        regexText: 'Invalid input'
                                                     }
                                                 },
                                                 {
@@ -337,6 +347,7 @@ Ext.define('MyApp.view.MyViewport', {
                                                     flex: 1,
                                                     editor: {
                                                         xtype: 'combobox',
+                                                        editable: false,
                                                         store: [
                                                             'Admin',
                                                             'Customer'
@@ -350,6 +361,7 @@ Ext.define('MyApp.view.MyViewport', {
                                                     flex: 1,
                                                     editor: {
                                                         xtype: 'combobox',
+                                                        editable: false,
                                                         store: [
                                                             'YES',
                                                             'NO'
@@ -363,6 +375,7 @@ Ext.define('MyApp.view.MyViewport', {
                                                     flex: 1,
                                                     editor: {
                                                         xtype: 'combobox',
+                                                        editable: false,
                                                         store: [
                                                             'Regular',
                                                             'Member',
