@@ -22,6 +22,7 @@ import com.oocl.mnlbc.model.ItemOrder;
 import com.oocl.mnlbc.model.Login;
 import com.oocl.mnlbc.model.OrderAndItemList;
 import com.oocl.mnlbc.model.OrderUser;
+import com.oocl.mnlbc.model.UserAndMembership;
 import com.oocl.mnlbc.model.UserRequest;
 import com.oocl.mnlbc.model.UserRequestList;
 
@@ -113,10 +114,20 @@ public class AdminService {
 	public AllUser retrieveAllUsers() {
 		UserDAOImpl userDAO = new UserDAOImpl();
 		userDAO.init();
-		List<User> userList= new ArrayList<User>();
-		AllUser response = new AllUser();
-		userList = userDAO.getList();
+		MembershipTypeDAOImpl memberDAO = new MembershipTypeDAOImpl();
+		memberDAO.init();
 		
+		
+		List<UserAndMembership> userList = new ArrayList<UserAndMembership>();
+		AllUser response = new AllUser();
+
+		for (User user : userDAO.getList()) {
+			UserAndMembership usermMemType = new UserAndMembership();
+			usermMemType.setUser(user);
+			usermMemType.setMembershipType(memberDAO.getNameById(user.getUserMembershipId().getMembershipTypeId()));
+			userList.add(usermMemType);
+		}
+
 		if (userList != null) {
 			response.setUserList(userList);
 			response.setSuccess(true);

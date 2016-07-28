@@ -76,19 +76,19 @@ public class UpdateController {
 		return builder.toString();
 	}
 
-	/**
-	 * This request updates the order status of a specific order.
-	 * 
-	 * @param orderId
-	 * @param status
-	 * @return String
-	 */
-	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
-	@ResponseBody
-	public AllUser updateUser(@RequestParam(value = "jsonData", required = true) String jsonData) {
-
-		return updateService.updateUser(jsonData);
-	}
+//	/**
+//	 * This request updates the order status of a specific order.
+//	 * 
+//	 * @param orderId
+//	 * @param status
+//	 * @return String
+//	 */
+//	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+//	@ResponseBody
+//	public AllUser updateUser(@RequestParam(value = "jsonData", required = true) String jsonData) {
+//	
+//		return updateService.updateUser(jsonData);
+//	}
 
 	@RequestMapping(value = "/addUser", method = { RequestMethod.POST })
 	@ResponseBody
@@ -108,7 +108,7 @@ public class UpdateController {
 	@RequestMapping(value = "/addProducts", method = { RequestMethod.POST })
 	@ResponseBody
 	public String createProduct(@RequestParam(value = "productName", required = true) String productName,
-			@RequestParam(value = "productDesctiption", required = true) String productDescription,
+			@RequestParam(value = "productDescription", required = true) String productDescription,
 			@RequestParam(value = "productPrice", required = true) double productPrice,
 			@RequestParam(value = "productStockQuantity", required = true) int productStockQuantity,
 			@RequestParam(value = "productImagePath", required = true) String productImagePath)
