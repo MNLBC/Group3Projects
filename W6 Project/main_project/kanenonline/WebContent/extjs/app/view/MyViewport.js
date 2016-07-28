@@ -101,6 +101,19 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                     columns: [
                                                         {
                                                             xtype: 'gridcolumn',
+                                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                                return '<img src="' + value + '"  width="150" height="150"  />';
+                                                            },
+                                                            maxWidth: 160,
+                                                            minWidth: 160,
+                                                            width: 160,
+                                                            defaultWidth: 160,
+                                                            dataIndex: 'imagePath',
+                                                            text: 'Image',
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
                                                             width: 160,
                                                             dataIndex: 'productName',
                                                             text: 'Product Name',
@@ -125,13 +138,12 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                             dataIndex: 'quantity',
                                                             text: 'Quantity',
                                                             flex: 2,
-                                                            format: '0,000',
+                                                            format: '0',
                                                             editor: {
                                                                 xtype: 'textfield',
                                                                 id: 'mainOrdrQty',
                                                                 itemId: 'mainOrdrQty',
-                                                                allowBlank: false,
-                                                                regex: '/^[1-9][0-9]*$/',
+                                                                regex: /^[1-9][0-9]*/,
                                                                 regexText: 'Only numbers are allowed'
                                                             }
                                                         },
@@ -188,7 +200,6 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                         {
                                                             xtype: 'button',
                                                             height: 52,
-                                                            hidden: true,
                                                             id: 'btnMainCheckout',
                                                             itemId: 'btnMainCheckout',
                                                             width: 162,
@@ -204,24 +215,115 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                         },
                         {
                             xtype: 'container',
+                            flex: 0,
                             region: 'north',
-                            height: 110,
+                            height: 30,
                             style: 'background-color:#292c2f',
                             layout: {
                                 type: 'hbox',
                                 align: 'stretch'
-                            },
+                            }
+                        },
+                        {
+                            xtype: 'container',
+                            region: 'north',
+                            height: 90,
+                            style: 'background-color:#292c2f',
+                            layout: 'hbox',
                             items: [
                                 {
                                     xtype: 'tbspacer',
-                                    flex: 0,
-                                    width: 540
+                                    width: 380
                                 },
                                 {
                                     xtype: 'image',
-                                    height: 201,
-                                    width: 737,
-                                    src: 'resource/logo1.png'
+                                    flex: 0,
+                                    height: 108,
+                                    width: 239,
+                                    src: 'resource/logo2.jpg'
+                                },
+                                {
+                                    xtype: 'tbspacer',
+                                    flex: 0,
+                                    width: 60
+                                },
+                                {
+                                    xtype: 'container',
+                                    width: 400,
+                                    layout: {
+                                        type: 'vbox',
+                                        align: 'stretch'
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'tbspacer',
+                                            flex: 1,
+                                            height: 20
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            height: 42,
+                                            id: 'txtProductSearch',
+                                            itemId: 'txtProductSearch',
+                                            width: 150,
+                                            fieldLabel: '',
+                                            labelAlign: 'right',
+                                            emptyText: 'Search for Products'
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'container',
+                                    flex: 0,
+                                    height: 80,
+                                    layout: {
+                                        type: 'vbox',
+                                        align: 'center',
+                                        pack: 'center'
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'button',
+                                            cls: 'btnSearch',
+                                            height: 44,
+                                            id: 'btnSearchProduct',
+                                            itemId: 'btnSearchProduct',
+                                            style: '.btnSearch {\n    background: url(resource/search.png) !important;\n    width: 50px;\n    height: 45px;\n}',
+                                            width: 48,
+                                            text: ''
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'tbspacer',
+                                    flex: 0,
+                                    width: 400
+                                },
+                                {
+                                    xtype: 'container',
+                                    flex: 0,
+                                    height: 80,
+                                    width: 67,
+                                    layout: {
+                                        type: 'vbox',
+                                        align: 'center'
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'tbspacer',
+                                            flex: 0,
+                                            height: 10
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            height: 67,
+                                            id: 'btnUserProfile',
+                                            itemId: 'btnUserProfile',
+                                            style: '.btnCart {\n    background: url(resource/profileMain.png) !important;\n    width: 50px;\n    height: 45px;\n}',
+                                            width: 79,
+                                            text: ''
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -246,22 +348,6 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                     },
                                     items: [
                                         {
-                                            xtype: 'textfield',
-                                            id: 'txtProductSearch',
-                                            itemId: 'txtProductSearch',
-                                            width: 288,
-                                            fieldLabel: 'Search',
-                                            labelAlign: 'right'
-                                        },
-                                        {
-                                            xtype: 'button',
-                                            height: 33,
-                                            id: 'btnSearchProduct',
-                                            itemId: 'btnSearchProduct',
-                                            width: 96,
-                                            text: 'Search'
-                                        },
-                                        {
                                             xtype: 'button',
                                             height: 33,
                                             id: 'btnHistory',
@@ -269,8 +355,12 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             text: 'Order History'
                                         },
                                         {
-                                            xtype: 'tbspacer',
-                                            width: 1350
+                                            xtype: 'button',
+                                            height: 30,
+                                            id: 'btnWishList',
+                                            itemId: 'btnWishList',
+                                            width: 87,
+                                            text: 'Wish List'
                                         },
                                         {
                                             xtype: 'button',
@@ -287,14 +377,6 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             itemId: 'btnMainRegister',
                                             width: 86,
                                             text: 'Register'
-                                        },
-                                        {
-                                            xtype: 'button',
-                                            height: 29,
-                                            id: 'btnUserProfile',
-                                            itemId: 'btnUserProfile',
-                                            width: 84,
-                                            text: 'User Profile'
                                         },
                                         {
                                             xtype: 'button',
