@@ -60,10 +60,14 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
+                                "allowOnlyWhitespace": false,
                                 "designer|displayName": "frmAdminFullname",
                                 "fieldLabel": "Fullname",
                                 "id": "frmAdminFullname",
                                 "labelWidth": 120,
+                                "maxLength": 100,
+                                "maxLengthText": "exceed maximum limit",
                                 "width": 450
                             },
                             "name": "MyTextField11",
@@ -77,11 +81,15 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
+                                "allowOnlyWhitespace": false,
                                 "designer|displayName": "frmAdminUsername",
                                 "fieldLabel": "Username",
                                 "id": "frmAdminUsername",
                                 "itemId": "frmAdminUsername",
                                 "labelWidth": 120,
+                                "maxLength": 100,
+                                "maxLengthText": "Exceed maximum limit",
                                 "width": 450
                             },
                             "name": "MyTextField12",
@@ -95,8 +103,11 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
+                                "allowOnlyWhitespace": false,
                                 "fieldLabel": "Password",
                                 "id": "frmAdminPassword",
+                                "inputType": "password",
                                 "itemId": "frmAdminPassword",
                                 "labelWidth": 120,
                                 "width": 450
@@ -112,9 +123,12 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
+                                "allowOnlyWhitespace": false,
                                 "designer|displayName": "frmAdminConfirm",
                                 "fieldLabel": "Confirm Password",
                                 "id": "frmAdminConfirm",
+                                "inputType": "password",
                                 "itemId": "frmAdminConfirm",
                                 "labelWidth": 120,
                                 "width": 450
@@ -130,9 +144,11 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
                                 "designer|displayName": "frmAdminEmail",
                                 "fieldLabel": "Email",
                                 "id": "frmAdminEmail",
+                                "inputType": "email",
                                 "itemId": "frmAdminEmail",
                                 "labelWidth": 120,
                                 "width": 450
@@ -148,11 +164,15 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
+                                "allowOnlyWhitespace": false,
                                 "designer|displayName": "frmAdminAddress",
                                 "fieldLabel": "Address",
                                 "id": "frmAdminAddress",
                                 "itemId": "frmAdminAddress",
                                 "labelWidth": 120,
+                                "maxLength": 150,
+                                "maxLengthText": "Exceed maximum limit",
                                 "width": 450
                             },
                             "name": "MyTextField16",
@@ -166,11 +186,15 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
+                                "allowOnlyWhitespace": false,
                                 "designer|displayName": "frmAdminMobile",
                                 "fieldLabel": "Mobile Number",
                                 "id": "frmAdminMobile",
                                 "itemId": "frmAdminMobile",
                                 "labelWidth": 120,
+                                "maxLength": 11,
+                                "regex": "/^[1-9][0-9]*$/",
                                 "width": 450
                             },
                             "name": "MyTextField17",

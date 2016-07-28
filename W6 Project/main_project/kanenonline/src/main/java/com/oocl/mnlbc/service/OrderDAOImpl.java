@@ -20,12 +20,8 @@ import com.oocl.mnlbc.model.CartItemBean;
  */
 public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderDAO {
 
-	private EntityManagerFactory entityManagerFactory;
-	private EntityManager entityManager;
-
 	public OrderDAOImpl() {
-		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink");
-		entityManager = entityManagerFactory.createEntityManager();
+
 	}
 
 	/**
@@ -101,6 +97,9 @@ public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderD
 			query.setParameter("userId", userId);
 			try {
 				List<Order> orderList = query.getResultList();
+				for(Order order: orderList){
+					entityManager.refresh(order);
+				}
 				return orderList;
 			} catch (PersistenceException e) {
 				return null;

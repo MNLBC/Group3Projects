@@ -724,127 +724,132 @@ Ext.define('KanenOnlineShopping.controller.productController', {
     },
 
     onBtnMainLogoutClicked: function(button, e, eOpts) {
-                var cartStore = Ext.getStore('cartStore');
-        						var userStore = Ext.getStore('userStore');
-        						var userId = userStore.data.items[0].data.userId;
-        						if (cartStore.getCount() > 0) {
-        							Ext.Msg
-        									.confirm(
-        											'Save Cart',
-        											'Do you want to save your cart?',
-        											function(btn) {
+        var cartStore = Ext.getStore('cartStore');
+        var userStore = Ext.getStore('userStore');
+        var userId = userStore.data.items[0].data.userId;
+        if (cartStore.getCount() > 0) {
+            //	Ext.Msg
+            //			.confirm(
+            //					'Save Cart',
+            //					'Do you want to save your cart?',
+            //					function(btn) {
 
-        												if (btn == 'yes') {
+            //						if (btn == 'yes') {
 
-        													var jsonData = '{ "userId": '
-        															+ userStore
-        																	.getAt(0).data.userId;
+            var jsonData = '{ "userId": '
+            + userStore
+            .getAt(0).data.userId;
 
-        													jsonData += ',"items": ';
-        													jsonData += Ext
-        															.encode(Ext
-        																	.pluck(
-        																			cartStore.data.items,
-        																			'data'));
-        													jsonData += '}';
-        													userStore.removeAll();
+            jsonData += ',"items": ';
+            jsonData += Ext
+            .encode(Ext
+                    .pluck(
+                        cartStore.data.items,
+                        'data'));
+            jsonData += '}';
+            userStore.removeAll();
 
-        													cartStore.removeAll();
+            cartStore.removeAll();
 
-        													Ext.Ajax
-        															.request({
+            Ext.Ajax
+            .request({
 
-        																url : window.location.pathname
-        																		+ 'cart/removeUserCart',
-        																method : 'POST',
+                url : window.location.pathname
+                + 'cart/removeUserCart',
+                method : 'POST',
 
-        																params : {
-        																	userId : userId
+                params : {
+                    userId : userId
 
-        																},
-        																scope : this,
-        																success : function(
-        																		response) {
-        																	cartStore
-        																			.removeAll();
+                },
+                scope : this,
+                success : function(
+                response) {
+                    cartStore
+                    .removeAll();
 
-        																},
-        																failure : function() {
-        																}
-        															});
+                },
+                failure : function() {
+                }
+            });
 
-        													Ext.Ajax
-        															.request({
-        																url : 'cart/saveCart',
-        																method : 'POST',
-        																params : {
-        																	jsonData : jsonData
+            Ext.Ajax
+            .request({
+                url : 'cart/saveCart',
+                method : 'POST',
+                params : {
+                    jsonData : jsonData
 
-        																},
+                },
 
-        																success : function(
-        																		response) {
-        																	var responseText = Ext
-        																			.decode(response.responseText);
-        																	var responseErrormsg = responseText.data.errormsg;
-        																	if (responseErrormsg == 'none') {
-        																		Ext.Msg
-        																				.alert(
-        																						"Success",
-        																						'Your cart has been saved.');
-        																		Ext
-        																				.getStore(
-        																						'cartStore')
-        																				.removeAll();
-        																	}
-        																	if (responseErrormsg == 'failed') {
-        																		Ext.Msg
-        																				.alert(
-        																						"Failed",
-        																						'Unable to save your cart.');
-        																	}
+                success : function(
+                response) {
+                    var responseText = Ext
+                    .decode(response.responseText);
+                    var responseErrormsg = responseText.data.errormsg;
+                    if (responseErrormsg == 'none') {
+                        Ext.Msg
+                        .alert(
+                            "Success",
+                            'Your cart has been saved.');
+                        Ext
+                        .getStore(
+                            'cartStore')
+                        .removeAll();
+                    }
+                    if (responseErrormsg == 'failed') {
+                        Ext.Msg
+                        .alert(
+                            "Failed",
+                            'Unable to save your cart.');
+                    }
 
-        																},
+                },
 
-        															// failure: function
-        															// (response) {
+                // failure: function
+                // (response) {
 
-        															// Ext.Msg.alert("Error",'Unable
-        															// to checkout
-        															// cart.');
-        															// }
-        															});
+                // Ext.Msg.alert("Error",'Unable
+                // to checkout
+                // cart.');
+                // }
+            });
 
-        												} else {
 
-        													userStore.removeAll();
 
-        													cartStore.removeAll();
+            //	} else {
 
-        												}
-        												Ext.Msg.show({
-        													title : '',
-        													msg : 'Signing out...',
-        													width : 300,
-        													closable : false,
-        													buttons : Ext.Msg.YES,
-        													buttonText : {
-        														yes : 'Ok'
+            //	userStore.removeAll();
 
-        													},
-        													icon : Ext.Msg.INFO
-        												});
+            //	cartStore.removeAll();
 
-        											}, this, true);
-        						}
-                                Ext.getCmp('btnUserProfile').hide();
-        						Ext.getCmp('btnMainLogin').show();
-        						Ext.getCmp('btnMainRegister').show();
-        						Ext.getCmp('btnMainLogout').hide();
+        }
+        Ext.Msg.show({
+            title : '',
+            msg : 'Signing out...',
+            width : 300,
+            closable : false,
+            buttons : Ext.Msg.YES,
+            buttonText : {
+                yes : 'Ok'
 
-        						Ext.getCmp('loginToolbar').doLayout();
+            },
+            icon : Ext.Msg.INFO
+        });
 
-        						Ext.getCmp('btnHistory').hide();
+        //}, this, true);
+        //	}
+
+        userStore.removeAll();
+
+        Ext.getCmp('btnUserProfile').hide();
+        Ext.getCmp('btnMainLogin').show();
+        Ext.getCmp('btnMainRegister').show();
+        Ext.getCmp('btnMainLogout').hide();
+
+        Ext.getCmp('loginToolbar').doLayout();
+
+        Ext.getCmp('btnHistory').hide();
     },
 
     onViewOrderHistoryClicked: function(label) {
@@ -1205,20 +1210,8 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         	productDetailsWindow.show();
     },
 
-    onBtnProductDetailsClick: function() {
-
-    },
-
-    onBtnProductDetailsClick: function() {
-
-    },
-
-    onIconAddCommentClick: function(button, e, eOpts) {
-                Ext.getCmp('commentWindow').show();
-    },
-
-    onBtnSendCommentClick: function(button, e, eOpts) {
-    
+    onBtnCommentCancel: function(button, e, eOpts) {
+        Ext.getCmp('commentWindow').close();
     },
 
     onLaunch: function() {
@@ -1527,6 +1520,52 @@ Ext.define('KanenOnlineShopping.controller.productController', {
         	productDetailsWindow.show();
     },
 
+    sendComment: function(productId) {
+        var userStore = Ext.getStore('userStore');
+        if(userStore.getCount()>0){
+           var maxLength = Ext.getCmp('txtAreaComment').maxLength;
+           var textLength = Ext.getCmp('txtAreaComment').getValue().length;
+             if(textLength <= maxLength){
+                 var userId = userStore.data.items[0].data.userId;
+                 var productComment = Ext.getCmp('txtAreaComment').getValue();
+
+            Ext.Ajax.request({
+            url : window.location.pathname + 'product/saveProdComment',
+            method: 'POST',
+            params: {
+                userId: userId,
+                productId: productId,
+                productComment: productComment
+            },
+            success : function(
+            response){
+                var responseText = Ext.decode(response.responseText);
+                var responseErrormsg = responseText.data.errormsg;
+                if (responseErrormsg == 'none') {
+                    Ext.Msg.alert("Success",'Your comment has been sent.');
+
+                }
+                if (responseErrormsg == 'failed') {
+                    Ext.Msg.alert("Failed",'Unable to send your comment.');
+                }
+            }
+        });
+            }else{
+                Ext.Msg.alert("Warning","You can only put 200 characters on your comment.");
+            }
+        }else{
+            Ext.Msg.alert("Warning","You must be logged in to send a comment.");
+        }
+
+        Ext.getCmp('commentWindow').close();
+    },
+
+    showCommentWindow: function(productId) {
+                var commentWindow = Ext.create('KanenOnlineShopping.view.CommentWindow', {});
+                commentWindow.show();
+                commentWindow.productId = productId;
+    },
+
     init: function(application) {
         this.control({
             "#btnBuy": {
@@ -1622,15 +1661,8 @@ Ext.define('KanenOnlineShopping.controller.productController', {
             "#btnProductDetail": {
                 click: this.onBtnProductDetailClick
             },
-            "#btnProductDetails": {
-                click: this.onBtnProductDetailsClick,
-                click: this.onBtnProductDetailsClick
-            },
-            "#btnAddComment": {
-                click: this.onIconAddCommentClick
-            },
-            "#btnSendComment": {
-                click: this.onBtnSendCommentClick
+            "#btnCommentCancel": {
+                click: this.onBtnCommentCancel
             }
         });
     }
