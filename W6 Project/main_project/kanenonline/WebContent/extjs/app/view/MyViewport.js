@@ -17,6 +17,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
     extend: 'Ext.container.Viewport',
 
     requires: [
+        'Ext.toolbar.Spacer',
         'Ext.form.Panel',
         'Ext.grid.Panel',
         'Ext.grid.View',
@@ -25,7 +26,6 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
         'Ext.form.field.Text',
         'Ext.grid.column.Action',
         'Ext.button.Button',
-        'Ext.toolbar.Spacer',
         'Ext.Img',
         'Ext.toolbar.Toolbar',
         'Ext.form.field.Display'
@@ -68,7 +68,13 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             itemId: 'productPanel',
                                             autoScroll: true,
                                             layout: 'column',
-                                            title: 'Products'
+                                            title: 'Products',
+                                            items: [
+                                                {
+                                                    xtype: 'tbspacer',
+                                                    width: 200
+                                                }
+                                            ]
                                         },
                                         {
                                             xtype: 'form',
@@ -76,8 +82,9 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             region: 'east',
                                             width: 700,
                                             bodyPadding: 10,
+                                            collapsed: true,
                                             collapsible: true,
-                                            title: '',
+                                            title: 'My Cart',
                                             layout: {
                                                 type: 'vbox',
                                                 align: 'stretch'
@@ -339,7 +346,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             xtype: 'button',
                                             height: 33,
                                             id: 'btnHistory',
-                                            width: 96,
+                                            width: 106,
                                             text: 'Order History'
                                         },
                                         {
@@ -391,7 +398,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                         {
                             xtype: 'container',
                             region: 'north',
-                            height: 112,
+                            height: '',
                             style: 'background-color:#292c2f',
                             layout: 'hbox',
                             items: [
@@ -494,16 +501,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                         },
                         {
                             xtype: 'container',
-                            height: 30,
-                            style: 'background-color:#292c2f',
-                            layout: {
-                                type: 'hbox',
-                                align: 'stretch'
-                            }
-                        },
-                        {
-                            xtype: 'container',
-                            height: 90,
+                            height: 112,
                             style: 'background-color:#292c2f',
                             layout: 'hbox',
                             items: [
@@ -534,12 +532,13 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                             xtype: 'container',
                             height: 212,
                             width: 1200,
-                            layout: {
-                                type: 'hbox',
-                                align: 'middle',
-                                pack: 'center'
-                            },
+                            layout: 'hbox',
                             items: [
+                                {
+                                    xtype: 'tbspacer',
+                                    flex: 0,
+                                    width: 870
+                                },
                                 {
                                     xtype: 'image',
                                     height: 200,
@@ -623,7 +622,7 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             flex: 1,
                                             id: 'txtMembershipType',
                                             itemId: 'txtMembershipType',
-                                            width: 320,
+                                            width: 323,
                                             fieldLabel: 'Membership type',
                                             labelAlign: 'top',
                                             value: ''
@@ -644,7 +643,6 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                             items: [
                                                 {
                                                     xtype: 'button',
-                                                    flex: 1,
                                                     id: 'btnRequestMember',
                                                     itemId: 'btnRequestMember',
                                                     width: 113,
@@ -653,7 +651,6 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                 },
                                                 {
                                                     xtype: 'button',
-                                                    flex: 1,
                                                     height: 25,
                                                     id: 'btnUpdateProfile',
                                                     itemId: 'btnUpdateProfile',
@@ -662,7 +659,6 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                 },
                                                 {
                                                     xtype: 'button',
-                                                    flex: 1,
                                                     height: 160,
                                                     id: 'btnChangePass',
                                                     itemId: 'btnChangePass',
@@ -671,14 +667,12 @@ Ext.define('KanenOnlineShopping.view.MyViewport', {
                                                 },
                                                 {
                                                     xtype: 'button',
-                                                    flex: 1,
                                                     id: 'btnBackMainPage',
                                                     itemId: 'btnBackMainPage',
                                                     text: 'Shop Again'
                                                 },
                                                 {
                                                     xtype: 'button',
-                                                    flex: 1,
                                                     height: 30,
                                                     id: 'btnViewTransaction',
                                                     itemId: 'btnViewTransaction',
