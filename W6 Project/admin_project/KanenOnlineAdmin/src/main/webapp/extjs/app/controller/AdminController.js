@@ -755,7 +755,7 @@ Ext.define('MyApp.controller.AdminController', {
         var productPrice = Ext.getCmp('frmProductPrice').getValue();
         var productInStock = Ext.getCmp('frmProductQuantity').getValue();
         var productImagePath = Ext.getCmp('frmImagePath').getValue();
-
+        var adminAddProductWindow = Ext.getCmp('adminAddProductWindow');
 
 
         if (frmAdminAddProduct.isValid()){
@@ -774,13 +774,14 @@ Ext.define('MyApp.controller.AdminController', {
                 scope: this,
                 success: function(response){
                     var responseText = Ext.decode(response.responseText);
-                    alert(responseText);
-                    Ext.MessageBox.alert('Status', 'Successfully added product to the list');
+
+
                     Ext.getCmp('frmProductName').setValue();
                     Ext.getCmp('frmProductDescription').setValue();
                     Ext.getCmp('frmProductPrice').setValue();
                     Ext.getCmp('frmProductQuantity').setValue();
                     Ext.getCmp('frmImagePath').setValue();
+                    adminAddProductWindow.hide();
 
                 },
 

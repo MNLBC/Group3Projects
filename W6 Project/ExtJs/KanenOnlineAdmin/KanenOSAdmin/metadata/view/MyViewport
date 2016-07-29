@@ -21,6 +21,129 @@
             },
             "codeClass": null,
             "userConfig": {
+                "container|align": "center",
+                "container|pack": "center",
+                "designer|displayName": "LoginContainer",
+                "height": 785,
+                "id": "loginContainer",
+                "itemId": "loginContainer",
+                "layout": "vbox",
+                "style": [
+                    "background: url(resource/melvin.jpg) no-repeat center center fixed;",
+                    "-webkit-background-size: cover;",
+                    "  -moz-background-size: cover;",
+                    "  -o-background-size: cover;",
+                    "  background-size: cover;"
+                ]
+            },
+            "name": "MyContainer1",
+            "designerId": "9faf9ac9-acfc-4b6e-b5a8-093cdc973cc0",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "height": 172,
+                        "title": "Login",
+                        "width": 418
+                    },
+                    "name": "MyForm",
+                    "designerId": "7247da5b-5d23-49f9-9e3c-9c8ee1621750",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "designer|displayName": "Username",
+                                "emptyText": "Username",
+                                "fieldLabel": "Username",
+                                "id": "txtUsername",
+                                "itemId": "txtUsername",
+                                "layout|anchor": "100%"
+                            },
+                            "name": "MyTextField",
+                            "designerId": "67cb8cc7-0423-4f6d-9ab8-a09499252186"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "Password",
+                                "emptyText": "Password",
+                                "fieldLabel": "Password",
+                                "id": "txtPassword",
+                                "inputType": "password",
+                                "itemId": "txtPassword",
+                                "layout|anchor": "100%"
+                            },
+                            "name": "MyTextField1",
+                            "designerId": "b6828d6c-8e7d-4cbd-84d6-a0f7550a9fe6"
+                        },
+                        {
+                            "type": "Ext.container.Container",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "container|align": "stretch",
+                                "container|pack": "center",
+                                "id": "ContainerBtn",
+                                "itemId": "ContainerBtn",
+                                "layout": "hbox",
+                                "width": 355
+                            },
+                            "name": "MyContainer",
+                            "designerId": "1011197c-ab9c-44df-a32a-078172f97419",
+                            "cn": [
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "btnLogin",
+                                        "height": 20,
+                                        "id": "btnLogin",
+                                        "itemId": "btnLogin",
+                                        "margin": 10,
+                                        "text": "Login",
+                                        "width": 150
+                                    },
+                                    "name": "MyButton",
+                                    "designerId": "b57f82d5-0754-42c2-9237-59df3e78eecb"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "designer|displayName": "AdminPageContainer",
                 "height": 775,
                 "id": "adminContainer",
@@ -87,6 +210,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "autoScroll": true,
                                         "id": "productListPanel",
                                         "itemId": "productListPanel",
                                         "title": "Products"
@@ -387,6 +511,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "autoScroll": true,
                                         "id": "productFeedbackPanel",
                                         "itemId": "productFeedbackPanel",
                                         "title": "Product Feedbacks"
@@ -463,6 +588,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "autoScroll": true,
                                         "id": "customerConfirmPanel",
                                         "itemId": "customerConfirmPanel",
                                         "layout": "fit",
@@ -613,6 +739,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "autoScroll": true,
                                         "id": "orderRequestsPanel",
                                         "itemId": "orderRequestsPanel",
                                         "layout": "fit",
@@ -845,6 +972,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "autoScroll": true,
                                         "id": "viewAllOrderPanel",
                                         "itemId": "viewAllOrderPanel",
                                         "layout": "fit",
@@ -969,6 +1097,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "autoScroll": true,
                                         "designer|displayName": "userListPanel",
                                         "id": "userListPanel",
                                         "itemId": "userListPanel",
@@ -1299,6 +1428,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "autoScroll": true,
                                         "id": "onlineUsersPanel",
                                         "title": "Online Users"
                                     },
@@ -1555,129 +1685,6 @@
                                             "designerId": "4039d820-4f01-4e72-8942-94e9d3c45877"
                                         }
                                     ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "type": "Ext.container.Container",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "container|align": "center",
-                "container|pack": "center",
-                "designer|displayName": "LoginContainer",
-                "height": 785,
-                "id": "loginContainer",
-                "itemId": "loginContainer",
-                "layout": "vbox",
-                "style": [
-                    "background: url(resource/melvin.jpg) no-repeat center center fixed;",
-                    "-webkit-background-size: cover;",
-                    "  -moz-background-size: cover;",
-                    "  -o-background-size: cover;",
-                    "  background-size: cover;"
-                ]
-            },
-            "name": "MyContainer1",
-            "designerId": "9faf9ac9-acfc-4b6e-b5a8-093cdc973cc0",
-            "cn": [
-                {
-                    "type": "Ext.form.Panel",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "bodyPadding": 10,
-                        "height": 172,
-                        "title": "Login",
-                        "width": 418
-                    },
-                    "name": "MyForm",
-                    "designerId": "7247da5b-5d23-49f9-9e3c-9c8ee1621750",
-                    "cn": [
-                        {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "allowBlank": false,
-                                "designer|displayName": "Username",
-                                "emptyText": "Username",
-                                "fieldLabel": "Username",
-                                "id": "txtUsername",
-                                "itemId": "txtUsername",
-                                "layout|anchor": "100%"
-                            },
-                            "name": "MyTextField",
-                            "designerId": "67cb8cc7-0423-4f6d-9ab8-a09499252186"
-                        },
-                        {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "designer|displayName": "Password",
-                                "emptyText": "Password",
-                                "fieldLabel": "Password",
-                                "id": "txtPassword",
-                                "inputType": "password",
-                                "itemId": "txtPassword",
-                                "layout|anchor": "100%"
-                            },
-                            "name": "MyTextField1",
-                            "designerId": "b6828d6c-8e7d-4cbd-84d6-a0f7550a9fe6"
-                        },
-                        {
-                            "type": "Ext.container.Container",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "container|align": "stretch",
-                                "container|pack": "center",
-                                "id": "ContainerBtn",
-                                "itemId": "ContainerBtn",
-                                "layout": "hbox",
-                                "width": 355
-                            },
-                            "name": "MyContainer",
-                            "designerId": "1011197c-ab9c-44df-a32a-078172f97419",
-                            "cn": [
-                                {
-                                    "type": "Ext.button.Button",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|displayName": "btnLogin",
-                                        "height": 20,
-                                        "id": "btnLogin",
-                                        "itemId": "btnLogin",
-                                        "margin": 10,
-                                        "text": "Login",
-                                        "width": 150
-                                    },
-                                    "name": "MyButton",
-                                    "designerId": "b57f82d5-0754-42c2-9237-59df3e78eecb"
                                 }
                             ]
                         }

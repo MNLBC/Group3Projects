@@ -17,17 +17,17 @@ Ext.define('MyApp.view.MyViewport', {
     extend: 'Ext.container.Viewport',
 
     requires: [
+        'Ext.form.Panel',
+        'Ext.button.Button',
         'Ext.grid.Panel',
         'Ext.grid.column.Number',
         'Ext.grid.View',
         'Ext.selection.RowModel',
         'Ext.grid.plugin.RowEditing',
         'Ext.toolbar.Toolbar',
-        'Ext.button.Button',
         'Ext.form.field.ComboBox',
         'Ext.menu.Menu',
-        'Ext.menu.Item',
-        'Ext.form.Panel'
+        'Ext.menu.Item'
     ],
 
     layout: 'fit',
@@ -37,6 +37,69 @@ Ext.define('MyApp.view.MyViewport', {
 
         Ext.applyIf(me, {
             items: [
+                {
+                    xtype: 'container',
+                    height: 785,
+                    id: 'loginContainer',
+                    itemId: 'loginContainer',
+                    style: 'background: url(resource/melvin.jpg) no-repeat center center fixed;\n-webkit-background-size: cover;\n  -moz-background-size: cover;\n  -o-background-size: cover;\n  background-size: cover;',
+                    layout: {
+                        type: 'vbox',
+                        align: 'center',
+                        pack: 'center'
+                    },
+                    items: [
+                        {
+                            xtype: 'form',
+                            height: 172,
+                            width: 418,
+                            bodyPadding: 10,
+                            title: 'Login',
+                            items: [
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    id: 'txtUsername',
+                                    itemId: 'txtUsername',
+                                    fieldLabel: 'Username',
+                                    allowBlank: false,
+                                    emptyText: 'Username'
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    id: 'txtPassword',
+                                    itemId: 'txtPassword',
+                                    fieldLabel: 'Password',
+                                    inputType: 'password',
+                                    emptyText: 'Password'
+                                },
+                                {
+                                    xtype: 'container',
+                                    id: 'ContainerBtn',
+                                    itemId: 'ContainerBtn',
+                                    width: 355,
+                                    layout: {
+                                        type: 'hbox',
+                                        align: 'stretch',
+                                        pack: 'center'
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'button',
+                                            height: 20,
+                                            id: 'btnLogin',
+                                            itemId: 'btnLogin',
+                                            margin: 10,
+                                            width: 150,
+                                            text: 'Login'
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
                 {
                     xtype: 'container',
                     height: 775,
@@ -68,6 +131,7 @@ Ext.define('MyApp.view.MyViewport', {
                                             xtype: 'panel',
                                             id: 'productListPanel',
                                             itemId: 'productListPanel',
+                                            autoScroll: true,
                                             title: 'Products',
                                             items: [
                                                 {
@@ -186,6 +250,7 @@ Ext.define('MyApp.view.MyViewport', {
                                             xtype: 'panel',
                                             id: 'productFeedbackPanel',
                                             itemId: 'productFeedbackPanel',
+                                            autoScroll: true,
                                             title: 'Product Feedbacks',
                                             items: [
                                                 {
@@ -216,6 +281,7 @@ Ext.define('MyApp.view.MyViewport', {
                                             xtype: 'panel',
                                             id: 'customerConfirmPanel',
                                             itemId: 'customerConfirmPanel',
+                                            autoScroll: true,
                                             layout: 'fit',
                                             title: 'Customer Requests',
                                             items: [
@@ -275,6 +341,7 @@ Ext.define('MyApp.view.MyViewport', {
                                             xtype: 'panel',
                                             id: 'orderRequestsPanel',
                                             itemId: 'orderRequestsPanel',
+                                            autoScroll: true,
                                             layout: 'fit',
                                             title: 'Order Requests',
                                             items: [
@@ -380,6 +447,7 @@ Ext.define('MyApp.view.MyViewport', {
                                             xtype: 'panel',
                                             id: 'viewAllOrderPanel',
                                             itemId: 'viewAllOrderPanel',
+                                            autoScroll: true,
                                             layout: 'fit',
                                             title: 'Transactions',
                                             items: [
@@ -431,6 +499,7 @@ Ext.define('MyApp.view.MyViewport', {
                                             xtype: 'panel',
                                             id: 'userListPanel',
                                             itemId: 'userListPanel',
+                                            autoScroll: true,
                                             title: 'Users',
                                             items: [
                                                 {
@@ -563,6 +632,7 @@ Ext.define('MyApp.view.MyViewport', {
                                         {
                                             xtype: 'panel',
                                             id: 'onlineUsersPanel',
+                                            autoScroll: true,
                                             title: 'Online Users',
                                             items: [
                                                 {
@@ -681,69 +751,6 @@ Ext.define('MyApp.view.MyViewport', {
                                                     text: 'Logout'
                                                 }
                                             ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    xtype: 'container',
-                    height: 785,
-                    id: 'loginContainer',
-                    itemId: 'loginContainer',
-                    style: 'background: url(resource/melvin.jpg) no-repeat center center fixed;\n-webkit-background-size: cover;\n  -moz-background-size: cover;\n  -o-background-size: cover;\n  background-size: cover;',
-                    layout: {
-                        type: 'vbox',
-                        align: 'center',
-                        pack: 'center'
-                    },
-                    items: [
-                        {
-                            xtype: 'form',
-                            height: 172,
-                            width: 418,
-                            bodyPadding: 10,
-                            title: 'Login',
-                            items: [
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    id: 'txtUsername',
-                                    itemId: 'txtUsername',
-                                    fieldLabel: 'Username',
-                                    allowBlank: false,
-                                    emptyText: 'Username'
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    id: 'txtPassword',
-                                    itemId: 'txtPassword',
-                                    fieldLabel: 'Password',
-                                    inputType: 'password',
-                                    emptyText: 'Password'
-                                },
-                                {
-                                    xtype: 'container',
-                                    id: 'ContainerBtn',
-                                    itemId: 'ContainerBtn',
-                                    width: 355,
-                                    layout: {
-                                        type: 'hbox',
-                                        align: 'stretch',
-                                        pack: 'center'
-                                    },
-                                    items: [
-                                        {
-                                            xtype: 'button',
-                                            height: 20,
-                                            id: 'btnLogin',
-                                            itemId: 'btnLogin',
-                                            margin: 10,
-                                            width: 150,
-                                            text: 'Login'
                                         }
                                     ]
                                 }
