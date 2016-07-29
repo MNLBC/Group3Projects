@@ -1,4 +1,4 @@
-package com.oocl.mnlbc.service;
+package com.oocl.mnlbc.daoimpl;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

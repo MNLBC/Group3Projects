@@ -1,0 +1,118 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "bodyPadding": "",
+        "container|align": "center",
+        "container|pack": "center",
+        "designer|userClassName": "CommentWindow",
+        "height": 259,
+        "hidden": false,
+        "id": "commentWindow",
+        "itemId": "commentWindow",
+        "layout": "vbox",
+        "modal": true,
+        "padding": 20,
+        "title": "Comment",
+        "width": 469
+    },
+    "name": "MyWindow",
+    "designerId": "a734c993-9228-4207-b7c8-95784262c687",
+    "cn": [
+        {
+            "type": "Ext.form.field.TextArea",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top",
+                "fieldLabel": "Comment",
+                "height": 100,
+                "id": "txtAreaComment",
+                "itemId": "txtAreaComment",
+                "labelAlign": "right",
+                "maxLength": 200,
+                "maxLengthText": "The maximum length for this field is 200",
+                "width": 419
+            },
+            "name": "MyTextArea2",
+            "designerId": "322940fd-f87b-423b-b09c-46fbf0320a49"
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "bottom",
+                "layout|flex": 0,
+                "width": 298
+            },
+            "name": "MyToolbar7",
+            "designerId": "5c17d824-0149-4634-9dfc-37b521f5493d",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "width": 100
+                    },
+                    "name": "MySpacer",
+                    "designerId": "6e50c773-9011-4bbe-a25f-c384aadd97c8"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|uiInterfaceName": "default",
+                        "height": 36,
+                        "id": "btnSendComment",
+                        "itemId": "btnSendComment",
+                        "layout|flex": null,
+                        "text": "Send",
+                        "width": 222
+                    },
+                    "name": "MyButton9",
+                    "designerId": "dd163b6d-a26b-4993-a9a7-c61ad29948af",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "KanenOnlineShopping.app.getController('productController').sendComment(this.productId);"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "3321ae71-0ced-4439-9a76-20c92ce8eb33"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

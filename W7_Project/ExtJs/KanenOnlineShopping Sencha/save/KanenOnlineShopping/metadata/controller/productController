@@ -1,0 +1,2679 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "productController",
+        "id": "productController"
+    },
+    "designerId": "fc44f6a2-5bc4-4c83-839d-b9216bf6eeff",
+    "cn": [
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnBuy",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnBuyClicked",
+                "implHandler": [
+                    "                        var userStore = Ext.getStore('userStore');",
+                    "\t\t\t\t\t\tvar isUserLoggedIn = (userStore.count() > 0);",
+                    "",
+                    "\t\t\t\t\t\tif (isUserLoggedIn) {",
+                    "\t\t\t\t\t\t\tExt.Msg",
+                    "\t\t\t\t\t\t\t\t\t.confirm(",
+                    "\t\t\t\t\t\t\t\t\t\t\t'Place Order',",
+                    "\t\t\t\t\t\t\t\t\t\t\t'Order these items?',",
+                    "\t\t\t\t\t\t\t\t\t\t\tfunction(btn) {",
+                    "\t\t\t\t\t\t\t\t\t\t\t\tif (btn == 'yes') {",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\tvar cartStore = Ext",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.getStore('cartStore');",
+                    "",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\tvar jsonData = '{ \"userId\": ' + userStore.getAt(0).data.userId;",
+                    "",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\tjsonData += ',\"items\": ';",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\tjsonData += Ext",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.encode(Ext",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.pluck(",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tcartStore.data.items,",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t'data'));",
+                    "",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\tvar totalCost = Ext",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.getCmp('lblDiscountedCost').text",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.substr(",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t19,",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tExt",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.getCmp('lblDiscountedCost').text.length);",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\tjsonData += ',\"totalCost\": '+ totalCost;",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\tjsonData += '}';",
+                    "",
+                    "",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\tExt.Ajax",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.request({",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\turl : 'order/saveOrder',",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tmethod : 'POST',",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tparams : {",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tjsonData : jsonData",
+                    "",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t},",
+                    "",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tsuccess : function(",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tresponse) {",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tvar responseText = Ext",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.decode(response.responseText);",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tvar responseeErrormsg = responseText.data.errormsg;",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tif (responseeErrormsg == 'none') {",
+                    "                                                                        Ext.getCmp('lblCheckoutTotalCost').setText('');",
+                    "                                                                        Ext.getCmp('lblDiscountRate').setText('');",
+                    "                                                                        Ext.getCmp('lblDiscountedCost').setText('');",
+                    "",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tExt.Msg",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.alert(",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\"Success\",",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t'Your order has been placed.');",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tExt",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.getStore(",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t'cartStore')",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.removeAll();",
+                    "                                                                        Ext.getCmp('cartWindow').hide();",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t}",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tif (responseeErrormsg == 'failed') {",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tExt.Msg",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.alert(",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\"Failed\",",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t'Unable to place your order.');",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t}",
+                    "",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t},",
+                    "",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tfailure : function(",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tresponse) {",
+                    "",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tExt.Msg",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t.alert(",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\"Error\",",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t'Unable to checkout cart.');",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t}",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t});",
+                    "",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t}",
+                    "",
+                    "\t\t\t\t\t\t\t\t\t\t\t}, this, true);",
+                    "",
+                    "\t\t\t\t\t\t} else {",
+                    "\t\t\t\t\t\t\t// Ext.MessageBox.alert('','You must be logged on to",
+                    "\t\t\t\t\t\t\t// order.');",
+                    "\t\t\t\t\t\t\tExt.Msg",
+                    "\t\t\t\t\t\t\t\t\t.show({",
+                    "\t\t\t\t\t\t\t\t\t\ttitle : '',",
+                    "\t\t\t\t\t\t\t\t\t\tmsg : 'You must be logged on to order. Continue?',",
+                    "\t\t\t\t\t\t\t\t\t\twidth : 300,",
+                    "\t\t\t\t\t\t\t\t\t\tclosable : false,",
+                    "\t\t\t\t\t\t\t\t\t\tbuttons : Ext.Msg.YESNO,",
+                    "\t\t\t\t\t\t\t\t\t\tbuttonText : {",
+                    "\t\t\t\t\t\t\t\t\t\t\tyes : 'Ok',",
+                    "\t\t\t\t\t\t\t\t\t\t\tno : 'Cancel'",
+                    "\t\t\t\t\t\t\t\t\t\t},",
+                    "\t\t\t\t\t\t\t\t\t\tmultiline : false,",
+                    "\t\t\t\t\t\t\t\t\t\tfn : function(buttonValue, inputText,",
+                    "\t\t\t\t\t\t\t\t\t\t\t\tshowConfig) {",
+                    "\t\t\t\t\t\t\t\t\t\t\tif (buttonValue === \"yes\") {",
+                    "\t\t\t\t\t\t\t\t\t\t\t\tvar loginWindow = Ext",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t.getCmp('loginWindow');",
+                    "\t\t\t\t\t\t\t\t\t\t\t\tvar cartWindow = Ext",
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t.getCmp('cartWindow');",
+                    "",
+                    "\t\t\t\t\t\t\t\t\t\t\t\tloginWindow.show();",
+                    "\t\t\t\t\t\t\t\t\t\t\t\tcartWindow.hide();",
+                    "\t\t\t\t\t\t\t\t\t\t\t}",
+                    "\t\t\t\t\t\t\t\t\t\t},",
+                    "\t\t\t\t\t\t\t\t\t\ticon : Ext.Msg.WARNING",
+                    "\t\t\t\t\t\t\t\t\t});",
+                    "\t\t\t\t\t\t}",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnBuyClicked",
+            "designerId": "3b9fdb42-3b26-4501-bf0c-e495715fb035"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnClearCart",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "clearCart",
+                "implHandler": [
+                    "var cartStore = Ext.getStore('cartStore');\r",
+                    "\r",
+                    "if(cartStore.count() > 0){\r",
+                    "\r",
+                    "    Ext.Msg.confirm('Clear Cart', 'Remove all items from your cart?', function(btn)\r",
+                    "\t{\r",
+                    "\tif(btn=='yes'){\r",
+                    "\t\tExt.getStore('cartStore').removeAll();\r",
+                    "\t\tExt.MessageBox.alert('','Cart cleared!');\r",
+                    "\t}\r",
+                    "\r",
+                    "\t}, this, true);\r",
+                    "\r",
+                    "}else{\r",
+                    "    Ext.MessageBox.alert('','Your cart is empty!');\r",
+                    "}\r",
+                    "\r",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "clearCart",
+            "designerId": "c91bcc48-5a4d-406b-800c-d69174ecfa5f"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onLaunch",
+                "implHandler": [
+                    "this.bodyContainer = this.getBodyContainer();",
+                    "this.productContainer = Ext.getCmp('productContainer');",
+                    "",
+                    "this.productStore = Ext.getStore('productsStore');",
+                    "this.loadProducts(this.productStore);",
+                    "this.registerWindow = Ext.create('KanenOnlineShopping.view.RegisterWindow', {});",
+                    "this.registerWindow.hide();",
+                    "",
+                    "this.loginWindow = Ext.create('KanenOnlineShopping.view.LoginWindow',{});",
+                    "this.loginWindow.hide();",
+                    "",
+                    "this.cartWindow = Ext.create('KanenOnlineShopping.view.CartWindow',{});",
+                    "this.cartWindow.hide();",
+                    "",
+                    "this.userWindow= Ext.create('KanenOnlineShopping.view.UserWindow',{});",
+                    "this.userWindow.hide();",
+                    "",
+                    "",
+                    "this.orderHistoryContainer = Ext.getCmp('orderHistoryContainer');",
+                    "this.mainContainer = Ext.getCmp('mainContainer');",
+                    "this.userProfileContainer = Ext.getCmp('userProfileContainer');",
+                    "",
+                    "Ext.getCmp('btnWishList').hide();",
+                    "Ext.getCmp('btnMainLogout').hide();",
+                    "Ext.getCmp('btnHistory').hide();",
+                    "Ext.getCmp('btnUserProfile').hide();"
+                ]
+            },
+            "name": "onLaunch",
+            "designerId": "fffd4f05-2967-4996-a569-5c4ed4298d6b"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "bodyContainer",
+                "selector": "#bodyContainer"
+            },
+            "name": "bodyContainer",
+            "designerId": "3aef20a4-5d0c-4143-98be-618a439ee5b6"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "productStore"
+                ],
+                "fn": "loadProducts",
+                "implHandler": [
+                    "Ext.Ajax.request({",
+                    "    url: 'product/productList',",
+                    "    method: 'POST',",
+                    "    params: {",
+                    "",
+                    "    },",
+                    "    success: function(response){",
+                    "",
+                    "        var responseData = Ext.decode(response.responseText).data;",
+                    "",
+                    "        for(var i=0; i < responseData.products.length; i++){",
+                    "            var product = {",
+                    "               productId: responseData.products[i].productId,",
+                    "               productName: responseData.products[i].productName,",
+                    "               productDescription: responseData.products[i].productDescription,",
+                    "               productPrice: responseData.products[i].productPrice,",
+                    "               productStockQuantity: responseData.products[i].productStockQuantity,",
+                    "               productImagePath: responseData.products[i].imagePath",
+                    "",
+                    "         };",
+                    "            productStore.add(product);",
+                    "        }",
+                    "        var productPanel = Ext.getCmp('productPanel');",
+                    "    productStore.each(function(record){",
+                    "    var mystr ='';",
+                    "",
+                    "",
+                    "  var itemContainer = Ext.create('KanenOnlineShopping.view.itemContainer', {",
+                    "",
+                    "  });",
+                    "",
+                    "  itemContainer.productId = record.data.productId;",
+                    "  itemContainer.productName = record.data.productName;",
+                    "  itemContainer.productDescription = record.data.productDescription;",
+                    "  itemContainer.productPrice = record.data.productPrice;",
+                    "  itemContainer.productStockQuantity = record.data.productStockQuantity;",
+                    "  itemContainer.productImagePath = record.data.productImagePath;",
+                    "",
+                    "  var itemImage = itemContainer.items.items[0];",
+                    "  itemImage.src = record.data.productImagePath;",
+                    "",
+                    "  var itemNameLabel = itemContainer.items.items[1];",
+                    "  itemNameLabel.text = record.data.productName + record.data.productDescription;",
+                    "",
+                    "  var itemBtn = itemContainer.items.items[2];",
+                    "",
+                    "  itemBtn.tooltip=record.data.productDescription;",
+                    "",
+                    "  productPanel.add(itemContainer);",
+                    "  productPanel.doLayout();",
+                    "",
+                    "",
+                    "});",
+                    "",
+                    "    }",
+                    "});",
+                    "",
+                    ""
+                ]
+            },
+            "name": "loadProducts",
+            "designerId": "5e4be867-7471-42c9-9d16-d4578c7e582a"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "productId",
+                    "productName",
+                    "productDescription",
+                    "productPrice",
+                    "productStockQuantity",
+                    "productImagePath"
+                ],
+                "fn": "addItemToCart",
+                "implHandler": [
+                    "//alert(productName);",
+                    "",
+                    "var cartStore = Ext.getStore('cartStore');",
+                    "var itemAlreadyInCart = false;",
+                    "var recordInCart;",
+                    "cartStore.each(function(record){",
+                    "    if(record.data.productId == productId){",
+                    "",
+                    "",
+                    "        record.data.quantity = parseInt(record.data.quantity) + 1;",
+                    "        itemAlreadyInCart = true;",
+                    "    }",
+                    "});",
+                    "",
+                    "if(itemAlreadyInCart){",
+                    "    Ext.getCmp('cartGrid').getView().refresh();",
+                    "",
+                    "}else{",
+                    "",
+                    "    var item = {",
+                    "        productId: productId,",
+                    "        productName:productName,",
+                    "        productDescription: productDescription,",
+                    "        productPrice:productPrice,",
+                    "        quantity:1,",
+                    "        imagePath:productImagePath",
+                    "",
+                    "    };",
+                    "    cartStore.add(item);",
+                    "",
+                    "}"
+                ]
+            },
+            "name": "addItemToCart",
+            "designerId": "f4a89443-f000-402c-bd26-8f4c7e69cbb9"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "mainContainer",
+                "selector": "#mainContainer"
+            },
+            "name": "mainContainer",
+            "designerId": "0de94a95-fe97-4168-b350-45a680ab64e8"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "orderHistoryContainer",
+                "selector": "#orderHistoryContainer"
+            },
+            "name": "orderHistoryContainer",
+            "designerId": "4c76d075-9397-4ee8-a08e-9315154b1892"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#orderItemsGridPanel",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onOrderItemsGridPanelItemDblClick",
+                "implHandler": [
+                    "",
+                    "",
+                    "var orderItemsGridPanel = Ext.getCmp('orderItemsGridPanel');",
+                    "var  orderItemStore = Ext.getStore('orderItemStore');",
+                    "var selModel = orderItemsGridPanel.getSelectionModel();",
+                    "var selectedRecords = selModel.getSelection();",
+                    "var selectionCount = selModel.getCount();",
+                    "var orderId = selectedRecords[0].data.orderId;",
+                    "",
+                    "orderItemStore.clearFilter(true);",
+                    "orderItemStore.filter('orderId', orderId);",
+                    "",
+                    "Ext.create('Ext.window.Window',{",
+                    "",
+                    "               rendetTo: Ext.getBody(),",
+                    "               bodyPadding: 10,",
+                    "               title: 'Order Details',",
+                    "               closable: true,",
+                    "               autoShow: true,",
+                    "               resizable: false,",
+                    "               modal: true,",
+                    "               draggable: false,",
+                    "               width:1054,",
+                    "               height:600,",
+                    "               items:[ {",
+                    "",
+                    "                                    xtype: 'gridpanel',",
+                    "                                    id: 'orderSummaryGridPanel',",
+                    "                                    itemId: 'orderSummaryGridPanel',",
+                    "                                    store: 'orderItemStore',",
+                    "                                    columns: [",
+                    "                                        {",
+                    "                                            xtype: 'gridcolumn',",
+                    "                                            width: 500,",
+                    "                                            flex:1,",
+                    "                                            dataIndex: 'productId',",
+                    "                                            text: 'Product Id'",
+                    "                                        },",
+                    "                                         {",
+                    "                                            xtype: 'gridcolumn',",
+                    "                                            width: 200,",
+                    "                                              flex:1,",
+                    "                                            dataIndex: 'productName',",
+                    "                                            text: 'Product Name'",
+                    "                                        },",
+                    "",
+                    "                                        {",
+                    "                                            xtype: 'gridcolumn',",
+                    "                                            width: 310,",
+                    "                                             flex:1,",
+                    "                                            dataIndex: 'productDescription',",
+                    "                                            text: 'Product Description'",
+                    "                                        },",
+                    "                                       {",
+                    "                                            xtype: 'numbercolumn',",
+                    "                                            width: 272,",
+                    "                                            flex:1,",
+                    "                                            dataIndex: 'quantity',",
+                    "                                            text: 'Quantity'",
+                    "                                        },",
+                    "                                       {",
+                    "                                            xtype: 'numbercolumn',",
+                    "                                            width: 272,",
+                    "                                            flex:1,",
+                    "                                            dataIndex: 'productPrice',",
+                    "                                            text: 'Price'",
+                    "                                        }",
+                    "                                    ]",
+                    "                        }",
+                    "                      ]",
+                    "});",
+                    "",
+                    "",
+                    "",
+                    "var  userStore = Ext.getStore('userStore');",
+                    "",
+                    "var  orderStore = Ext.getStore('orderStore');",
+                    "",
+                    "var orderId = orderStore.data.items[0].data.orderId;",
+                    ""
+                ],
+                "name": "itemdblclick",
+                "scope": "me"
+            },
+            "name": "onOrderItemsGridPanelItemDblClick",
+            "designerId": "aaa03005-6f31-44ab-bf3d-615268af2dc1"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnMainLogin",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "btnMainLoginClicked",
+                "implHandler": [
+                    "this.loginWindow.show();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "btnMainLoginClicked",
+            "designerId": "a665d4b4-7eca-4bff-8ef2-cfed931adb52"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnLogin",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "btnLoginClicked",
+                "implHandler": [
+                    "",
+                    "",
+                    "var frmLogin = Ext.getCmp('frmLogin');",
+                    "var userName = frmLogin.query('#txtLoginUsername')[0]",
+                    ".getValue();",
+                    "var userPassword = frmLogin.query('#txtLoginPassword')[0]",
+                    ".getValue();",
+                    "var userStore = Ext.getStore('userStore');",
+                    "userStore.removeAll();",
+                    "",
+                    "Ext.Ajax",
+                    ".request({",
+                    "",
+                    "    url : window.location.pathname",
+                    "    + 'user/login',",
+                    "    method : 'POST',",
+                    "",
+                    "    params : {",
+                    "        userName : userName,",
+                    "        userPassword : userPassword",
+                    "    },",
+                    "    scope : this,",
+                    "    success : function(response) {",
+                    "",
+                    "        var responseText = Ext",
+                    "        .decode(response.responseText);",
+                    "        var responseData = responseText.data;",
+                    "",
+                    "        if (responseData.banned == true) {",
+                    "            Ext.MessageBox.alert(",
+                    "                'Login failed',",
+                    "                'Your account is blocked.');",
+                    "        } else if (!responseData.items[0]) {",
+                    "            Ext.MessageBox.alert(",
+                    "                'Login failed',",
+                    "                'Invalid credentials.');",
+                    "        } else {",
+                    "",
+                    "            var user = responseData.items[0];",
+                    "            var userHasCart = responseData.userHasCart;",
+                    "            var userMembershipTypeId = user.userMembershipId.membershipTypeId;",
+                    "",
+                    "",
+                    "            var membershipTypeStore = Ext.getStore('MembershipStore');",
+                    "",
+                    "",
+                    "            var membershipTypeArray = membershipTypeStore.queryBy(function(record){",
+                    "                return record.data.membershipTypeId == userMembershipTypeId;",
+                    "            });",
+                    "",
+                    "",
+                    "            var discountRate = membershipTypeArray.items[0].data.discountRate;",
+                    "            var membershipTypeName = membershipTypeArray.items[0].data.membershipTypeName;",
+                    "",
+                    "            var loggedInUser = {",
+                    "                userId : user.userId,",
+                    "                userName : user.username,",
+                    "                userFullName : user.fullName,",
+                    "                userEmail : user.email,",
+                    "                userAddress : user.address,",
+                    "                userMobileNumber : user.mobileNumber,",
+                    "                userRole : user.userRole,",
+                    "                userPassword : '',",
+                    "                userDiscountRate : discountRate,",
+                    "                userMembershipTypeName : membershipTypeName",
+                    "",
+                    "            };",
+                    "",
+                    "",
+                    "            userStore.add(loggedInUser);",
+                    "",
+                    "            Ext.getCmp('btnMainLogin').hide();",
+                    "            Ext.getCmp('btnMainRegister')",
+                    "            .hide();",
+                    "            Ext.getCmp('btnMainLogout').show();",
+                    "            this.resetLoginFields();",
+                    "            Ext.getCmp('loginWindow').hide();",
+                    "            Ext.getCmp('loginToolbar')",
+                    "            .doLayout();",
+                    "            Ext.getCmp('btnHistory').show();",
+                    "",
+                    "            var cartStore = Ext",
+                    "            .getStore('cartStore');",
+                    "            Ext.getCmp('btnUserProfile').show();",
+                    "            Ext.getCmp('btnWishList').show();",
+                    "            Ext.Msg",
+                    "            .show({",
+                    "                title : '',",
+                    "                msg : 'Logged in successfully',",
+                    "                width : 300,",
+                    "                closable : false,",
+                    "                buttons : Ext.Msg.YES,",
+                    "                buttonText : {",
+                    "                    yes : 'Ok'",
+                    "                },",
+                    "                multiline : false,",
+                    "                fn : function(",
+                    "                buttonValue,",
+                    "                 inputText,",
+                    "                 showConfig) {",
+                    "                    if (buttonValue === \"yes\") {",
+                    "",
+                    "                        var userStore = Ext.getStore('userStore');",
+                    "                        var userId = userStore.data.items[0].data.userId;",
+                    "                        var wishListStore = Ext.getStore('wishListStore');",
+                    "                        Ext.Ajax.request({",
+                    "                            url : window.location.pathname+ 'wishList/loadUserWishList',",
+                    "                            method : 'POST',",
+                    "                            params : {",
+                    "                                userId : userId",
+                    "                            },",
+                    "                            scope : this,",
+                    "                            success : function(response) {",
+                    "                                var responseText = Ext.decode(response.responseText);",
+                    "                                var responseData = responseText.data;",
+                    "                                for (var i = 0; i < responseData.items.length; i++) {",
+                    "                                    var items = {",
+                    "                                        wishListId : responseData.items[i].wishListId,",
+                    "                                        userId : responseData.items[i].orderId,",
+                    "                                        productId : responseData.items[i].productId,",
+                    "                                        productName : responseData.items[i].productName,",
+                    "                                        productDescription : responseData.items[i].productDescription,",
+                    "                                        productPrice : responseData.items[i].productPrice,",
+                    "                                        imagePath : responseData.items[i].imagePath",
+                    "                                    };",
+                    "                                    Ext.getStore('wishListStore').add(items);",
+                    "                                }",
+                    "                            },",
+                    "                            failure : function() {",
+                    "                                Ext.MessageBox.alert('Fail','Unable to load cart');",
+                    "                            }",
+                    "                        });",
+                    "",
+                    "                        if (userHasCart  && cartStore.data.items.length == 0) {",
+                    "                         ",
+                    "                            Ext.Msg",
+                    "                            .confirm(",
+                    "                                'Reload Cart',",
+                    "                                'Do you want to continue your saved cart?',",
+                    "                                function(",
+                    "                                btn) {",
+                    "                                    if (btn == 'yes') {",
+                    "                                        // Ext.MessageBox",
+                    "                                        // .alert(",
+                    "                                        // '',",
+                    "                                        // 'Reloading",
+                    "                                        // cart...');",
+                    "                                        var userStore = Ext",
+                    "                                        .getStore('userStore');",
+                    "",
+                    "                                        var userId = userStore.data.items[0].data.userId;",
+                    "",
+                    "                                        userStore",
+                    "                                        .clearFilter(true);",
+                    "                                        userStore",
+                    "                                        .filter(",
+                    "                                            'userId',",
+                    "                                            userId);",
+                    "                                        Ext.Ajax",
+                    "                                        .request({",
+                    "",
+                    "                                            url : window.location.pathname",
+                    "                                            + 'cart/loadCart',",
+                    "                                            method : 'POST',",
+                    "",
+                    "                                            params : {",
+                    "                                                userId : userId",
+                    "",
+                    "                                            },",
+                    "",
+                    "                                            scope : this,",
+                    "                                            success : function(",
+                    "                                            response) {",
+                    "                                                var responseText = Ext",
+                    "                                                .decode(response.responseText);",
+                    "                                                var responseData = responseText.data;",
+                    "                                                for (var i = 0; i < responseData.items.length; i++) {",
+                    "                                                    var items = {",
+                    "                                                        orderId : responseData.items[i].orderId,",
+                    "                                                        productId : responseData.items[i].productId,",
+                    "                                                        productName : responseData.items[i].productName,",
+                    "                                                        productDescription : responseData.items[i].productDescription,",
+                    "                                                        quantity : responseData.items[i].quantity,",
+                    "                                                        productPrice : responseData.items[i].productPrice,",
+                    "                                                        imagePath : responseData.items[i].imagePath",
+                    "",
+                    "                                                    };",
+                    "",
+                    "                                                    Ext",
+                    "                                                    .getStore(",
+                    "                                                        'cartStore')",
+                    "                                                    .add(",
+                    "                                                        items);",
+                    "                                                }",
+                    "                                            },",
+                    "                                            failure : function() {",
+                    "",
+                    "                                                Ext.MessageBox",
+                    "                                                .alert(",
+                    "                                                    'Fail',",
+                    "                                                    'Unable to load cart');",
+                    "                                            }",
+                    "                                        });",
+                    "                                    } else {",
+                    "",
+                    "                                        var userStore = Ext",
+                    "                                        .getStore('userStore');",
+                    "                                        var cartStore = Ext",
+                    "                                        .getStore('cartStore');",
+                    "",
+                    "                                        var userId = userStore.data.items[0].data.userId;",
+                    "",
+                    "                                        userStore",
+                    "                                        .clearFilter(true);",
+                    "                                        userStore",
+                    "                                        .filter(",
+                    "                                            'userId',",
+                    "                                            userId);",
+                    "",
+                    "                                        Ext.Ajax",
+                    "                                        .request({",
+                    "",
+                    "                                            url : window.location.pathname",
+                    "                                            + 'cart/removeUserCart',",
+                    "                                            method : 'POST',",
+                    "",
+                    "                                            params : {",
+                    "                                                userId : userId",
+                    "",
+                    "                                            },",
+                    "                                            scope : this,",
+                    "                                            success : function(",
+                    "                                            response) {",
+                    "                                                cartStore",
+                    "                                                .removeAll();",
+                    "",
+                    "                                            },",
+                    "                                            failure : function() {",
+                    "                                                Ext.MessageBox",
+                    "                                                .alert(",
+                    "                                                    'Fail',",
+                    "                                                    'Unable to delete cart');",
+                    "                                            }",
+                    "                                        });",
+                    "                                    }",
+                    "",
+                    "                                });",
+                    "",
+                    "                        }",
+                    "",
+                    "                    }",
+                    "                },",
+                    "                icon : Ext.Msg.INFORMATION",
+                    "            });",
+                    "        }",
+                    "",
+                    "    },",
+                    "    failure : function() {",
+                    "        Ext.MessageBox",
+                    "        .alert('Login failed',",
+                    "               'Unable to connect to server, please try again.');",
+                    "    }",
+                    "});",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "btnLoginClicked",
+            "designerId": "9a6e8117-da31-450e-97ee-e21a708091b9"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "frmLogin",
+                "selector": "#frmLogin"
+            },
+            "name": "frmLogin",
+            "designerId": "89c99f17-d5e2-4fbd-97ba-b229c6b779cf"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "username, password, userStore"
+                ],
+                "fn": "validateAccount",
+                "implHandler": [
+                    " var userArray = userStore.queryBy(function(record){\r",
+                    "\r",
+                    "                if(record.data.userName == username){\r",
+                    "\r",
+                    "                }\r",
+                    "                return record.data.userName == username;\r",
+                    "             });\r",
+                    "\r",
+                    "            if(userArray.length === 0 ){\r",
+                    "                return false;\r",
+                    "            }else if(userArray.length > 0){\r",
+                    "                if(userArray.items[0].data.userPassword == password){\r",
+                    "                    return true;\r",
+                    "                }else{\r",
+                    "                    return false;\r",
+                    "                }\r",
+                    "            }\r",
+                    ""
+                ]
+            },
+            "name": "validateAccount",
+            "designerId": "e57909fb-2445-4772-9834-561fcc741235"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "loginAccount",
+                "implHandler": [
+                    ""
+                ]
+            },
+            "name": "loginAccount",
+            "designerId": "c7f7f5d8-8a6e-45fe-98dc-aeebaef8a3ce"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "frmRegister",
+                "selector": "#frmRegister"
+            },
+            "name": "frmRegister",
+            "designerId": "a11e90d3-2a77-4b71-8501-9efdcf5d53ac"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "resetLoginFields",
+                "implHandler": [
+                    "var frmLogin = Ext.getCmp('frmLogin');\r",
+                    "\r",
+                    "frmLogin.query('#txtLoginUsername')[0].setValue('');\r",
+                    "frmLogin.query('#txtLoginPassword')[0].setValue('');"
+                ]
+            },
+            "name": "resetLoginFields",
+            "designerId": "c7fb4a18-4a56-4243-9ad4-a71b9fd52a94"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnMainRegister",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnMainRegisterClick",
+                "implHandler": [
+                    "",
+                    "this.registerWindow.show();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnMainRegisterClick",
+            "designerId": "143968b5-3ad0-4656-883f-deb15ddb0ad5"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnRegRegister",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnRegRegisterClick",
+                "implHandler": [
+                    "var frmRegister = Ext.getCmp('frmRegister');",
+                    "var userName = frmRegister.query('#txtRegUsername')[0].getValue();",
+                    "var userPassword = frmRegister.query('#txtRegPassword')[0].getValue();",
+                    "var confirmPassword = frmRegister.query('#txtRegConfirmPassword')[0].getValue();",
+                    "var fullName = frmRegister.query('#txtRegFullname')[0].getValue();",
+                    "var email = frmRegister.query('#txtRegEmail')[0].getValue();",
+                    "var address = frmRegister.query('#txtRegAddress')[0].getValue();",
+                    "var contactNumber = frmRegister.query('#txtRegContactNumber')[0].getValue();",
+                    "var userRole = 'Customer';",
+                    "",
+                    "",
+                    "if(frmRegister.isValid()){",
+                    "            if(userPassword === confirmPassword){",
+                    "",
+                    "                    Ext.Ajax.request({",
+                    "",
+                    "                         url: window.location.pathname +'user/register',",
+                    "                         method: 'POST',",
+                    "",
+                    "                         params: {",
+                    "                            userName: userName,",
+                    "                            userPassword: userPassword,",
+                    "                            fullName: fullName,",
+                    "                            email: email,",
+                    "                            deliveryAddress: address,",
+                    "                            mobileNumber: contactNumber,",
+                    "                            userRole: userRole",
+                    "                     },",
+                    "                         scope: this,",
+                    "                         success: function(response){",
+                    "                                     var responseText = Ext.decode(response.responseText);",
+                    "                             if(responseText.data.errormsg.indexOf('none') >-1){",
+                    "                                 Ext.MessageBox.alert('Registation','Successfully Registered');",
+                    "                                  this.resetRegistrationFields();",
+                    "                                  this.registerWindow.hide();",
+                    "                             }",
+                    "",
+                    "                             if (responseText.data.errormsg.indexOf('usernametaken') >-1){",
+                    "                                 Ext.MessageBox.alert('Registation Failed','Username is already taken!');",
+                    "                             }",
+                    "",
+                    "                             if (responseText.data.errormsg.indexOf('emailtaken') >-1){",
+                    "                                 Ext.MessageBox.alert('Registation Failed','Email is already taken!');",
+                    "                             }",
+                    "",
+                    "                         }",
+                    "                         });",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "            }else{",
+                    "                Ext.MessageBox.alert('Invalid confirmPassword','Passowrd does not match');",
+                    "            }",
+                    "        }else{",
+                    "            Ext.MessageBox.alert('Missing fields','Please fill-up all the fields!');",
+                    "        }"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnRegRegisterClick",
+            "designerId": "db2fe4f2-315c-4cab-8a80-d9e501e674de"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "resetRegistrationFields",
+                "implHandler": [
+                    "",
+                    "        var frmRegister = Ext.getCmp('frmRegister');",
+                    "",
+                    "        frmRegister.query('#txtRegUsername')[0].setValue('');",
+                    "        frmRegister.query('#txtRegPassword')[0].setValue('');",
+                    "        frmRegister.query('#txtRegConfirmPassword')[0].setValue('');",
+                    "        frmRegister.query('#txtRegFullname')[0].setValue('');",
+                    "        frmRegister.query('#txtRegEmail')[0].setValue('');",
+                    "        frmRegister.query('#txtRegAddress')[0].setValue('');",
+                    "        frmRegister.query('#txtRegContactNumber')[0].setValue('');",
+                    ""
+                ]
+            },
+            "name": "resetRegistrationFields",
+            "designerId": "c2bb07e9-e7a2-4b51-bdea-95dd7a3639a6"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnRegReset",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnRegResetClick",
+                "implHandler": [
+                    "this.resetRegistrationFields();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnRegResetClick",
+            "designerId": "d0a92073-7197-4a96-ab2b-8bb8e19efc17"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "userName, userStore"
+                ],
+                "fn": "checkIfUserExist",
+                "implHandler": [
+                    "                var userNameArray = userStore.queryBy(function(record){\r",
+                    "                    return record.data.userName == userName;\r",
+                    "                });\r",
+                    "                if(userNameArray.length > 0){\r",
+                    "                    Ext.MessageBox.alert('User exist', 'Username already exist.');\r",
+                    "                    return true;\r",
+                    "                }else{\r",
+                    "                    return false;\r",
+                    "                }"
+                ]
+            },
+            "name": "checkIfUserExist",
+            "designerId": "00d6cee9-b6bb-4cdf-a5d5-897c92370631"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnRegCancel",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnRegCancelClick",
+                "implHandler": [
+                    "",
+                    "this.resetRegistrationFields();",
+                    "this.registerWindow.hide();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnRegCancelClick",
+            "designerId": "ab5a59df-58a9-4794-83cf-258dbade7b52"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnLoginCancel",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnLoginCancelClick",
+                "implHandler": [
+                    "this.resetLoginFields();\r",
+                    "this.loginWindow.hide();\r",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnLoginCancelClick",
+            "designerId": "be0beae5-df56-45ec-aec8-afee670f2704"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnLoginRegister",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnLoginRegisterClick",
+                "implHandler": [
+                    "\r",
+                    "this.loginWindow.hide();\r",
+                    "this.registerWindow.show();\r",
+                    "\r",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnLoginRegisterClick",
+            "designerId": "7d94c835-775d-400f-a02c-d098a958362c"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "registerWindow",
+                "selector": "#registerWindow"
+            },
+            "name": "registerWindow",
+            "designerId": "6f051e14-370c-4883-baa0-c44b8396f460"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "loginWindow",
+                "selector": "#loginWindow"
+            },
+            "name": "loginWindow",
+            "designerId": "2a4f7dfc-0900-42eb-a33a-85a964e20a64"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnMainLogout",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnMainLogoutClicked",
+                "implHandler": [
+                    "var cartStore = Ext.getStore('cartStore');",
+                    "var userStore = Ext.getStore('userStore');",
+                    "var wishListStore = Ext.getStore('wishListStore');",
+                    "var userId = userStore.data.items[0].data.userId;",
+                    "if (cartStore.getCount() > 0) {",
+                    "",
+                    "    var jsonData = '{ \"userId\": '",
+                    "    + userStore",
+                    "    .getAt(0).data.userId;",
+                    "",
+                    "    jsonData += ',\"items\": ';",
+                    "    jsonData += Ext",
+                    "    .encode(Ext",
+                    "            .pluck(",
+                    "                cartStore.data.items,",
+                    "                'data'));",
+                    "    jsonData += '}';",
+                    "    userStore.removeAll();",
+                    "",
+                    "    cartStore.removeAll();",
+                    "",
+                    "    Ext.Ajax",
+                    "    .request({",
+                    "",
+                    "        url : window.location.pathname",
+                    "        + 'cart/removeUserCart',",
+                    "        method : 'POST',",
+                    "",
+                    "        params : {",
+                    "            userId : userId",
+                    "",
+                    "        },",
+                    "        scope : this,",
+                    "        success : function(",
+                    "        response) {",
+                    "            cartStore",
+                    "            .removeAll();",
+                    "",
+                    "        },",
+                    "        failure : function() {",
+                    "        }",
+                    "    });",
+                    "",
+                    "    Ext.Ajax",
+                    "    .request({",
+                    "        url : 'cart/saveCart',",
+                    "        method : 'POST',",
+                    "        params : {",
+                    "            jsonData : jsonData",
+                    "",
+                    "        },",
+                    "",
+                    "        success : function(",
+                    "        response) {",
+                    "            var responseText = Ext",
+                    "            .decode(response.responseText);",
+                    "            var responseErrormsg = responseText.data.errormsg;",
+                    "            if (responseErrormsg == 'none') {",
+                    "                Ext.Msg",
+                    "                .alert(",
+                    "                    \"Success\",",
+                    "                    'Your cart has been saved.');",
+                    "                Ext",
+                    "                .getStore(",
+                    "                    'cartStore')",
+                    "                .removeAll();",
+                    "            }",
+                    "            if (responseErrormsg == 'failed') {",
+                    "                Ext.Msg",
+                    "                .alert(",
+                    "                    \"Failed\",",
+                    "                    'Unable to save your cart.');",
+                    "            }",
+                    "",
+                    "        },",
+                    "",
+                    "    });",
+                    "}",
+                    "Ext.Msg.show({",
+                    "    title : '',",
+                    "    msg : 'Signing out...',",
+                    "    width : 300,",
+                    "    closable : false,",
+                    "    buttons : Ext.Msg.YES,",
+                    "    buttonText : {",
+                    "        yes : 'Ok'",
+                    "",
+                    "    },",
+                    "    icon : Ext.Msg.INFO",
+                    "});",
+                    "",
+                    "",
+                    "userStore.removeAll();",
+                    "wishListStore.removeAll();",
+                    "Ext.getCmp('btnUserProfile').hide();",
+                    "Ext.getCmp('btnMainLogin').show();",
+                    "Ext.getCmp('btnMainRegister').show();",
+                    "Ext.getCmp('btnMainLogout').hide();",
+                    "Ext.getCmp('btnWishList').hide();",
+                    "",
+                    "Ext.getCmp('loginToolbar').doLayout();",
+                    "",
+                    "Ext.getCmp('btnHistory').hide();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnMainLogoutClicked",
+            "designerId": "abadbbdd-db81-4bb7-b04e-deb46b714f08"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#lblViewOrderHistory",
+                "designer|params": [
+                    "label"
+                ],
+                "designer|targetType": "Ext.form.Label",
+                "fn": "onViewOrderHistoryClicked",
+                "implHandler": [
+                    "    this.getMainContainer().hide();",
+                    "",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onViewOrderHistoryClicked",
+            "designerId": "a59d567a-7361-4a16-b418-35ed3b6b18b9"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnMainCheckout",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnMainCheckoutClicked",
+                "implHandler": [
+                    "var cartStore = Ext.getStore('cartStore');",
+                    "var cartWindowGrid = Ext.getCmp('cartWindowGrid');",
+                    "cartWindowGrid.getView().refresh();",
+                    "\t\t\t\t\t\tif (cartStore.count() > 0) {",
+                    "",
+                    "\t\t\t\t\t\t\tvar totalCost = 0.00;",
+                    "\t\t\t\t\t\t\tcartStore",
+                    "\t\t\t\t\t\t\t\t\t.each(function(record) {",
+                    "\t\t\t\t\t\t\t\t\t\ttotalCost = totalCost + (record.data.productPrice * record.data.quantity);",
+                    "\t\t\t\t\t\t\t\t\t});",
+                    "                            totalCost = Math.round(totalCost * 100) / 100;",
+                    "",
+                    "\t\t\t\t\t\t\tExt.getCmp('lblCheckoutTotalCost').setText(",
+                    "\t\t\t\t\t\t\t\t\t'$' + totalCost);",
+                    "                            var discountRate = 0;",
+                    "                            if(Ext.getStore('userStore').data.items.length >0){",
+                    "                                discountRate = Ext.getStore('userStore').data.items[0].data.userDiscountRate;",
+                    "",
+                    "                            }",
+                    "",
+                    "                            Ext.getCmp('lblDiscountRate').setText('Discount rate: '+discountRate+'%');",
+                    "",
+                    "                            var totalCost = parseInt(Ext.getCmp('lblCheckoutTotalCost').text.substr(1,Ext.getCmp('lblCheckoutTotalCost').text.length));",
+                    "                            var discountedCost = totalCost * ((100-discountRate)/100);",
+                    "                            discountedCost = Math.round(discountedCost * 100) / 100;",
+                    "                            Ext.getCmp('lblDiscountedCost').setText('Discounted price: $'+ discountedCost);",
+                    "",
+                    "\t\t\t\t\t\t\tthis.cartWindow.doLayout();",
+                    "\t\t\t\t\t\t\tthis.cartWindow.show();",
+                    "\t\t\t\t\t\t} else {",
+                    "\t\t\t\t\t\t\tExt.MessageBox.alert('', 'Your cart is empty!');",
+                    "\t\t\t\t\t\t}",
+                    "",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnMainCheckoutClicked",
+            "designerId": "d75ba114-664e-4b2b-b7ea-3fa21d1fd9e1"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnCartWindowCancel",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onCartWindowCancelClicked",
+                "implHandler": [
+                    "this.cartWindow.hide();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onCartWindowCancelClicked",
+            "designerId": "82d7ec8f-2287-4195-8c0e-6ae00c1a2843"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnHistory",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnHistoryClick",
+                "implHandler": [
+                    "this.orderHistoryContainer.show();",
+                    "this.mainContainer.hide();",
+                    "",
+                    "",
+                    "var  userStore = Ext.getStore('userStore');",
+                    "var  orderStore = Ext.getStore('orderStore');",
+                    "var  orderItemStore = Ext.getStore('orderItemStore');",
+                    "orderStore.removeAll();",
+                    "orderItemStore.removeAll();",
+                    "var userId = userStore.data.items[0].data.userId;",
+                    "",
+                    "Ext.Ajax.request({",
+                    "",
+                    "     url: window.location.pathname +'order/userOrder',",
+                    "     method: 'POST',",
+                    "",
+                    "     params: {",
+                    "     userId: userId",
+                    "",
+                    " },",
+                    "     scope: this,",
+                    "     success: function(response){",
+                    "",
+                    "",
+                    "         var responseText = Ext.decode(response.responseText);",
+                    "         var responseData = responseText.data;",
+                    "         if(responseData != null){",
+                    "             ",
+                    "         ",
+                    "         for(var i=0; i < responseData.orders.length; i++){",
+                    "           var order = {",
+                    "              orderId: responseData.orders[i].orderId,",
+                    "              userId: responseData.orders[i].userId,",
+                    "              orderDate: responseData.orders[i].orderDate,",
+                    "              totalCost: responseData.orders[i].totalCost,",
+                    "              orderStatus: responseData.orders[i].orderStatus,",
+                    "              items: responseData.orders[i].items",
+                    "",
+                    "",
+                    "        };",
+                    "              orderStore.add(order);",
+                    "         }",
+                    "",
+                    "",
+                    "         for(var i=0; i < responseData.items.length; i++){",
+                    "         var items = {",
+                    "            orderId: responseData.items[i][0],",
+                    "            productId: responseData.items[i][1],",
+                    "            productName: responseData.items[i][2],",
+                    "            productDescription: responseData.items[i][4],",
+                    "            quantity: responseData.items[i][3],",
+                    "            productPrice: responseData.items[i][5]",
+                    "               };",
+                    "        orderItemStore.add(items);",
+                    "         }",
+                    "        }",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "     },",
+                    "     failure: function(){",
+                    "         Ext.MessageBox.alert('Login failed', 'Unable to connect to server, please try again.');",
+                    "     }",
+                    " });",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnHistoryClick",
+            "designerId": "150647c6-8411-4652-bb38-58e9143c58cb"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnBack",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnBackClick",
+                "implHandler": [
+                    "Ext.getStore('orderStore').removeAll();\r",
+                    "Ext.getCmp('orderHistoryContainer').hide();\r",
+                    "this.getMainContainer().show();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnBackClick",
+            "designerId": "ab2249a0-3c44-49c1-a316-a0243048daa6"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "userName",
+                "selector": "#userName"
+            },
+            "name": "userName",
+            "designerId": "aa375069-c142-4d65-81bd-ecfe457c45b6"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "userFullname",
+                "selector": "#userFullname"
+            },
+            "name": "userFullname",
+            "designerId": "b6bdda05-5d28-4a98-ba44-b9429358685a"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "userEmail",
+                "selector": "#userEmail"
+            },
+            "name": "userEmail",
+            "designerId": "edd8a79b-db3b-49fd-bbdc-4ee111a75a57"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "userAddress",
+                "selector": "#userAddress"
+            },
+            "name": "userAddress",
+            "designerId": "5cc3adcc-7c93-407f-a546-d635cd2d054f"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "userMobileNumber",
+                "selector": "#userMobileNumber"
+            },
+            "name": "userMobileNumber",
+            "designerId": "700f1d50-2861-497b-8e3a-2fe6a78b5123"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "fullNameField",
+                "selector": "#fullNameField"
+            },
+            "name": "fullNameField",
+            "designerId": "8ad83884-e19a-47da-82c0-932a3a165cb2"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "emailField",
+                "selector": "#emailField"
+            },
+            "name": "emailField",
+            "designerId": "863e6dce-dd4f-42b8-8458-c11f8c225e3e"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "addressField",
+                "selector": "#addressField"
+            },
+            "name": "addressField",
+            "designerId": "6fb555de-fd66-4abe-b500-f8fb390ba6af"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "mobileNumberField",
+                "selector": "#mobileNumberField"
+            },
+            "name": "mobileNumberField",
+            "designerId": "a17db755-36d7-4025-a355-fcae8c548b8e"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "memberShipField",
+                "selector": "#memberShipField"
+            },
+            "name": "memberShipField",
+            "designerId": "12f0338b-0654-477f-a5aa-1095d84017d4"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "changePassWindow",
+                "selector": "#ChangePassWindow"
+            },
+            "name": "changePassWindow",
+            "designerId": "6db970e5-af7f-4c49-9699-183523aea616"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "userWindow",
+                "selector": "#UserWindow"
+            },
+            "name": "userWindow",
+            "designerId": "216f69ae-e7e0-4968-b513-008168853724"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "memberShipWindow",
+                "selector": "#memberShipWindow"
+            },
+            "name": "memberShipWindow",
+            "designerId": "39bdc67c-c586-482e-9bd1-b0217f7730d1"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnUserProfile",
+                "designer|targetType": "MyButton16",
+                "fn": "onBtnUserProfileClick",
+                "implHandler": [
+                    "this.userProfileContainer.show();",
+                    "this.mainContainer.hide();",
+                    "this.orderHistoryContainer.hide();",
+                    "",
+                    "var userStore = Ext.getStore('userStore');",
+                    "",
+                    "var userName= userStore.data.items[0].data.userName;",
+                    "var fullName= userStore.data.items[0].data.userFullName;",
+                    "var email= userStore.data.items[0].data.userEmail;",
+                    "var address= userStore.data.items[0].data.userAddress;",
+                    "var mobileNumber= userStore.data.items[0].data.userMobileNumber;",
+                    "var userMembershipTypeName = userStore.data.items[0].data.userMembershipTypeName;",
+                    "",
+                    "this.getUserName().setValue(userName);",
+                    "this.getUserFullname().setValue(fullName);",
+                    "this.getUserEmail().setValue(email);",
+                    "this.getUserAddress().setValue(address);",
+                    "this.getUserMobileNumber().setValue(mobileNumber);",
+                    "this.getTxtMembershipType().setValue(userMembershipTypeName);"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnUserProfileClick",
+            "designerId": "59fef71e-2db7-4964-b52b-12c72f99b7ac"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnUpdateProfile",
+                "designer|targetType": "MyButton20",
+                "fn": "onBtnUpdateProfileClick",
+                "implHandler": [
+                    "this. userWindow= Ext.create('KanenOnlineShopping.view.UserWindow',{});",
+                    "",
+                    "this.userWindow.show();",
+                    "",
+                    "var userStore = Ext.getStore('userStore');",
+                    "",
+                    "          var fullName= userStore.data.items[0].data.userFullName;",
+                    "          var email= userStore.data.items[0].data.userEmail;",
+                    "          var address= userStore.data.items[0].data.userAddress;",
+                    "          var mobileNumber= userStore.data.items[0].data.userMobileNumber;",
+                    "",
+                    "",
+                    "          this.getFullNameField().setValue(fullName);",
+                    "          this.getEmailField().setValue(email);",
+                    "          this.getAddressField().setValue(address);",
+                    "          this.getMobileNumberField().setValue(mobileNumber);",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnUpdateProfileClick",
+            "designerId": "1f9b6097-80f1-4cae-8993-0144a829f98b"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnUpdateFields",
+                "designer|targetType": "MyButton19",
+                "fn": "onBtnUpdateFieldsClick",
+                "implHandler": [
+                    "",
+                    "var userStore= Ext.getStore('userStore');",
+                    "var userName= userStore.data.items[0].data.userName;",
+                    "var userId= userStore.data.items[0].data.userId;",
+                    "var fullNameField = userStore.data.items[0].data.userFullName = this.getFullNameField().getValue();",
+                    "var emailNameField =userStore.data.items[0].data.userEmail= this.getEmailField().getValue();",
+                    "var addressField =userStore.data.items[0].data.userAddress= this.getAddressField().getValue();",
+                    "var mobileNumberField =userStore.data.items[0].data.userMobileNumber= this.getMobileNumberField().getValue();",
+                    "",
+                    "",
+                    "                    this.getUserFullname().setValue(fullNameField);",
+                    "                    this.getUserEmail().setValue(emailNameField);",
+                    "                    this.getUserAddress().setValue(addressField);",
+                    "                    this.getUserMobileNumber().setValue(mobileNumberField);",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "                          Ext.Ajax.request({",
+                    "",
+                    "                                 url: window.location.pathname +'user/updateProfile',",
+                    "                                 method: 'POST',",
+                    "",
+                    "                                 params: {",
+                    "                                   userId:userId,",
+                    "                                    userName: userName,",
+                    "                                    fullName: fullNameField,",
+                    "                                    email: emailNameField,",
+                    "                                    address: addressField,",
+                    "                                    mobileNumber: mobileNumberField",
+                    "",
+                    "                             },",
+                    "                                 scope: this,",
+                    "                                 success: function(response){",
+                    "                                     var responseText = Ext.decode(response.responseText);",
+                    "                                     if(responseText.success=== true){",
+                    "                                         Ext.MessageBox.alert('Update Profile','Profile has been updated');",
+                    "                                         this.userWindow.close();",
+                    "                                     }",
+                    "",
+                    "",
+                    "                                 }",
+                    "                                 });"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnUpdateFieldsClick",
+            "designerId": "ec203440-ece4-4127-8a5c-58b7726b0eb6"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnChangePass",
+                "designer|targetType": "MyButton23",
+                "fn": "onBtnChangePassClick",
+                "implHandler": [
+                    "this.changePassWindow= Ext.create('KanenOnlineShopping.view.ChangePassWindow',{});",
+                    "this.changePassWindow.show();",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnChangePassClick",
+            "designerId": "19000ace-0fd4-407b-bbb0-1028219f183c"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnResetProfile",
+                "designer|targetType": "MyButton18",
+                "fn": "onBtnResetProfileClick",
+                "implHandler": [
+                    "",
+                    "          this.getFullNameField().setValue('');",
+                    "          this.getEmailField().setValue('');",
+                    "          this.getAddressField().setValue('');",
+                    "          this.getMobileNumberField().setValue('');",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnResetProfileClick",
+            "designerId": "14df6030-692b-4f5c-ae04-76469151e5db"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnResetPass",
+                "designer|targetType": "MyButton21",
+                "fn": "onBtnResetPassClick",
+                "implHandler": [
+                    "this.getOldPassword().setValue('');",
+                    "this.getNewPassword().setValue('');",
+                    "this.getConfirmNewPass().setValue('');",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnResetPassClick",
+            "designerId": "686f8d11-f213-4cdf-8938-d863185b72e7"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnRequestMember",
+                "designer|targetType": "MyButton17",
+                "fn": "onBtnRequestMemberClick",
+                "implHandler": [
+                    "this.memberShipWindow= Ext.create('KanenOnlineShopping.view.MemberShipWindow',{});",
+                    "this.memberShipWindow.show();",
+                    "",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnRequestMemberClick",
+            "designerId": "d1658199-8686-41b2-b49e-37f4375519b0"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnSendRequest",
+                "designer|targetType": "MyButton24",
+                "fn": "onBtnSendRequestClick",
+                "implHandler": [
+                    "",
+                    "var userStore= Ext.getStore('userStore');",
+                    "var userId = userStore.data.items[0].data.userId;",
+                    "var userMemberType = this.getMemberShipField().getValue();",
+                    "",
+                    "Ext.getCmp('membershipRequestRemarks').setValue('');",
+                    "                  Ext.Ajax.request({",
+                    "",
+                    "                                 url: window.location.pathname +'membership/newMembershipTypeRequest',",
+                    "                                 method: 'POST',",
+                    "",
+                    "                                 params: {",
+                    "                                   userId:userId,",
+                    "                                   requestedMembershipTypeName: userMemberType",
+                    "",
+                    "",
+                    "                             },",
+                    "                                 scope: this,",
+                    "                                 success: function(response){",
+                    "                                     var responseText = Ext.decode(response.responseText);",
+                    "                                     if(responseText.data.indexOf('Request sent!') >-1){",
+                    "                                         Ext.MessageBox.alert('','Request has been sent');",
+                    "                                        this.memberShipWindow.close();",
+                    "                                     }",
+                    "",
+                    "",
+                    "                                 }",
+                    "                                 });",
+                    "",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnSendRequestClick",
+            "designerId": "424bcd99-e518-4692-83bb-d28a3c56a45e"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "oldPassword",
+                "selector": "#oldPassword"
+            },
+            "name": "oldPassword",
+            "designerId": "da0661ca-6f61-4eb4-a1b9-f9317dde76f2"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "newPassword",
+                "selector": "#newPassword"
+            },
+            "name": "newPassword",
+            "designerId": "97e220fa-c8fe-4045-a8ec-d1de8cf7a096"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "confirmNewPass",
+                "selector": "#confirmNewPass"
+            },
+            "name": "confirmNewPass",
+            "designerId": "2e4ae61a-2944-4652-9915-36f587c16671"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnChangePassword",
+                "designer|targetType": "MyButton22",
+                "fn": "onBtnChangePasswordClick",
+                "implHandler": [
+                    "",
+                    "var userStore= Ext.getStore('userStore');",
+                    "var userId= userStore.data.items[0].data.userId;",
+                    "var userName= userStore.data.items[0].data.userName;",
+                    "var oldPassword = this.getOldPassword().getValue();",
+                    "var newPassword = this.getNewPassword().getValue();",
+                    "var confirmPassword = this.getConfirmNewPass().getValue();",
+                    "",
+                    "",
+                    "  if(newPassword === confirmPassword){",
+                    "                if(newPassword!= oldPassword){",
+                    "",
+                    "                    Ext.Ajax.request({",
+                    "",
+                    "                         url: window.location.pathname +'user/changePassword',",
+                    "                         method: 'POST',",
+                    "",
+                    "                         params: {",
+                    "                            userId:userId,",
+                    "                            userName: userName,",
+                    "                            oldPassword: oldPassword,",
+                    "                            newPassword: newPassword,",
+                    "",
+                    "                     },",
+                    "                         scope: this,",
+                    "                         success: function(response){",
+                    "                              var responseText = Ext.decode(response.responseText);",
+                    "                             if(responseText.data.result.indexOf('Password successfully changed') >-1){",
+                    "                                 Ext.MessageBox.alert('Change Password', 'Password has been changed');",
+                    "                                 this.changePassWindow.close();",
+                    "                             }",
+                    "                              if (responseText.data.result.indexOf ('Incorrect old password') >-1){",
+                    "                                 Ext.MessageBox.alert('Change Password Failed','Incorrect old password');",
+                    "",
+                    "                              }",
+                    "                         }",
+                    "                         });",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "            }else{",
+                    "                Ext.MessageBox.alert('Invalid Password','Old and New Password is matched');",
+                    "            }",
+                    "        }else{",
+                    "            Ext.MessageBox.alert('Invalid Confirm Password','Password does not match');",
+                    "        }",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnChangePasswordClick",
+            "designerId": "b810681c-4adf-4ade-83dc-262fa785b90b"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "btnUserProfile",
+                "selector": "#btnUserProfile"
+            },
+            "name": "btnUserProfile",
+            "designerId": "6dfa108b-2a58-4182-812b-3c2331b0a3a6"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnBackMainPage",
+                "designer|targetType": "MyButton26",
+                "fn": "onBtnBackMainPageClick",
+                "implHandler": [
+                    "this.userProfileContainer.hide();",
+                    "this.mainContainer.show();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnBackMainPageClick",
+            "designerId": "f03ae835-e606-4903-b249-21b1b262ba30"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnViewTransaction",
+                "designer|targetType": "MyButton25",
+                "fn": "onBtnViewTransactionClick",
+                "implHandler": [
+                    "",
+                    "this.userProfileContainer.hide();",
+                    "this.orderHistoryContainer.show();",
+                    "this.mainContainer.hide();",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnViewTransactionClick",
+            "designerId": "0abf27d5-004c-4ea1-ae4d-22f6a355198d"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "membershipRequestRemarks",
+                "selector": "#membershipRequestRemarks"
+            },
+            "name": "membershipRequestRemarks",
+            "designerId": "fed5e055-a8f2-4b92-ba0a-1349e06d1bf7"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "txtMembershipType",
+                "selector": "#txtMembershipType"
+            },
+            "name": "txtMembershipType",
+            "designerId": "f7c4048f-d004-4066-ba92-eecb1e70c9b1"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#txtProductSearch",
+                "designer|targetType": "Ext.form.field.Text",
+                "fn": "onTxtSearchProductChanged",
+                "implHandler": [
+                    "        this.filterProducts();"
+                ],
+                "name": "change",
+                "scope": "me"
+            },
+            "name": "onTxtSearchProductChanged",
+            "designerId": "8bd46f2e-29bb-43ca-975c-186b0eac0ec4"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnSearchProduct",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnSearchProductClicked",
+                "implHandler": [
+                    "        this.filterProducts();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnSearchProductClicked",
+            "designerId": "a6c22c61-2cf6-4afc-879f-1237816281f1"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "filterProducts",
+                "implHandler": [
+                    "  ",
+                    "   var productPanel = Ext.getCmp('productPanel');",
+                    "   productPanel.removeAll();",
+                    "   ",
+                    "   productsStore = Ext.getStore('productsStore');",
+                    "   productsStore.clearFilter(true);",
+                    "   ",
+                    "   productsStore.filterBy(function(record,id){",
+                    "      var searchText = Ext.getCmp('txtProductSearch').getValue().trim().toUpperCase();",
+                    "      return record.data.productName.toUpperCase().indexOf(searchText)> -1;",
+                    "   });",
+                    "   ",
+                    "   productsStore.each(function(record){",
+                    "   ",
+                    "      var itemContainer = Ext.create('KanenOnlineShopping.view.itemContainer', {",
+                    "   ",
+                    "      });",
+                    "   ",
+                    "      itemContainer.productId = record.data.productId;",
+                    "      itemContainer.productName = record.data.productName;",
+                    "      itemContainer.productDescription = record.data.productDescription;",
+                    "      itemContainer.productPrice = record.data.productPrice;",
+                    "      itemContainer.productStockQuantity = record.data.productStockQuantity;",
+                    "      itemContainer.productImagePath = record.data.productImagePath;",
+                    "   ",
+                    "      var itemImage = itemContainer.items.items[0];",
+                    "      itemImage.src = record.data.productImagePath;",
+                    "   ",
+                    "      var itemNameLabel = itemContainer.items.items[1];",
+                    "      itemNameLabel.text = record.data.productName + record.data.productDescription;",
+                    "   ",
+                    "   ",
+                    "      var itemBtn = itemContainer.items.items[2];",
+                    "      itemBtn.tooltip=record.data.productDescription;",
+                    "   ",
+                    "      productPanel.add(itemContainer);",
+                    "      productPanel.doLayout();",
+                    "   ",
+                    "   });",
+                    ""
+                ]
+            },
+            "name": "filterProducts",
+            "designerId": "42d79735-945d-4b61-85b6-de75b2247231"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnProductDetail",
+                "designer|targetType": "MyButton30",
+                "fn": "onBtnProductDetailClick",
+                "implHandler": [
+                    "var productDetailsWindow = Ext.create('KanenOnlineShopping.view.ProductDetailsWindow',{ });",
+                    "",
+                    "\tproductDetailsWindow.productId   = this.productId;",
+                    "\tproductDetailsWindow.productName = this.productName;",
+                    "\tproductDetailsWindow.productDescription = this.productDescription;",
+                    "\tproductDetailsWindow.productPrice = this.productPrice;",
+                    "\tproductDetailsWindow.productPrice = this.productStockQuantity;",
+                    "\tproductDetailsWindow.productStockQuantity = this.productStockQuantity;",
+                    "",
+                    "\tproductDetailsWindow.show();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnProductDetailClick",
+            "designerId": "58a3bdea-f880-44b1-99b6-f3146f81c4d5"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "productId",
+                    "productName",
+                    "productDescription",
+                    "productPrice",
+                    "productStockQuantity",
+                    "productImagePath"
+                ],
+                "fn": "showProductDetails",
+                "implHandler": [
+                    "var productDetailsWindow = Ext.create('KanenOnlineShopping.view.ProductDetailsWindow',{ });",
+                    "\tproductDetailsWindow.productId   = productId;",
+                    "\tproductDetailsWindow.productName = productName;",
+                    "\tproductDetailsWindow.productDescription = productDescription;",
+                    "\tproductDetailsWindow.productPrice = productPrice;",
+                    "\tproductDetailsWindow.productStockQuantity = productStockQuantity;",
+                    "",
+                    "productDetailsWindow.productImagePath = productImagePath;",
+                    "",
+                    "",
+                    "var imageContainer = productDetailsWindow.items.items[0].items.items[2];",
+                    "",
+                    "",
+                    "var labelProductImage =   imageContainer.items.items[0];",
+                    "labelProductImage.src = productImagePath;",
+                    "var labelProductPrice =   imageContainer.items.items[1];",
+                    "labelProductPrice.text = productPrice;",
+                    "",
+                    "var labelProductName =productDetailsWindow.items.items[0].items.items[1].items.items[1];",
+                    "labelProductName.text= productName;",
+                    "",
+                    "var labelProductDescription = productDetailsWindow.items.items[0].items.items[3].items.items[0];",
+                    "labelProductDescription.text = productDescription;",
+                    "",
+                    "var labelProductStockQuantity =productDetailsWindow.items.items[0].items.items[3].items.items[1];",
+                    "labelProductStockQuantity.text=productStockQuantity;",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "\tproductDetailsWindow.show();"
+                ]
+            },
+            "name": "showProductDetails",
+            "designerId": "61a3364f-d0a9-4530-ba70-406491c96f62"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "productId"
+                ],
+                "fn": "sendComment",
+                "implHandler": [
+                    "var userStore = Ext.getStore('userStore');",
+                    "if(userStore.getCount()>0){",
+                    "    var maxLength = Ext.getCmp('txtAreaComment').maxLength;",
+                    "    var textLength = Ext.getCmp('txtAreaComment').getValue().length;",
+                    "    if(textLength <= maxLength){",
+                    "        var userId = userStore.data.items[0].data.userId;",
+                    "        var productComment = Ext.getCmp('txtAreaComment').getValue();",
+                    "",
+                    "        Ext.Ajax.request({",
+                    "            url : window.location.pathname + 'product/saveProdComment',",
+                    "            method: 'POST',",
+                    "            params: {",
+                    "                userId: userId,",
+                    "                productId: productId,",
+                    "                productComment: productComment",
+                    "            },",
+                    "            success : function(",
+                    "            response){",
+                    "                var responseText = Ext.decode(response.responseText);",
+                    "                var responseErrormsg = responseText.data.errormsg;",
+                    "                if (responseErrormsg == 'none') {",
+                    "                    Ext.Msg.alert(\"Success\",'Your comment has been sent.');",
+                    "",
+                    "                }",
+                    "                if (responseErrormsg == 'failed') {",
+                    "                    Ext.Msg.alert(\"Failed\",'Unable to send your comment.');",
+                    "                }",
+                    "            }",
+                    "        });",
+                    "    }else{",
+                    "        Ext.Msg.alert(\"Warning\",\"You can only put 200 characters on your comment.\");",
+                    "    }",
+                    "}else{",
+                    "    Ext.Msg.alert(\"Warning\",\"Log in to send your comment.\");",
+                    "}",
+                    "",
+                    "Ext.getCmp('commentWindow').close();"
+                ]
+            },
+            "name": "sendComment",
+            "designerId": "4d6fc8e5-a030-4ffe-833f-0840dc2c673b"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "productId"
+                ],
+                "fn": "showCommentWindow",
+                "implHandler": [
+                    "",
+                    "        var commentWindow = Ext.create('KanenOnlineShopping.view.CommentWindow', {});",
+                    "        commentWindow.show();",
+                    "        commentWindow.productId = productId;",
+                    ""
+                ]
+            },
+            "name": "showCommentWindow",
+            "designerId": "6c096c3f-d2c0-410b-90c9-cb7e7a3f80e9"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnCommentCancel",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnCommentCancel",
+                "implHandler": [
+                    "Ext.getCmp('commentWindow').close();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnCommentCancel",
+            "designerId": "11bdb233-4aa3-4e5b-9f1e-93b342cc8511"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnWishList",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnWishListClicked",
+                "implHandler": [
+                    "var wishListStore = Ext.getStore('wishListStore');",
+                    "",
+                    "var wishListSize = wishListStore.data.items.length;",
+                    "",
+                    "if(wishListSize > 0){",
+                    "    var wishListWindow = Ext.create('KanenOnlineShopping.view.WishListWindow', {});",
+                    "    wishListWindow.show();",
+                    "}else{",
+                    "    Ext.Msg.alert('Status', 'Your Wish List is empty');",
+                    "}",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnWishListClicked",
+            "designerId": "aedb19f3-477c-4fe7-abc6-328d5f3a0d40"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnWLAddAllToCart",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnWLAddAllToCart",
+                "implHandler": [
+                    "",
+                    "var cartStore = Ext.getStore('cartStore');",
+                    "var wishListStore = Ext.getStore('wishListStore');",
+                    "var alreadyinCart = false;",
+                    "var userStore = Ext.getStore('userStore');",
+                    "var userId = userStore.data.items[0].data.userId;",
+                    "",
+                    "Ext.Ajax.request({",
+                    "    url : window.location.pathname+ 'wishList/clearUserWishList',",
+                    "    method : 'POST',",
+                    "    params : {",
+                    "        userId : userId",
+                    "    },",
+                    "    scope : this,",
+                    "    success : function(response) {",
+                    "        for(i = 0; i < wishListStore.data.items.length ; i++){",
+                    "            var items = {",
+                    "                productId: wishListStore.data.items[i].data.productId,",
+                    "                productName: wishListStore.data.items[i].data.productName,",
+                    "                productDescription: wishListStore.data.items[i].data.productDescription,",
+                    "                productPrice: wishListStore.data.items[i].data.productPrice,",
+                    "                quantity: 1,",
+                    "                imagePath: wishListStore.data.items[i].data.imagePath",
+                    "            };",
+                    "            alreadyinCart = this.alreadyInCart(wishListStore.data.items[i].data.productId);",
+                    "            if(!alreadyinCart){",
+                    "                cartStore.add(items);",
+                    "            }",
+                    "        }",
+                    "        wishListStore.removeAll();",
+                    "        Ext.getCmp('WishListWindow').close();",
+                    "        Ext.MessageBox.alert('Success','All items has been added to cart');",
+                    "    }",
+                    "});",
+                    "",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnWLAddAllToCart",
+            "designerId": "d398b88a-44bf-4904-a8ce-5f35574023d1"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#btnWLRemoveAll",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onBtnWLRemoveAll",
+                "implHandler": [
+                    "var wishListStore = Ext.getStore('wishListStore');",
+                    "var userStore = Ext.getStore('userStore');",
+                    "var userId = userStore.data.items[0].data.userId;",
+                    "",
+                    "",
+                    "Ext.Ajax.request({",
+                    "  url : window.location.pathname+ 'wishList/clearUserWishList',",
+                    "  method : 'POST',",
+                    "  params : {",
+                    "\t\tuserId : userId",
+                    "  },",
+                    "   scope : this,",
+                    "   success : function(response) {",
+                    "       wishListStore.removeAll();",
+                    "       Ext.getCmp('WishListWindow').close();",
+                    "     Ext.MessageBox.alert('Success','All items has been removed');",
+                    "\t     }",
+                    "\t});",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onBtnWLRemoveAll",
+            "designerId": "ae7b1ac4-e2be-4c88-8395-5c35d99ab582"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "productId",
+                    "productName",
+                    "productDescription",
+                    "productPrice",
+                    "imagePath"
+                ],
+                "fn": "addItemToWishList",
+                "implHandler": [
+                    "",
+                    "var wishListStore = Ext.getStore('wishListStore');",
+                    "var userStore = Ext.getStore('userStore');",
+                    "",
+                    "var alreadyInWishList = false;",
+                    "var userLength = userStore.data.items.length;",
+                    "",
+                    "if(userLength > 0){",
+                    "        var userId = userStore.data.items[0].data.userId;",
+                    "for(i = 0; i <wishListStore.data.items.length; i++){",
+                    "    if(productId == wishListStore.data.items[i].data.productId){",
+                    "        alreadyInWishList = true;",
+                    "    }",
+                    "}",
+                    "if(alreadyInWishList){",
+                    "    Ext.Msg.alert('Status', 'Item already in Wish List');",
+                    "}else{",
+                    "    Ext.Ajax.request({",
+                    "        url : window.location.pathname+ 'wishList/saveWishList',",
+                    "        method : 'POST',",
+                    "        params : {",
+                    "            userId : userId,",
+                    "            productId : productId,",
+                    "            productName : productName,",
+                    "            productDescription : productDescription,",
+                    "            productPrice : productPrice,",
+                    "            imagePath : imagePath",
+                    "        },",
+                    "        scope : this,",
+                    "        success : function(response) {",
+                    "            var responseText = Ext.decode(response.responseText);",
+                    "            var responseData = responseText.data;",
+                    "",
+                    "            var wishListId = responseData.id;",
+                    "            var item = {",
+                    "                wishListId : wishListId,",
+                    "                userId : userId,",
+                    "                productId : productId,",
+                    "                productName : productName,",
+                    "                productDescription : productDescription,",
+                    "                productPrice : productPrice,",
+                    "                imagePath : imagePath",
+                    "",
+                    "            };",
+                    "",
+                    "            wishListStore.add(item);",
+                    "            Ext.MessageBox.alert('Success','Item added to Wish List');",
+                    "        },",
+                    "        failure : function(response) {",
+                    "            Ext.Msg.alert(\"Error\",'Unable to checkout cart.');",
+                    "        }",
+                    "    });",
+                    "",
+                    "",
+                    "    }",
+                    "}else{",
+                    "    Ext.Msg.alert('Status', 'Log in to add to Wish List');",
+                    "",
+                    "}"
+                ]
+            },
+            "name": "addItemToWishList",
+            "designerId": "280ccff9-ca36-4753-8a89-3136fa37b375"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "productId"
+                ],
+                "fn": "alreadyInCart",
+                "implHandler": [
+                    "var cartStore = Ext.getStore('cartStore');",
+                    "var cartLength = cartStore.data.items.length;",
+                    "",
+                    "if(cartLength > 0){",
+                    "       for(i = 0; i <cartStore.data.items.length; i++){",
+                    "        if(productId == cartStore.data.items[i].data.productId){",
+                    "            return true;",
+                    "        }",
+                    "    }",
+                    "}else{",
+                    "    return false;",
+                    "}",
+                    "return false;",
+                    ""
+                ]
+            },
+            "name": "alreadyInCart",
+            "designerId": "c4aa807b-a451-4dfe-97af-425192435e5e"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "btnWishList",
+                "selector": "#btnWishList"
+            },
+            "name": "btnWishList",
+            "designerId": "968ae2fc-cd8a-42f8-bc73-84d35129524f"
+        }
+    ]
+}
