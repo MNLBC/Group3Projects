@@ -60,6 +60,14 @@ Ext.define('MyApp.controller.AdminController', {
         {
             ref: 'userListPanel',
             selector: '#userListPanel'
+        },
+        {
+            ref: 'onlineUsersPanel',
+            selector: '#onlineUsersPanel'
+        },
+        {
+            ref: 'productFeedbackPanel',
+            selector: '#productFeedbackPanel'
         }
     ],
 
@@ -267,67 +275,6 @@ Ext.define('MyApp.controller.AdminController', {
                         var orderId = orderStore.data.items[0].data.orderId;
     },
 
-    onViewAllOrderBtnClick: function() {
-        this.getOrderRequestsPanel().hide();
-        this.getCustomerConfirmPanel().hide();
-        this.getProductListPanel().hide();
-        this.getUserListPanel().hide();
-        this.getViewAllOrderPanel().show();
-
-        var viewAllGrid = Ext.getCmp('viewAllOrderGrid');
-        var viewAllGridStore = viewAllGrid.getStore();
-        var orderItemsStore = Ext.getStore('orderItems');
-
-        orderItemsStore.removeAll();
-        viewAllGridStore.clearData();
-        viewAllGrid.getView().refresh();
-
-
-        Ext.Ajax.request({
-             url: window.location.pathname +'admin/getOrders',
-             method: 'POST',
-
-            scope: this,
-            success: function(response){
-                var responseText = Ext.decode(response.responseText);
-
-                for (var ctr = 0; ctr < responseText.orderList.length; ctr++){
-                    var order = {
-                        orderId: responseText.orderList[ctr].order.orderId,
-                        userId: responseText.orderList[ctr].userID,
-                        userFullName: responseText.orderList[ctr].fullName,
-                        orderDate: responseText.orderList[ctr].order.orderDate,
-                        totalCost: responseText.orderList[ctr].order.totalCost,
-                        orderStatus: responseText.orderList[ctr].order.orderStatus
-
-                    };
-
-                    viewAllGridStore.add(order);
-                }
-
-
-                for (var i = 0; i < responseText.itemList.length; i++){
-                    var items = {
-                        orderId: responseText.itemList[i].orderId,
-                        orderItemId: responseText.itemList[i].item.orderItemId,
-                        productId: responseText.itemList[i].item.productId,
-                        productName: responseText.itemList[i].productname,
-                        quantity: responseText.itemList[i].item.quantity,
-                        productPrice: responseText.itemList[i].item.productPrice
-
-                    };
-
-                    orderItemsStore.add(items);
-                }
-            },
-
-            failure: function(){
-                Ext.MessageBox.alert('Loading Failed','Unable to connect to server');
-            }
-
-        });
-    },
-
     onBtnApproveRequestClick: function() {
         var userRequestGrid = Ext.getCmp('membershipRequestGrid');
         var userGridStore = userRequestGrid.getStore();
@@ -443,6 +390,8 @@ Ext.define('MyApp.controller.AdminController', {
         this.getViewAllOrderPanel().hide();
         this.getProductListPanel().hide();
         this.getUserListPanel().hide();
+        this.getOnlineUsersPanel().hide();
+        this.getProductFeedbackPanel().hide();
 
 
         var customerRequestGrid = Ext.getCmp('membershipRequestGrid');
@@ -477,61 +426,13 @@ Ext.define('MyApp.controller.AdminController', {
         });
     },
 
-    onOrderRequestClick: function() {
-        this.getOrderRequestsPanel().show();
-        this.getViewAllOrderPanel().hide();
-        this.getCustomerConfirmPanel().hide();
-        this.getUserListPanel().hide();
-        this.getProductListPanel().hide();
-
-
-        var orderGrid = Ext.getCmp('orderRequestsGrid');
-        var orderGridStore = orderGrid.getStore();
-
-
-        orderGridStore.remoteFilter = false;
-        orderGridStore.clearFilter();
-
-
-
-        orderGridStore.clearData();
-        orderGrid.getView().refresh();
-
-        Ext.Ajax.request({
-             url: window.location.pathname +'admin/getOrders',
-             method: 'POST',
-
-            scope: this,
-            success: function(response){
-                  var responseText = Ext.decode(response.responseText);
-
-               for (var ctr = 0; ctr < responseText.orderList.length; ctr++){
-                    var order = {
-                        orderId: responseText.orderList[ctr].order.orderId,
-                        userId: responseText.orderList[ctr].userID,
-                        userFullName: responseText.orderList[ctr].fullName,
-                        orderDate: responseText.orderList[ctr].order.orderDate,
-                        totalCost: responseText.orderList[ctr].order.totalCost,
-                        orderStatus: responseText.orderList[ctr].order.orderStatus
-
-                    };
-
-                    orderGridStore.add(order);
-                   orderGridStore.filter('orderStatus','Pending');
-                }
-            },
-
-            failure: function(){
-                Ext.MessageBox.alert('Loading Failed','Unable to connect to server');
-            }
-        });
-    },
-
     onViewAllOrderClick: function() {
         this.getOrderRequestsPanel().hide();
         this.getCustomerConfirmPanel().hide();
         this.getProductListPanel().hide();
         this.getUserListPanel().hide();
+        this.getOnlineUsersPanel().hide();
+        this.getProductFeedbackPanel().hide();
         this.getViewAllOrderPanel().show();
 
         var viewAllGrid = Ext.getCmp('viewAllOrderGrid');
@@ -592,6 +493,8 @@ Ext.define('MyApp.controller.AdminController', {
         this.getOrderRequestsPanel().hide();
                 this.getCustomerConfirmPanel().hide();
                 this.getViewAllOrderPanel().hide();
+        this.getProductFeedbackPanel().hide();
+        this.getOnlineUsersPanel().hide();
                 this.getProductListPanel().show();
 
                 var productGrid = Ext.getCmp('productListGrid');
@@ -738,6 +641,8 @@ Ext.define('MyApp.controller.AdminController', {
                 this.getCustomerConfirmPanel().hide();
                 this.getProductListPanel().hide();
                 this.getViewAllOrderPanel().hide();
+        this.getOnlineUsersPanel().hide();
+        this.getProductFeedbackPanel().hide();
         this.getUserListPanel().show();
 
 
@@ -850,7 +755,7 @@ Ext.define('MyApp.controller.AdminController', {
         var productPrice = Ext.getCmp('frmProductPrice').getValue();
         var productInStock = Ext.getCmp('frmProductQuantity').getValue();
         var productImagePath = Ext.getCmp('frmImagePath').getValue();
-
+        var adminAddProductWindow = Ext.getCmp('adminAddProductWindow');
 
 
         if (frmAdminAddProduct.isValid()){
@@ -869,13 +774,14 @@ Ext.define('MyApp.controller.AdminController', {
                 scope: this,
                 success: function(response){
                     var responseText = Ext.decode(response.responseText);
-                    alert(responseText);
-                    Ext.MessageBox.alert('Status', 'Successfully added product to the list');
+
+
                     Ext.getCmp('frmProductName').setValue();
                     Ext.getCmp('frmProductDescription').setValue();
                     Ext.getCmp('frmProductPrice').setValue();
                     Ext.getCmp('frmProductQuantity').setValue();
                     Ext.getCmp('frmImagePath').setValue();
+                    adminAddProductWindow.hide();
 
                 },
 
@@ -948,6 +854,206 @@ Ext.define('MyApp.controller.AdminController', {
                 }
     },
 
+    onBtnAdminResetChangeClick: function() {
+
+        var userClick = Ext.getCmp('viewUserList');
+        Ext.Msg.confirm('Status','Do you want to reset changes? ', function(btn){
+
+            if (btn==='yes'){
+
+
+            userClick.fireEvent('click');
+
+            }
+        });
+
+    },
+
+    onBtnProductsResetClick: function() {
+        var userClick = Ext.getCmp('products');
+        Ext.Msg.confirm('Status','Do you want to reset changes? ', function(btn){
+
+            if (btn==='yes'){
+
+
+            userClick.fireEvent('click');
+
+            }
+        });
+    },
+
+    onBtnOrderRequestResetClick: function() {
+        var userClick = Ext.getCmp('orderRequest');
+        Ext.Msg.confirm('Status','Do you want to reset changes? ', function(btn){
+
+            if (btn==='yes'){
+
+
+            userClick.fireEvent('click');
+
+            }
+        });
+    },
+
+    onOrderRequestClick: function() {
+        this.getOrderRequestsPanel().show();
+        this.getViewAllOrderPanel().hide();
+        this.getCustomerConfirmPanel().hide();
+        this.getUserListPanel().hide();
+        this.getProductListPanel().hide();
+        this.getOnlineUsersPanel().hide();
+        this.getProductFeedbackPanel().hide();
+
+
+        var orderGrid = Ext.getCmp('orderRequestsGrid');
+        var orderGridStore = orderGrid.getStore();
+
+
+        orderGridStore.remoteFilter = false;
+        orderGridStore.clearFilter();
+
+
+
+        orderGridStore.clearData();
+        orderGrid.getView().refresh();
+
+        Ext.Ajax.request({
+             url: window.location.pathname +'admin/getOrders',
+             method: 'POST',
+
+            scope: this,
+            success: function(response){
+                  var responseText = Ext.decode(response.responseText);
+
+               for (var ctr = 0; ctr < responseText.orderList.length; ctr++){
+                    var order = {
+                        orderId: responseText.orderList[ctr].order.orderId,
+                        userId: responseText.orderList[ctr].userID,
+                        userFullName: responseText.orderList[ctr].fullName,
+                        orderDate: responseText.orderList[ctr].order.orderDate,
+                        totalCost: responseText.orderList[ctr].order.totalCost,
+                        orderStatus: responseText.orderList[ctr].order.orderStatus
+
+                    };
+
+                    orderGridStore.add(order);
+                   orderGridStore.filter('orderStatus','Pending');
+                }
+            },
+
+            failure: function(){
+                Ext.MessageBox.alert('Loading Failed','Unable to connect to server');
+            }
+        });
+    },
+
+    onFrmBtnResetClick: function() {
+        Ext.Msg.confirm('Confirm','Do you want to reset fields?',function(btn){
+                if (btn==='yes'){
+                    Ext.getCmp('frmProductName').setValue();
+                    Ext.getCmp('frmProductDescription').setValue();
+                    Ext.getCmp('frmProductPrice').setValue();
+                    Ext.getCmp('frmProductQuantity').setValue();
+                    Ext.getCmp('frmImagePath').setValue();
+                }
+        });
+    },
+
+    onBtnResetAdminClick: function() {
+        Ext.Msg.confirm('Confirm','Do you want to reset fields?',function(btn){
+                if (btn==='yes'){
+                    Ext.getCmp('frmAdminFullname').setValue();
+                    Ext.getCmp('frmAdminUsername').setValue();
+                    Ext.getCmp('frmAdminPassword').setValue();
+                    Ext.getCmp('frmAdminConfirm').setValue();
+                    Ext.getCmp('frmAdminEmail').setValue();
+                    Ext.getCmp('frmAdminAddress').setValue();
+                    Ext.getCmp('frmAdminMobile').setValue();
+                }
+        });
+    },
+
+    onViewOnlineUsersClick: function() {
+        this.getOrderRequestsPanel().hide();
+        this.getCustomerConfirmPanel().hide();
+        this.getProductListPanel().hide();
+        this.getViewAllOrderPanel().hide();
+        this.getUserListPanel().hide();
+        this.getProductFeedbackPanel().hide();
+        this.getOnlineUsersPanel().show();
+
+        var onlineUsersGrid = Ext.getCmp('onlineUsersGrid');
+        var onlineUsersStore = onlineUsersGrid.getStore();
+
+
+        onlineUsersStore.clearData();
+        onlineUsersGrid.getView().refresh();
+
+
+        Ext.Ajax.request({
+             url: window.location.pathname +'admin/getOnlineUsers',
+             method: 'POST',
+
+            scope: this,
+            success: function(response){
+                var responseText = Ext.decode(response.responseText);
+
+                for (var ctr = 0; ctr < responseText.onlineList.length; ctr++){
+                    var onlineUsers = {
+                        userId: responseText.onlineList[ctr].userId,
+                        userName: responseText.onlineList[ctr].userName
+                    };
+
+                    onlineUsersStore.add(onlineUsers);
+                }
+            },
+            failure:function(){
+                Ext.MessageBox.alert('Status','Unable to connect to server');
+            }
+        });
+    },
+
+    onViewProductFeedbackClick: function() {
+        this.getProductFeedbackPanel().show();
+        this.getOrderRequestsPanel().hide();
+        this.getCustomerConfirmPanel().hide();
+        this.getProductListPanel().hide();
+        this.getViewAllOrderPanel().hide();
+        this.getOnlineUsersPanel().hide();
+        this.getUserListPanel().show();
+
+
+        var productFeedbackGrid = Ext.getCmp('productFeedbackGrid');
+        var productFeedbackStore = productFeedbackGrid.getStore();
+
+
+        productFeedbackStore.clearData();
+        productFeedbackGrid.getView().refresh();
+
+
+        Ext.Ajax.request({
+             url: window.location.pathname +'admin/getProductComments',
+             method: 'POST',
+
+            scope: this,
+            success: function(response){
+                var responseText = Ext.decode(response.responseText);
+
+                for (var ctr = 0; ctr < responseText.comments.length; ctr++){
+                    var productComments = {
+                        productName: responseText.comments[ctr].productName,
+                        comment: responseText.comments[ctr].comment
+                    };
+
+                    productFeedbackStore.add(productComments);
+                }
+            },
+            failure:function(){
+                Ext.MessageBox.alert('Status','Unable to connect to server');
+            }
+        });
+    },
+
     init: function(application) {
         this.control({
             "#btnCustomerRequest": {
@@ -962,9 +1068,6 @@ Ext.define('MyApp.controller.AdminController', {
             "#viewAllOrderGrid": {
                 itemdblclick: this.onViewAllOrderGridItemDblClick
             },
-            "#viewAllOrderBtn": {
-                click: this.onViewAllOrderBtnClick
-            },
             "#btnApproveRequest": {
                 click: this.onBtnApproveRequestClick
             },
@@ -976,9 +1079,6 @@ Ext.define('MyApp.controller.AdminController', {
             },
             "#membershipRequest": {
                 click: this.onMembershipRequestClick
-            },
-            "#orderReqeust": {
-                click: this.onOrderRequestClick
             },
             "#viewAllOrder": {
                 click: this.onViewAllOrderClick
@@ -1012,6 +1112,30 @@ Ext.define('MyApp.controller.AdminController', {
             },
             "#btnUpdateAdmin": {
                 click: this.onBtnUpdateAdminClick
+            },
+            "#btnAdminResetChange": {
+                click: this.onBtnAdminResetChangeClick
+            },
+            "#btnProductsReset": {
+                click: this.onBtnProductsResetClick
+            },
+            "#btnOrderRequestReset": {
+                click: this.onBtnOrderRequestResetClick
+            },
+            "#orderRequest": {
+                click: this.onOrderRequestClick
+            },
+            "#frmBtnReset": {
+                click: this.onFrmBtnResetClick
+            },
+            "#btnResetAdmin": {
+                click: this.onBtnResetAdminClick
+            },
+            "#viewOnlineUsers": {
+                click: this.onViewOnlineUsersClick
+            },
+            "#viewProductFeedback": {
+                click: this.onViewProductFeedbackClick
             }
         });
     }

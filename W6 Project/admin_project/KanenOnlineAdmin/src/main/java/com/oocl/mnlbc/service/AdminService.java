@@ -14,14 +14,20 @@ import com.oocl.mnlbc.daoimpl.UserMembershipAsnDAOImpl;
 import com.oocl.mnlbc.entity.Order;
 import com.oocl.mnlbc.entity.OrderItem;
 import com.oocl.mnlbc.entity.Product;
+import com.oocl.mnlbc.entity.ProductCommentAssn;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.entity.UserMembershipAsn;
+import com.oocl.mnlbc.jms.listener.DiscountRequestListener;
 import com.oocl.mnlbc.model.AllProduct;
 import com.oocl.mnlbc.model.AllUser;
 import com.oocl.mnlbc.model.ItemOrder;
+import com.oocl.mnlbc.model.LoggedInUser;
 import com.oocl.mnlbc.model.Login;
+import com.oocl.mnlbc.model.OnlineUsers;
 import com.oocl.mnlbc.model.OrderAndItemList;
 import com.oocl.mnlbc.model.OrderUser;
+import com.oocl.mnlbc.model.ProductCommentList;
+import com.oocl.mnlbc.model.ProductComments;
 import com.oocl.mnlbc.model.UserAndMembership;
 import com.oocl.mnlbc.model.UserRequest;
 import com.oocl.mnlbc.model.UserRequestList;
@@ -149,5 +155,35 @@ public class AdminService {
 			return response;
 		}
 		return response;
+	}
+	
+	public ProductCommentList getAllComments(){
+		ProductDAOImpl productDAO = new ProductDAOImpl();
+		productDAO.init();
+		
+		
+		ProductCommentList prodCommentList = new ProductCommentList();
+		List<ProductComments> commentList = new ArrayList<ProductComments>();
+		for(ProductCommentAssn comment : productDAO.getProductComments()){
+			ProductComments prodComment = new ProductComments();
+			prodComment.setProductName(productDAO.getNameById(comment.getProductId()));
+			prodComment.setComment(comment.getProductComment());
+			commentList.add(prodComment);
+			prodCommentList.setComments(commentList);
+		}
+
+		return prodCommentList;
+	}
+	
+	public OnlineUsers getOnlineUsers(){
+
+		OnlineUsers response = new OnlineUsers();
+		List<LoggedInUser> loggedList = new ArrayList<LoggedInUser>();
+		for(String key : DiscountRequestListener.getOnlineUsers().keySet()){
+			loggedList.add(DiscountRequestListener.getOnlineUsers().get(key));
+		}
+		response.setOnlineList(loggedList);
+		return response;
+		
 	}
 }

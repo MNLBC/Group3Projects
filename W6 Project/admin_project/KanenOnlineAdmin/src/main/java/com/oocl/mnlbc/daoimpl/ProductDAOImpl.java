@@ -12,6 +12,7 @@ import javax.persistence.Query;
 
 import com.oocl.mnlbc.dao.ProductDAO;
 import com.oocl.mnlbc.entity.Product;
+import com.oocl.mnlbc.entity.ProductCommentAssn;
 import com.oocl.mnlbc.entity.User;
 
 /**
@@ -30,9 +31,7 @@ public class ProductDAOImpl implements ProductDAO {
 	 */
 	public void init() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink", new java.util.HashMap());
-		System.out.println(entityManagerFactory.getClass().getSimpleName());
 		entityManager = entityManagerFactory.createEntityManager();
-		System.out.println(entityManager.getClass().getSimpleName());
 
 	}
 
@@ -52,7 +51,7 @@ public class ProductDAOImpl implements ProductDAO {
 			return null;
 		}
 	}
-
+	@Override
 	public List<Product> getProductList() {
 		return entityManager.createQuery("select p from products p").getResultList();
 	}
@@ -90,6 +89,14 @@ public class ProductDAOImpl implements ProductDAO {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.oocl.mnlbc.dao.ProductDAO#getProductComments()
+	 */
+	@Override
+	public List<ProductCommentAssn> getProductComments() {
+		return entityManager.createQuery("select p from prodComAsn p").getResultList();
 	}
 	
 	
