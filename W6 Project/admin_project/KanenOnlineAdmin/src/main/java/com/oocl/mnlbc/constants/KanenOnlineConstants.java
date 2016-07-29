@@ -9,5 +9,6 @@ public class KanenOnlineConstants {
 	public static final String USER_LOGGED_IN= "INCREMENT_ONLINE_USERS";
 	
 	public static final String USER_LOGGED_OUT= "DECREMENT_ONLINE_USERS";
+	public static final String NOT_BLOCKED= "NO";
 	
 }

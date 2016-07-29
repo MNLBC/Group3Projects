@@ -52,7 +52,7 @@ public class User implements Serializable {
 	@Column(name = "IS_BLACKLISTED")
 	private String isBlacklisted;
 	@JsonIgnore
-	@OneToOne(cascade = CascadeType.REMOVE, mappedBy = "userId", fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.PERSIST, mappedBy = "userId", fetch = FetchType.LAZY)
 	private UserMembershipAsn userMembershipId;
 	
 

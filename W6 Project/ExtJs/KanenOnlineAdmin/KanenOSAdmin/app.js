@@ -29,7 +29,9 @@ Ext.application({
         'product',
         'updatedProduct',
         'userListModel',
-        'updatedUser'
+        'updatedUser',
+        'onlineUsersModel',
+        'productFeedbackModel'
     ],
     stores: [
         'orderStore',
@@ -40,7 +42,9 @@ Ext.application({
         'product',
         'updateProduct',
         'userList',
-        'updatedUser'
+        'updatedUser',
+        'onlineUsersStore',
+        'productFeedbackStore'
     ],
     views: [
         'MyViewport',

@@ -31,9 +31,7 @@ public class UserDAOImpl implements UserDAO {
 	 */
 	public void init() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink", new java.util.HashMap());
-		System.out.println(entityManagerFactory.getClass().getSimpleName());
 		entityManager = entityManagerFactory.createEntityManager();
-		System.out.println(entityManager.getClass().getSimpleName());
 
 	}
 
