@@ -22,10 +22,7 @@ public class MembershipTypeDAOImpl implements MembershipTypeDAO {
  */
 	public void init() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink", new java.util.HashMap());
-		System.out.println(entityManagerFactory.getClass().getSimpleName());
 		entityManager = entityManagerFactory.createEntityManager();
-		System.out.println(entityManager.getClass().getSimpleName());
-
 	}
 /**
  * returns the intance of a entityManager
