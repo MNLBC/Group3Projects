@@ -38,6 +38,12 @@ public class OrderService {
 
 	private static final Logger logger = Logger.getLogger(OrderController.class);
 
+	/**
+	 * Returns the list of orders of a particular user
+	 *  including the items of those orders
+	 * @param userId
+	 * @return
+	 */
 	public Response<OrdersAndItems> getOrderList(String userId) {
 
 		logger.info("Retrieving orders for user " + userId + "..");
@@ -75,6 +81,11 @@ public class OrderService {
 
 	}
 
+	/**
+	 * Saves a user's order
+	 * @param jsonData
+	 * @return
+	 */
 	public String saveOrder(String jsonData) {
 
 		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");

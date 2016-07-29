@@ -4,7 +4,6 @@
 package com.oocl.mnlbc.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +16,7 @@ import javax.persistence.Table;
  * @author VERGAJO
  *
  */
+@SuppressWarnings("serial")
 @Entity
 @Table(name="PRODUCT")
 public class Product implements Serializable {

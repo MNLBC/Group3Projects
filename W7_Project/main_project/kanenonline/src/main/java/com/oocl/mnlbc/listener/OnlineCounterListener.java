@@ -9,7 +9,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-//import javax.servlet.annotation.WebListener;
 import org.apache.log4j.Logger;
 
 import com.oocl.mnlbc.controllers.UserController;

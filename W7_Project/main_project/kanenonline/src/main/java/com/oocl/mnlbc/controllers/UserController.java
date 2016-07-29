@@ -1,6 +1,5 @@
 package com.oocl.mnlbc.controllers;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.oocl.mnlbc.dao.CartDAO;
 import com.oocl.mnlbc.dao.UserDAO;
 import com.oocl.mnlbc.entity.User;
 import com.oocl.mnlbc.model.ChangePasswordResult;
@@ -31,8 +29,6 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	@Autowired
-	private static final Logger logger = Logger.getLogger(UserController.class);
 
 	/**
 	 * This handles the registration in the UI
@@ -93,7 +89,7 @@ public class UserController {
 	@RequestMapping(value = "/logout", method = { RequestMethod.POST })
 	@ResponseBody
 	public String logoutUser(@RequestParam(value = "userId", required = true) String userId,
-							 @RequestParam(value = "userName", required = true) String userName) throws Exception {
+			@RequestParam(value = "userName", required = true) String userName) throws Exception {
 
 		String returnJson = userService.logoutUser(userId, userName);
 		return returnJson;

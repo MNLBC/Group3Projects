@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 
 import com.oocl.mnlbc.dao.GenericDAO;
 
@@ -24,7 +23,7 @@ public abstract class AbstractJPAGenericDAO<T> implements GenericDAO<T> {
 
 	private Class<T> type;
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public AbstractJPAGenericDAO() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("unitEclipseLink");
 		entityManager = entityManagerFactory.createEntityManager();
@@ -50,6 +49,7 @@ public abstract class AbstractJPAGenericDAO<T> implements GenericDAO<T> {
 		return updatedEntity;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<T> findAll(){
 		return entityManager.createQuery("SELECT u FROM " + type.getSimpleName() + " u").getResultList();
 	}

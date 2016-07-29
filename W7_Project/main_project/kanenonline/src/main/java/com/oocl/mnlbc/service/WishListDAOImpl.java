@@ -70,6 +70,7 @@ public class WishListDAOImpl extends AbstractJPAGenericDAO<WishList> implements 
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean clearUserWishList(long userId) {
 		Query query = entityManager.createQuery("SELECT W FROM WishList W WHERE W.userId = :userId");
@@ -95,6 +96,7 @@ public class WishListDAOImpl extends AbstractJPAGenericDAO<WishList> implements 
 	}
 	
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<WishList> loadUserWishList(long userId) {
 		// TODO Auto-generated method stub

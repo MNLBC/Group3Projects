@@ -26,7 +26,6 @@ public class UserMembershipAsn implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
 	@Id
 	@Column(name = "USER_MEMBERSHIP_ID")
 	@SequenceGenerator(name = "USER_MEMBERSHIP_ASSN_ID_SEQ", sequenceName = "USER_MEMBERSHIP_ASSN_ID_SEQ", allocationSize = 1)
@@ -40,7 +39,7 @@ public class UserMembershipAsn implements Serializable {
 	private long forApproval;
 	@Column(name = "IS_REQUEST_APPROVED")
 	private long requestApproved;
-	
+
 	@JsonIgnore
 	@OneToOne(optional = false)
 	@JoinColumn(name = "USER_ID")

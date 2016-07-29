@@ -13,6 +13,7 @@ import com.oocl.mnlbc.jms.MembershipRequestJMSProducer;
 
 /**
  * Test sending of MembershipRequest to Admin server
+ * 
  * @author BRIONSE
  *
  */

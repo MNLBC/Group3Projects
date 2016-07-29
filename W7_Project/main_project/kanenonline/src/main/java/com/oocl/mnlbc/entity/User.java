@@ -17,6 +17,7 @@ import javax.persistence.Table;
  * @author VERGAJO
  */
 
+@SuppressWarnings("serial")
 @Entity(name = "User")
 @Table(name = "USERS")
 public class User implements Serializable {
@@ -81,8 +82,6 @@ public class User implements Serializable {
 		this.address = address;
 		this.mobileNumber = mobileNumber;
 		this.userRole = userRole;
-		this.isBlacklisted = isBlacklisted;
-		this.userMembershipId = userMembershipId;
 	}
 
 	/*

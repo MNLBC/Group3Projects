@@ -2,9 +2,6 @@ package com.oocl.mnlbc.service;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -89,6 +86,7 @@ public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderD
 	 * 
 	 * @return List<OrderBean>
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Order> getTransactions(long userId) {
 		// gets the Order of the certain user using the userId
@@ -115,6 +113,7 @@ public class OrderDAOImpl extends AbstractJPAGenericDAO<Order> implements OrderD
 	 * 
 	 * @return List<CartItemBean>
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<CartItemBean> getItems(long orderId) {
 		// retrieves the data from database joining the product and order table

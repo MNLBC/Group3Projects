@@ -26,6 +26,7 @@ public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO 
 	/**
 	 * Checks if a username is already in use.
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean userExists(String username) {
 		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.username= :username");
 		query.setParameter("username", username);
@@ -38,6 +39,7 @@ public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO 
 	/**
 	 * Checks if the email address is already in use.
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean emailExists(String email) {
 		Query query = entityManager.createQuery("SELECT U FROM User U WHERE U.email= :email");
 		query.setParameter("email", email);
@@ -122,6 +124,7 @@ public class UserDAOImpl extends AbstractJPAGenericDAO<User> implements UserDAO 
 	/**
 	 * Returns the list of banned users
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getBannedUsers() {
 

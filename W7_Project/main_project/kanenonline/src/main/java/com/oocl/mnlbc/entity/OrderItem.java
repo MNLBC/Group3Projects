@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author VERGAJO
  *
  */
+@SuppressWarnings("serial")
 @Entity(name = "OrderItem")
 @Table(name = "ORDER_ITEM")
 public class OrderItem implements Serializable {

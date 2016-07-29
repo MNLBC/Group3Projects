@@ -77,7 +77,8 @@ public class WishList {
 	}
 
 	/**
-	 * @param wishListId the wishListId to set
+	 * @param wishListId
+	 *            the wishListId to set
 	 */
 	public void setWishListId(long wishListId) {
 		this.wishListId = wishListId;
@@ -91,7 +92,8 @@ public class WishList {
 	}
 
 	/**
-	 * @param userId the userId to set
+	 * @param userId
+	 *            the userId to set
 	 */
 	public void setUserId(long userId) {
 		this.userId = userId;
@@ -105,7 +107,8 @@ public class WishList {
 	}
 
 	/**
-	 * @param productId the productId to set
+	 * @param productId
+	 *            the productId to set
 	 */
 	public void setProductId(long productId) {
 		this.productId = productId;
@@ -119,7 +122,8 @@ public class WishList {
 	}
 
 	/**
-	 * @param productName the productName to set
+	 * @param productName
+	 *            the productName to set
 	 */
 	public void setProductName(String productName) {
 		this.productName = productName;
@@ -133,7 +137,8 @@ public class WishList {
 	}
 
 	/**
-	 * @param productDescription the productDescription to set
+	 * @param productDescription
+	 *            the productDescription to set
 	 */
 	public void setProductDescription(String productDescription) {
 		this.productDescription = productDescription;
@@ -147,7 +152,8 @@ public class WishList {
 	}
 
 	/**
-	 * @param productPrice the productPrice to set
+	 * @param productPrice
+	 *            the productPrice to set
 	 */
 	public void setProductPrice(long productPrice) {
 		this.productPrice = productPrice;
@@ -161,13 +167,16 @@ public class WishList {
 	}
 
 	/**
-	 * @param imagePath the imagePath to set
+	 * @param imagePath
+	 *            the imagePath to set
 	 */
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -178,7 +187,9 @@ public class WishList {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -195,6 +206,4 @@ public class WishList {
 		return true;
 	}
 
-
-	
 }

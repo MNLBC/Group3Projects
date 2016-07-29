@@ -32,7 +32,20 @@ public class UserService {
 
 	@Autowired
 	private static final Logger logger = Logger.getLogger(UserController.class);
-
+	
+	/**
+	 * Registers a new user
+	 *  includes validations for existing user names and email addresses
+	 * 
+	 * @param userName
+	 * @param userPassword
+	 * @param fullName
+	 * @param email
+	 * @param deliveryAddress
+	 * @param mobileNumber
+	 * @param userRole
+	 * @return
+	 */
 	public String createUser(String userName, String userPassword, String fullName, String email,
 			String deliveryAddress, String mobileNumber, String userRole) {
 
@@ -70,6 +83,12 @@ public class UserService {
 
 	}
 
+	/**
+	 * Validates the user credentials
+	 * @param userName
+	 * @param userPassword
+	 * @return
+	 */
 	public Response<UserWrapper<User>> loginUser(String userName, String userPassword) {
 
 		logger.info(userName + " is logging in..");
@@ -92,7 +111,12 @@ public class UserService {
 		return response;
 
 	}
-
+	/**
+	 * 
+	 * @param userId
+	 * @param userName
+	 * @return
+	 */
 	public String logoutUser(String userId, String userName) {
 		StringBuilder builder = new StringBuilder();
 		String returnJson = "{\"success\":true}";
@@ -103,7 +127,16 @@ public class UserService {
 		logger.info("User has successfully logged out.");
 		return returnJson;
 	}
-
+	
+	/**
+	 * Updates the user's password
+	 * @param userId
+	 * @param userName
+	 * @param oldPassword
+	 * @param newPassword
+	 * @return
+	 * @throws Exception
+	 */
 	public Response<ChangePasswordResult> changePassword(long userId, String userName, String oldPassword,
 			String newPassword) throws Exception {
 
@@ -127,7 +160,12 @@ public class UserService {
 		return response;
 
 	}
-
+	/**
+	 * Returns the list of banned/ blacklisted users.
+	 *  Used by the BannedUsersInterceptor
+	 * @return
+	 * @throws Exception
+	 */
 	public List<User> getBannedUsers() throws Exception {
 		return userDAO.getBannedUsers();
 

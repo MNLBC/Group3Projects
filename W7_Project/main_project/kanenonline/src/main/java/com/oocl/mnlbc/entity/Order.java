@@ -21,6 +21,7 @@ import javax.persistence.Table;
  * @author VERGAJO
  *
  */
+@SuppressWarnings("serial")
 @Entity(name = "Order")
 @Table(name = "ORDERS")
 public class Order implements Serializable {

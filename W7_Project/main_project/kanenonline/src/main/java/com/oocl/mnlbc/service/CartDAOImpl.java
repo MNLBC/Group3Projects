@@ -55,6 +55,7 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<CartItem> loadCart(long userId) {
 		// Load all the cartItem of the certain user using the userId
@@ -73,6 +74,7 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean removeUserCart(long userId) {
 		// remove the cartItem of the certain user using the userId
@@ -117,6 +119,7 @@ public class CartDAOImpl extends AbstractJPAGenericDAO<CartItem> implements Cart
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean findCartByUser(long userId) {
 		//// Load all the cartItem of the certain user using the userId

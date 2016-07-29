@@ -1,7 +1,6 @@
 package com.oocl.mnlbc.controllers;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import com.oocl.mnlbc.entity.MembershipType;
 import com.oocl.mnlbc.model.ModelWrapper;
 import com.oocl.mnlbc.model.Response;
 import com.oocl.mnlbc.services.MembershipTypeService;
-import com.oocl.mnlbc.utils.CollectionUtils;
 
 /**
  * MembershipType Controller

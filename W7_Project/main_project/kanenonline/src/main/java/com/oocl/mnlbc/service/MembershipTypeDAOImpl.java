@@ -52,6 +52,7 @@ public class MembershipTypeDAOImpl implements MembershipTypeDAO {
 
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<MembershipType> getMembershipTypes() {
 		Query query = entityManager.createNativeQuery(
 				"SELECT MEMBERSHIP_TYPE_ID, MEMBERSHIP_TYPE_NAME, DISCOUNT_RATE FROM MEMBERSHIP_TYPE",
