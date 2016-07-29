@@ -1,5 +1,6 @@
 package com.oocl.mnlbc.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.PersistenceException;
@@ -26,7 +27,11 @@ public class ProductDAOImpl extends AbstractJPAGenericDAO<Product>implements Pro
 		Query query = entityManager.createNativeQuery(
 				"SELECT PRODUCT_ID, PRODUCT_NAME, PRODUCT_DESCRIPTION, PRODUCT_PRICE, PRODUCT_STOCK_QUANTITY, PRODUCT_IMAGE_PATH  FROM PRODUCT",
 				Product.class);
-		return query.getResultList();
+		List<Product> products = query.getResultList();
+		for(Product product : products){
+			entityManager.refresh(product);
+		}
+		return products;
 
 	}
 	/**
