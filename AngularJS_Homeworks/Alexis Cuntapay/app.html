@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript" src="angular.min.js"></script>
+<title>Personal Info</title>
+</head>
+<body>
+<center>
+<div ng-app="myApp" ng-controller="SearchController">
+
+  <input type="text" ng-model="searchString" placeholder="Enter your search terms">
+	<hr>
+
+		
+		<table>
+			<tr ng-repeat="i in items | searchFor:searchString" ng-dblclick="go(i)">
+				
+				<td>{{i.name}}</td>
+			     <td>{{i.email}}</td>
+			</tr>
+		
+		</table>
+
+</div>
+</center>
+<script type="text/javascript">
+
+var app = angular.module('myApp', []);		
+app.filter('searchFor', function(){
+	return function(arr, searchString){
+
+		if(!searchString){
+			return arr;
+		}
+
+		var result = [];
+
+		searchString = searchString.toLowerCase();
+		angular.forEach(arr, function(item){
+
+			if(item.title.toLowerCase().indexOf(searchString) !== -1){
+				result.push(item);
+			}
+
+		});
+
+		return result;
+	};
+
+});
+
+
+
+app.controller('SearchController',function($scope){
+$scope.items = [
+		{
+			name: 'Alexis Cuntapay',
+			email: 'bemlex12@yahoo.com',
+			phone: '09156783456'
+		},
+		{
+			name: 'Erica Cruz',
+			email:'eca@gmail.com',
+			phone:'092078367871'
+		},
+		{
+			name: 'Marian Gomez',
+			email: 'marian@gmail.com',
+			phone:'09123477871'
+		},
+		{
+			name: 'Christlyn Cerezo',
+			email: 'clyn@gmail.com',
+			phone: '09178982563'
+		},
+		{
+			name: 'Alanis Watz',
+			email:'alanis@gmail.com',
+			phone:'09567628638'
+		}
+		
+	];
+
+$scope.go = function(path) {
+					$location.path('/Info/' + path.name);
+					$scope.passdata = path;
+					};
+					
+		});		
+					app.config([ '$routeProvider', function($routeProvider) {
+		$routeProvider.when('/Info/:name', {
+			templateUrl : 'info.html',
+			controller : 'SearchController'
+		});
+	} ]);
+
+</script>
+</body>
+</html>
+
+
