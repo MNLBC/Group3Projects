@@ -1,0 +1,77 @@
+<!doctype html>
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Angular JS</title>
+      <script src = "angular.min.js"></script>
+      <script src = "angular-route.min.js"></script>
+
+<style>
+table, th , td  {
+  border: 1px solid grey;
+  padding: 5px;
+  width: 50%;
+  height: 100%;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+</style>
+
+</head>
+
+<body ng-app="SearchApp" ng-controller="SearchController">
+
+   <h2>Users:</h2>
+  
+ Search: <input type="text" name="" width="1000" placeholder="search username" ng-model="userSearch">
+
+<div>
+	<table border = "1">
+		<tr>
+			<th>Username</th>
+			<th>Email</th>
+			<th>Contact Number</th>
+		</tr>
+		<tr ng-repeat="user in users | filter:userSearch" ng-dblclick="setSelected(user)">
+			<td>{{user.username}}</td>
+			<td>{{user.email}}</td>
+			<td>{{user.contactNum}}</td>
+		</tr>
+	</table>
+	
+</div>
+<hr>
+<div ng-view></div>
+
+</body>
+
+<script>
+  var app = angular.module("SearchApp", ["ngRoute"]);
+   app.controller('SearchController', function($scope, $http, $location) {
+      $scope.users = [{username:'JayBee', email:'jaybee@oocl.com', contactNum:'09353775485'},
+		             {username:'Aica', email:'aica@oocl.com', contactNum:'09353775550'},
+		             {username:'Yume', email:'yume@oocl.com', contactNum:'09364010831'},
+		             {username:'Kanench', email:'kanench@oocl.com', contactNum:'09342342345'},
+		             {username:'Brionse', email:'brionse@oocl.com', contactNum:'09342334444'},
+		             {username:'Cuntaal', email:'cuntaal@oocl.com', contactNum:'09342334445'}];
+   	    $scope.setSelected = function(user) {
+   	    	$location.path('/'+ user.username);
+   	    	$scope.selectedUser = user;
+	        console.log($scope.selectedUser.username);
+    	};
+
+    });
+
+      	 app.config(['$routeProvider', function($routeProvider) {
+            $routeProvider.
+            
+            when('/:username', {
+               templateUrl: 'currentUser.html'            
+            });
+         }]);
+  </script>
+</html>
