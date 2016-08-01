@@ -1,0 +1,173 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "border": "2 px solid black",
+        "container|align": "center",
+        "container|defaultMargins": [
+            "{\"top\":0,\"right\":0,\"bottom\":0,\"left\":0}"
+        ],
+        "container|padding": 10,
+        "designer|userClassName": "itemContainer",
+        "height": 385,
+        "layout": "vbox",
+        "margin": "",
+        "width": 287
+    },
+    "designerId": "68c4d75c-3848-49f6-a6fe-8383be834f8d",
+    "cn": [
+        {
+            "type": "Ext.Img",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 224,
+                "layout|flex": null,
+                "src": "resource/laptop.png",
+                "width": 233
+            },
+            "name": "MyImg1",
+            "designerId": "c8c58d49-7404-4b00-91aa-f0cccc4d274f"
+        },
+        {
+            "type": "Ext.form.Label",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 19,
+                "layout|flex": null,
+                "layout|margins": "4",
+                "text": "My Label",
+                "width": 180
+            },
+            "name": "MyLabel",
+            "designerId": "b7e1e3ce-2040-4bef-94a4-1a2aa38d828f"
+        },
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|align": "center",
+                "layout": "vbox",
+                "layout|flex": 1
+            },
+            "name": "MyContainer20",
+            "designerId": "5508f779-5a0b-40b9-9353-e648852577e9",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 20
+                    },
+                    "name": "MySpacer1",
+                    "designerId": "a92a51d7-2c37-458f-aee3-57a4957c96d5"
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": 1
+                    },
+                    "name": "MyToolbar10",
+                    "designerId": "6b083ca7-6f8b-4a08-bfb1-4ea377f042ef",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "text": "Product Details"
+                            },
+                            "name": "MyButton30",
+                            "designerId": "cbaa4e81-8a0f-45ff-b06d-f6cec2ccb19a",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick1",
+                                        "implHandler": [
+                                            "",
+                                            "KanenOnlineShopping.app.getController('productController').showProductDetails(this.productId,this.productName,this.productDescription,this.productPrice,this.productStockQuantity,this.productImagePath);"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick1",
+                                    "designerId": "4aee81e3-d8f6-480f-903d-c48a02b28cbd"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 28,
+                                "layout|flex": null,
+                                "text": "Add to Cart",
+                                "width": 105
+                            },
+                            "name": "MyButton7",
+                            "designerId": "41630b74-9a8f-4f4b-bac1-653888549b3a",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick",
+                                        "implHandler": [
+                                            "KanenOnlineShopping.app.getController('productController').addItemToCart(this.productId,this.productName,this.productDescription,this.productPrice,this.productStockQuantity,this.productImagePath);"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick",
+                                    "designerId": "0afd53c2-fa5c-435d-9622-e5d3e9667e4d"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

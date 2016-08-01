@@ -1,0 +1,106 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "updatedOrder"
+    },
+    "name": "MyModel",
+    "designerId": "8f20e1ff-7521-4df3-8ed3-b2dec2d0a31f",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "orderId"
+            },
+            "name": "MyField14",
+            "designerId": "1bf0f0c5-1495-4c21-8fcd-1d2da96b9114"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "userId"
+            },
+            "name": "MyField22",
+            "designerId": "f3a3447c-ae46-4ee6-9404-78d281be2bdf"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "userFullName"
+            },
+            "name": "MyField27",
+            "designerId": "b806e414-5f95-4ae9-97fe-98498125d785"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "orderDate"
+            },
+            "name": "MyField28",
+            "designerId": "da0ddc59-1122-4459-be58-e90821fe081d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "totalCost"
+            },
+            "name": "MyField29",
+            "designerId": "45d72611-2b56-4b4a-bf37-fcf2f2073d11"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "orderStatus"
+            },
+            "name": "MyField30",
+            "designerId": "e34aeac9-e873-497d-bb6c-c9111586a576"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "items"
+            },
+            "name": "MyField31",
+            "designerId": "314c9a25-bed2-40d9-966d-e7a5e36e6646"
+        }
+    ]
+}

@@ -33,9 +33,4 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
-	<listener>
-		<listener-class>
-			com.oocl.mnlbc.listener.OnlineCounterListener  
-		</listener-class>
-	</listener>
 </web-app>

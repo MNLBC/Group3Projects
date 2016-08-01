@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="searchApp">
+<head>
+<script src="angular-1.4.72/angular.js"></script>
+<script src="angular-1.4.72/angular-route.js"></script>
+<script src="bootstrap/jquery.min.js"></script>
+<script src="bootstrap/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="bootstrap/bootstrap.min.css">
+<script>
+	var app = angular.module('searchApp', [ 'ngRoute' ]);
+	app.controller('SearchController',
+			function($scope, $routeParams, $location) {
+				$scope.friends = [ {
+					index : 1,
+					name : 'Melvin Yu',
+					email : 'yume@oocl.com'
+				}, {
+					index : 2,
+					name : 'Ana Katrina De Leon',
+					email : 'deloan@oocl.com'
+				}, {
+					index : 3,
+					name : 'Kass Fuentes',
+					email : 'fuentka@oocl.com'
+				}, {
+					index : 4,
+					name : 'Ziggy Flameno',
+					email : 'flamezi@oocl.com'
+				}, {
+					index : 5,
+					name : 'Jaybee Vergara',
+					email : 'vergajo@oocl.com'
+				}, {
+					index : 6,
+					name : 'John Paul Limos',
+					email : 'limosjo@oocl.com'
+				} ];
+
+				$scope.index = $routeParams.index;
+				$scope.myfriend = $scope.friends[$scope.index-1];
+				
+				$scope.go = function(path) {
+					$location.path('/viewFriend/' + path);
+				};
+				
+			});
+
+	app.config([ '$routeProvider', function($routeProvider) {
+		$routeProvider.when('/viewFriend/:index', {
+			templateUrl : 'view.html',
+			controller : 'SearchController'
+		});
+	} ]);
+</script>
+</head>
+<body>
+<span  class="col-xs-4"></span>
+<center>
+	<div  class="col-xs-6" ng-controller="SearchController">
+
+		<div class="container-fluid col-xs-8">
+
+			<table class="table table-bordered table-hover">
+				<center>
+					<thead>
+						<label>Search: <input ng-model="searchText"></label>
+					</thead>
+				</center>
+				<tbody>
+					<tr>
+						<th scope="row">#</th>
+						<th>Name</th>
+						<th>Email</th>
+					</tr>
+
+					<tr ng-repeat="friend in friends | filter:searchText"
+						ng-dblclick="go(friend.index)">
+
+						<th ng-bind="friend.index"></th>
+						<td ng-bind="friend.name"></td>
+						<td ng-bind="friend.email"></td>
+					</tr>
+				</tbody>
+			</table>
+		
+			<span class="label label-default">Friend details:</span>
+			<hr>
+			<div ng-view></div>
+				</div>
+				</center>
+</html>
+
+
+

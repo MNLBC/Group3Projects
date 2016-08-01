@@ -1,0 +1,80 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "userModel"
+    },
+    "name": "MyModel",
+    "designerId": "c730a63b-365a-42b7-a579-8eca42bf888f",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "userId"
+            },
+            "name": "MyField16",
+            "designerId": "26d26082-6115-4c8b-a499-9ce1e2d8c576"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "userName"
+            },
+            "name": "MyField9",
+            "designerId": "7e1295a1-67ac-4937-92cf-860fb727079d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "userFullName"
+            },
+            "name": "MyField11",
+            "designerId": "13ad2fa5-c5c8-4a27-928d-cb88d5d48f1c"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "userRole"
+            },
+            "name": "MyField15",
+            "designerId": "b6c1e240-467f-4dd5-83ae-8e41d766ac5b"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "userPassword"
+            },
+            "name": "MyField10",
+            "designerId": "7f86521f-3d04-4877-879f-9a00dee97731"
+        }
+    ]
+}

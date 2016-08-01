@@ -1,0 +1,14 @@
+{
+    "type": "libraryresource",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Library",
+        "theme": "MyNeptuneTheme1"
+    },
+    "name": "Library",
+    "designerId": "b7276d73-09b8-4258-81d8-6379e4db620e"
+}

@@ -1,0 +1,106 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "membershipRequest"
+    },
+    "name": "MyModel",
+    "designerId": "50ae2336-b2e7-44a0-8463-56a9ec988eed",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "userId"
+            },
+            "name": "MyField26",
+            "designerId": "9db59cd2-9af3-4c7c-88e0-2d1c4ede651a"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "fullName"
+            },
+            "name": "MyField6",
+            "designerId": "c59fd756-43f6-4efc-a00f-208764709450"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "currentMembershipLevel"
+            },
+            "name": "MyField7",
+            "designerId": "539b3a72-5639-49a7-a212-bad18964ee3c"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "requestedMembershipLevel"
+            },
+            "name": "MyField8",
+            "designerId": "f9112173-21e1-4e40-8218-14109d921d27"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "userMembershipId"
+            },
+            "name": "MyField17",
+            "designerId": "88f29b7e-fb8d-4a70-bcc8-b14b5cba6f85"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "isForApproval"
+            },
+            "name": "MyField18",
+            "designerId": "1b10f3f1-c5dd-4fe1-ab36-ee05bbe48708"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "isRequestApproved"
+            },
+            "name": "MyField19",
+            "designerId": "fad2237e-7238-40c5-ae86-70665f9b5550"
+        }
+    ]
+}

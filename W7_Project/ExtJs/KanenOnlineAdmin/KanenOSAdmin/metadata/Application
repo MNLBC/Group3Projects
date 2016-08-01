@@ -1,0 +1,47 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "controllers": [
+            "AdminController"
+        ],
+        "models": [
+            "orderModel",
+            "membershipRequest",
+            "userModel",
+            "orderItem",
+            "updatedOrder",
+            "product",
+            "updatedProduct",
+            "userListModel",
+            "updatedUser",
+            "onlineUsersModel",
+            "productFeedbackModel"
+        ],
+        "name": "MyApp",
+        "stores": [
+            "orderStore",
+            "membershipRequest",
+            "userStore",
+            "orderItems",
+            "updatedOrder",
+            "product",
+            "updateProduct",
+            "userList",
+            "updatedUser",
+            "onlineUsersStore",
+            "productFeedbackStore"
+        ],
+        "views": [
+            "MyViewport",
+            "AdminUserWindow",
+            "AdminAddProductWindow"
+        ]
+    },
+    "name": "Application",
+    "designerId": "application"
+}

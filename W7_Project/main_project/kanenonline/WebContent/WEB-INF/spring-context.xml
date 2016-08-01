@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@zha-ita122-w7:1521:XE" />
+		<property name="username" value="kanenos" />
+		<property name="password" value="cjkanen" />
+	</bean>
+
+	<bean id="productDAO" class="com.oocl.mnlbc.service.ProductDAOImpl"
+		scope="singleton">
+	</bean>
+
+	<bean id="cartDAO" class="com.oocl.mnlbc.service.CartDAOImpl"
+		scope="singleton">
+	</bean>
+
+	<bean id="userDAO" class="com.oocl.mnlbc.service.UserDAOImpl"
+		scope="singleton">
+	</bean>
+
+	<bean id="membershipTypeDAO" class="com.oocl.mnlbc.service.MembershipTypeDAOImpl"
+		scope="singleton">
+	</bean>
+
+	<bean id="orderDAO" class="com.oocl.mnlbc.service.OrderDAOImpl"
+		scope="singleton">
+	</bean>
+	
+	<bean id="wishListDAO" class="com.oocl.mnlbc.service.WishListDAOImpl"
+		scope="singleton">
+	</bean>
+	
+	<bean id="productService" class="com.oocl.mnlbc.services.ProductService"
+		scope="singleton">
+	</bean>
+	
+	<bean id="userService" class="com.oocl.mnlbc.services.UserService"
+		scope="singleton">
+	</bean>
+	
+	<bean id="orderService" class="com.oocl.mnlbc.services.OrderService"
+		scope="singleton">
+	</bean>
+	
+	<bean id="membershipTypeService" class="com.oocl.mnlbc.services.MembershipTypeService"
+		scope="singleton">
+	</bean>
+	
+	<bean id="cartService" class="com.oocl.mnlbc.services.CartService"
+		scope="singleton">
+	</bean>
+	
+	<bean id="wishListService" class="com.oocl.mnlbc.services.WishListService"
+		scope="singleton">
+	</bean>
+	
+	<bean id="productCommentAssnService" class="com.oocl.mnlbc.services.ProductCommentAssnService"
+		scope="singleton">
+	</bean>
+	
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+</beans>
