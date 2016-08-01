@@ -1,0 +1,106 @@
+<!doctype html>
+<html ng-app = "myApp">
+<head>
+  <meta charset="UTF-8">
+  <title>W8 Day 1 Sample</title>
+<script src ="angular-1.4.72/angular.js"></script>
+<script src="angular-1.4.72/angular-route.js"></script>
+<script>
+  var app = angular.module("myApp",["ngRoute"]);
+  app.controller("SearchController", function($scope,$routeParams,$location){
+        $scope.users = [
+                           {
+                              id: 1,
+                              name:'Christian Kanen',
+                              email:'christian.kanen@oocl.com', 
+                              phone:'09096302523'
+                           },
+                           {
+                              id: 2,
+                              name:'Melvin Yu', 
+                              email:'melvin.robert.yu@oocl.com', 
+                              phone:'09096102522'
+                           },
+                           {
+                              id: 3,
+                              name:'Aica Flores', 
+                              email:'jerica.flores@oocl.com', 
+                              phone:'09192302523'
+                           },
+                           {
+                              id: 4,
+                              name:'JB Vergara', 
+                              email:'john.benedict.vergara@oocl.com', 
+                              phone:'09952422386'
+                           },
+                           {
+                              id: 5,
+                              name:'Sebastian Briones', 
+                              email:'sebastian.briones@oocl.com', 
+                              phone:'09176652525'
+                           },
+                           {
+                              id: 6,
+                              name:'Randy Escober', 
+                              email:'randy.escober@oocl.com',
+                              phone:'09086652424'
+                           }
+                       ];
+                        $scope.viewId = $routeParams.id;
+                        $scope.user = $scope.users[$scope.viewId-1];
+
+                       $scope.showDetails = function(path) {
+                          $location.path('/viewDetails/' + path);
+                       };
+  });
+app.config([ '$routeProvider', function($routeProvider) {
+    $routeProvider.when('/viewDetails/:id', {
+      templateUrl : 'details.html',
+      controller : 'SearchController'
+    });
+}]);
+
+</script>
+
+</head>
+<style>
+table, th , td  {
+  border: 1px solid grey;
+  padding: 5px;
+  width: 50%;
+  height: 100%;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+</style>
+<body>
+<center>
+<h1>AngularJS Homework 1</h1>
+<br>
+<div ng-controller = "SearchController">
+<label>Search: <input ng-model="searchText"></label>
+<br><br><br>
+<table id="searchTextResults">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+  </tr>
+  <tr ng-repeat="user in users | filter:searchText" ng-dblclick="showDetails(user.id)">
+    <td ng-bind = "user.name"></td>
+    <td ng-bind = "user.email"></td>
+    <td ng-bind = "user.phone"></td>
+  </tr>
+</table>
+<br>
+<hr>
+<h1>Details</h1>
+<div ng-view></div>
+</div>
+</center>
+</body>
+</html>
