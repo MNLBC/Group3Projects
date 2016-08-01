@@ -78,29 +78,29 @@ table tr:nth-child(even) {
 }
 </style>
 <body>
-<center>
-<h1>AngularJS Homework 1</h1>
-<br>
-<div ng-controller = "SearchController">
-<label>Search: <input ng-model="searchText"></label>
-<br><br><br>
-<table id="searchTextResults">
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Phone</th>
-  </tr>
-  <tr ng-repeat="user in users | filter:searchText" ng-dblclick="showDetails(user.id)">
-    <td ng-bind = "user.name"></td>
-    <td ng-bind = "user.email"></td>
-    <td ng-bind = "user.phone"></td>
-  </tr>
-</table>
-<br>
-<hr>
-<h1>Details</h1>
-<div ng-view></div>
-</div>
-</center>
-</body>
+  <center>
+    <h1>AngularJS Homework 1</h1>
+    <br>
+    <div ng-controller = "SearchController">
+        <label>Search: <input ng-model="searchText"></label>
+        <br><br><br>
+        <table id="searchTextResults">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+          </tr>
+          <tr ng-repeat="user in users | filter:searchText" ng-dblclick="showDetails(user.id)">
+            <td ng-bind = "user.name"></td>
+            <td ng-bind = "user.email"></td>
+            <td ng-bind = "user.phone"></td>
+          </tr>
+        </table>
+        <br>
+        <hr>
+      <h1>Details</h1>
+      <div ng-view></div>
+    </div>
+  </center>
+  </body>
 </html>
